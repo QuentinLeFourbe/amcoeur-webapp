@@ -1,22 +1,19 @@
-import { defineConfig } from "@pandacss/dev"
+import { theme } from "./src/theme/theme";
+import { defineConfig } from "@pandacss/dev";
 
 export default defineConfig({
-    // Whether to use css reset
-    preflight: true,
-    
-    // Where to look for your css declarations
-    include: ["./src/**/*.{js,jsx,ts,tsx}", "./pages/**/*.{js,jsx,ts,tsx}"],
+  // Whether to use css reset
+  preflight: true,
 
-    // Files to exclude
-    exclude: [],
+  // Where to look for your css declarations
+  include: ["./src/**/*.{js,jsx,ts,tsx}", "./pages/**/*.{js,jsx,ts,tsx}"],
 
-    // Useful for theme customization
-    theme: {
-      extend: {}
-    },
+  // Files to exclude
+  exclude: [],
 
-    // The output directory for your css system
-    outdir: "styled-system",
-    
-    
-})
+  // Useful for theme customization
+  theme: theme,
+
+  // The output directory for your css system
+  outdir: "styled-system",
+});

@@ -20,6 +20,14 @@ const config: GatsbyConfig = {
       __key: "pages",
     },
     `gatsby-plugin-postcss`,
+    {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /assets/, // See below to configure properly
+        },
+      },
+    },
   ],
 };
 
