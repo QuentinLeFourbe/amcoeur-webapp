@@ -27,7 +27,8 @@ function ContentPanel({
 
 const container = css({
   display: "flex",
-  flexFlow: "row nowrap",
+  flexDirection: "row",
+  flexWrap: "wrap",
   justifyContent: "center",
   alignItems: "center",
   gap: "50px",
