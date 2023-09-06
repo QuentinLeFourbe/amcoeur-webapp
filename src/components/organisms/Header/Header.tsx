@@ -2,6 +2,7 @@ import React from "react";
 import { css, cx } from "../../../../styled-system/css";
 import BurgerIcon from "../../../assets/icons/burger.svg";
 import FacebookIcon from "../../../assets/icons/facebook.svg";
+import { Link } from "gatsby";
 
 function Header() {
   return (
@@ -13,18 +14,18 @@ function Header() {
         </button>
       </div>
       <div className={linksContainer}>
-        <a className={headerLink} href="#">
+        <Link className={headerLink} to="#">
           Soutenir les animaux
-        </a>
-        <a className={headerLink} href="#">
+        </Link>
+        <Link className={headerLink} to="#">
           Besoin d'aide
-        </a>
-        <a className={headerLink} href="#">
+        </Link>
+        <Link className={headerLink} to="/donate">
           Donations
-        </a>
-        <a className={headerLink} href="#">
+        </Link>
+        <Link className={headerLink} to="#">
           Nous contacter
-        </a>
+        </Link>
       </div>
       <a
         className={css({ width: "30px", height: "30px" })}

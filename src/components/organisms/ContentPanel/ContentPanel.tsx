@@ -6,6 +6,7 @@ type ContentPanelProps = {
   title: string;
   children: React.ReactNode;
   revert?: boolean;
+  large?: boolean;
 };
 
 function ContentPanel({
@@ -13,11 +14,12 @@ function ContentPanel({
   title,
   children,
   revert = false,
+  large = false,
 }: ContentPanelProps) {
   return (
     <div className={cx(container, revert ? reverse : "")}>
       <img className={sideImage} src={imageSrc} alt="image" />
-      <div className={textContainer}>
+      <div className={cx(textContainer, large ? largeText : "")}>
         <h2 className={contentTitle}>{title}</h2>
         <div>{children}</div>
       </div>
@@ -41,6 +43,10 @@ const reverse = css({
   backgroundColor: "backgroundPrimary",
 });
 
+const largeText = css({
+  maxWidth: "700px",
+});
+
 const sideImage = css({
   maxWidth: "800px",
   maxHeight: "800px",
@@ -52,6 +58,9 @@ const textContainer = css({
   flexFlow: "column nowrap",
   justifyContent: "center",
   maxWidth: "400px",
+  "& p": {
+    margin: "1rem 0",
+  },
 });
 
 const contentTitle = css({
