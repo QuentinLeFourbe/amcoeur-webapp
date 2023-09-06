@@ -417,10 +417,15 @@
   --colors-text-secondary: #ffffff;
   --colors-background-primary: #FBE6F2;
   --colors-background-secondary: #ffffff;
+  --colors-background-tertiary: #FC88C0;
   --colors-button-primary: #FC85BE;
   --colors-button-primary-hover: #ff057a;
   --colors-button-secondary: #f7d4e4;
   --colors-button-secondary-hover: #f7d4e4;
+  --colors-button-tertiary: #f4f4f4;
+  --colors-button-tertiary-hover: #e8e8e8;
+  --colors-button-tertiary-active: #d6d6d6;
+  --colors-button-panel: #f9f9f9;
   --breakpoints-sm: 640px;
   --breakpoints-md: 768px;
   --breakpoints-lg: 1024px;

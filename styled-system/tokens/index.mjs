@@ -1667,6 +1667,10 @@ const tokens = {
     "value": "#ffffff",
     "variable": "var(--colors-background-secondary)"
   },
+  "colors.backgroundTertiary": {
+    "value": "#FC88C0",
+    "variable": "var(--colors-background-tertiary)"
+  },
   "colors.buttonPrimary": {
     "value": "#FC85BE",
     "variable": "var(--colors-button-primary)"
@@ -1682,6 +1686,22 @@ const tokens = {
   "colors.buttonSecondaryHover": {
     "value": "#f7d4e4",
     "variable": "var(--colors-button-secondary-hover)"
+  },
+  "colors.buttonTertiary": {
+    "value": "#f4f4f4",
+    "variable": "var(--colors-button-tertiary)"
+  },
+  "colors.buttonTertiaryHover": {
+    "value": "#e8e8e8",
+    "variable": "var(--colors-button-tertiary-hover)"
+  },
+  "colors.buttonTertiaryActive": {
+    "value": "#d6d6d6",
+    "variable": "var(--colors-button-tertiary-active)"
+  },
+  "colors.buttonPanel": {
+    "value": "#f9f9f9",
+    "variable": "var(--colors-button-panel)"
   },
   "breakpoints.sm": {
     "value": "640px",
