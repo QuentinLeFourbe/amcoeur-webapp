@@ -19,6 +19,7 @@ const config: GatsbyConfig = {
       },
       __key: "pages",
     },
+    `gatsby-transformer-remark`,
     `gatsby-plugin-postcss`,
     {
       resolve: "gatsby-plugin-react-svg",
