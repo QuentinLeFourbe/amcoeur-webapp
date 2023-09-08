@@ -14,16 +14,16 @@ function Header() {
         </button>
       </div>
       <div className={linksContainer}>
-        <Link className={headerLink} to="#">
+        <Link className={headerLink} to="/soutenir-animaux">
           Soutenir les animaux
         </Link>
-        <Link className={headerLink} to="#">
+        <Link className={headerLink} to="/besoin-aide">
           Besoin d'aide
         </Link>
         <Link className={headerLink} to="/donate">
           Donations
         </Link>
-        <Link className={headerLink} to="#">
+        <Link className={headerLink} to="/contact">
           Nous contacter
         </Link>
       </div>
@@ -43,9 +43,9 @@ type LogoLinkProps = {
   href: string;
 };
 const LogoLink = ({ src, href }: LogoLinkProps) => (
-  <a href={href}>
+  <Link to={href}>
     <img src={src} alt="logo" />
-  </a>
+  </Link>
 );
 
 const headerLink = css({
