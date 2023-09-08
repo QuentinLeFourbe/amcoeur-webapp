@@ -1,15 +1,12 @@
 import * as React from "react";
-import type { HeadFC, PageProps } from "gatsby";
-import Header from "../components/organisms/Header/Header";
+import { graphql, type HeadFC, type PageProps } from "gatsby";
 import ContentPanel from "../components/organisms/ContentPanel/ContentPanel";
 import ContentButton from "../components/atoms/ContentButton/ContentButton";
-import Footer from "../components/organisms/Footer/Footer";
-import PageContainer from "../components/organisms/PageContainer/PageContainer";
 import Banner from "../components/atoms/Banner.tsx/Banner";
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
-    <PageContainer>
+    <>
       <Banner>
         Bienvenue sur le site de Amcoeur, association dédiée à la protection des
         animaux.
@@ -52,7 +49,7 @@ const IndexPage: React.FC<PageProps> = () => {
         </p>
         <ContentButton>Ca m'intéresse</ContentButton>
       </ContentPanel>
-    </PageContainer>
+    </>
   );
 };
 

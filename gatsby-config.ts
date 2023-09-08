@@ -10,7 +10,6 @@ const config: GatsbyConfig = {
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
   plugins: [
-    "gatsby-plugin-mdx",
     {
       resolve: "gatsby-source-filesystem",
       options: {
@@ -19,7 +18,9 @@ const config: GatsbyConfig = {
       },
       __key: "pages",
     },
-    `gatsby-transformer-remark`,
+    {
+      resolve: "gatsby-plugin-mdx",
+    },
     `gatsby-plugin-postcss`,
     {
       resolve: "gatsby-plugin-react-svg",

@@ -5,7 +5,7 @@ import DonationPanel from "../components/organisms/DonatePanel/DonatePanel";
 
 function Donate() {
   return (
-    <PageContainer>
+    <>
       <ContentPanel
         title="Faire un don"
         imageSrc="https://wamiz.com/media/cache/resolve/upload_original-size/article/images/17127142_2244568545769182_7436378995601440768_n(1)-9798.jpg"
@@ -33,7 +33,7 @@ function Donate() {
         </p>
       </ContentPanel>
       <DonationPanel />
-    </PageContainer>
+    </>
   );
 }
 
