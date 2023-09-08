@@ -10,6 +10,7 @@ function ContentButton({ children }: ContentButtonProps) {
 }
 
 const button = css({
+  alignSelf: "flex-start",
   borderRadius: "32px",
   backgroundColor: "buttonPrimary",
   padding: "20px 40px",
