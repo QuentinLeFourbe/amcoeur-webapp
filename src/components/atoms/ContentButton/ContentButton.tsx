@@ -1,15 +1,22 @@
 import React from "react";
 import { css } from "../../../../styled-system/css";
+import { Link } from "gatsby";
 
 type ContentButtonProps = {
   children: React.ReactNode;
+  href?: string;
 };
 
-function ContentButton({ children }: ContentButtonProps) {
-  return <button className={button}>{children}</button>;
+function ContentButton({ children, href = "#" }: ContentButtonProps) {
+  return (
+    <button className={button}>
+      <Link to={href}>{children}</Link>
+    </button>
+  );
 }
 
 const button = css({
+  alignSelf: "flex-start",
   borderRadius: "32px",
   backgroundColor: "buttonPrimary",
   padding: "20px 40px",
@@ -20,6 +27,7 @@ const button = css({
   "&:hover": {
     backgroundColor: "buttonPrimaryHover",
   },
+  transition: "background-color 0.2s ease-in-out",
 });
 
 export default ContentButton;

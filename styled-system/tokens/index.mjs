@@ -1703,6 +1703,14 @@ const tokens = {
     "value": "#f9f9f9",
     "variable": "var(--colors-button-panel)"
   },
+  "colors.footerBackground": {
+    "value": "#FA057A",
+    "variable": "var(--colors-footer-background)"
+  },
+  "colors.headerBackground": {
+    "value": "#fff7fb",
+    "variable": "var(--colors-header-background)"
+  },
   "breakpoints.sm": {
     "value": "640px",
     "variable": "var(--breakpoints-sm)"

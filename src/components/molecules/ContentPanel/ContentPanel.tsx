@@ -1,5 +1,7 @@
 import React from "react";
 import { css, cx } from "../../../../styled-system/css";
+import TextContainer from "../../atoms/TextContainer/TextContainer";
+import ImageContainer from "../../atoms/ImageContainer/ImageContainer";
 
 type ContentPanelProps = {
   imageSrc?: string;
@@ -18,11 +20,11 @@ function ContentPanel({
 }: ContentPanelProps) {
   return (
     <div className={cx(container, revert ? reverse : "")}>
-      <img className={sideImage} src={imageSrc} alt="image" />
-      <div className={cx(textContainer, large ? largeText : "")}>
-        <h2 className={contentTitle}>{title}</h2>
-        <div>{children}</div>
-      </div>
+      <ImageContainer src={imageSrc} alt="image" cover size="mediumLandscape" />
+      <TextContainer size={large ? "medium" : "small"}>
+        <h2>{title}</h2>
+        {children}
+      </TextContainer>
     </div>
   );
 }
@@ -49,7 +51,7 @@ const largeText = css({
 
 const sideImage = css({
   maxWidth: "800px",
-  maxHeight: "800px",
+  maxHeight: "500px",
   objectFit: "cover",
 });
 
@@ -57,17 +59,9 @@ const textContainer = css({
   display: "flex",
   flexFlow: "column nowrap",
   justifyContent: "center",
-  maxWidth: "400px",
   "& p": {
     margin: "1rem 0",
   },
-});
-
-const contentTitle = css({
-  fontSize: "2rem",
-  fontWeight: "600",
-  color: "textPrimary",
-  margin: "0 0 20px 0",
 });
 
 export default ContentPanel;

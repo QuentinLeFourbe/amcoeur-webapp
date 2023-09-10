@@ -26,7 +26,7 @@ const container = css({
   display: "flex",
   flexFlow: "row nowrap",
   alignItems: "center",
-  height: "450px",
+  height: "350px",
 });
 
 const textContainer = css({

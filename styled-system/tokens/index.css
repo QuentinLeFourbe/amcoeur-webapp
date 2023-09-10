@@ -426,6 +426,8 @@
   --colors-button-tertiary-hover: #e8e8e8;
   --colors-button-tertiary-active: #d6d6d6;
   --colors-button-panel: #f9f9f9;
+  --colors-footer-background: #FA057A;
+  --colors-header-background: #fff7fb;
   --breakpoints-sm: 640px;
   --breakpoints-md: 768px;
   --breakpoints-lg: 1024px;

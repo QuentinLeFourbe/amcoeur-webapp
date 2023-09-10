@@ -120,7 +120,7 @@ const container = css({
   alignItems: "center",
   gap: "10px",
   padding: "100px 0",
-  backgroundColor: "backgroundPrimary",
+  backgroundColor: "backgroundSecondary",
 });
 
 const contentTitle = css({
