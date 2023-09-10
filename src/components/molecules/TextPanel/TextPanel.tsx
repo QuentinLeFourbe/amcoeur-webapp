@@ -9,7 +9,7 @@ type TextPanelProps = {
 function TextPanel({ children }: TextPanelProps) {
   return (
     <div className={flexContainer}>
-      <TextContainer>{children}</TextContainer>;
+      <TextContainer>{children}</TextContainer>
     </div>
   );
 }
@@ -19,6 +19,7 @@ const flexContainer = css({
   flexFlow: "column nowrap",
   justifyContent: "center",
   alignItems: "center",
+  padding: "50px 0 100px 0",
 });
 
 export default TextPanel;

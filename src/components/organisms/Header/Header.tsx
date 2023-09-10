@@ -12,11 +12,11 @@ function Header() {
           <LogoLink src="https://via.placeholder.com/75" href="/" />
         </div>
         <div className={linksContainer}>
-          <Link className={cx(headerLink, textLink)} to="/soutenir-animaux">
-            Soutenir les animaux
+          <Link className={cx(headerLink, textLink)} to="/qui-sommes-nous">
+            Qui sommes-nous
           </Link>
           <Link className={cx(headerLink, textLink)} to="/besoin-aide">
-            Besoin d'aide
+            Maltraitance
           </Link>
           <Link className={cx(headerLink, textLink)} to="/donate">
             Donations

@@ -1,46 +1,19 @@
 import * as React from "react";
 import { Link, HeadFC, PageProps } from "gatsby";
-
-const pageStyles = {
-  color: "#232129",
-  padding: "96px",
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
-};
-const headingStyles = {
-  marginTop: 0,
-  marginBottom: 64,
-  maxWidth: 320,
-};
-
-const paragraphStyles = {
-  marginBottom: 48,
-};
-const codeStyles = {
-  color: "#8A6534",
-  padding: 4,
-  backgroundColor: "#FFF4DB",
-  fontSize: "1.25rem",
-  borderRadius: 4,
-};
+import TitlePanel from "../components/molecules/TitlePanel/TitlePanel";
+import ContentButton from "../components/atoms/ContentButton/ContentButton";
 
 const NotFoundPage: React.FC<PageProps> = () => {
   return (
-    <>
-      <h1 style={headingStyles}>Page not found</h1>
-      <p style={paragraphStyles}>
-        Sorry 😔, we couldn't find what you were looking for.
-        <br />
-        {process.env.NODE_ENV === "development" ? (
-          <>
-            <br />
-            Try creating a page in <code style={codeStyles}>src/pages/</code>.
-            <br />
-          </>
-        ) : null}
-        <br />
-        <Link to="/">Go home</Link>.
-      </p>
-    </>
+    <TitlePanel
+      src={
+        "https://static.fundacion-affinity.org/cdn/farfuture/sIq5ExX9Wg4rB_vQQ9jLfI7tfWuJ-ICq3cMI0HxBikE/mtime:1559728757/sites/default/files/chien-perdu-ou-abandonne.jpg"
+      }
+    >
+      <h1>404</h1>
+      <h2>Il semblerez que vous vous êtes égaré...</h2>
+      <ContentButton href="/">Retourner à l'accueil</ContentButton>
+    </TitlePanel>
   );
 };
 
