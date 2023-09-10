@@ -3,11 +3,11 @@ import { css, cx } from "../../../../styled-system/css";
 
 type TextContainerProps = {
   children: React.ReactNode;
-  classname?: string;
+  className?: string;
   size?: "small" | "medium" | "large";
 };
 
-function TextContainer({ children, classname, size }: TextContainerProps) {
+function TextContainer({ children, className, size }: TextContainerProps) {
   let sizeStyle = "";
   switch (size) {
     case "small":
@@ -17,14 +17,13 @@ function TextContainer({ children, classname, size }: TextContainerProps) {
       sizeStyle = medium;
       break;
     case "large":
-      sizeStyle = large;
-      break;
     default:
+      sizeStyle = large;
       break;
   }
 
   return (
-    <div className={cx(textContainer, sizeStyle, classname)}>{children}</div>
+    <div className={cx(textContainer, sizeStyle, className)}>{children}</div>
   );
 }
 
@@ -39,6 +38,25 @@ const textContainer = css({
     fontWeight: "600",
     color: "textPrimary",
     margin: "0 0 20px 0",
+  },
+
+  "& h1": {
+    fontSize: "3rem",
+    fontWeight: "600",
+    color: "textPrimary",
+    margin: "0 0 40px 0",
+  },
+
+  "& h3": {
+    fontSize: "1.5rem",
+    fontWeight: "600",
+    color: "textPrimary",
+    margin: "0 0 20px 0",
+  },
+
+  "& ul": {
+    listStyleType: "square",
+    margin: "0 0 20px 30px",
   },
 
   display: "flex",

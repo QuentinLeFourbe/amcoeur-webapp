@@ -1,7 +1,6 @@
 import React from "react";
 import { css, cx } from "../../../../styled-system/css";
 import TextContainer from "../../atoms/TextContainer/TextContainer";
-import SecondaryTitle from "../../atoms/SecondaryTitle/SecondaryTitle";
 import ImageContainer from "../../atoms/ImageContainer/ImageContainer";
 
 type ContentPanelProps = {

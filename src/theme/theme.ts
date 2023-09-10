@@ -15,6 +15,8 @@ export const theme = {
         buttonTertiaryHover: { value: "#e8e8e8" },
         buttonTertiaryActive: { value: "#d6d6d6" },
         buttonPanel: { value: "#f9f9f9" },
+        footerBackground: { value: "#FA057A" },
+        headerBackground: { value: "#fff7fb" },
       },
     },
   },

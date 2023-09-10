@@ -10,26 +10,23 @@ function Header() {
       <header className={header}>
         <div className={logoContainer}>
           <LogoLink src="https://via.placeholder.com/75" href="/" />
-          <button className={burgerButton}>
-            <BurgerIcon />
-          </button>
         </div>
         <div className={linksContainer}>
-          <Link className={headerLink} to="/soutenir-animaux">
+          <Link className={cx(headerLink, textLink)} to="/soutenir-animaux">
             Soutenir les animaux
           </Link>
-          <Link className={headerLink} to="/besoin-aide">
+          <Link className={cx(headerLink, textLink)} to="/besoin-aide">
             Besoin d'aide
           </Link>
-          <Link className={headerLink} to="/donate">
+          <Link className={cx(headerLink, textLink)} to="/donate">
             Donations
           </Link>
-          <Link className={headerLink} to="/contact">
+          <Link className={cx(headerLink, textLink)} to="/contact">
             Nous contacter
           </Link>
         </div>
         <a
-          className={css({ width: "30px", height: "30px" })}
+          className={cx(css({ width: "30px", height: "30px" }), textLink)}
           href="https://www.facebook.com/amcoeur.protection.animaux"
           target="_blank"
         >
@@ -54,7 +51,11 @@ const LogoLink = ({ src, href }: LogoLinkProps) => (
 const headerLink = css({
   textDecoration: "none",
   fontWeight: "600",
+});
+
+const textLink = css({
   color: "textPrimary",
+  transition: "color 0.2s ease-in-out",
   "&:hover": {
     color: "textSecondary",
   },
@@ -79,7 +80,7 @@ const header = cx(
   flexRow,
   css({
     padding: " 25px 10vw",
-    background: "backgroundPrimary",
+    background: "headerBackground",
     gap: "10px",
   })
 );

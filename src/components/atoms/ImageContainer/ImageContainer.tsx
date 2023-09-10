@@ -28,7 +28,7 @@ type ImageContainerProps = {
 function ImageContainer({
   src,
   alt,
-  size: size,
+  size,
   classname,
   cover = false,
 }: ImageContainerProps) {
@@ -46,16 +46,16 @@ function ImageContainer({
     case "mediumPortrait":
       style = mediumPortrait;
       break;
-    case "largeLandscape":
-      style = largeLandscape;
-      break;
+
     case "largePortrait":
       style = largePortrait;
       break;
     case "background":
       style = background;
       break;
+    case "largeLandscape":
     default:
+      style = largeLandscape;
       break;
   }
 

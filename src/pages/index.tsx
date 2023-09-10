@@ -1,8 +1,8 @@
 import * as React from "react";
 import { graphql, type HeadFC, type PageProps } from "gatsby";
-import ContentPanel from "../components/organisms/ContentPanel/ContentPanel";
+import ContentPanel from "../components/molecules/ContentPanel/ContentPanel";
 import ContentButton from "../components/atoms/ContentButton/ContentButton";
-import Banner from "../components/atoms/Banner.tsx/Banner";
+import Banner from "../components/atoms/Banner/Banner";
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
@@ -47,7 +47,7 @@ const IndexPage: React.FC<PageProps> = () => {
           lien vital entre le passé difficile et un avenir radieux pour ces
           compagnons en transition.
         </p>
-        <ContentButton>Ca m'intéresse</ContentButton>
+        <ContentButton href="/famille-accueil">Ca m'intéresse</ContentButton>
       </ContentPanel>
     </>
   );
