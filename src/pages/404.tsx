@@ -11,7 +11,7 @@ const NotFoundPage: React.FC<PageProps> = () => {
       }
     >
       <h1>404</h1>
-      <h2>Il semblerez que vous vous êtes égaré...</h2>
+      <h2>Il semblerait que vous vous soyez égaré...</h2>
       <ContentButton href="/">Retourner à l'accueil</ContentButton>
     </TitlePanel>
   );
