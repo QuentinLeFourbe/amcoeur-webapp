@@ -126,6 +126,11 @@ const maintenanceBanner = css({
   justifyContent: "center",
   alignItems: "center",
 });
+
+const logoLinkClass = css({
+  width: "75px",
+  height: "75px",
+});
 const logoReduced = css({
   "& img": {
     width: "50px",
