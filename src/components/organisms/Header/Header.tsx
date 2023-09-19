@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import React from "react";
 import { css, cx } from "../../../../styled-system/css";
 import BurgerIcon from "../../../assets/icons/burger.svg";
@@ -5,9 +6,27 @@ import FacebookIcon from "../../../assets/icons/facebook.svg";
 import { Link } from "gatsby";
 
 function Header() {
+  const [scrolling, setScrolling] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setScrolling(true);
+      } else {
+        setScrolling(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <>
-      <header className={header}>
+      <header className={cx(header, scrolling && logoReduced)}>
         <div className={logoContainer}>
           <LogoLink src="https://via.placeholder.com/75" href="/" />
         </div>
@@ -103,6 +122,12 @@ const maintenanceBanner = css({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+});
+const logoReduced = css({
+  "& img": {
+    width: "50px",
+    height: "50px",
+  },
 });
 
 export default Header;
