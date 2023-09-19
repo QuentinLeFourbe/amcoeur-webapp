@@ -82,6 +82,9 @@ const header = cx(
     padding: " 25px 10vw",
     background: "headerBackground",
     gap: "10px",
+    position: "sticky",
+    zIndex: "100",
+    top: "0",
   })
 );
 
