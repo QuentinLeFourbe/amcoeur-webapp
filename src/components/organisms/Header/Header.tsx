@@ -28,7 +28,10 @@ function Header() {
     <>
       <header className={cx(header, scrolling && logoReduced)}>
         <div className={logoContainer}>
-          <LogoLink src="https://via.placeholder.com/75" href="/" />
+          <LogoLink
+            src="https://p6.storage.canalblog.com/68/37/351410/78717808.jpg"
+            href="/"
+          />
         </div>
         <div className={linksContainer}>
           <Link className={cx(headerLink, textLink)} to="/qui-sommes-nous">
