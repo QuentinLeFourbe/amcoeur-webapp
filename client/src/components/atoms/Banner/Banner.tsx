@@ -1,21 +1,19 @@
 import React from "react";
 import { css, cx } from "../../../../styled-system/css";
+import { StaticImage } from "gatsby-plugin-image";
 
 type BannerProps = {
   children: React.ReactNode;
   backgroundSrc?: string;
 };
 
-function Banner({
-  children,
-  backgroundSrc = "https://www.medoretcie.com/media/Sparkow/Navigation/Brands/saVraieNatureChat.jpg",
-}: BannerProps) {
+function Banner({ children, backgroundSrc = "" }: BannerProps) {
   return (
     <div className={container}>
-      <img
-        className={backgroundImage}
-        src={backgroundSrc}
+      <StaticImage
+        src={"../../../assets/images/chat-pelouse.jpg"}
         alt="Image bannière"
+        layout="fullWidth"
       />
       <div className={textContainer}>{children}</div>
     </div>
@@ -39,7 +37,6 @@ const textContainer = css({
 
 const backgroundImage = css({
   position: "absolute",
-  width: "100%",
   height: "100%",
   objectFit: "cover",
   objectPosition: "center top",

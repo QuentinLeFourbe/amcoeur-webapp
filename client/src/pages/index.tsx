@@ -11,15 +11,15 @@ const IndexPage: React.FC<PageProps> = () => {
         Bienvenue sur le site de Amcoeur, association dédiée à la protection des
         animaux.
       </Banner>
-      <ContentPanel title="Adopter un animal ?">
+      <ContentPanel title="Super loto Amcoeur !">
         <p>
-          Rejoignez notre famille en sauvant une vie et en trouvant un compagnon
-          fidèle ! Notre association dévouée à la protection des animaux propose
-          des adoptions responsables pour vous offrir une chance unique de
-          donner un foyer aimant à un adorable ami à quatre pattes. Ensemble,
-          faisons la différence pour nos amis à fourrure !
+          Participez au loto de notre association dédiée à la protection des
+          animaux, et offrez-leur une chance de vie meilleure. Chaque ticket que
+          vous achetez contribue à financer nos actions pour sauver et améliorer
+          la vie des animaux dans le besoin. Ensemble, faisons la différence et
+          bâtissons un avenir plus doux pour nos amis à quatre pattes.
         </p>
-        <ContentButton>Je souhaite adopter</ContentButton>
+        <ContentButton>En savoir plus</ContentButton>
       </ContentPanel>
       <ContentPanel
         revert
