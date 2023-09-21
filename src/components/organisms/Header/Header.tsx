@@ -10,9 +10,9 @@ function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 0) {
+      if (window.scrollY > 0 && !scrolling) {
         setScrolling(true);
-      } else {
+      } else if (window.scrollY === 0 && scrolling) {
         setScrolling(false);
       }
     };
@@ -22,7 +22,7 @@ function Header() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [scrolling]);
 
   return (
     <>
