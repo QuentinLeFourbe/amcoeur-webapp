@@ -25,13 +25,12 @@ function Header() {
             Nous contacter
           </Link>
         </div>
+
         <a
           className={cx(css({ width: "30px", height: "30px" }), textLink)}
           href="https://www.facebook.com/amcoeur.protection.animaux"
           target="_blank"
-        >
-          <FacebookIcon />
-        </a>
+        ></a>
       </header>
       <div className={maintenanceBanner}>Site en cours de construction</div>
     </>
