@@ -1,51 +1,16 @@
 {
-  "name": "amcoeur",
-  "version": "1.0.0",
-  "private": true,
-  "description": "amcoeur",
-  "author": "Quentin GARCIA",
-  "keywords": [
-    "gatsby"
+  "name": "amcoeur-web-app",
+  "workspaces": [
+    "apps/*"
   ],
+  "version": "1.0.0",
+  "description": "Web app for the Amcoeur association",
+  "main": "index.js",
   "scripts": {
-    "prepare": "panda codegen",
-    "develop": "gatsby develop",
-    "start": "gatsby develop",
-    "build": "gatsby build",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "typecheck": "tsc --noEmit"
+    "dev": "npm run dev -w @amcoeur/client",
+    "build": "npm run build -w @amcoeur/client",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "@mdx-js/react": "^2.3.0",
-    "gatsby": "^5.11.0",
-    "gatsby-plugin-mdx": "^5.11.0",
-    "gatsby-plugin-postcss": "^6.11.0",
-    "gatsby-plugin-react-svg": "^3.3.0",
-    "gatsby-source-filesystem": "^5.11.0",
-    "gatsby-transformer-remark": "^6.12.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "@pandacss/dev": "^0.11.1",
-    "@types/node": "^20.3.3",
-    "@types/react": "^18.2.14",
-    "@types/react-dom": "^18.2.6",
-    "eslint": "^8.48.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-airbnb-typescript": "^17.1.0",
-    "eslint-config-standard-with-typescript": "^39.0.0",
-    "eslint-config-xo": "^0.43.1",
-    "eslint-config-xo-typescript": "^1.0.1",
-    "eslint-import-resolver-typescript": "^3.6.0",
-    "eslint-plugin-import": "^2.28.1",
-    "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-n": "^16.0.2",
-    "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "postcss": "^8.4.28",
-    "typescript": "^5.2.2"
-  }
+  "author": "",
+  "license": "ISC"
 }
