@@ -10,7 +10,7 @@ type ContentButtonProps = {
 function ContentButton({ children, href = "" }: ContentButtonProps) {
   return (
     <button className={button}>
-      <Link to="/toto">{children}</Link>
+      <Link to={href}>{children}</Link>
     </button>
   );
 }

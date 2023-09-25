@@ -45,23 +45,4 @@ const reverse = css({
   backgroundColor: "backgroundPrimary",
 });
 
-const largeText = css({
-  maxWidth: "700px",
-});
-
-const sideImage = css({
-  maxWidth: "800px",
-  maxHeight: "500px",
-  objectFit: "cover",
-});
-
-const textContainer = css({
-  display: "flex",
-  flexFlow: "column nowrap",
-  justifyContent: "center",
-  "& p": {
-    margin: "1rem 0",
-  },
-});
-
 export default ContentPanel;

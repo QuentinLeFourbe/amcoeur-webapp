@@ -1,8 +1,5 @@
-import React from "react";
 import { css } from "../../../../styled-system/css";
 import Link from "../../atoms/Link/Link";
-
-type FooterProps = {};
 
 function Footer() {
   return (

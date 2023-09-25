@@ -86,13 +86,13 @@ const header = cx(
 
 const linksContainer = cx(flexRow, css({ gap: "30px" }));
 
-const burgerButton = css({
-  background: "none",
-  border: "none",
-  cursor: "pointer",
-  width: "40px",
-  height: "40px",
-});
+// const burgerButton = css({
+//   background: "none",
+//   border: "none",
+//   cursor: "pointer",
+//   width: "40px",
+//   height: "40px",
+// });
 
 const maintenanceBanner = css({
   background: "yellow",
