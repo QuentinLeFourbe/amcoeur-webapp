@@ -1,9 +1,7 @@
-import * as React from "react";
-import { Link, HeadFC, PageProps } from "gatsby";
 import TitlePanel from "../components/molecules/TitlePanel/TitlePanel";
 import ContentButton from "../components/atoms/ContentButton/ContentButton";
 
-const NotFoundPage: React.FC<PageProps> = () => {
+const NotFoundPage = () => {
   return (
     <TitlePanel
       src={
@@ -18,5 +16,3 @@ const NotFoundPage: React.FC<PageProps> = () => {
 };
 
 export default NotFoundPage;
-
-export const Head: HeadFC = () => <title>Not found</title>;

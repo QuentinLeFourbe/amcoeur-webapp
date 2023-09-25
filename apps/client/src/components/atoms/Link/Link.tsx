@@ -1,22 +1,18 @@
 import React from "react";
-import { Link as GatsbyLink } from "gatsby";
-import type { GatsbyLinkProps } from "gatsby";
+import { Link as RouterLink } from "react-router-dom";
+import type { LinkProps as RouterLinkProps } from "react-router-dom";
 import { css, cx } from "../../../../styled-system/css";
 
-type LinkProps<TState> = React.PropsWithoutRef<GatsbyLinkProps<TState>> & {
+type LinkProps = React.PropsWithoutRef<RouterLinkProps> & {
   secondary?: boolean;
 };
 
 /**
- * A custom link which uses Gatsby's Link component.
+ * A custom link which uses React router's Link component.
  */
-function Link<TState>({
-  children,
-  secondary = false,
-  ...props
-}: LinkProps<TState>) {
+function Link({ children, secondary = false, ...props }: LinkProps) {
   return (
-    <GatsbyLink
+    <RouterLink
       {...props}
       className={cx(
         linkStyle,
@@ -24,7 +20,7 @@ function Link<TState>({
       )}
     >
       {children}
-    </GatsbyLink>
+    </RouterLink>
   );
 }
 

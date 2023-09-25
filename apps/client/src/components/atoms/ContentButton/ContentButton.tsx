@@ -1,16 +1,16 @@
 import React from "react";
 import { css } from "../../../../styled-system/css";
-import { Link } from "gatsby";
+import { Link } from "react-router-dom";
 
 type ContentButtonProps = {
   children: React.ReactNode;
   href?: string;
 };
 
-function ContentButton({ children, href = "#" }: ContentButtonProps) {
+function ContentButton({ children, href = "" }: ContentButtonProps) {
   return (
     <button className={button}>
-      <Link to={href}>{children}</Link>
+      <Link to="/toto">{children}</Link>
     </button>
   );
 }

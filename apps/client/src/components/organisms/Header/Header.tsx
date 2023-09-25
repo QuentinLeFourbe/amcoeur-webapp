@@ -1,8 +1,6 @@
-import React from "react";
 import { css, cx } from "../../../../styled-system/css";
-import BurgerIcon from "../../../assets/icons/burger.svg";
-import FacebookIcon from "../../../assets/icons/facebook.svg";
-import { Link } from "gatsby";
+import FacebookIcon from "../../../assets/icons/facebook.svg?react";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -25,6 +23,7 @@ function Header() {
             Nous contacter
           </Link>
         </div>
+
         <a
           className={cx(css({ width: "30px", height: "30px" }), textLink)}
           href="https://www.facebook.com/amcoeur.protection.animaux"

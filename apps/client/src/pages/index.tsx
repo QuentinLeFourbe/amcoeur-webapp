@@ -1,10 +1,8 @@
-import * as React from "react";
-import { graphql, type HeadFC, type PageProps } from "gatsby";
 import ContentPanel from "../components/molecules/ContentPanel/ContentPanel";
 import ContentButton from "../components/atoms/ContentButton/ContentButton";
 import Banner from "../components/atoms/Banner/Banner";
 
-const IndexPage: React.FC<PageProps> = () => {
+const IndexPage = () => {
   return (
     <>
       <Banner>
@@ -55,8 +53,3 @@ const IndexPage: React.FC<PageProps> = () => {
 
 export default IndexPage;
 
-export const Head: HeadFC = () => (
-  <>
-    <title>Amcoeur</title>;<meta name="robots" content="noindex"></meta>
-  </>
-);

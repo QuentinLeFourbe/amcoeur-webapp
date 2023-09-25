@@ -1,6 +1,5 @@
 import React from "react";
 import { css, cx } from "../../../../styled-system/css";
-import { StaticImage } from "gatsby-plugin-image";
 
 type BannerProps = {
   children: React.ReactNode;
@@ -10,10 +9,9 @@ type BannerProps = {
 function Banner({ children, backgroundSrc = "" }: BannerProps) {
   return (
     <div className={container}>
-      <StaticImage
-        src={"../../../assets/images/chat-pelouse.jpg"}
+      <img
+        src={"apps/amcoeur-client/src/assets/images/chat-pelouse.jpg"}
         alt="Image bannière"
-        layout="fullWidth"
       />
       <div className={textContainer}>{children}</div>
     </div>

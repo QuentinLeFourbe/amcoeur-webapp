@@ -1,8 +1,9 @@
 /* eslint-disable */
-import type { SystemStyleObject, ConditionalValue } from '../types'
-import type { PropertyValue } from '../types/prop-type'
-import type { Properties } from '../types/csstype'
-import type { Tokens } from '../tokens'
+import type { SystemStyleObject, ConditionalValue } from '../types/index';
+import type { Properties } from '../types/csstype';
+import type { PropertyValue } from '../types/prop-type';
+import type { DistributiveOmit } from '../types/system-types';
+import type { Tokens } from '../tokens/index';
 
 export type HstackProperties = {
    justify?: PropertyValue<'justifyContent'>
@@ -10,11 +11,11 @@ export type HstackProperties = {
 }
 
 
-type HstackOptions = HstackProperties & Omit<SystemStyleObject, keyof HstackProperties >
+type HstackStyles = HstackProperties & DistributiveOmit<SystemStyleObject, keyof HstackProperties >
 
 interface HstackPatternFn {
-  (options?: HstackOptions): string
-  raw: (options: HstackOptions) => HstackOptions
+  (styles?: HstackStyles): string
+  raw: (styles?: HstackStyles) => SystemStyleObject
 }
 
 
