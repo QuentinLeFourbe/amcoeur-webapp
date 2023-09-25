@@ -53,7 +53,7 @@ const formContainer = css({
   display: "flex",
   flexFlow: "column nowrap",
   gap: "10px",
-  justifyContent: "center",
+  alignItems: "center",
 });
 const formInput = css({
   width: "50%",
