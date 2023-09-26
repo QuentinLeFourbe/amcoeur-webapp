@@ -1,13 +1,21 @@
 import { useForm } from "react-hook-form";
 import { css } from "../../../../styled-system/css";
 
+interface IFormData {
+  Nom: string;
+  Prénom: string;
+  Email: string;
+  Téléphone: string;
+  Message: string;
+}
+
 export default function Form() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => console.log(data);
+  } = useForm<IFormData>();
+  const onSubmit = (data: IFormData) => console.log(data);
   console.log(errors);
 
   return (
@@ -37,11 +45,11 @@ export default function Form() {
           placeholder="Téléphone"
           {...register("Téléphone", { required: true })}
         />
-        <input
+        <textarea
           className={formInput}
-          type="text"
           placeholder="Message"
-          {...register}
+          {...register("Message", { required: true })}
+          rows={5}
         />
 
         <input className={formInput} type="submit" />
@@ -56,7 +64,7 @@ const formContainer = css({
   alignItems: "center",
 });
 const formInput = css({
-  width: "50%",
+  width: "30%",
   padding: "10px",
   marginBottom: "10px",
   border: "1px solid #ccc",
