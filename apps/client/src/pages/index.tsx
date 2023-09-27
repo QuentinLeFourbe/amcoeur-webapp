@@ -1,6 +1,7 @@
 import ContentPanel from "../components/molecules/ContentPanel/ContentPanel";
 import ContentButton from "../components/atoms/ContentButton/ContentButton";
 import Banner from "../components/atoms/Banner/Banner";
+import Widget from "../components/atoms/Widget/Widget";
 
 const IndexPage = () => {
   return (
@@ -9,6 +10,7 @@ const IndexPage = () => {
         Bienvenue sur le site de Amcoeur, association dédiée à la protection des
         animaux.
       </Banner>
+      <Widget />
       <ContentPanel title="Super loto Amcoeur !">
         <p>
           Participez au loto de notre association dédiée à la protection des
@@ -52,4 +54,3 @@ const IndexPage = () => {
 };
 
 export default IndexPage;
-
