@@ -15,7 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "react-hook-form": "^7.46.2",
+    "react-hook-form": "^7.46.2"
   },
   "devDependencies": {
     "husky": "^8.0.3"
