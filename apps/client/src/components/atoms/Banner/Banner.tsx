@@ -1,18 +1,20 @@
 import React from "react";
 import { css } from "../../../../styled-system/css";
+import defaultBannerImage from "../../../assets/images/chat-pelouse-3.jpg";
 
 type BannerProps = {
   children: React.ReactNode;
   backgroundSrc?: string;
 };
 
-function Banner({
-  children,
-  backgroundSrc = "apps/amcoeur-client/src/assets/images/chat-pelouse.jpg",
-}: BannerProps) {
+function Banner({ children, backgroundSrc = defaultBannerImage }: BannerProps) {
   return (
     <div className={container}>
-      <img src={backgroundSrc} alt="Image bannière" />
+      <img
+        className={backgroundImage}
+        src={backgroundSrc}
+        alt="Image bannière"
+      />
       <div className={textContainer}>{children}</div>
     </div>
   );
@@ -33,13 +35,14 @@ const textContainer = css({
   maxWidth: "500px",
 });
 
-// const backgroundImage = css({
-//   position: "absolute",
-//   height: "100%",
-//   objectFit: "cover",
-//   objectPosition: "center top",
-//   zIndex: "-1",
-//   pointerEvents: "none",
-// });
+const backgroundImage = css({
+  position: "absolute",
+  height: "100%",
+  width: "100%",
+  objectFit: "cover",
+  objectPosition: "center bottom",
+  zIndex: "-1",
+  pointerEvents: "none",
+});
 
 export default Banner;

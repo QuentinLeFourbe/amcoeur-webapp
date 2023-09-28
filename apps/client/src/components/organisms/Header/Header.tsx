@@ -99,6 +99,7 @@ const maintenanceBanner = css({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  color: "black",
 });
 
 export default Header;
