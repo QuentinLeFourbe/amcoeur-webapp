@@ -1,6 +1,6 @@
 import React from "react";
 import { css } from "../../../../styled-system/css";
-import defaultBannerImage from "../../../assets/images/chat-pelouse-3.jpg";
+import defaultBannerImage from "../../../assets/images/chat-pelouse-3.webp";
 
 type BannerProps = {
   children: React.ReactNode;
@@ -13,7 +13,7 @@ function Banner({ children, backgroundSrc = defaultBannerImage }: BannerProps) {
       <img
         className={backgroundImage}
         src={backgroundSrc}
-        alt="Image bannière"
+        alt="Image bannière de Amcoeur"
       />
       <div className={textContainer}>{children}</div>
     </div>
