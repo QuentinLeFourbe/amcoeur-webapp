@@ -5,8 +5,8 @@ import { Request, Response } from "express";
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.CONTACT_EMAIL,
-    pass: process.env.CONTACT_PASSWORD,
+    user: process.env.CONTACT_EMAIL || "",
+    pass: process.env.CONTACT_PASSWORD || "",
   },
 });
 
