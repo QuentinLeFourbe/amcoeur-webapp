@@ -2,11 +2,13 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { css } from "../../../../styled-system/css";
 import { Outlet } from "react-router-dom";
+import Widget from "../../atoms/Widget/Widget";
 
 function PageContainer() {
   return (
     <div className={container}>
       <Header />
+      <Widget />
       <Outlet />
       <Footer />
     </div>

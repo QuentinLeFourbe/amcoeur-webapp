@@ -7,8 +7,11 @@ function Widget() {
   const [hovered, setHovered] = useState(false);
 
   const handleScroll = () => {
+    const widgetHeight =
+      document.querySelector(".widgetStyleClassName")?.offsetHeight || 0;
     const isAtBottom =
-      window.innerHeight + window.scrollY >= document.body.offsetHeight;
+      window.innerHeight + window.scrollY >=
+      document.body.offsetHeight - widgetHeight;
     setAtBottom(isAtBottom);
   };
 
