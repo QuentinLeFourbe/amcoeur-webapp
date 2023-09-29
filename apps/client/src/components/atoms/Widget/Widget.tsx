@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { css, cx } from "../../../../styled-system/css";
 import DonationLogo from "../../../assets/icons/coeur-donate.svg?react";
+import { Link } from "react-router-dom";
 
 function Widget() {
   const [atBottom, setAtBottom] = useState(false);
@@ -32,10 +33,10 @@ function Widget() {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <button className={cx(widgetButtonStyle, widgetContentStyle)}>
+      <Link to="/donate" className={cx(widgetButtonStyle, widgetContentStyle)}>
         <DonationLogo className={widgetLogo} />
         Je donne
-      </button>
+      </Link>
     </div>
   );
 }
