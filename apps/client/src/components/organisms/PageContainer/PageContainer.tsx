@@ -1,10 +1,19 @@
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { css } from "../../../../styled-system/css";
-import { Outlet } from "react-router-dom";
+
 import Widget from "../../atoms/Widget/Widget";
+import { Outlet, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+
 
 function PageContainer() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
     <div className={container}>
       <Header />
