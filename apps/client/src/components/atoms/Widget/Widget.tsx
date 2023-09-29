@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { css } from "../../../../styled-system/css";
-import DonationLogo from "../../../assets/images/logo-don.png";
+import { css, cx } from "../../../../styled-system/css";
+import DonationLogo from "../../../assets/icons/coeur-donate.svg?react";
 
 function Widget() {
   const [atBottom, setAtBottom] = useState(false);
@@ -32,11 +32,10 @@ function Widget() {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className={widgetContentStyle}>
-        <img src={DonationLogo} className={widgetLogo} alt="Donation-Logo" />
-
-        <button className={widgetButtonStyle}>Je donne</button>
-      </div>
+      <button className={cx(widgetButtonStyle, widgetContentStyle)}>
+        <DonationLogo className={widgetLogo} />
+        Je donne
+      </button>
     </div>
   );
 }
@@ -45,8 +44,7 @@ const widgetStyle = css({
   position: "fixed",
   bottom: "30px",
   right: "20px",
-  fontFamily: "Roboto,sans-serif",
-  backgroundColor: "#d96a14",
+  backgroundColor: "buttonPrimary",
   padding: "10px",
   borderRadius: "40px",
   transition: "0.5s",
@@ -54,13 +52,15 @@ const widgetStyle = css({
     opacity: 0,
   },
   "&.hovered": {
-    backgroundColor: "#FFA500",
+    backgroundColor: "buttonPrimaryHover",
   },
 });
 
 const widgetContentStyle = css({
   display: "flex",
+  gap: "15px",
   alignItems: "center",
+  "&:hover": { color: "textPrimary" },
 });
 
 const widgetButtonStyle = css({

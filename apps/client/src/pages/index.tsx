@@ -4,7 +4,6 @@ import Banner from "../components/atoms/Banner/Banner";
 import donateImage from "../assets/images/chien-dons.webp";
 import lotoImage from "../assets/images/chat-chien.webp";
 import Widget from "../components/atoms/Widget/Widget";
-        
 
 const IndexPage = () => {
   return (
