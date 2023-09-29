@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { css } from "../../../../styled-system/css";
 import DonationLogo from "../../../assets/images/logo-don.png";
 
@@ -7,14 +7,18 @@ function Widget() {
   const [hovered, setHovered] = useState(false);
 
   const handleScroll = () => {
-    const widgetHeight =
-      document.querySelector(".widgetStyleClassName")?.offsetHeight || 0;
-    const isAtBottom =
-      window.innerHeight + window.scrollY >=
-      document.body.offsetHeight - widgetHeight;
-    setAtBottom(isAtBottom);
-  };
+    const widgetElement = document.querySelector(
+      ".widgetStyleClassName"
+    ) as HTMLElement | null;
 
+    if (widgetElement) {
+      const widgetHeight = widgetElement.offsetHeight || 0;
+      const isAtBottom =
+        window.innerHeight + window.scrollY >=
+        document.body.offsetHeight - widgetHeight;
+      setAtBottom(isAtBottom);
+    }
+  };
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
