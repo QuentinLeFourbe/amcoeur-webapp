@@ -9,7 +9,7 @@ function Widget() {
 
   const handleScroll = () => {
     const widgetElement = document.querySelector(
-      ".widgetStyleClassName"
+      ".donation-widget"
     ) as HTMLElement | null;
 
     if (widgetElement) {
@@ -27,7 +27,7 @@ function Widget() {
 
   return (
     <div
-      className={`${widgetStyle} ${atBottom ? "hidden" : ""} ${
+      className={`donation-widget ${widgetStyle} ${atBottom ? "hidden" : ""} ${
         hovered ? "hovered" : ""
       }`}
       onMouseEnter={() => setHovered(true)}
