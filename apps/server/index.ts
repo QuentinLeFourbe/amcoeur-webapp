@@ -2,12 +2,13 @@ import express, { Request, Response } from "express";
 import path from "path";
 import helmet from "helmet";
 import emailRoutes from "./routes/email";
-import dotenv from "dotenv";
+import "dotenv/config";
+import bodyParser from "body-parser";
 
-dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(bodyParser.json());
 app.use(helmet());
 app.use(express.static(path.join(__dirname, "../client/dist")));
 

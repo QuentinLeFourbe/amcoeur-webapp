@@ -1,23 +1,19 @@
 import { useForm } from "react-hook-form";
 import { css } from "../../../../styled-system/css";
-
-interface IFormData {
-  Nom: string;
-  Prénom: string;
-  Email: string;
-  Téléphone: string;
-  Message: string;
-}
+import { ContactData } from "../../../types/email";
+import { sendContactEmail } from "../../../api/emails";
 
 export default function Form() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormData>();
-  const onSubmit = (data: IFormData) => console.log(data);
-  console.log(errors);
+  } = useForm<ContactData>();
 
+  const onSubmit = (data: ContactData) => {
+    console.log("ONSUBMIT", { data });
+    sendContactEmail(data).then((res) => console.log(res));
+  };
   return (
     <div>
       <form className={formContainer} onSubmit={handleSubmit(onSubmit)}>
@@ -25,33 +21,32 @@ export default function Form() {
           className={formInput}
           type="text"
           placeholder="Nom"
-          {...register("Nom", { required: true })}
+          {...register("name", { required: true })}
         />
         <input
           className={formInput}
           type="text"
           placeholder="Prénom"
-          {...register("Prénom", { required: true })}
+          {...register("firstname", { required: true })}
         />
         <input
           className={formInput}
           type="text"
           placeholder="Email"
-          {...register("Email", { required: true })}
+          {...register("mail", { required: true })}
         />
         <input
           className={formInput}
           type="tel"
           placeholder="Téléphone"
-          {...register("Téléphone", { required: true })}
+          {...register("phone")}
         />
         <textarea
           className={formInput}
           placeholder="Message"
-          {...register("Message", { required: true })}
+          {...register("message", { required: true })}
           rows={5}
         />
-
         <input className={formInput} type="submit" />
       </form>
     </div>

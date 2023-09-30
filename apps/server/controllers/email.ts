@@ -1,37 +1,72 @@
+import { ContactData } from "./../../client/src/types/email";
 import nodemailer from "nodemailer";
+import { google } from "googleapis";
 import { Request, Response } from "express";
 
-//Actually configured to use gmail, but should be change once it's connected to the amcoeur domain
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.CONTACT_EMAIL || "",
-    pass: process.env.CONTACT_PASSWORD || "",
-  },
-});
+const OAuth2 = google.auth.OAuth2;
+
+const createTransporter = async () => {
+  try {
+    const oauth2Client = new OAuth2(
+      process.env.CONTACT_CLIENT_ID,
+      process.env.CONTACT_CLIENT_SECRET,
+      "https://developers.google.com/oauthplayground"
+    );
+
+    oauth2Client.setCredentials({
+      refresh_token: process.env.CONTACT_REFRESH_TOKEN,
+    });
+
+    const accessToken: string | null | undefined = await new Promise(
+      (resolve, reject) => {
+        oauth2Client.getAccessToken((err, token) => {
+          if (err) {
+            console.log("*ERR: ", err);
+            reject();
+          }
+          resolve(token);
+        });
+      }
+    );
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        type: "OAuth2",
+        user: process.env.CONTACT_EMAIL,
+        accessToken: accessToken as string,
+        refreshToken: process.env.CONTACT_REFRESH_TOKEN,
+        clientId: process.env.CONTACT_CLIENT_ID,
+        clientSecret: process.env.CONTACTCLIENT_SECRET,
+      },
+    });
+    return transporter;
+  } catch (err) {
+    console.log(err);
+    return undefined;
+  }
+};
 
 /**
  * Send an email to the contact email address
  * @param req
  * @param res
  */
-export const sendEmailHandler = (req: Request, res: Response) => {
-  //   const { to, subject, text } = req.body;
-  console.log("On va envoyer un email");
-  const mailOptions = {
-    from: process.env.CONTACT_EMAIL,
-    to: process.env.CONTACT_EMAIL,
-    subject: "Hey test",
-    text: "Hey, this is a text or a test ?",
-  };
+export const sendEmailHandler = async (req: Request, res: Response) => {
+  try {
+    const { name, firstname, mail, phone, message } = req.body as ContactData;
+    const mailOptions = {
+      from: process.env.CONTACT_EMAIL,
+      to: process.env.CONTACT_EMAIL,
+      subject: `Demande de contact: ${name} ${firstname}`,
+      text: `Nom: ${name}\nPrénom: ${firstname}\nEmail: ${mail}\nTéléphone: ${phone}\nMessage: ${message}`,
+    };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      return res
-        .status(500)
-        .send(`Erreur lors de l'envoi de l'e-mail : ${error}`);
-    }
-    console.log("email envoyé");
-    res.status(200).send(`E-mail envoyé : ${info.response}`);
-  });
+    const emailTransporter = await createTransporter();
+    await emailTransporter?.sendMail(mailOptions);
+    res.status(200).send("Email envoyé !");
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(`Erreur lors de l'envoi de l'e-mail : ${err}`);
+  }
 };
