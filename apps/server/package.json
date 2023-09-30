@@ -1,0 +1,17 @@
+{
+  "name": "@amcoeur/server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.ts",
+    "start": "npm run build && node dist/index.js",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@amcoeur/client": "1.0.0"
+  },
+  "author": "",
+  "license": "ISC"
+}
