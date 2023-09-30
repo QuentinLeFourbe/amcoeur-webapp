@@ -4,16 +4,13 @@ import { ContactData } from "../../../types/email";
 import { sendContactEmail } from "../../../api/emails";
 
 export default function Form() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ContactData>();
+  const { register, handleSubmit } = useForm<ContactData>();
 
   const onSubmit = (data: ContactData) => {
     console.log("ONSUBMIT", { data });
     sendContactEmail(data).then((res) => console.log(res));
   };
+
   return (
     <div>
       <form className={formContainer} onSubmit={handleSubmit(onSubmit)}>
