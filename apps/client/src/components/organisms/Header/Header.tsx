@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { css, cx } from "../../../../styled-system/css";
 import FacebookIcon from "../../../assets/icons/facebook.svg?react";
 import { Link } from "react-router-dom";
+import AmcoeurLogo from "../../../assets/images/amcoeur-logo.webp";
 
 function Header() {
   const [scrolling, setScrolling] = useState(false);
@@ -24,12 +25,14 @@ function Header() {
 
   return (
     <>
-      <header className={cx(header, scrolling && logoReduced)}>
-        <div className={logoContainer}>
-          <LogoLink
-            src="https://p6.storage.canalblog.com/68/37/351410/78717808.jpg"
-            href="/"
-          />
+      <header
+        className={cx(
+          header,
+          scrolling ? headerOnScrollPadding : headerScrollTopPadding
+        )}
+      >
+        <div className={cx(logoContainer, scrolling && logoReduced)}>
+          <LogoLink src={AmcoeurLogo} href="/" />
         </div>
         <div className={linksContainer}>
           <Link className={cx(headerLink, textLink)} to="/qui-sommes-nous">
@@ -89,18 +92,9 @@ const flexRow = css({
   alignItems: "center",
 });
 
-const logoContainer = css({
-  display: "flex",
-  flexFlow: "row wrap",
-  alignItems: "center",
-  justifyContent: "center",
-  gap: "15px",
-});
-
 const header = cx(
   flexRow,
   css({
-    padding: " 25px 10vw",
     background: "headerBackground",
     gap: "10px",
     position: "sticky",
@@ -109,15 +103,15 @@ const header = cx(
   })
 );
 
-const linksContainer = cx(flexRow, css({ gap: "30px" }));
+const headerScrollTopPadding = css({
+  padding: "25px 10vw",
+});
 
-// const burgerButton = css({
-//   background: "none",
-//   border: "none",
-//   cursor: "pointer",
-//   width: "40px",
-//   height: "40px",
-// });
+const headerOnScrollPadding = css({
+  padding: "10px 10vw",
+});
+
+const linksContainer = cx(flexRow, css({ gap: "30px" }));
 
 const maintenanceBanner = css({
   background: "yellow",
@@ -127,15 +121,14 @@ const maintenanceBanner = css({
   color: "black",
 });
 
-const logoLinkClass = css({
+const logoContainer = css({
   width: "75px",
   height: "75px",
 });
+
 const logoReduced = css({
-  "& img": {
-    width: "50px",
-    height: "50px",
-  },
+  width: "50px",
+  height: "50px",
 });
 
 export default Header;
