@@ -63,6 +63,7 @@ function ImageContainer({
       src={src}
       alt={alt}
       className={cx(style, cover ? coverStyle : "", classname)}
+      loading="lazy"
     />
   );
 }

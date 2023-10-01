@@ -17,14 +17,17 @@ function NavigationButton({ children, href = "#" }: NavigationButtonProps) {
 const button = css({
   alignSelf: "flex-start",
   borderRadius: "10px",
-  backgroundColor: "buttonPrimary",
+  backgroundColor: "buttons.primary.background",
+  color: "buttons.primary.text",
   padding: "20px 50px",
   margin: "40px 0 0 0",
-  color: "textSecondary",
   fontWeight: "500",
   cursor: "pointer",
   "&:hover": {
-    backgroundColor: "buttonPrimaryHover",
+    backgroundColor: "buttons.primary.backgroundHover",
+  },
+  "&:active": {
+    backgroundColor: "buttons.primary.backgroundActive",
   },
   transition: "background-color 0.2s ease-in-out",
 });

@@ -41,11 +41,11 @@ const container = css({
 
 const reverse = css({
   flexDirection: "row-reverse",
-  backgroundColor: "backgroundPrimary",
+  backgroundColor: "backgrounds.primary.extraLight",
 });
 
 const primaryBackground = css({
-  backgroundColor: "backgroundSecondary",
+  backgroundColor: "backgrounds.secondary.light",
 });
 
 export default ContentPanel;

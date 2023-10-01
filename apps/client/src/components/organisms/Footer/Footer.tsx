@@ -29,7 +29,7 @@ const footer = css({
   gap: "50px",
   marginTop: "auto",
   color: "textSecondary",
-  backgroundColor: "footerBackground",
+  backgroundColor: "backgrounds.primary.intense",
   height: "200px",
   padding: "0 10vw",
 });

@@ -74,7 +74,9 @@ const LogoLink = ({ src, href }: LogoLinkProps) => (
 
 const headerLink = css({
   textDecoration: "none",
-  fontWeight: "600",
+  fontWeight: "bold",
+  fontFamily: "body",
+  fontSize: "1.2rem",
 });
 
 const textLink = css({
@@ -95,7 +97,7 @@ const flexRow = css({
 const header = cx(
   flexRow,
   css({
-    background: "headerBackground",
+    background: "backgrounds.primary.extraLight",
     gap: "10px",
     position: "sticky",
     zIndex: "100",
@@ -111,7 +113,13 @@ const headerOnScrollPadding = css({
   padding: "10px 10vw",
 });
 
-const linksContainer = cx(flexRow, css({ gap: "30px" }));
+const linksContainer = css({
+  display: "flex",
+  flexFlow: "row wrap",
+  justifyContent: "space-around",
+  alignItems: "center",
+  gap: "100px",
+});
 
 const maintenanceBanner = css({
   background: "yellow",
