@@ -1,4 +1,3 @@
-import React from "react";
 import { css } from "../../../../styled-system/css";
 
 type FormInputProps = React.InputHTMLAttributes<HTMLInputElement>;
