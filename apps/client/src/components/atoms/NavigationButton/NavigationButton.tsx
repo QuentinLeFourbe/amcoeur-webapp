@@ -1,26 +1,25 @@
 import React from "react";
 import { css } from "../../../../styled-system/css";
-import { Link } from "react-router-dom";
 
-type ContentButtonProps = {
+type NavigationButtonProps = {
   children: React.ReactNode;
   href?: string;
 };
 
-function ContentButton({ children, href = "" }: ContentButtonProps) {
+function NavigationButton({ children, href = "#" }: NavigationButtonProps) {
   return (
-    <button className={button}>
-      <Link to={href}>{children}</Link>
-    </button>
+    <a href={href} className={button}>
+      {children}
+    </a>
   );
 }
 
 const button = css({
   alignSelf: "flex-start",
-  borderRadius: "32px",
+  borderRadius: "10px",
   backgroundColor: "buttons.primary.background",
   color: "buttons.primary.text",
-  padding: "20px 40px",
+  padding: "20px 50px",
   margin: "40px 0 0 0",
   fontWeight: "500",
   cursor: "pointer",
@@ -33,4 +32,4 @@ const button = css({
   transition: "background-color 0.2s ease-in-out",
 });
 
-export default ContentButton;
+export default NavigationButton;

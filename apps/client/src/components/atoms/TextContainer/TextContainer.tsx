@@ -33,25 +33,28 @@ const textContainer = css({
     color: "textPrimary",
   },
 
+  "& h1": {
+    fontSize: "3.5rem",
+    fontWeight: "600",
+    color: "textPrimary",
+    margin: "0 0 40px 0",
+    fontFamily: "heading",
+  },
+
   "& h2": {
+    fontSize: "2.5rem",
+    fontWeight: "600",
+    color: "textPrimary",
+    margin: "0 0 20px 0",
+    fontFamily: "heading",
+  },
+
+  "& h3": {
     fontSize: "2rem",
     fontWeight: "600",
     color: "textPrimary",
     margin: "0 0 20px 0",
-  },
-
-  "& h1": {
-    fontSize: "3rem",
-    fontWeight: "600",
-    color: "textPrimary",
-    margin: "0 0 40px 0",
-  },
-
-  "& h3": {
-    fontSize: "1.5rem",
-    fontWeight: "600",
-    color: "textPrimary",
-    margin: "0 0 20px 0",
+    fontFamily: "heading",
   },
 
   "& ul": {
