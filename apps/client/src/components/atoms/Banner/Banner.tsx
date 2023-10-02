@@ -14,6 +14,7 @@ function Banner({ children, backgroundSrc = defaultBannerImage }: BannerProps) {
         className={backgroundImage}
         src={backgroundSrc}
         alt="Image bannière de Amcoeur"
+        loading="lazy"
       />
       <div className={textContainer}>{children}</div>
     </div>
@@ -25,12 +26,13 @@ const container = css({
   flexFlow: "row nowrap",
   alignItems: "center",
   height: "350px",
+  position: "relative",
 });
 
 const textContainer = css({
   color: "textSecondary",
-  fontSize: "2rem",
-  fontWeight: "600",
+  fontFamily: "heading",
+  fontSize: "4rem",
   marginLeft: "15vw",
   maxWidth: "500px",
 });
@@ -40,7 +42,7 @@ const backgroundImage = css({
   height: "100%",
   width: "100%",
   objectFit: "cover",
-  objectPosition: "center bottom",
+  objectPosition: "center",
   zIndex: "-1",
   pointerEvents: "none",
 });

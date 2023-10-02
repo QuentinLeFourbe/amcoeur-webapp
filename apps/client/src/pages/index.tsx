@@ -7,10 +7,7 @@ import lotoImage from "../assets/images/chat-chien.webp";
 const IndexPage = () => {
   return (
     <>
-      <Banner>
-        Bienvenue sur le site de Amcoeur, association dédiée à la protection des
-        animaux.
-      </Banner>
+      <Banner>Protéger. Aimer. Secourir. Agir. </Banner>
       <ContentPanel title="Loto Amcoeur !" imageSrc={lotoImage}>
         <p>
           Participez au loto de notre association dédiée à la protection des
