@@ -607,10 +607,6 @@ const tokens = {
     "value": "#000",
     "variable": "var(--colors-black)"
   },
-  "colors.white": {
-    "value": "#fff",
-    "variable": "var(--colors-white)"
-  },
   "colors.transparent": {
     "value": "rgb(0 0 0 / 0)",
     "variable": "var(--colors-transparent)"
@@ -1606,6 +1602,10 @@ const tokens = {
   "colors.pinkBright": {
     "value": "#FF1493",
     "variable": "var(--colors-pink-bright)"
+  },
+  "colors.white": {
+    "value": "#FFFFFF",
+    "variable": "var(--colors-white)"
   },
   "colors.whiteIcy": {
     "value": "#F5FFFA",

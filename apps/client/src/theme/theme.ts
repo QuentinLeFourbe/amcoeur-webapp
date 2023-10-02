@@ -8,6 +8,7 @@ export const theme = {
         pinkLight: { value: "#FFC0CB" },
         pinkMedium: { value: "#FF69B4" },
         pinkBright: { value: "#FF1493" },
+        white: { value: "#FFFFFF" },
         whiteIcy: { value: "#F5FFFA" },
         paleGrey: { value: "#F0F0F0" },
         veryPaleGrey: { value: "#F5F5F5" },
@@ -44,7 +45,7 @@ export const theme = {
             intense: { value: "{colors.pinkBright}" },
           },
           secondary: {
-            light: { value: "{colors.whiteIcy}" },
+            light: { value: "{colors.white}" },
             medium: { value: "{colors.paleGrey}" },
             intense: { value: "{colors.palePurple}" },
           },

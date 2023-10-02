@@ -152,7 +152,6 @@
   --animations-bounce: bounce 1s infinite;
   --colors-current: currentColor;
   --colors-black: #000;
-  --colors-white: #fff;
   --colors-transparent: rgb(0 0 0 / 0);
   --colors-rose-50: #fff1f2;
   --colors-rose-100: #ffe4e6;
@@ -402,6 +401,7 @@
   --colors-pink-light: #FFC0CB;
   --colors-pink-medium: #FF69B4;
   --colors-pink-bright: #FF1493;
+  --colors-white: #FFFFFF;
   --colors-white-icy: #F5FFFA;
   --colors-pale-grey: #F0F0F0;
   --colors-very-pale-grey: #F5F5F5;
@@ -444,7 +444,7 @@
   --colors-backgrounds-primary-light: var(--colors-pink-light);
   --colors-backgrounds-primary-medium: var(--colors-pink-medium);
   --colors-backgrounds-primary-intense: var(--colors-pink-bright);
-  --colors-backgrounds-secondary-light: var(--colors-white-icy);
+  --colors-backgrounds-secondary-light: var(--colors-white);
   --colors-backgrounds-secondary-medium: var(--colors-pale-grey);
   --colors-backgrounds-secondary-intense: var(--colors-pale-purple);
   --colors-backgrounds-tertiary-light: var(--colors-pink-gold);

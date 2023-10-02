@@ -23,6 +23,34 @@ function Header() {
     };
   }, [scrolling]);
 
+  const headerLinks = [
+    {
+      name: "Qui sommes-nous",
+      href: "/qui-sommes-nous",
+    },
+
+    {
+      name: "Agir",
+      href: "/agir",
+    },
+    {
+      name: "Besoin d'aide",
+      href: "/besoin-aide",
+    },
+    {
+      name: "Maltraitance",
+      href: "/besoin-aide",
+    },
+    {
+      name: "Donations",
+      href: "/donate",
+    },
+    {
+      name: "Nous contacter",
+      href: "/contact",
+    },
+  ];
+
   return (
     <>
       <header
@@ -35,18 +63,11 @@ function Header() {
           <LogoLink src={AmcoeurLogo} href="/" />
         </div>
         <div className={linksContainer}>
-          <Link className={cx(headerLink, textLink)} to="/qui-sommes-nous">
-            Qui sommes-nous
-          </Link>
-          <Link className={cx(headerLink, textLink)} to="/besoin-aide">
-            Maltraitance
-          </Link>
-          <Link className={cx(headerLink, textLink)} to="/donate">
-            Donations
-          </Link>
-          <Link className={cx(headerLink, textLink)} to="/contact">
-            Nous contacter
-          </Link>
+          {headerLinks.map((link) => (
+            <Link className={cx(headerLink, textLink)} to={link.href}>
+              {link.name}
+            </Link>
+          ))}
         </div>
 
         <a
