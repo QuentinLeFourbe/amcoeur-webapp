@@ -5,5 +5,11 @@ type FormLabelProps = React.LabelHTMLAttributes<HTMLLabelElement> & {
 };
 
 export default function FormLabel({ children, ...props }: FormLabelProps) {
-  return <label {...props}>{children}</label>;
+  return (
+    <label className={labelStyle} {...props}>
+      {children}
+    </label>
+  );
 }
+
+const labelStyle = css({});
