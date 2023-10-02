@@ -16,26 +16,30 @@ export default function Form() {
   return (
     <div>
       <form className={formContainer} onSubmit={handleSubmit(onSubmit)}>
-        <FormLabel>Nom</FormLabel>
-        <FormInput
-          className={formInput}
-          type="text"
-          {...register("name", { required: true })}
-        />
-        <FormLabel>Prénom</FormLabel>
-        <FormInput
-          className={formInput}
-          type="text"
-          {...register("firstname", { required: true })}
-        />
-        <FormLabel>Email</FormLabel>
-        <FormInput
-          className={formInput}
-          type="text"
-          {...register("mail", { required: true })}
-        />
-        <FormLabel>Téléphone</FormLabel>
-        <FormInput className={formInput} type="tel" {...register("phone")} />
+        <div className={totorow}>
+          <div className={totocol}>
+            <FormLabel>Nom</FormLabel>
+            <FormInput type="text" {...register("name", { required: true })} />
+          </div>
+          <div className={totocol}>
+            <FormLabel>Prénom</FormLabel>
+            <FormInput
+              type="text"
+              {...register("firstname", { required: true })}
+            />
+          </div>
+        </div>
+        <div className={totorow}>
+          <div className={totocol}>
+            <FormLabel>Email</FormLabel>
+            <FormInput type="text" {...register("mail", { required: true })} />
+          </div>
+          <div className={totocol}>
+            <FormLabel>Téléphone</FormLabel>
+            <FormInput type="tel" {...register("phone")} />
+          </div>
+        </div>
+
         <textarea
           className={formInput}
           {...register("message", { required: true })}
@@ -48,16 +52,27 @@ export default function Form() {
 }
 const formContainer = css({
   display: "flex",
-  flexFlow: "column nowrap",
+  flexFlow: "column wrap",
   gap: "10px",
   alignItems: "center",
 });
 const formInput = css({
-  width: "30%",
   padding: "10px",
   marginBottom: "10px",
   border: "1px solid #ccc",
   borderRadius: "4px",
   fontSize: "20px",
   textAlign: "center",
+});
+const totorow = css({
+  display: "flex",
+  flexFlow: "row nowrap",
+  gap: "10px",
+  alignItems: "center",
+});
+const totocol = css({
+  display: "flex",
+  flexFlow: "column wrap",
+  gap: "20px",
+  alignItems: "center",
 });

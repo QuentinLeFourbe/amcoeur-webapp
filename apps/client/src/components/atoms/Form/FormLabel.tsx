@@ -12,4 +12,11 @@ export default function FormLabel({ children, ...props }: FormLabelProps) {
   );
 }
 
-const labelStyle = css({});
+const labelStyle = css({
+  fontWeight: "bold",
+  cursor: "pointer",
+  fontSize: "22px",
+  display: "flex",
+  justifyContent: "flex-start",
+  textAlign: " center",
+});

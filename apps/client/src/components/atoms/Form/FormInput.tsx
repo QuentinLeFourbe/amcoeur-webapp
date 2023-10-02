@@ -12,5 +12,9 @@ export default FormInput;
 const inputStyle = css({
   display: "flex",
   justifyContent: "flex-start",
-  fontSize: "500px",
+  fontSize: "30px",
+  backgroundColor: "backgrounds.primary.extraLight",
+  borderRadius: "4px",
+  border: "1px solid #ccc",
+  width: "100%",
 });
