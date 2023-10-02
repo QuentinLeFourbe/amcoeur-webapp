@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import { css } from "../../../../styled-system/css";
 import { ContactData } from "../../../types/email";
 import { sendContactEmail } from "../../../api/emails";
+import FormInput from "./FormInput";
+import FormLabel from "./FormLabel";
 
 export default function Form() {
   const { register, handleSubmit } = useForm<ContactData>();
@@ -14,33 +16,28 @@ export default function Form() {
   return (
     <div>
       <form className={formContainer} onSubmit={handleSubmit(onSubmit)}>
-        <input
+        <FormLabel>Nom</FormLabel>
+        <FormInput
           className={formInput}
           type="text"
-          placeholder="Nom"
           {...register("name", { required: true })}
         />
-        <input
+        <FormLabel>Prénom</FormLabel>
+        <FormInput
           className={formInput}
           type="text"
-          placeholder="Prénom"
           {...register("firstname", { required: true })}
         />
-        <input
+        <FormLabel>Email</FormLabel>
+        <FormInput
           className={formInput}
           type="text"
-          placeholder="Email"
           {...register("mail", { required: true })}
         />
-        <input
-          className={formInput}
-          type="tel"
-          placeholder="Téléphone"
-          {...register("phone")}
-        />
+        <FormLabel>Téléphone</FormLabel>
+        <FormInput className={formInput} type="tel" {...register("phone")} />
         <textarea
           className={formInput}
-          placeholder="Message"
           {...register("message", { required: true })}
           rows={5}
         />
