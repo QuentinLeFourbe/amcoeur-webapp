@@ -42,7 +42,9 @@ export default function Form() {
         </div>
 
         <FormTextArea {...register("message", { required: true })} />
-        <input type="submit" />
+        <button className={submitButtonStyle} type="submit">
+          Envoyer
+        </button>
       </form>
     </div>
   );
@@ -72,8 +74,13 @@ const formCol = css({
 });
 const submitButtonStyle = css({
   fontSize: "20px",
-  backgroundColor: "backgrounds.primary.extraLight",
+  backgroundColor: "buttons.primary.background",
   borderRadius: "4px",
   padding: "10px",
-  width: "100%",
+  width: "10%",
+  margin: "10px",
+  transition: "background-color 0.3s ease",
+  "&:hover": {
+    backgroundColor: "buttons.primary.backgroundHover",
+  },
 });
