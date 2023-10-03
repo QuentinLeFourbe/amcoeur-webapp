@@ -17,6 +17,4 @@ const labelStyle = css({
   cursor: "pointer",
   fontSize: "22px",
   display: "flex",
-  justifyContent: "flex-start",
-  textAlign: " center",
 });

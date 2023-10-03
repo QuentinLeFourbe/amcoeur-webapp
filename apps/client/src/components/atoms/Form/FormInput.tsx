@@ -14,6 +14,7 @@ const inputStyle = css({
   fontSize: "20px",
   backgroundColor: "backgrounds.primary.extraLight",
   borderRadius: "4px",
-  padding: "10px",
   width: "100%",
+  padding: "15px",
+  rowGap: "20px",
 });

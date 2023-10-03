@@ -16,4 +16,5 @@ const textAreaStyle = css({
   borderRadius: "4px",
   border: "1px solid #ccc",
   width: "50%",
+  marginTop: "8px",
 });

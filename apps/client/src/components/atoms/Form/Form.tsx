@@ -61,16 +61,17 @@ const formRow = css({
   display: "flex",
   justifyContent: "center",
   flexFlow: "row nowrap",
-  gap: "10px",
+  gap: "20px",
   alignItems: "center",
-  width: "100%",
+  width: "70%",
+  marginTop: "10px",
 });
 const formCol = css({
   display: "flex",
-  justifyContent: "center",
   flexFlow: "column wrap",
-  gap: "20px",
-  alignItems: "center",
+  gap: "10px",
+  textAlign: "left",
+  width: "40%",
 });
 const submitButtonStyle = css({
   fontSize: "20px",
