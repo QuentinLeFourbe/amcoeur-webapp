@@ -1,6 +1,6 @@
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import { css } from "../../../../styled-system/css";
+import { css, cx } from "../../../../styled-system/css";
 import { Outlet, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -23,7 +23,7 @@ function PageContainer() {
   return (
     <div className={container}>
       <Header />
-      <div className={showContent ? fadeIn : hidden}>
+      <div className={cx(contentContainer, showContent ? fadeIn : hidden)}>
         <Outlet />
       </div>
       <Footer />
@@ -45,6 +45,12 @@ const hidden = css({
 const fadeIn = css({
   opacity: 1,
   transition: "opacity 0.5s ease-in-out ",
+});
+
+const contentContainer = css({
+  display: "flex",
+  flexFlow: "column nowrap",
+  alignItems: "center",
 });
 
 export default PageContainer;

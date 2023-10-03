@@ -8,6 +8,7 @@ const IndexPage = () => {
   return (
     <>
       <Banner>Protéger. Aimer. Secourir. Agir. </Banner>
+
       <ContentPanel title="Loto Amcoeur !" imageSrc={lotoImage}>
         <p>
           Participez au loto de notre association dédiée à la protection des

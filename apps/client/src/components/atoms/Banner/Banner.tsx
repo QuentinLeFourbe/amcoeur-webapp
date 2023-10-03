@@ -27,6 +27,7 @@ const container = css({
   alignItems: "center",
   height: "350px",
   position: "relative",
+  width: "100%",
 });
 
 const textContainer = css({
