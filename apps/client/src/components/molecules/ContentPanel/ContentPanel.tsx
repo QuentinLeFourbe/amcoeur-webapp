@@ -37,6 +37,7 @@ const container = css({
   alignItems: "center",
   gap: "50px",
   padding: "100px 0",
+  width: "100%",
 });
 
 const reverse = css({
