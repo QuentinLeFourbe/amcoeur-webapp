@@ -4,6 +4,7 @@ import { ContactData } from "../../../types/email";
 import { sendContactEmail } from "../../../api/emails";
 import FormInput from "./FormInput";
 import FormLabel from "./FormLabel";
+import FormTextArea from "./FormTextArea";
 
 export default function Form() {
   const { register, handleSubmit } = useForm<ContactData>();
@@ -16,63 +17,63 @@ export default function Form() {
   return (
     <div>
       <form className={formContainer} onSubmit={handleSubmit(onSubmit)}>
-        <div className={totorow}>
-          <div className={totocol}>
-            <FormLabel>Nom</FormLabel>
+        <div className={formRow}>
+          <div className={formCol}>
+            <FormLabel>Nom*</FormLabel>
             <FormInput type="text" {...register("name", { required: true })} />
           </div>
-          <div className={totocol}>
-            <FormLabel>Prénom</FormLabel>
+          <div className={formCol}>
+            <FormLabel>Prénom*</FormLabel>
             <FormInput
               type="text"
               {...register("firstname", { required: true })}
             />
           </div>
         </div>
-        <div className={totorow}>
-          <div className={totocol}>
-            <FormLabel>Email</FormLabel>
+        <div className={formRow}>
+          <div className={formCol}>
+            <FormLabel>Email*</FormLabel>
             <FormInput type="text" {...register("mail", { required: true })} />
           </div>
-          <div className={totocol}>
+          <div className={formCol}>
             <FormLabel>Téléphone</FormLabel>
             <FormInput type="tel" {...register("phone")} />
           </div>
         </div>
 
-        <textarea
-          className={formInput}
-          {...register("message", { required: true })}
-          rows={5}
-        />
-        <input className={formInput} type="submit" />
+        <FormTextArea {...register("message", { required: true })} />
+        <input type="submit" />
       </form>
     </div>
   );
 }
 const formContainer = css({
   display: "flex",
+  justifyContent: "center",
   flexFlow: "column wrap",
   gap: "10px",
   alignItems: "center",
 });
-const formInput = css({
-  padding: "10px",
-  marginBottom: "10px",
-  border: "1px solid #ccc",
-  borderRadius: "4px",
-  fontSize: "20px",
-  textAlign: "center",
-});
-const totorow = css({
+
+const formRow = css({
   display: "flex",
+  justifyContent: "center",
   flexFlow: "row nowrap",
   gap: "10px",
   alignItems: "center",
+  width: "100%",
 });
-const totocol = css({
+const formCol = css({
   display: "flex",
+  justifyContent: "center",
   flexFlow: "column wrap",
   gap: "20px",
   alignItems: "center",
+});
+const submitButtonStyle = css({
+  fontSize: "20px",
+  backgroundColor: "backgrounds.primary.extraLight",
+  borderRadius: "4px",
+  padding: "10px",
+  width: "100%",
 });

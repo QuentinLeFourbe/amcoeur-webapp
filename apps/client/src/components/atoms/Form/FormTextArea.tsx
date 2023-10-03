@@ -8,4 +8,12 @@ function FormTextArea(props: FormTextAreaProps) {
 
 export default FormTextArea;
 
-const textAreaStyle = css({});
+const textAreaStyle = css({
+  display: "flex",
+  justifyContent: "flex-start",
+  fontSize: "22px",
+  backgroundColor: "backgrounds.primary.extraLight",
+  borderRadius: "4px",
+  border: "1px solid #ccc",
+  width: "50%",
+});

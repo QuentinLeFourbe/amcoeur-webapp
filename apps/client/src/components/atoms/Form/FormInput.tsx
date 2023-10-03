@@ -11,9 +11,9 @@ export default FormInput;
 const inputStyle = css({
   display: "flex",
   justifyContent: "flex-start",
-  fontSize: "30px",
+  fontSize: "20px",
   backgroundColor: "backgrounds.primary.extraLight",
   borderRadius: "4px",
-  border: "1px solid #ccc",
+  padding: "10px",
   width: "100%",
 });
