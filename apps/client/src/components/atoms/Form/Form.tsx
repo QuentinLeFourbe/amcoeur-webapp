@@ -40,8 +40,9 @@ export default function Form() {
             <FormInput type="tel" {...register("phone")} />
           </div>
         </div>
-
+        <FormLabel>Message</FormLabel>
         <FormTextArea {...register("message", { required: true })} />
+
         <button className={submitButtonStyle} type="submit">
           Envoyer
         </button>
@@ -75,6 +76,7 @@ const formCol = css({
 });
 const submitButtonStyle = css({
   fontSize: "20px",
+  cursor: "pointer",
   backgroundColor: "buttons.primary.background",
   borderRadius: "4px",
   padding: "10px",
@@ -83,5 +85,8 @@ const submitButtonStyle = css({
   transition: "background-color 0.3s ease",
   "&:hover": {
     backgroundColor: "buttons.primary.backgroundHover",
+  },
+  "&:active": {
+    backgroundColor: "buttons.primary.backgroundActive",
   },
 });
