@@ -1,5 +1,6 @@
 import { css } from "../../../../styled-system/css";
 import Link from "../../atoms/Link/Link";
+import AmcoeurLogo from "../../../assets/images/amcoeur-logo.webp";
 
 function Footer() {
   return (
@@ -15,7 +16,7 @@ function Footer() {
         </div>
         <p>Amcoeur - Copyright 2023</p>
       </div>
-      <img src="https://picsum.photos/75/75" alt="logo" />
+      <img src={AmcoeurLogo} alt="logo" />
     </footer>
   );
 }
@@ -28,7 +29,7 @@ const footer = css({
   gap: "50px",
   marginTop: "auto",
   color: "textSecondary",
-  backgroundColor: "footerBackground",
+  backgroundColor: "backgrounds.primary.intense",
   height: "200px",
   padding: "0 10vw",
 });

@@ -19,7 +19,7 @@ function ContentPanel({
   large = false,
 }: ContentPanelProps) {
   return (
-    <div className={cx(container, revert ? reverse : "")}>
+    <div className={cx(container, revert ? reverse : primaryBackground)}>
       <ImageContainer src={imageSrc} alt="image" cover size="mediumLandscape" />
       <TextContainer size={large ? "medium" : "small"}>
         <h2>{title}</h2>
@@ -37,12 +37,15 @@ const container = css({
   alignItems: "center",
   gap: "50px",
   padding: "100px 0",
-  backgroundColor: "backgroundSecondary",
 });
 
 const reverse = css({
   flexDirection: "row-reverse",
-  backgroundColor: "backgroundPrimary",
+  backgroundColor: "backgrounds.primary.extraLight",
+});
+
+const primaryBackground = css({
+  backgroundColor: "backgrounds.secondary.light",
 });
 
 export default ContentPanel;

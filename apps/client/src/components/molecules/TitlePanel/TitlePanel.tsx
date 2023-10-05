@@ -27,6 +27,6 @@ const container = css({
   alignItems: "center",
   gap: "50px",
   margin: "50px 0",
-  background: "backgroundPrimary",
+  background: "backgrounds.primary.light",
   padding: "75px",
 });

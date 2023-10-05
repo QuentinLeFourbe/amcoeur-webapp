@@ -1,27 +1,73 @@
+import { useEffect, useState } from "react";
 import { css, cx } from "../../../../styled-system/css";
 import FacebookIcon from "../../../assets/icons/facebook.svg?react";
 import { Link } from "react-router-dom";
+import AmcoeurLogo from "../../../assets/images/amcoeur-logo.webp";
 
 function Header() {
+  const [scrolling, setScrolling] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0 && !scrolling) {
+        setScrolling(true);
+      } else if (window.scrollY === 0 && scrolling) {
+        setScrolling(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrolling]);
+
+  const headerLinks = [
+    {
+      name: "Qui sommes-nous",
+      href: "/qui-sommes-nous",
+    },
+
+    {
+      name: "Agir",
+      href: "/agir",
+    },
+    {
+      name: "Besoin d'aide",
+      href: "/besoin-aide",
+    },
+    {
+      name: "Maltraitance",
+      href: "/besoin-aide",
+    },
+    {
+      name: "Donations",
+      href: "/donate",
+    },
+    {
+      name: "Nous contacter",
+      href: "/contact",
+    },
+  ];
+
   return (
     <>
-      <header className={header}>
-        <div className={logoContainer}>
-          <LogoLink src="https://via.placeholder.com/75" href="/" />
+      <header
+        className={cx(
+          header,
+          scrolling ? headerOnScrollPadding : headerScrollTopPadding
+        )}
+      >
+        <div className={cx(logoContainer, scrolling && logoReduced)}>
+          <LogoLink src={AmcoeurLogo} href="/" />
         </div>
         <div className={linksContainer}>
-          <Link className={cx(headerLink, textLink)} to="/qui-sommes-nous">
-            Qui sommes-nous
-          </Link>
-          <Link className={cx(headerLink, textLink)} to="/besoin-aide">
-            Maltraitance
-          </Link>
-          <Link className={cx(headerLink, textLink)} to="/donate">
-            Donations
-          </Link>
-          <Link className={cx(headerLink, textLink)} to="/contact">
-            Nous contacter
-          </Link>
+          {headerLinks.map((link) => (
+            <Link className={cx(headerLink, textLink)} to={link.href}>
+              {link.name}
+            </Link>
+          ))}
         </div>
 
         <a
@@ -49,7 +95,9 @@ const LogoLink = ({ src, href }: LogoLinkProps) => (
 
 const headerLink = css({
   textDecoration: "none",
-  fontWeight: "600",
+  fontWeight: "bold",
+  fontFamily: "body",
+  fontSize: "1.2rem",
 });
 
 const textLink = css({
@@ -67,38 +115,49 @@ const flexRow = css({
   alignItems: "center",
 });
 
-const logoContainer = css({
-  display: "flex",
-  flexFlow: "row wrap",
-  alignItems: "center",
-  justifyContent: "center",
-  gap: "15px",
-});
-
 const header = cx(
   flexRow,
   css({
-    padding: " 25px 10vw",
-    background: "headerBackground",
+    background: "backgrounds.primary.extraLight",
     gap: "10px",
+    position: "sticky",
+    zIndex: "100",
+    top: "0",
   })
 );
 
-const linksContainer = cx(flexRow, css({ gap: "30px" }));
+const headerScrollTopPadding = css({
+  padding: "25px 10vw",
+});
 
-// const burgerButton = css({
-//   background: "none",
-//   border: "none",
-//   cursor: "pointer",
-//   width: "40px",
-//   height: "40px",
-// });
+const headerOnScrollPadding = css({
+  padding: "10px 10vw",
+});
+
+const linksContainer = css({
+  display: "flex",
+  flexFlow: "row wrap",
+  justifyContent: "space-around",
+  alignItems: "center",
+  gap: "100px",
+});
 
 const maintenanceBanner = css({
   background: "yellow",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  color: "black",
+});
+
+const logoContainer = css({
+  width: "75px",
+  height: "75px",
+});
+
+const logoReduced = css({
+  width: "50px",
+  height: "50px",
 });
 
 export default Header;

@@ -143,18 +143,6 @@ const tokens = {
     "value": "2",
     "variable": "var(--line-heights-loose)"
   },
-  "fonts.sans": {
-    "value": "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
-    "variable": "var(--fonts-sans)"
-  },
-  "fonts.serif": {
-    "value": "ui-serif, Georgia, Cambria, \"Times New Roman\", Times, serif",
-    "variable": "var(--fonts-serif)"
-  },
-  "fonts.mono": {
-    "value": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace",
-    "variable": "var(--fonts-mono)"
-  },
   "letterSpacings.tighter": {
     "value": "-0.05em",
     "variable": "var(--letter-spacings-tighter)"
@@ -178,62 +166,6 @@ const tokens = {
   "letterSpacings.widest": {
     "value": "0.1em",
     "variable": "var(--letter-spacings-widest)"
-  },
-  "fontSizes.2xs": {
-    "value": "0.5rem",
-    "variable": "var(--font-sizes-2xs)"
-  },
-  "fontSizes.xs": {
-    "value": "0.75rem",
-    "variable": "var(--font-sizes-xs)"
-  },
-  "fontSizes.sm": {
-    "value": "0.875rem",
-    "variable": "var(--font-sizes-sm)"
-  },
-  "fontSizes.md": {
-    "value": "1rem",
-    "variable": "var(--font-sizes-md)"
-  },
-  "fontSizes.lg": {
-    "value": "1.125rem",
-    "variable": "var(--font-sizes-lg)"
-  },
-  "fontSizes.xl": {
-    "value": "1.25rem",
-    "variable": "var(--font-sizes-xl)"
-  },
-  "fontSizes.2xl": {
-    "value": "1.5rem",
-    "variable": "var(--font-sizes-2xl)"
-  },
-  "fontSizes.3xl": {
-    "value": "1.875rem",
-    "variable": "var(--font-sizes-3xl)"
-  },
-  "fontSizes.4xl": {
-    "value": "2.25rem",
-    "variable": "var(--font-sizes-4xl)"
-  },
-  "fontSizes.5xl": {
-    "value": "3rem",
-    "variable": "var(--font-sizes-5xl)"
-  },
-  "fontSizes.6xl": {
-    "value": "3.75rem",
-    "variable": "var(--font-sizes-6xl)"
-  },
-  "fontSizes.7xl": {
-    "value": "4.5rem",
-    "variable": "var(--font-sizes-7xl)"
-  },
-  "fontSizes.8xl": {
-    "value": "6rem",
-    "variable": "var(--font-sizes-8xl)"
-  },
-  "fontSizes.9xl": {
-    "value": "8rem",
-    "variable": "var(--font-sizes-9xl)"
   },
   "shadows.xs": {
     "value": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
@@ -674,10 +606,6 @@ const tokens = {
   "colors.black": {
     "value": "#000",
     "variable": "var(--colors-black)"
-  },
-  "colors.white": {
-    "value": "#fff",
-    "variable": "var(--colors-white)"
   },
   "colors.transparent": {
     "value": "rgb(0 0 0 / 0)",
@@ -1652,64 +1580,148 @@ const tokens = {
     "variable": "var(--colors-slate-950)"
   },
   "colors.textPrimary": {
-    "value": "#000000",
+    "value": "#333333",
     "variable": "var(--colors-text-primary)"
   },
   "colors.textSecondary": {
-    "value": "#ffffff",
+    "value": "#FFFFF0",
     "variable": "var(--colors-text-secondary)"
   },
-  "colors.backgroundPrimary": {
-    "value": "#FBE6F2",
-    "variable": "var(--colors-background-primary)"
+  "colors.pinkExtraLight": {
+    "value": "#FFF0F5",
+    "variable": "var(--colors-pink-extra-light)"
   },
-  "colors.backgroundSecondary": {
-    "value": "#ffffff",
-    "variable": "var(--colors-background-secondary)"
+  "colors.pinkLight": {
+    "value": "#FFC0CB",
+    "variable": "var(--colors-pink-light)"
   },
-  "colors.backgroundTertiary": {
-    "value": "#FC88C0",
-    "variable": "var(--colors-background-tertiary)"
+  "colors.pinkMedium": {
+    "value": "#FF69B4",
+    "variable": "var(--colors-pink-medium)"
   },
-  "colors.buttonPrimary": {
-    "value": "#FC85BE",
-    "variable": "var(--colors-button-primary)"
+  "colors.pinkBright": {
+    "value": "#FF1493",
+    "variable": "var(--colors-pink-bright)"
   },
-  "colors.buttonPrimaryHover": {
-    "value": "#ff057a",
-    "variable": "var(--colors-button-primary-hover)"
+  "colors.white": {
+    "value": "#FFFFFF",
+    "variable": "var(--colors-white)"
   },
-  "colors.buttonSecondary": {
-    "value": "#f7d4e4",
-    "variable": "var(--colors-button-secondary)"
+  "colors.whiteIcy": {
+    "value": "#F5FFFA",
+    "variable": "var(--colors-white-icy)"
   },
-  "colors.buttonSecondaryHover": {
-    "value": "#f7d4e4",
-    "variable": "var(--colors-button-secondary-hover)"
+  "colors.paleGrey": {
+    "value": "#F0F0F0",
+    "variable": "var(--colors-pale-grey)"
   },
-  "colors.buttonTertiary": {
-    "value": "#f4f4f4",
-    "variable": "var(--colors-button-tertiary)"
+  "colors.veryPaleGrey": {
+    "value": "#F5F5F5",
+    "variable": "var(--colors-very-pale-grey)"
   },
-  "colors.buttonTertiaryHover": {
-    "value": "#e8e8e8",
-    "variable": "var(--colors-button-tertiary-hover)"
+  "colors.creamWhite": {
+    "value": "#FFFFF0",
+    "variable": "var(--colors-cream-white)"
   },
-  "colors.buttonTertiaryActive": {
-    "value": "#d6d6d6",
-    "variable": "var(--colors-button-tertiary-active)"
+  "colors.greenish": {
+    "value": "#004040 ",
+    "variable": "var(--colors-greenish)"
   },
-  "colors.buttonPanel": {
-    "value": "#f9f9f9",
-    "variable": "var(--colors-button-panel)"
+  "colors.palePurple": {
+    "value": "#E6E6FA ",
+    "variable": "var(--colors-pale-purple)"
   },
-  "colors.footerBackground": {
-    "value": "#FA057A",
-    "variable": "var(--colors-footer-background)"
+  "colors.pinkGold": {
+    "value": "#FFD700  ",
+    "variable": "var(--colors-pink-gold)"
   },
-  "colors.headerBackground": {
-    "value": "#fff7fb",
-    "variable": "var(--colors-header-background)"
+  "colors.skyBlue": {
+    "value": "#87CEFA  ",
+    "variable": "var(--colors-sky-blue)"
+  },
+  "fonts.sans": {
+    "value": "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+    "variable": "var(--fonts-sans)"
+  },
+  "fonts.serif": {
+    "value": "ui-serif, Georgia, Cambria, \"Times New Roman\", Times, serif",
+    "variable": "var(--fonts-serif)"
+  },
+  "fonts.mono": {
+    "value": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace",
+    "variable": "var(--fonts-mono)"
+  },
+  "fonts.body": {
+    "value": "var(--font-roboto), sans-serif",
+    "variable": "var(--fonts-body)"
+  },
+  "fonts.heading": {
+    "value": "var(--font-playfair), serif",
+    "variable": "var(--fonts-heading)"
+  },
+  "fontSizes.2xs": {
+    "value": "0.5rem",
+    "variable": "var(--font-sizes-2xs)"
+  },
+  "fontSizes.xs": {
+    "value": "0.75rem",
+    "variable": "var(--font-sizes-xs)"
+  },
+  "fontSizes.sm": {
+    "value": "0.875rem",
+    "variable": "var(--font-sizes-sm)"
+  },
+  "fontSizes.md": {
+    "value": "1rem",
+    "variable": "var(--font-sizes-md)"
+  },
+  "fontSizes.lg": {
+    "value": "1.125rem",
+    "variable": "var(--font-sizes-lg)"
+  },
+  "fontSizes.xl": {
+    "value": "1.25rem",
+    "variable": "var(--font-sizes-xl)"
+  },
+  "fontSizes.2xl": {
+    "value": "1.5rem",
+    "variable": "var(--font-sizes-2xl)"
+  },
+  "fontSizes.3xl": {
+    "value": "1.875rem",
+    "variable": "var(--font-sizes-3xl)"
+  },
+  "fontSizes.4xl": {
+    "value": "2.25rem",
+    "variable": "var(--font-sizes-4xl)"
+  },
+  "fontSizes.5xl": {
+    "value": "3rem",
+    "variable": "var(--font-sizes-5xl)"
+  },
+  "fontSizes.6xl": {
+    "value": "3.75rem",
+    "variable": "var(--font-sizes-6xl)"
+  },
+  "fontSizes.7xl": {
+    "value": "4.5rem",
+    "variable": "var(--font-sizes-7xl)"
+  },
+  "fontSizes.8xl": {
+    "value": "6rem",
+    "variable": "var(--font-sizes-8xl)"
+  },
+  "fontSizes.9xl": {
+    "value": "8rem",
+    "variable": "var(--font-sizes-9xl)"
+  },
+  "fontSizes.header": {
+    "value": "24px",
+    "variable": "var(--font-sizes-header)"
+  },
+  "fontSizes.body": {
+    "value": "16px",
+    "variable": "var(--font-sizes-body)"
   },
   "breakpoints.sm": {
     "value": "640px",
@@ -1730,6 +1742,62 @@ const tokens = {
   "breakpoints.2xl": {
     "value": "1536px",
     "variable": "var(--breakpoints-2xl)"
+  },
+  "colors.buttons.primary.background": {
+    "value": "var(--colors-buttons-primary-background)",
+    "variable": "var(--colors-buttons-primary-background)"
+  },
+  "colors.buttons.primary.backgroundHover": {
+    "value": "var(--colors-buttons-primary-background-hover)",
+    "variable": "var(--colors-buttons-primary-background-hover)"
+  },
+  "colors.buttons.primary.backgroundActive": {
+    "value": "var(--colors-buttons-primary-background-active)",
+    "variable": "var(--colors-buttons-primary-background-active)"
+  },
+  "colors.buttons.primary.text": {
+    "value": "var(--colors-buttons-primary-text)",
+    "variable": "var(--colors-buttons-primary-text)"
+  },
+  "colors.backgrounds.primary.extraLight": {
+    "value": "var(--colors-backgrounds-primary-extra-light)",
+    "variable": "var(--colors-backgrounds-primary-extra-light)"
+  },
+  "colors.backgrounds.primary.light": {
+    "value": "var(--colors-backgrounds-primary-light)",
+    "variable": "var(--colors-backgrounds-primary-light)"
+  },
+  "colors.backgrounds.primary.medium": {
+    "value": "var(--colors-backgrounds-primary-medium)",
+    "variable": "var(--colors-backgrounds-primary-medium)"
+  },
+  "colors.backgrounds.primary.intense": {
+    "value": "var(--colors-backgrounds-primary-intense)",
+    "variable": "var(--colors-backgrounds-primary-intense)"
+  },
+  "colors.backgrounds.secondary.light": {
+    "value": "var(--colors-backgrounds-secondary-light)",
+    "variable": "var(--colors-backgrounds-secondary-light)"
+  },
+  "colors.backgrounds.secondary.medium": {
+    "value": "var(--colors-backgrounds-secondary-medium)",
+    "variable": "var(--colors-backgrounds-secondary-medium)"
+  },
+  "colors.backgrounds.secondary.intense": {
+    "value": "var(--colors-backgrounds-secondary-intense)",
+    "variable": "var(--colors-backgrounds-secondary-intense)"
+  },
+  "colors.backgrounds.tertiary.light": {
+    "value": "var(--colors-backgrounds-tertiary-light)",
+    "variable": "var(--colors-backgrounds-tertiary-light)"
+  },
+  "colors.backgrounds.tertiary.medium": {
+    "value": "var(--colors-backgrounds-tertiary-medium)",
+    "variable": "var(--colors-backgrounds-tertiary-medium)"
+  },
+  "colors.backgrounds.tertiary.intense": {
+    "value": "var(--colors-backgrounds-tertiary-intense)",
+    "variable": "var(--colors-backgrounds-tertiary-intense)"
   },
   "spacing.-1": {
     "value": "calc(var(--spacing-1) * -1)",
@@ -1906,6 +1974,94 @@ const tokens = {
   "colors.colorPalette.950": {
     "value": "var(--colors-color-palette-950)",
     "variable": "var(--colors-color-palette-950)"
+  },
+  "colors.colorPalette.primary.background": {
+    "value": "var(--colors-color-palette-primary-background)",
+    "variable": "var(--colors-color-palette-primary-background)"
+  },
+  "colors.colorPalette.background": {
+    "value": "var(--colors-color-palette-background)",
+    "variable": "var(--colors-color-palette-background)"
+  },
+  "colors.colorPalette.primary.backgroundHover": {
+    "value": "var(--colors-color-palette-primary-background-hover)",
+    "variable": "var(--colors-color-palette-primary-background-hover)"
+  },
+  "colors.colorPalette.backgroundHover": {
+    "value": "var(--colors-color-palette-background-hover)",
+    "variable": "var(--colors-color-palette-background-hover)"
+  },
+  "colors.colorPalette.primary.backgroundActive": {
+    "value": "var(--colors-color-palette-primary-background-active)",
+    "variable": "var(--colors-color-palette-primary-background-active)"
+  },
+  "colors.colorPalette.backgroundActive": {
+    "value": "var(--colors-color-palette-background-active)",
+    "variable": "var(--colors-color-palette-background-active)"
+  },
+  "colors.colorPalette.primary.text": {
+    "value": "var(--colors-color-palette-primary-text)",
+    "variable": "var(--colors-color-palette-primary-text)"
+  },
+  "colors.colorPalette.text": {
+    "value": "var(--colors-color-palette-text)",
+    "variable": "var(--colors-color-palette-text)"
+  },
+  "colors.colorPalette.primary.extraLight": {
+    "value": "var(--colors-color-palette-primary-extra-light)",
+    "variable": "var(--colors-color-palette-primary-extra-light)"
+  },
+  "colors.colorPalette.extraLight": {
+    "value": "var(--colors-color-palette-extra-light)",
+    "variable": "var(--colors-color-palette-extra-light)"
+  },
+  "colors.colorPalette.primary.light": {
+    "value": "var(--colors-color-palette-primary-light)",
+    "variable": "var(--colors-color-palette-primary-light)"
+  },
+  "colors.colorPalette.light": {
+    "value": "var(--colors-color-palette-light)",
+    "variable": "var(--colors-color-palette-light)"
+  },
+  "colors.colorPalette.primary.medium": {
+    "value": "var(--colors-color-palette-primary-medium)",
+    "variable": "var(--colors-color-palette-primary-medium)"
+  },
+  "colors.colorPalette.medium": {
+    "value": "var(--colors-color-palette-medium)",
+    "variable": "var(--colors-color-palette-medium)"
+  },
+  "colors.colorPalette.primary.intense": {
+    "value": "var(--colors-color-palette-primary-intense)",
+    "variable": "var(--colors-color-palette-primary-intense)"
+  },
+  "colors.colorPalette.intense": {
+    "value": "var(--colors-color-palette-intense)",
+    "variable": "var(--colors-color-palette-intense)"
+  },
+  "colors.colorPalette.secondary.light": {
+    "value": "var(--colors-color-palette-secondary-light)",
+    "variable": "var(--colors-color-palette-secondary-light)"
+  },
+  "colors.colorPalette.secondary.medium": {
+    "value": "var(--colors-color-palette-secondary-medium)",
+    "variable": "var(--colors-color-palette-secondary-medium)"
+  },
+  "colors.colorPalette.secondary.intense": {
+    "value": "var(--colors-color-palette-secondary-intense)",
+    "variable": "var(--colors-color-palette-secondary-intense)"
+  },
+  "colors.colorPalette.tertiary.light": {
+    "value": "var(--colors-color-palette-tertiary-light)",
+    "variable": "var(--colors-color-palette-tertiary-light)"
+  },
+  "colors.colorPalette.tertiary.medium": {
+    "value": "var(--colors-color-palette-tertiary-medium)",
+    "variable": "var(--colors-color-palette-tertiary-medium)"
+  },
+  "colors.colorPalette.tertiary.intense": {
+    "value": "var(--colors-color-palette-tertiary-intense)",
+    "variable": "var(--colors-color-palette-tertiary-intense)"
   }
 }
 

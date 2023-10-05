@@ -1,5 +1,11 @@
 import { theme } from "./src/theme/theme";
-import { defineConfig } from "@pandacss/dev";
+import { defineConfig, defineGlobalStyles } from "@pandacss/dev";
+
+const globalCss = defineGlobalStyles({
+  "html, body": {
+    fontFamily: "body",
+  },
+});
 
 export default defineConfig({
   // Whether to use css reset
@@ -16,4 +22,5 @@ export default defineConfig({
 
   // The output directory for your css system
   outdir: "styled-system",
+  globalCss,
 });

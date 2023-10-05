@@ -1,15 +1,14 @@
 import ContentPanel from "../components/molecules/ContentPanel/ContentPanel";
 import ContentButton from "../components/atoms/ContentButton/ContentButton";
 import Banner from "../components/atoms/Banner/Banner";
+import donateImage from "../assets/images/chien-dons.webp";
+import lotoImage from "../assets/images/chat-chien.webp";
 
 const IndexPage = () => {
   return (
     <>
-      <Banner>
-        Bienvenue sur le site de Amcoeur, association dédiée à la protection des
-        animaux.
-      </Banner>
-      <ContentPanel title="Super loto Amcoeur !">
+      <Banner>Protéger. Aimer. Secourir. Agir. </Banner>
+      <ContentPanel title="Loto Amcoeur !" imageSrc={lotoImage}>
         <p>
           Participez au loto de notre association dédiée à la protection des
           animaux, et offrez-leur une chance de vie meilleure. Chaque ticket que
@@ -19,21 +18,16 @@ const IndexPage = () => {
         </p>
         <ContentButton>En savoir plus</ContentButton>
       </ContentPanel>
-      <ContentPanel
-        revert
-        title="Abandon, cruauté, maltraitance"
-        imageSrc="https://www.canidia.be/wp-content/uploads/2016/06/chien-triste-bloblog-1300x650.jpg"
-      >
+      <ContentPanel revert title="Appel aux dons" imageSrc={donateImage}>
         <p>
-          Ensemble contre l'abandon et la maltraitance animale ! Nous sommes une
-          voix pour les sans-voix, luttant contre l'injustice envers nos
-          compagnons vulnérables. Rejoignez notre mouvement pour sensibiliser,
-          dénoncer et mettre fin à ces actes cruels. Chaque action compte pour
-          créer un monde où chaque être vivant est traité avec respect et amour.
+          Soutenez Amcoeur et soyez le cœur qui bat pour nos amis à quatre
+          pattes. Chaque don compte pour offrir une vie meilleure à ces
+          compagnons fidèles. Ensemble, battons-nous pour un monde où l'amour et
+          la protection règnent. 🐾❤️
         </p>
-        <ContentButton>En savoir plus</ContentButton>
+        <ContentButton href="/donate">En savoir plus</ContentButton>
       </ContentPanel>
-      <ContentPanel
+      {/* <ContentPanel
         title="Devenir famille d'accueil"
         imageSrc="https://www.zooplus.fr/magazine/wp-content/uploads/2019/04/chat-se-fait-caliner-1024x683.jpg"
       >
@@ -46,10 +40,9 @@ const IndexPage = () => {
           compagnons en transition.
         </p>
         <ContentButton href="/famille-accueil">Ca m'intéresse</ContentButton>
-      </ContentPanel>
+      </ContentPanel> */}
     </>
   );
 };
 
 export default IndexPage;
-
