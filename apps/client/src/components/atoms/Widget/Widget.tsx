@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function Widget() {
   const [atBottom, setAtBottom] = useState(false);
-  const [hovered, setHovered] = useState(false);
+ 
 
   const handleScroll = () => {
     const widgetElement = document.querySelector(
@@ -27,11 +27,9 @@ function Widget() {
 
   return (
     <div
-      className={`donation-widget ${widgetStyle} ${atBottom ? "hidden" : ""} ${
-        hovered ? "hovered" : ""
+      className={`donation-widget ${widgetStyle} ${atBottom ? "hidden" : ""} 
       }`}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+ 
     >
       <Link to="/donate" className={cx(widgetButtonStyle, widgetContentStyle)}>
         <DonationLogo className={widgetLogo} />

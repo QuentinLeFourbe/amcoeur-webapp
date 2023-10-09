@@ -3,7 +3,6 @@ import ContentButton from "../components/atoms/ContentButton/ContentButton";
 import Banner from "../components/atoms/Banner/Banner";
 import donateImage from "../assets/images/chien-dons.webp";
 import lotoImage from "../assets/images/chat-chien.webp";
-import Widget from "../components/atoms/Widget/Widget";
 
 const IndexPage = () => {
   return (
@@ -12,7 +11,6 @@ const IndexPage = () => {
         Bienvenue sur le site de Amcoeur, association dédiée à la protection des
         animaux.
       </Banner>
-      <Widget />
       <ContentPanel title="Loto Amcoeur !" imageSrc={lotoImage}>
         <p>
           Participez au loto de notre association dédiée à la protection des
