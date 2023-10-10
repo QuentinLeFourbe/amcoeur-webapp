@@ -2,7 +2,6 @@
 **\node_modules
 **\.cache
 **\public
-**\src\gatsby-types.d.ts
 **\dist
 
 **\.env
@@ -10,29 +9,4 @@
 # flyctl launch added from .husky\_\.gitignore
 .husky\_\**\*
 
-# flyctl launch added from apps\client\.gitignore
-# Logs
-apps\client\**\logs
-apps\client\**\*.log
-apps\client\**\npm-debug.log*
-apps\client\**\yarn-debug.log*
-apps\client\**\yarn-error.log*
-apps\client\**\pnpm-debug.log*
-apps\client\**\lerna-debug.log*
-
-apps\client\**\node_modules
-apps\client\**\dist
-apps\client\**\dist-ssr
-apps\client\**\*.local
-
-# Editor directories and files
-apps\client\**\.vscode\*
-!apps\client\**\.vscode\extensions.json
-apps\client\**\.idea
-apps\client\**\.DS_Store
-apps\client\**\*.suo
-apps\client\**\*.ntvs*
-apps\client\**\*.njsproj
-apps\client\**\*.sln
-apps\client\**\*.sw?
 fly.toml
