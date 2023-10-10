@@ -37,10 +37,9 @@ export default function Form() {
   });
 
   const onSubmit = (data: ContactData) => {
-    console.log("ONSUBMIT", { data });
-    sendContactEmail(data).then((res) => console.log(res));
+    sendContactEmail(data);
   };
-  console.log(errors, "ceci est les erreurs");
+
   return (
     <div>
       <form className={formContainer} onSubmit={handleSubmit(onSubmit)}>
