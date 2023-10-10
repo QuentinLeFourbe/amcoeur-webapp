@@ -8,24 +8,25 @@ import FormInput from "./FormInput";
 import FormLabel from "./FormLabel";
 import FormTextArea from "./FormTextArea";
 
-const schema = yup.object().shape({
-  name: yup.string().required("Nom est requis"),
-  firstname: yup.string().required("Prénom est requis"),
-  mail: yup
-    .string()
-    .required("Email est requis")
-    .email("Adresse email invalide"),
-  phone: yup
-    .string()
-    .matches(
-      /^\d+$/,
-      "Le numéro de téléphone doit contenir uniquement des chiffres"
-    )
-    .min(10, "Votre numéro de téléphone doit avoir au moins 10 chiffres")
-    .max(15, "Votre numéro de téléphone doit avoir 15 chiffres ou moins"),
-  message: yup.string().required("Message est requis"),
-});
-
+const schema = yup
+  .object({
+    name: yup.string().required("Nom est requis"),
+    firstname: yup.string().required("Prénom est requis"),
+    mail: yup
+      .string()
+      .required("Email est caca requis")
+      .email("Adresse email invalide"),
+    phone: yup
+      .string()
+      .matches(
+        /^\d+$/,
+        "Le numéro de téléphone doit contenir uniquement des chiffres"
+      )
+      .min(10, "Votre numéro de téléphone doit avoir au moins 10 chiffres")
+      .max(15, "Votre numéro de téléphone doit avoir 15 chiffres ou moins"),
+    message: yup.string().required("Message est requis"),
+  })
+  .required();
 export default function Form() {
   const {
     register,
@@ -39,22 +40,19 @@ export default function Form() {
     console.log("ONSUBMIT", { data });
     sendContactEmail(data).then((res) => console.log(res));
   };
-
+  console.log(errors, "ceci est les erreurs");
   return (
     <div>
       <form className={formContainer} onSubmit={handleSubmit(onSubmit)}>
         <div className={formRow}>
           <div className={formCol}>
             <FormLabel>Nom*</FormLabel>
-            <FormInput type="text" {...register("name", { required: true })} />
+            <FormInput {...register("name")} />
             {errors.name && <p className={errorForm}>{errors.name.message}</p>}
           </div>{" "}
           <div className={formCol}>
             <FormLabel>Prénom*</FormLabel>
-            <FormInput
-              type="text"
-              {...register("firstname", { required: true })}
-            />{" "}
+            <FormInput {...register("firstname")} />{" "}
             {errors.firstname && (
               <p className={errorForm}>{errors.firstname.message}</p>
             )}
@@ -63,19 +61,19 @@ export default function Form() {
         <div className={formRow}>
           <div className={formCol}>
             <FormLabel>Email*</FormLabel>
-            <FormInput type="text" {...register("mail", { required: true })} />
+            <FormInput {...register("mail")} />
             {errors.mail && <p className={errorForm}>{errors.mail.message}</p>}
           </div>
           <div className={formCol}>
             <FormLabel>Téléphone</FormLabel>
-            <FormInput type="tel" {...register("phone")} />
+            <FormInput {...register("phone")} />
             {errors.phone && (
               <p className={errorForm}>{errors.phone.message}</p>
             )}
           </div>
         </div>
         <FormLabel>Message</FormLabel>
-        <FormTextArea {...register("message", { required: true })} />
+        <FormTextArea {...register("message")} />
         {errors.message && (
           <p className={errorForm}>{errors.message.message}</p>
         )}

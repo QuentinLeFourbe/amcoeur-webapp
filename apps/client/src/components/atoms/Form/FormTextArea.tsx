@@ -1,10 +1,16 @@
+import React from "react";
 import { css } from "../../../../styled-system/css";
+import { UseFormRegister } from "react-hook-form";
+import { ContactData } from "../../../types/email";
 
 type FormTextAreaProps = React.InputHTMLAttributes<HTMLTextAreaElement>;
 
-function FormTextArea(props: FormTextAreaProps) {
-  return <textarea className={textAreaStyle} {...props} />;
-}
+const FormTextArea = React.forwardRef<
+  HTMLTextAreaElement,
+  ReturnType<UseFormRegister<ContactData>>
+>(({ ...props }: FormTextAreaProps, ref) => {
+  return <textarea ref={ref} className={textAreaStyle} {...props} />;
+});
 
 export default FormTextArea;
 

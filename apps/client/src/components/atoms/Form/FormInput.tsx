@@ -1,10 +1,16 @@
+import React from "react";
 import { css } from "../../../../styled-system/css";
+import { UseFormRegister } from "react-hook-form";
+import { ContactData } from "../../../types/email";
 
 type FormInputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
-function FormInput(props: FormInputProps) {
-  return <input className={inputStyle} {...props} />;
-}
+const FormInput = React.forwardRef<
+  HTMLInputElement,
+  ReturnType<UseFormRegister<ContactData>>
+>(({ ...props }: FormInputProps, ref) => {
+  return <input ref={ref} className={inputStyle} {...props} />;
+});
 
 export default FormInput;
 
