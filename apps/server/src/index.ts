@@ -10,12 +10,12 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 app.use(helmet());
-app.use(express.static(path.join(__dirname, "../client/dist")));
+app.use(express.static(path.join(__dirname, "../../client/dist")));
 
 app.use("/api/email", emailRoutes);
 
 app.get("/*", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+  res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
 });
 
 app.listen(PORT, () => {
