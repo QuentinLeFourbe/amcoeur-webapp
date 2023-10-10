@@ -5,7 +5,7 @@ FROM node:lts
 WORKDIR .
 
 # Copie de la racine de ton monorepo
-COPY . 
+COPY . .
 
 # Installation des dépendances
 RUN npm install
