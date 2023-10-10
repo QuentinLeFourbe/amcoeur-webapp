@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 function Widget() {
   const [atBottom, setAtBottom] = useState(false);
- 
 
   const handleScroll = () => {
     const widgetElement = document.querySelector(
@@ -29,7 +28,6 @@ function Widget() {
     <div
       className={`donation-widget ${widgetStyle} ${atBottom ? "hidden" : ""} 
       }`}
- 
     >
       <Link to="/donate" className={cx(widgetButtonStyle, widgetContentStyle)}>
         <DonationLogo className={widgetLogo} />
