@@ -2,12 +2,39 @@ import { useForm } from "react-hook-form";
 import { css } from "../../../../styled-system/css";
 import { ContactData } from "../../../types/email";
 import { sendContactEmail } from "../../../api/emails";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import FormInput from "./FormInput";
 import FormLabel from "./FormLabel";
 import FormTextArea from "./FormTextArea";
 
+const schema = yup.object().shape({
+  name: yup.string().required("Nom est requis"),
+  firstname: yup.string().required("Prénom est requis"),
+  mail: yup
+    .string()
+    .required("Email est requis")
+    .email("Adresse email invalide"),
+  phone: yup
+    .string()
+    .nullable()
+    .matches(
+      /^\d+$/,
+      "Le numéro de téléphone doit contenir uniquement des chiffres"
+    )
+    .min(10, "Votre numéro de téléphone doit avoir au moins 10 chiffres")
+    .max(15, "Votre numéro de téléphone doit avoir 15 chiffres ou moins"),
+  message: yup.string().required("Message est requis"),
+});
+
 export default function Form() {
-  const { register, handleSubmit } = useForm<ContactData>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ContactData>({
+    resolver: yupResolver(schema),
+  });
 
   const onSubmit = (data: ContactData) => {
     console.log("ONSUBMIT", { data });
@@ -21,27 +48,38 @@ export default function Form() {
           <div className={formCol}>
             <FormLabel>Nom*</FormLabel>
             <FormInput type="text" {...register("name", { required: true })} />
-          </div>
+            {errors.name && <p className={errorForm}>{errors.name.message}</p>}
+          </div>{" "}
           <div className={formCol}>
             <FormLabel>Prénom*</FormLabel>
             <FormInput
               type="text"
               {...register("firstname", { required: true })}
-            />
+            />{" "}
+            {errors.firstname && (
+              <p className={errorForm}>{errors.firstname.message}</p>
+            )}
           </div>
         </div>
         <div className={formRow}>
           <div className={formCol}>
             <FormLabel>Email*</FormLabel>
             <FormInput type="text" {...register("mail", { required: true })} />
+            {errors.mail && <p className={errorForm}>{errors.mail.message}</p>}
           </div>
           <div className={formCol}>
             <FormLabel>Téléphone</FormLabel>
             <FormInput type="tel" {...register("phone")} />
+            {errors.phone && (
+              <p className={errorForm}>{errors.phone.message}</p>
+            )}
           </div>
         </div>
         <FormLabel>Message</FormLabel>
         <FormTextArea {...register("message", { required: true })} />
+        {errors.message && (
+          <p className={errorForm}>{errors.message.message}</p>
+        )}
 
         <button className={submitButtonStyle} type="submit">
           Envoyer
@@ -89,4 +127,7 @@ const submitButtonStyle = css({
   "&:active": {
     backgroundColor: "buttons.primary.backgroundActive",
   },
+});
+const errorForm = css({
+  color: "red",
 });
