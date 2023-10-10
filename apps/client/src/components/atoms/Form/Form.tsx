@@ -17,7 +17,6 @@ const schema = yup.object().shape({
     .email("Adresse email invalide"),
   phone: yup
     .string()
-    .nullable()
     .matches(
       /^\d+$/,
       "Le numéro de téléphone doit contenir uniquement des chiffres"
@@ -101,7 +100,7 @@ const formRow = css({
   justifyContent: "center",
   flexFlow: "row nowrap",
   gap: "20px",
-  alignItems: "center",
+  alignItems: "flex-start",
   width: "70%",
   marginTop: "10px",
 });
