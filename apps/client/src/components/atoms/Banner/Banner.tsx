@@ -1,6 +1,6 @@
 import React from "react";
 import { css } from "../../../../styled-system/css";
-import defaultBannerImage from "../../../assets/images/chat-pelouse-3.webp";
+import defaultBannerImage from "../../../assets/images/banner-chat.webp";
 
 type BannerProps = {
   children: React.ReactNode;

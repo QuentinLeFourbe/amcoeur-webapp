@@ -1,4 +1,4 @@
-import { ContactData } from "./../../client/src/types/email";
+import { ContactData } from "../../../client/src/types/email";
 import nodemailer from "nodemailer";
 import { google } from "googleapis";
 import { Request, Response } from "express";
