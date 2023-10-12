@@ -63,8 +63,12 @@ function Header() {
           <LogoLink src={AmcoeurLogo} href="/" />
         </div>
         <div className={linksContainer}>
-          {headerLinks.map((link) => (
-            <Link className={cx(headerLink, textLink)} to={link.href}>
+          {headerLinks.map((link, index) => (
+            <Link
+              key={index}
+              className={cx(headerLink, textLink)}
+              to={link.href}
+            >
               {link.name}
             </Link>
           ))}
