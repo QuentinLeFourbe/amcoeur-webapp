@@ -7,7 +7,10 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 function Button({ children, ...props }: ButtonProps) {
   return (
-    <button className={cx(borderStyle, buttonStyle)} {...props}>
+    <button
+      {...props}
+      className={cx(borderStyle, buttonStyle, props.className)}
+    >
       {children}
     </button>
   );

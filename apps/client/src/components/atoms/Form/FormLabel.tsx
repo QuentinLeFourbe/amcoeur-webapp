@@ -1,7 +1,7 @@
 import { css } from "../../../../styled-system/css";
 
 type FormLabelProps = React.LabelHTMLAttributes<HTMLLabelElement> & {
-  children: string;
+  children: React.ReactNode;
 };
 
 export default function FormLabel({ children, ...props }: FormLabelProps) {
@@ -16,4 +16,5 @@ const labelStyle = css({
   fontWeight: "bold",
   cursor: "pointer",
   display: "flex",
+  marginBottom: "0.5rem",
 });

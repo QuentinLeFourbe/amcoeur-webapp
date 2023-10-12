@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { css } from "../../../../styled-system/css";
 import { ContactData } from "../../../types/email";
 import { sendContactEmail } from "../../../api/emails";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,6 +9,7 @@ import FormTextArea from "../../atoms/Form/FormTextArea";
 import Form from "../../atoms/Form/Form";
 import FormErrorLabel from "../../atoms/Form/FormErrorLabel";
 import Button from "../../atoms/Button/Button";
+import FormRow from "../../atoms/Form/FormRow";
 
 const schema = yup
   .object({
@@ -45,72 +45,42 @@ export default function ContactForm() {
   };
 
   return (
-    <div>
-      <Form className={formContainer} onSubmit={handleSubmit(onSubmit)}>
-        <div className={formRow}>
-          <div className={formCol}>
-            <FormLabel>Nom*</FormLabel>
-            <FormInput {...register("name")} />
-            {errors.name && (
-              <FormErrorLabel>{errors.name.message}</FormErrorLabel>
-            )}
-          </div>
-          <div className={formCol}>
-            <FormLabel>Prénom*</FormLabel>
-            <FormInput {...register("firstname")} />{" "}
-            {errors.firstname && (
-              <FormErrorLabel>{errors.firstname.message}</FormErrorLabel>
-            )}
-          </div>
-        </div>
-        <div className={formRow}>
-          <div className={formCol}>
-            <FormLabel>Email*</FormLabel>
-            <FormInput {...register("mail")} />
-            {errors.mail && (
-              <FormErrorLabel>{errors.mail.message}</FormErrorLabel>
-            )}
-          </div>
-          <div className={formCol}>
-            <FormLabel>Téléphone</FormLabel>
-            <FormInput {...register("phone")} />
-            {errors.phone && (
-              <FormErrorLabel>{errors.phone.message}</FormErrorLabel>
-            )}
-          </div>
-        </div>
-        <FormLabel>Message</FormLabel>
-        <FormTextArea {...register("message")} />
-        {errors.message && (
-          <FormErrorLabel>{errors.message.message}</FormErrorLabel>
-        )}
-
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <FormInput
+        {...register("name")}
+        errorMessage={errors.name && errors.name.message}
+      >
+        Nom*
+      </FormInput>
+      <FormInput
+        {...register("firstname")}
+        errorMessage={errors.firstname && errors.firstname.message}
+      >
+        Prénom*
+      </FormInput>
+      <FormInput
+        {...register("mail")}
+        errorMessage={errors.mail && errors.mail.message}
+      >
+        Email*
+      </FormInput>
+      <FormInput
+        {...register("phone")}
+        errorMessage={errors.phone && errors.phone.message}
+      >
+        Téléphone
+      </FormInput>
+      <FormRow>
+        <FormTextArea
+          {...register("message")}
+          errorMessage={errors.message && errors.message.message}
+        >
+          Message
+        </FormTextArea>
+      </FormRow>
+      <FormRow centerContent>
         <Button type="submit">Envoyer</Button>
-      </Form>
-    </div>
+      </FormRow>
+    </Form>
   );
 }
-const formContainer = css({
-  display: "flex",
-  justifyContent: "center",
-  flexFlow: "column wrap",
-  gap: "10px",
-  alignItems: "center",
-});
-
-const formRow = css({
-  display: "flex",
-  justifyContent: "center",
-  flexFlow: "row nowrap",
-  gap: "20px",
-  alignItems: "flex-start",
-  width: "70%",
-  marginTop: "10px",
-});
-const formCol = css({
-  display: "flex",
-  flexFlow: "column wrap",
-  gap: "10px",
-  textAlign: "left",
-  width: "40%",
-});

@@ -2,14 +2,25 @@ import React from "react";
 import { css } from "../../../../styled-system/css";
 import { UseFormRegister } from "react-hook-form";
 import { ContactData } from "../../../types/email";
+import FormLabel from "./FormLabel";
+import FormErrorLabel from "./FormErrorLabel";
 
-type FormTextAreaProps = React.InputHTMLAttributes<HTMLTextAreaElement>;
+type FormTextAreaProps = React.InputHTMLAttributes<HTMLTextAreaElement> & {
+  children: React.ReactNode;
+  errorMessage?: string;
+};
 
 const FormTextArea = React.forwardRef<
   HTMLTextAreaElement,
-  ReturnType<UseFormRegister<ContactData>>
->(({ ...props }: FormTextAreaProps, ref) => {
-  return <textarea ref={ref} className={textAreaStyle} {...props} />;
+  FormTextAreaProps & ReturnType<UseFormRegister<ContactData>>
+>(({ children, errorMessage, ...props }: FormTextAreaProps, ref) => {
+  return (
+    <div>
+      <FormLabel>{children}</FormLabel>
+      <textarea ref={ref} className={textAreaStyle} {...props} />
+      {errorMessage && <FormErrorLabel>{errorMessage}</FormErrorLabel>}
+    </div>
+  );
 });
 
 export default FormTextArea;
@@ -17,10 +28,9 @@ export default FormTextArea;
 const textAreaStyle = css({
   display: "flex",
   justifyContent: "flex-start",
-  fontSize: "22px",
   backgroundColor: "backgrounds.primary.extraLight",
   borderRadius: "4px",
-  border: "1px solid #ccc",
-  width: "50%",
-  marginTop: "8px",
+  width: "100%",
+  height: "200px",
+  resize: "none",
 });
