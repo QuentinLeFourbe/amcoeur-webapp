@@ -3,11 +3,9 @@ import { ContactData } from "../../../types/email";
 import { sendContactEmail } from "../../../api/emails";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import FormLabel from "../../atoms/Form/FormLabel";
 import FormInput from "../../atoms/Form/FormInput";
 import FormTextArea from "../../atoms/Form/FormTextArea";
 import Form from "../../atoms/Form/Form";
-import FormErrorLabel from "../../atoms/Form/FormErrorLabel";
 import Button from "../../atoms/Button/Button";
 import FormRow from "../../atoms/Form/FormRow";
 
