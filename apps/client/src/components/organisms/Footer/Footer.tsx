@@ -1,6 +1,6 @@
 import { css } from "../../../../styled-system/css";
 import Link from "../../atoms/Link/Link";
-import AmcoeurLogo from "../../../assets/images/amcoeur-logo.webp";
+import AmcoeurLogo from "../../../assets/images/am-logo.webp";
 
 function Footer() {
   return (
@@ -16,10 +16,16 @@ function Footer() {
         </div>
         <p>Amcoeur - Copyright 2023</p>
       </div>
-      <img src={AmcoeurLogo} alt="logo" />
+      <img className={logoStyle} src={AmcoeurLogo} alt="logo" />
     </footer>
   );
 }
+
+const logoStyle = css({
+  height: "100px",
+  width: "100px",
+  objectFit: "contain",
+});
 
 const footer = css({
   display: "flex",

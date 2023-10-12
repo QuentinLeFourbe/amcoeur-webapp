@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { css, cx } from "../../../../styled-system/css";
 import FacebookIcon from "../../../assets/icons/facebook.svg?react";
 import { Link } from "react-router-dom";
-import AmcoeurLogo from "../../../assets/images/amcoeur-logo.webp";
+import AmcoeurLogo from "../../../assets/images/am-logo.webp";
 
 function Header() {
   const [scrolling, setScrolling] = useState(false);
@@ -153,11 +153,22 @@ const maintenanceBanner = css({
 const logoContainer = css({
   width: "75px",
   height: "75px",
+
+  "& img": {
+    width: "75px",
+    height: "75px",
+    objectFit: "contain",
+  },
 });
 
 const logoReduced = css({
   width: "50px",
   height: "50px",
+
+  "& img": {
+    width: "50px",
+    height: "50px",
+  },
 });
 
 export default Header;
