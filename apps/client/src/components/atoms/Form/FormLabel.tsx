@@ -15,6 +15,5 @@ export default function FormLabel({ children, ...props }: FormLabelProps) {
 const labelStyle = css({
   fontWeight: "bold",
   cursor: "pointer",
-  fontSize: "22px",
   display: "flex",
 });
