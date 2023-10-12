@@ -15,7 +15,7 @@ const schema = yup
     firstname: yup.string().required("Prénom est requis"),
     mail: yup
       .string()
-      .required("Email est caca requis")
+      .required("Email est requis")
       .email("Adresse email invalide"),
     phone: yup
       .string()
