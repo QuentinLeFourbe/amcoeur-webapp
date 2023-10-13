@@ -21,7 +21,6 @@ export default Button;
 const buttonStyle = css({
   backgroundColor: "buttons.primary.background",
   color: "textSecondary",
-
   padding: "10px 40px",
   transition: "background-color 0.3s ease",
   cursor: "pointer",

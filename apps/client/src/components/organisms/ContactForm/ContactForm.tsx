@@ -8,6 +8,9 @@ import FormTextArea from "../../atoms/Form/FormTextArea";
 import Form from "../../atoms/Form/Form";
 import Button from "../../atoms/Button/Button";
 import FormRow from "../../atoms/Form/FormRow";
+import Captcha from "../../atoms/Captcha/Captcha";
+import { useEffect, useRef } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const schema = yup
   .object({
@@ -26,6 +29,9 @@ const schema = yup
       .min(10, "Votre numéro de téléphone doit avoir au moins 10 chiffres")
       .max(15, "Votre numéro de téléphone doit avoir 15 chiffres ou moins"),
     message: yup.string().required("Message est requis"),
+    recaptchaToken: yup
+      .string()
+      .required("La validation reCaptcha est requise"),
   })
   .required();
 
@@ -34,12 +40,26 @@ export default function ContactForm() {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
+    reset,
   } = useForm<ContactData>({
     resolver: yupResolver(schema),
   });
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  useEffect(() => {
+    register("recaptchaToken", { required: true });
+  }, [register]);
 
   const onSubmit = (data: ContactData) => {
-    sendContactEmail(data);
+    try {
+      sendContactEmail(data);
+    } catch (e) {
+      console.error(e);
+      return;
+    } finally {
+      reset();
+      recaptchaRef?.current?.reset();
+    }
   };
 
   return (
@@ -75,6 +95,15 @@ export default function ContactForm() {
         >
           Message
         </FormTextArea>
+      </FormRow>
+      <FormRow>
+        <Captcha
+          ref={recaptchaRef}
+          setFormValue={(value: string): void =>
+            setValue("recaptchaToken", value)
+          }
+          errorMessage={errors.recaptchaToken && errors.recaptchaToken.message}
+        />
       </FormRow>
       <FormRow centerContent>
         <Button type="submit">Envoyer</Button>

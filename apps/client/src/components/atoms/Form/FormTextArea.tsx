@@ -33,4 +33,5 @@ const textAreaStyle = css({
   width: "100%",
   height: "200px",
   resize: "none",
+  padding: "1rem",
 });
