@@ -10,7 +10,18 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 app.use(bodyParser.json());
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      useDefaults: true,
+      directives: {
+        "script-src": ["'self'", "www.google.com", "www.gstatic.com"],
+        "frame-src": ["'self'", "www.google.com", "www.gstatic.com"],
+      },
+    },
+  })
+);
+
 app.use(express.static(path.join(__dirname, "../../client/dist")));
 
 app.use("/api/email", emailRoutes);
