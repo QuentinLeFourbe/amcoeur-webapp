@@ -144,10 +144,10 @@ const secondaryLinksContainer = css({
 });
 
 const showPanel = css({
-  animation: "panelFadeIn 0.5s ease-in-out forwards",
+  animation: "panelFadeIn 0.4s ease-in-out forwards",
 });
 
 const hidePanel = css({
-  animation: "panelFadeOut 0.5s ease-in-out forwards",
+  animation: "panelFadeOut 0.4s ease-in-out forwards",
   pointerEvents: "none",
 });
