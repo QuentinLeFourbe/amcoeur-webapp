@@ -1,11 +1,32 @@
 import { useEffect, useState } from "react";
 import { css, cx } from "../../../../styled-system/css";
 import FacebookIcon from "../../../assets/icons/facebook.svg?react";
+import BurgerIcon from "../../../assets/icons/burger.svg?react";
 import { Link } from "react-router-dom";
 import AmcoeurLogo from "../../../assets/images/am-logo.webp";
 
+const headerLinks = [
+  {
+    name: "Qui sommes-nous",
+    href: "/qui-sommes-nous",
+  },
+  {
+    name: "Maltraitance",
+    href: "/besoin-aide",
+  },
+  {
+    name: "Donations",
+    href: "/donate",
+  },
+  {
+    name: "Nous contacter",
+    href: "/contact",
+  },
+];
+
 function Header() {
   const [scrolling, setScrolling] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,34 +44,6 @@ function Header() {
     };
   }, [scrolling]);
 
-  const headerLinks = [
-    {
-      name: "Qui sommes-nous",
-      href: "/qui-sommes-nous",
-    },
-
-    {
-      name: "Agir",
-      href: "/agir",
-    },
-    {
-      name: "Besoin d'aide",
-      href: "/besoin-aide",
-    },
-    {
-      name: "Maltraitance",
-      href: "/besoin-aide",
-    },
-    {
-      name: "Donations",
-      href: "/donate",
-    },
-    {
-      name: "Nous contacter",
-      href: "/contact",
-    },
-  ];
-
   return (
     <>
       <header
@@ -62,6 +55,9 @@ function Header() {
         <div className={cx(logoContainer, scrolling && logoReduced)}>
           <LogoLink src={AmcoeurLogo} href="/" />
         </div>
+        <button onClick={() => setMenuOpen(!menuOpen)}>
+          <BurgerIcon className={burgerIcon} />
+        </button>
         <div className={linksContainer}>
           {headerLinks.map((link, index) => (
             <Link
@@ -82,7 +78,6 @@ function Header() {
           <FacebookIcon />
         </a>
       </header>
-      <div className={maintenanceBanner}>Site en cours de construction</div>
     </>
   );
 }
@@ -172,6 +167,17 @@ const logoReduced = css({
   "& img": {
     width: "50px",
     height: "50px",
+  },
+});
+
+const burgerIcon = css({
+  width: "30px",
+  height: "30px",
+  cursor: "pointer",
+
+  "&:hover": {
+    color: "white",
+    backgroundColor: "green",
   },
 });
 
