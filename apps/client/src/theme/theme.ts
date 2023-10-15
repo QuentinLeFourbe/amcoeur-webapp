@@ -32,9 +32,9 @@ export const theme = {
         buttons: {
           primary: {
             background: { value: "{colors.pinkMedium}" },
-            backgroundHover: { value: "{colors.pinkBright}" },
-            backgroundActive: { value: "{colors.pinkMedium}" },
-            text: { value: "{colors.textSecondary}" },
+            text: { value: "{colors.white}" },
+            backgroundHover: { value: "{colors.white}" },
+            textHover: { value: "{colors.pinkMedium}" },
           },
         },
         backgrounds: {

@@ -1747,17 +1747,17 @@ const tokens = {
     "value": "var(--colors-buttons-primary-background)",
     "variable": "var(--colors-buttons-primary-background)"
   },
+  "colors.buttons.primary.text": {
+    "value": "var(--colors-buttons-primary-text)",
+    "variable": "var(--colors-buttons-primary-text)"
+  },
   "colors.buttons.primary.backgroundHover": {
     "value": "var(--colors-buttons-primary-background-hover)",
     "variable": "var(--colors-buttons-primary-background-hover)"
   },
-  "colors.buttons.primary.backgroundActive": {
-    "value": "var(--colors-buttons-primary-background-active)",
-    "variable": "var(--colors-buttons-primary-background-active)"
-  },
-  "colors.buttons.primary.text": {
-    "value": "var(--colors-buttons-primary-text)",
-    "variable": "var(--colors-buttons-primary-text)"
+  "colors.buttons.primary.textHover": {
+    "value": "var(--colors-buttons-primary-text-hover)",
+    "variable": "var(--colors-buttons-primary-text-hover)"
   },
   "colors.backgrounds.primary.extraLight": {
     "value": "var(--colors-backgrounds-primary-extra-light)",
@@ -1983,6 +1983,14 @@ const tokens = {
     "value": "var(--colors-color-palette-background)",
     "variable": "var(--colors-color-palette-background)"
   },
+  "colors.colorPalette.primary.text": {
+    "value": "var(--colors-color-palette-primary-text)",
+    "variable": "var(--colors-color-palette-primary-text)"
+  },
+  "colors.colorPalette.text": {
+    "value": "var(--colors-color-palette-text)",
+    "variable": "var(--colors-color-palette-text)"
+  },
   "colors.colorPalette.primary.backgroundHover": {
     "value": "var(--colors-color-palette-primary-background-hover)",
     "variable": "var(--colors-color-palette-primary-background-hover)"
@@ -1991,21 +1999,13 @@ const tokens = {
     "value": "var(--colors-color-palette-background-hover)",
     "variable": "var(--colors-color-palette-background-hover)"
   },
-  "colors.colorPalette.primary.backgroundActive": {
-    "value": "var(--colors-color-palette-primary-background-active)",
-    "variable": "var(--colors-color-palette-primary-background-active)"
+  "colors.colorPalette.primary.textHover": {
+    "value": "var(--colors-color-palette-primary-text-hover)",
+    "variable": "var(--colors-color-palette-primary-text-hover)"
   },
-  "colors.colorPalette.backgroundActive": {
-    "value": "var(--colors-color-palette-background-active)",
-    "variable": "var(--colors-color-palette-background-active)"
-  },
-  "colors.colorPalette.primary.text": {
-    "value": "var(--colors-color-palette-primary-text)",
-    "variable": "var(--colors-color-palette-primary-text)"
-  },
-  "colors.colorPalette.text": {
-    "value": "var(--colors-color-palette-text)",
-    "variable": "var(--colors-color-palette-text)"
+  "colors.colorPalette.textHover": {
+    "value": "var(--colors-color-palette-text-hover)",
+    "variable": "var(--colors-color-palette-text-hover)"
   },
   "colors.colorPalette.primary.extraLight": {
     "value": "var(--colors-color-palette-primary-extra-light)",
