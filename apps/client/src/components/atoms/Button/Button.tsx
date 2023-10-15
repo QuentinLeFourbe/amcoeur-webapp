@@ -1,5 +1,6 @@
 import React from "react";
 import { css, cx } from "../../../../styled-system/css";
+import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   children: React.ReactNode;
@@ -7,12 +8,12 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 function Button({ children, ...props }: ButtonProps) {
   return (
-    <button
+    <ClickablePrimitive
       {...props}
       className={cx(borderStyle, buttonStyle, props.className)}
     >
       {children}
-    </button>
+    </ClickablePrimitive>
   );
 }
 

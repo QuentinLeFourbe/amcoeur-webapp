@@ -2,17 +2,14 @@ import { useEffect, useState } from "react";
 import { css, cx } from "../../../../styled-system/css";
 import FacebookIcon from "../../../assets/icons/facebook.svg?react";
 import BurgerIcon from "../../../assets/icons/burger.svg?react";
-import { Link } from "react-router-dom";
 import AmcoeurLogo from "../../../assets/images/am-logo.webp";
+import Link from "../../atoms/Link/Link";
+import SecondaryPanel from "./SecondaryPanel";
 
 const headerLinks = [
   {
     name: "Qui sommes-nous",
     href: "/qui-sommes-nous",
-  },
-  {
-    name: "Maltraitance",
-    href: "/besoin-aide",
   },
   {
     name: "Donations",
@@ -37,46 +34,54 @@ function Header() {
       }
     };
 
+    const closeMenu = () => {
+      setMenuOpen(false);
+    };
+
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", closeMenu);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", closeMenu);
     };
   }, [scrolling]);
 
   return (
     <>
-      <header
-        className={cx(
-          header,
-          scrolling ? headerOnScrollPadding : headerScrollTopPadding
-        )}
-      >
-        <div className={cx(logoContainer, scrolling && logoReduced)}>
-          <LogoLink src={AmcoeurLogo} href="/" />
-        </div>
-        <button onClick={() => setMenuOpen(!menuOpen)}>
-          <BurgerIcon className={burgerIcon} />
-        </button>
-        <div className={linksContainer}>
-          {headerLinks.map((link, index) => (
-            <Link
-              key={index}
-              className={cx(headerLink, textLink)}
-              to={link.href}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-
-        <a
-          className={cx(css({ width: "30px", height: "30px" }), textLink)}
-          href="https://www.facebook.com/amcoeur.protection.animaux"
-          target="_blank"
+      <header className={header}>
+        <div
+          className={cx(
+            primaryHeader,
+            scrolling ? headerOnScrollPadding : headerScrollTopPadding
+          )}
         >
-          <FacebookIcon />
-        </a>
+          <div className={cx(logoContainer, scrolling && logoReduced)}>
+            <LogoLink src={AmcoeurLogo} href="/" />
+            <button
+              className={burgerIcon}
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              <BurgerIcon />
+            </button>
+          </div>
+          <div className={primaryLinksContainer}>
+            {headerLinks.map((link, index) => (
+              <Link key={index} to={link.href} type="primary">
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
+          <a
+            className={facebookLogo}
+            href="https://www.facebook.com/amcoeur.protection.animaux"
+            target="_blank"
+          >
+            <FacebookIcon />
+          </a>
+        </div>
+        <SecondaryPanel isOpen={menuOpen} />
       </header>
     </>
   );
@@ -92,14 +97,9 @@ const LogoLink = ({ src, href }: LogoLinkProps) => (
   </Link>
 );
 
-const headerLink = css({
-  textDecoration: "none",
-  fontWeight: "bold",
-  fontFamily: "body",
-  fontSize: "1.2rem",
-});
-
-const textLink = css({
+const facebookLogo = css({
+  width: "30px",
+  height: "30px",
   color: "textPrimary",
   transition: "color 0.2s ease-in-out",
   "&:hover": {
@@ -107,23 +107,11 @@ const textLink = css({
   },
 });
 
-const flexRow = css({
-  display: "flex",
-  flexFlow: "row wrap",
-  justifyContent: "space-between",
-  alignItems: "center",
+const header = css({
+  position: "sticky",
+  top: "0",
+  zIndex: "10",
 });
-
-const header = cx(
-  flexRow,
-  css({
-    background: "backgrounds.primary.extraLight",
-    gap: "10px",
-    position: "sticky",
-    zIndex: "100",
-    top: "0",
-  })
-);
 
 const headerScrollTopPadding = css({
   padding: "25px 10vw",
@@ -133,7 +121,16 @@ const headerOnScrollPadding = css({
   padding: "10px 10vw",
 });
 
-const linksContainer = css({
+const primaryHeader = css({
+  display: "flex",
+  flexFlow: "row wrap",
+  justifyContent: "space-between",
+  alignItems: "center",
+  background: "backgrounds.primary.extraLight",
+  gap: "10px",
+});
+
+const primaryLinksContainer = css({
   display: "flex",
   flexFlow: "row wrap",
   justifyContent: "space-around",
@@ -141,17 +138,10 @@ const linksContainer = css({
   gap: "100px",
 });
 
-const maintenanceBanner = css({
-  background: "yellow",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  color: "black",
-});
-
 const logoContainer = css({
-  width: "75px",
-  height: "75px",
+  display: "flex",
+  alignItems: "center",
+  gap: "10px",
 
   "& img": {
     width: "75px",
@@ -161,9 +151,6 @@ const logoContainer = css({
 });
 
 const logoReduced = css({
-  width: "50px",
-  height: "50px",
-
   "& img": {
     width: "50px",
     height: "50px",
@@ -171,13 +158,18 @@ const logoReduced = css({
 });
 
 const burgerIcon = css({
-  width: "30px",
-  height: "30px",
+  marginRight: "auto",
+  width: "40px",
+  height: "40px",
   cursor: "pointer",
+  "&svg": {
+    width: "100%",
+    height: "100%",
 
-  "&:hover": {
-    color: "white",
-    backgroundColor: "green",
+    "&:hover": {
+      color: "white",
+      backgroundColor: "green",
+    },
   },
 });
 
