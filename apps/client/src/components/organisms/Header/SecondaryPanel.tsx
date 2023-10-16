@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 import { css, cx } from "../../../../styled-system/css";
 import Link from "../../atoms/Link/Link";
 import SidePanel from "./SidePanel";
-import ChevauxMimi from "../../../assets/images/chevaux-mimi.webp";
-import ChienContent from "../../../assets/images/chien-content.webp";
-import ChatonMimi from "../../../assets/images/chaton-mimi.webp";
-import ChiotTristes from "../../../assets/images/chiot-tristes.webp";
+import ChienContent from "../../../assets/images/chien-content-alt.webp";
+import ChatonMimi from "../../../assets/images/chaton-mimi-alt.webp";
+import useMediaQuery from "../../../hooks/useMediaQuery";
 
 const secondaryLinks = [
   {
@@ -54,16 +53,6 @@ const secondaryLinks = [
       },
     ],
   },
-  {
-    name: "Maltraitance",
-    href: "/maltraitance",
-    src: ChiotTristes,
-  },
-  {
-    name: "Nous contacter",
-    href: "/contact",
-    src: ChevauxMimi,
-  },
 ];
 
 type SubLink = {
@@ -82,6 +71,7 @@ function SecondaryPanel({ isOpen = false }: { isOpen: boolean }) {
   const [selectedLink, setSelectedLink] = useState<SecondaryLink>(
     secondaryLinks[0]
   );
+  const isMediumScreen = useMediaQuery({ breakpoint: "lg" });
 
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
 
@@ -99,14 +89,21 @@ function SecondaryPanel({ isOpen = false }: { isOpen: boolean }) {
   }
 
   return (
-    <div className={cx(secondaryHeader, panelShowClassName)}>
+    <div
+      className={cx(
+        secondaryHeader,
+        panelShowClassName,
+        isMediumScreen ? smallerScreen : largeScreen
+      )}
+    >
       <div className={secondaryLinksContainer}>
         {secondaryLinks.map((link, index) => (
           <Link
             key={index}
-            to={link.href}
+            to={"/"}
             type="secondary"
             onMouseOver={() => setSelectedLink(link)}
+            onClick={() => setSelectedLink(link)}
           >
             {link.name}
           </Link>
@@ -127,11 +124,17 @@ const secondaryHeader = css({
   right: "0",
   left: "0",
   display: "grid",
-  justifyItems: "start",
   gridTemplateColumns: "1fr 4fr",
-  padding: "0px 15vw",
   background: "backgrounds.secondary.light",
   opacity: "0",
+});
+
+const largeScreen = css({
+  padding: "0px 15vw",
+});
+
+const smallerScreen = css({
+  padding: "0px 5vw",
 });
 
 const secondaryLinksContainer = css({
@@ -140,7 +143,6 @@ const secondaryLinksContainer = css({
   justifyContent: "space-around",
   alignItems: "flex-end",
   padding: "1rem",
-  gap: "10px",
 });
 
 const showPanel = css({

@@ -1,42 +1,65 @@
-import React from "react";
+import type { ComponentProps } from "react";
 import { css, cx } from "../../../../styled-system/css";
 import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  children: React.ReactNode;
+type ButtonProps = ComponentProps<typeof ClickablePrimitive> & {
+  rounded?: boolean;
+  bold?: boolean;
 };
 
-function Button({ children, ...props }: ButtonProps) {
+function Button({ rounded, bold, ...props }: ButtonProps) {
+  const buttonClassName = cx(
+    baseButton,
+    primaryColors,
+    rounded ? roundedBorders : squaredBorders,
+    bold ? boldText : null
+  );
+
   return (
-    <ClickablePrimitive
-      {...props}
-      className={cx(borderStyle, buttonStyle, props.className)}
-    >
-      {children}
-    </ClickablePrimitive>
+    <>
+      <ClickablePrimitive
+        {...props}
+        className={cx(buttonClassName, props.className)}
+      />
+      <ClickablePrimitive to="/" />
+      <ClickablePrimitive href="/" />
+      <ClickablePrimitive />
+    </>
   );
 }
 
 export default Button;
 
-const buttonStyle = css({
-  backgroundColor: "buttons.primary.background",
-  color: "textSecondary",
-  padding: "10px 40px",
-  transition: "background-color 0.3s ease",
+const baseButton = css({
   cursor: "pointer",
+  padding: "20px 40px",
+
+  "&:active": {
+    opacity: "0.8",
+  },
+  transition: "background-color 0.3s ease",
+});
+
+const primaryColors = css({
+  color: "textSecondary",
+  backgroundColor: "buttons.primary.background",
   "&:hover": {
     backgroundColor: "buttons.primary.backgroundHover",
     color: "buttons.primary.textHover",
   },
-  "&:active": {
-    opacity: "0.8",
-  },
-});
-
-const borderStyle = css({
   borderColor: "buttons.primary.background",
   borderStyle: "solid",
   borderWidth: "2px",
+});
+
+const boldText = css({
+  fontWeight: "bold",
+});
+
+const roundedBorders = css({
+  borderRadius: "32px",
+});
+
+const squaredBorders = css({
   borderRadius: "4px",
 });

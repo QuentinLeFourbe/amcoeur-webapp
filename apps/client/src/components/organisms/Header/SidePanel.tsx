@@ -58,4 +58,5 @@ const linksContainer = css({
   justifyContent: "space-around",
   zIndex: "1",
   padding: "1rem",
+  gap: "1rem",
 });

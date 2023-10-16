@@ -5,6 +5,8 @@ import BurgerIcon from "../../../assets/icons/burger.svg?react";
 import AmcoeurLogo from "../../../assets/images/am-logo.webp";
 import Link from "../../atoms/Link/Link";
 import SecondaryPanel from "./SecondaryPanel";
+import Overlay from "../../atoms/Overlay/Overlay";
+import useMediaQuery from "../../../hooks/useMediaQuery";
 
 const headerLinks = [
   {
@@ -24,6 +26,7 @@ const headerLinks = [
 function Header() {
   const [scrolling, setScrolling] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const isBigScreen = useMediaQuery({ breakpoint: "xl" });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,23 +51,20 @@ function Header() {
   }, [scrolling]);
 
   return (
-    <>
-      <header className={header}>
-        <div
-          className={cx(
-            primaryHeader,
-            scrolling ? headerOnScrollPadding : headerScrollTopPadding
-          )}
-        >
-          <div className={cx(logoContainer, scrolling && logoReduced)}>
-            <LogoLink src={AmcoeurLogo} href="/" />
-            <button
-              className={burgerIcon}
-              onClick={() => setMenuOpen(!menuOpen)}
-            >
-              <BurgerIcon />
-            </button>
-          </div>
+    <header className={header}>
+      <div
+        className={cx(
+          primaryHeader,
+          scrolling ? headerOnScrollPadding : headerScrollTopPadding
+        )}
+      >
+        <div className={cx(logoContainer, scrolling && logoReduced)}>
+          <LogoLink src={AmcoeurLogo} href="/" />
+          <button className={burgerIcon} onClick={() => setMenuOpen(!menuOpen)}>
+            <BurgerIcon />
+          </button>
+        </div>
+        {isBigScreen && (
           <div className={primaryLinksContainer}>
             {headerLinks.map((link, index) => (
               <Link key={index} to={link.href} type="primary">
@@ -72,18 +72,19 @@ function Header() {
               </Link>
             ))}
           </div>
+        )}
 
-          <a
-            className={facebookLogo}
-            href="https://www.facebook.com/amcoeur.protection.animaux"
-            target="_blank"
-          >
-            <FacebookIcon />
-          </a>
-        </div>
-        <SecondaryPanel isOpen={menuOpen} />
-      </header>
-    </>
+        <a
+          className={facebookLogo}
+          href="https://www.facebook.com/amcoeur.protection.animaux"
+          target="_blank"
+        >
+          <FacebookIcon />
+        </a>
+      </div>
+      <SecondaryPanel isOpen={menuOpen} />
+      <Overlay isVisible={menuOpen} onClose={() => setMenuOpen(false)} />
+    </header>
   );
 }
 
@@ -110,7 +111,7 @@ const facebookLogo = css({
 const header = css({
   position: "sticky",
   top: "0",
-  zIndex: "10",
+  zIndex: "1000",
 });
 
 const headerScrollTopPadding = css({

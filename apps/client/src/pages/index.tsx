@@ -1,8 +1,8 @@
 import ContentPanel from "../components/molecules/ContentPanel/ContentPanel";
-import ContentButton from "../components/atoms/ContentButton/ContentButton";
 import Banner from "../components/atoms/Banner/Banner";
 import donateImage from "../assets/images/chien-dons.webp";
 import lotoImage from "../assets/images/chat-chien.webp";
+import Button from "../components/atoms/Button/Button";
 
 const IndexPage = () => {
   return (
@@ -16,7 +16,9 @@ const IndexPage = () => {
           la vie des animaux dans le besoin. Ensemble, faisons la différence et
           bâtissons un avenir plus doux pour nos amis à quatre pattes.
         </p>
-        <ContentButton>En savoir plus</ContentButton>
+        <Button href="/">En savoir plus</Button>
+        <Button>En savoir plus</Button>
+        <Button to="/">En savoir plus</Button>
       </ContentPanel>
       <ContentPanel revert title="Appel aux dons" imageSrc={donateImage}>
         <p>
@@ -25,7 +27,7 @@ const IndexPage = () => {
           compagnons fidèles. Ensemble, battons-nous pour un monde où l'amour et
           la protection règnent. 🐾❤️
         </p>
-        <ContentButton href="/donate">En savoir plus</ContentButton>
+        <Button to="/donate">En savoir plus</Button>
       </ContentPanel>
       {/* <ContentPanel
         title="Devenir famille d'accueil"

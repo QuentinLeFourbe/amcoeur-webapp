@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { css, cx } from "../../../../styled-system/css";
+import { css } from "../../../../styled-system/css";
 import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
 
 type LinkProps = ComponentProps<typeof ClickablePrimitive> & {

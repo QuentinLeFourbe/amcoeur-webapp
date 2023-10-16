@@ -64,6 +64,7 @@ const textContainer = css({
 
   display: "flex",
   flexFlow: "column nowrap",
+  padding: "1rem",
 });
 
 const small = css({

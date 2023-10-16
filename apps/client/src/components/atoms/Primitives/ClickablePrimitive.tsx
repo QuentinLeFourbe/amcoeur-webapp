@@ -25,7 +25,7 @@ type LinkProps = Omit<ComponentProps<typeof Link>, "href" | "ref"> & {
   ref?: AnchorRef | MixedRef | undefined;
 };
 
-type ButtonPrimitiveProps = AnchorProps | ButtonProps | LinkProps;
+type ButtonPrimitiveProps = AnchorProps | LinkProps | ButtonProps;
 
 export const ClickablePrimitive = forwardRef<
   HTMLAnchorElement & HTMLButtonElement,
