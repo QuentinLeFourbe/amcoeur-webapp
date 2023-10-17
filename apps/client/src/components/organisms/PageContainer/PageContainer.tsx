@@ -6,7 +6,6 @@ import Widget from "../../atoms/Widget/Widget";
 import { Outlet, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-
 function PageContainer() {
   const { pathname } = useLocation();
   const [showContent, setShowContent] = useState(false);
@@ -27,11 +26,8 @@ function PageContainer() {
     <div className={container}>
       <Header />
 
-     
-    
-
       <div className={showContent ? fadeIn : hidden}>
-         <Widget />
+        <Widget />
         <Outlet />
       </div>
 
