@@ -57,6 +57,7 @@ const widgetContentStyle = css({
   display: "flex",
   gap: "15px",
   alignItems: "center",
+  color: "white",
   "&:hover": { color: "textPrimary" },
 });
 
