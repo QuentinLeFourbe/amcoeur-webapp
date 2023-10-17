@@ -41,7 +41,7 @@ const widgetStyle = css({
   position: "fixed",
   bottom: "30px",
   right: "20px",
-  backgroundColor: "buttons.primary.background",
+  backgroundColor: "buttons.widget.background",
   padding: "10px",
   borderRadius: "40px",
   transition: "0.5s",
@@ -49,7 +49,7 @@ const widgetStyle = css({
     opacity: 0,
   },
   "&:hover": {
-    backgroundColor: "buttons.primary.backgroundHover",
+    backgroundColor: "buttons.widget.backgroundHover",
   },
 });
 
@@ -57,8 +57,7 @@ const widgetContentStyle = css({
   display: "flex",
   gap: "15px",
   alignItems: "center",
-  color: "white",
-  "&:hover": { color: "textPrimary" },
+  color: "buttons.widget.text",
 });
 
 const widgetButtonStyle = css({

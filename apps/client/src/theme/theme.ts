@@ -36,6 +36,11 @@ export const theme = {
             backgroundHover: { value: "{colors.white}" },
             textHover: { value: "{colors.pinkMedium}" },
           },
+          widget: {
+            background: { value: "{colors.pinkBright}" },
+            backgroundHover: { value: "{colors.pinkMedium}" },
+            text: { value: "{colors.white}" },
+          },
         },
         backgrounds: {
           primary: {

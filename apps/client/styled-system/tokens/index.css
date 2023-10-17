@@ -440,6 +440,9 @@
   --colors-buttons-primary-text: var(--colors-white);
   --colors-buttons-primary-background-hover: var(--colors-white);
   --colors-buttons-primary-text-hover: var(--colors-pink-medium);
+  --colors-buttons-widget-background: var(--colors-pink-bright);
+  --colors-buttons-widget-background-hover: var(--colors-pink-medium);
+  --colors-buttons-widget-text: var(--colors-white);
   --colors-backgrounds-primary-extra-light: var(--colors-pink-extra-light);
   --colors-backgrounds-primary-light: var(--colors-pink-light);
   --colors-backgrounds-primary-medium: var(--colors-pink-medium);
