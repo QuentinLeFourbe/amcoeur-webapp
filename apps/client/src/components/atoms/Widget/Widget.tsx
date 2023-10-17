@@ -41,15 +41,15 @@ const widgetStyle = css({
   position: "fixed",
   bottom: "30px",
   right: "20px",
-  backgroundColor: "buttonPrimary",
+  backgroundColor: "buttons.primary.background",
   padding: "10px",
   borderRadius: "40px",
   transition: "0.5s",
   "&.hidden": {
     opacity: 0,
   },
-  "&.hovered": {
-    backgroundColor: "buttonPrimaryHover",
+  "&:hover": {
+    backgroundColor: "buttons.primary.backgroundHover",
   },
 });
 
