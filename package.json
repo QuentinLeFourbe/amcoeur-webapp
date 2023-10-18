@@ -10,7 +10,7 @@
     "dev": "npm run dev -w @amcoeur/client",
     "watch": "npm run watch -w @amcoeur/client",
     "dev-server": "npm run dev -w @amcoeur/server",
-    "build": "npm run build -w @amcoeur/client && npm run build -w @amcoeur/server",
+    "build": "npm run build -w @amcoeur/types && npm run build -w @amcoeur/client && npm run build -w @amcoeur/server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run start -w @amcoeur/server"
   },
