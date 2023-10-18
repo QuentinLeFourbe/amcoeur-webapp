@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { css, cx } from "../../../../styled-system/css";
 import DonationLogo from "../../../assets/icons/coeur-donate.svg?react";
 import { Link } from "react-router-dom";
+import useMediaQuery from "../../../hooks/useMediaQuery";
 
 function Widget() {
   const [atBottom, setAtBottom] = useState(false);
+  const isMediumScreen = useMediaQuery({ breakpoint: "md" });
 
   const handleScroll = () => {
     const widgetElement = document.querySelector(
@@ -35,15 +37,15 @@ function Widget() {
       )}
     >
       <DonationLogo className={widgetLogo} />
-      Je donne
+      {!isMediumScreen && "Je donne"}
     </Link>
   );
 }
 
 const fixedElement = css({
   position: "fixed",
-  bottom: "30px",
-  right: "20px",
+  bottom: { md: "40px", base: "20px" },
+  right: { md: "40px", base: "20px" },
 });
 
 const widgetButtonStyle = css({
@@ -51,10 +53,9 @@ const widgetButtonStyle = css({
   gap: "15px",
   alignItems: "center",
 
-  padding: "20px 30px",
-  borderRadius: "40px",
-
-  fontSize: "1.5rem",
+  padding: { md: "30px 50px", base: "20px 20px" },
+  borderRadius: "50px",
+  fontSize: "1.2",
   color: "buttons.widget.text",
   backgroundColor: "buttons.widget.background",
 
@@ -71,8 +72,8 @@ const hidden = css({
 });
 
 const widgetLogo = css({
-  width: "40px",
-  height: "40px",
+  width: { md: "30px", base: "40px" },
+  height: { md: "30px", base: "40px" },
 });
 
 export default Widget;
