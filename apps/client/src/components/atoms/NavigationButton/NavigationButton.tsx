@@ -1,5 +1,6 @@
 import React from "react";
 import { css } from "../../../../styled-system/css";
+import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
 
 type NavigationButtonProps = {
   children: React.ReactNode;
@@ -8,9 +9,9 @@ type NavigationButtonProps = {
 
 function NavigationButton({ children, href = "#" }: NavigationButtonProps) {
   return (
-    <a href={href} className={button}>
+    <ClickablePrimitive href={href} className={button}>
       {children}
-    </a>
+    </ClickablePrimitive>
   );
 }
 

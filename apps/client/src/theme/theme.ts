@@ -42,6 +42,12 @@ export const theme = {
             text: { value: "{colors.white}" },
           },
         },
+        input: {
+          secondary: {
+            text: { value: "{colors.pinkLight}" },
+            textHover: { value: "{colors.pinkMedium}" },
+          },
+        },
         backgrounds: {
           primary: {
             extraLight: { value: "{colors.pinkExtraLight}" },
@@ -60,6 +66,16 @@ export const theme = {
             intense: { value: "{colors.greenish}" },
           },
         },
+      },
+    },
+    keyframes: {
+      panelFadeIn: {
+        "0%": { opacity: "0" },
+        "100%": { opacity: "1" },
+      },
+      panelFadeOut: {
+        "0%": { opacity: "1" },
+        "100%": { opacity: "0", display: "none" },
       },
     },
   },

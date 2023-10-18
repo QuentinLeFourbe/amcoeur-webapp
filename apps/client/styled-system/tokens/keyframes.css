@@ -25,4 +25,21 @@
             animation-timing-function: cubic-bezier(0,0,0.2,1)
         }
     }
+    @keyframes panelFadeIn {
+        0% {
+            opacity: 0
+        }
+        100% {
+            opacity: 1
+        }
+    }
+    @keyframes panelFadeOut {
+        0% {
+            opacity: 1
+        }
+        100% {
+            opacity: 0;
+            display: none
+        }
+    }
 }

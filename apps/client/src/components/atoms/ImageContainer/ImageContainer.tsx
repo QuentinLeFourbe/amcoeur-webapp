@@ -62,11 +62,15 @@ function ImageContainer({
     <img
       src={src}
       alt={alt}
-      className={cx(style, cover ? coverStyle : "", classname)}
+      className={cx(baseStyle, style, cover ? coverStyle : "", classname)}
       loading="lazy"
     />
   );
 }
+
+const baseStyle = css({
+  overflow: "hidden",
+});
 
 const coverStyle = css({
   objectFit: "cover",
