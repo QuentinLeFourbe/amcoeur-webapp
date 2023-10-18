@@ -25,45 +25,49 @@ function Widget() {
   }, []);
 
   return (
-    <div
-      className={`donation-widget ${widgetStyle} ${atBottom ? "hidden" : ""} 
-      }`}
+    <Link
+      to="/donate"
+      className={cx(
+        "donation-widget",
+        widgetButtonStyle,
+        fixedElement,
+        atBottom && hidden
+      )}
     >
-      <Link to="/donate" className={cx(widgetButtonStyle, widgetContentStyle)}>
-        <DonationLogo className={widgetLogo} />
-        Je donne
-      </Link>
-    </div>
+      <DonationLogo className={widgetLogo} />
+      Je donne
+    </Link>
   );
 }
 
-const widgetStyle = css({
+const fixedElement = css({
   position: "fixed",
   bottom: "30px",
   right: "20px",
-  backgroundColor: "buttons.widget.background",
-  padding: "10px",
+});
+
+const widgetButtonStyle = css({
+  display: "flex",
+  gap: "15px",
+  alignItems: "center",
+
+  padding: "20px 30px",
   borderRadius: "40px",
+
+  fontSize: "1.5rem",
+  color: "buttons.widget.text",
+  backgroundColor: "buttons.widget.background",
+
   transition: "0.5s",
-  "&.hidden": {
-    opacity: 0,
-  },
+
   "&:hover": {
     backgroundColor: "buttons.widget.backgroundHover",
   },
 });
 
-const widgetContentStyle = css({
-  display: "flex",
-  gap: "15px",
-  alignItems: "center",
-  color: "buttons.widget.text",
-});
-
-const widgetButtonStyle = css({
-  marginRight: "5px",
-  fontSize: "1.5rem",
-  padding: "10px 20px",
+const hidden = css({
+  opacity: 0,
+  pointerEvents: "none",
 });
 
 const widgetLogo = css({
