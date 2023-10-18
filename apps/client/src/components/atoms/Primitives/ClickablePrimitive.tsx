@@ -1,7 +1,6 @@
 import type { ComponentProps } from "react";
 
 import { Link } from "react-router-dom";
-import { css, cx } from "../../../../styled-system/css";
 
 type AnchorProps = ComponentProps<"a"> & {
   href: string;
@@ -13,7 +12,7 @@ type LinkProps = ComponentProps<typeof Link> & {
   href?: undefined;
 };
 
-export type ClickablePrimitiveProps = AnchorProps | LinkProps | ButtonProps;
+type ClickablePrimitiveProps = AnchorProps | LinkProps | ButtonProps;
 
 export const ClickablePrimitive = function renderButtonPrimitive(
   props: ClickablePrimitiveProps

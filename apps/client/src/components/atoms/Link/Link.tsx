@@ -1,11 +1,8 @@
 import type { ComponentProps } from "react";
 import { css } from "../../../../styled-system/css";
-import {
-  ClickablePrimitive,
-  ClickablePrimitiveProps,
-} from "../Primitives/ClickablePrimitive";
+import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
 
-type LinkProps = ClickablePrimitiveProps & {
+type LinkProps = ComponentProps<typeof ClickablePrimitive> & {
   variant?: "primary" | "secondary" | "tertiary" | "footer" | "default";
 };
 

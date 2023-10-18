@@ -16,7 +16,6 @@ function ContentPanel({
   title,
   children,
   revert = false,
-  large = false,
 }: ContentPanelProps) {
   return (
     <div className={cx(container, revert ? reverse : primaryBackground)}>
