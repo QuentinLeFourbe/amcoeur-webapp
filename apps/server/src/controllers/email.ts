@@ -1,12 +1,15 @@
+import { ContactData } from "../../../client/src/types/email";
 import nodemailer from "nodemailer";
 import { Request, Response } from "express";
 
-//Actually configured to use gmail, but should be change once it's connected to the amcoeur domain
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "ssl0.ovh.net",
+  // host: "smtp.amcoeur.org",
+  port: 587,
+  secure: false,
   auth: {
-    user: process.env.CONTACT_EMAIL || "",
-    pass: process.env.CONTACT_PASSWORD || "",
+    user: process.env.CONTACT_EMAIL,
+    pass: process.env.CONTACT_EMAIL_PASSWORD,
   },
 });
 
@@ -15,23 +18,22 @@ const transporter = nodemailer.createTransport({
  * @param req
  * @param res
  */
-export const sendEmailHandler = (req: Request, res: Response) => {
-  //   const { to, subject, text } = req.body;
-  console.log("On va envoyer un email");
-  const mailOptions = {
-    from: process.env.CONTACT_EMAIL,
-    to: process.env.CONTACT_EMAIL,
-    subject: "Hey test",
-    text: "Hey, this is a text or a test ?",
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      return res
-        .status(500)
-        .send(`Erreur lors de l'envoi de l'e-mail : ${error}`);
-    }
-    console.log("email envoyé");
-    res.status(200).send(`E-mail envoyé : ${info.response}`);
-  });
+export const sendEmailHandler = async (req: Request, res: Response) => {
+  try {
+    const { name, firstname, mail, phone, message } = req.body as ContactData;
+    const mailOptions = {
+      from: process.env.CONTACT_EMAIL,
+      to: process.env.CONTACT_EMAIL,
+      subject: `Demande de contact: ${name} ${firstname}`,
+      text: `Nom: ${name}\nPrénom: ${firstname}\nEmail: ${mail}\nTéléphone: ${phone}\nMessage: ${message}`,
+    };
+    console.log("mail", process.env.CONTACT_EMAIL);
+    console.log("password", process.env.CONTACT_EMAIL_PASSWORD);
+    console.log("trying to send email");
+    await transporter?.sendMail(mailOptions);
+    res.status(200).send("Email envoyé !");
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(`Erreur lors de l'envoi de l'e-mail : ${err}`);
+  }
 };

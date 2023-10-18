@@ -1,11 +1,88 @@
 import { useEffect, useState } from "react";
 import { css, cx } from "../../../../styled-system/css";
 import FacebookIcon from "../../../assets/icons/facebook.svg?react";
-import { Link } from "react-router-dom";
+import BurgerIcon from "../../../assets/icons/burger.svg?react";
 import AmcoeurLogo from "../../../assets/images/am-logo.webp";
+import Link from "../../atoms/Link/Link";
+import SecondaryPanel from "./SecondaryPanel";
+import Overlay from "../../atoms/Overlay/Overlay";
+import useMediaQuery from "../../../hooks/useMediaQuery";
+import MobileMenu from "./MobileMenu";
+import ChienContent from "../../../assets/images/chien-content-alt.webp";
+import ChatonMimi from "../../../assets/images/chaton-mimi-alt.webp";
+import { useLocation } from "react-router-dom";
+
+const headerLinks = [
+  {
+    name: "Qui sommes-nous",
+    href: "/qui-sommes-nous",
+  },
+  {
+    name: "Donations",
+    href: "/donate",
+  },
+  {
+    name: "Nous contacter",
+    href: "/contact",
+  },
+];
+
+const secondaryLinks = [
+  {
+    name: "Envie d'agir",
+    src: ChienContent,
+    subLinks: [
+      {
+        name: "Devenir famille d'accueil",
+        href: "/famille",
+      },
+      {
+        name: "Devenir bénévole",
+        href: "/benevole",
+      },
+      {
+        name: "Faire un don",
+        href: "/donate",
+      },
+      {
+        name: "Collecte de nourriture",
+        href: "/collecte",
+      },
+    ],
+  },
+  {
+    name: "Besoin d'aide",
+    src: ChatonMimi,
+    subLinks: [
+      {
+        name: "Nos aides vétérinaires",
+        href: "/adoption",
+      },
+      {
+        name: "Aide alimentaire",
+        href: "/sos",
+      },
+      {
+        name: "Entre aide de proximité",
+        href: "/maltraitance",
+      },
+      {
+        name: "La mort de votre animal",
+        href: "/mort",
+      },
+    ],
+  },
+];
 
 function Header() {
   const [scrolling, setScrolling] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const isBigScreen = useMediaQuery({ breakpoint: "xl" });
+  const location = useLocation();
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,70 +93,63 @@ function Header() {
       }
     };
 
+    const closeMenu = () => {
+      setMenuOpen(false);
+    };
+
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", closeMenu);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", closeMenu);
     };
   }, [scrolling]);
 
-  const headerLinks = [
-    {
-      name: "Qui sommes-nous",
-      href: "/qui-sommes-nous",
-    },
-
-    {
-      name: "Agir",
-      href: "/agir",
-    },
-    {
-      name: "Besoin d'aide",
-      href: "/besoin-aide",
-    },
-    {
-      name: "Maltraitance",
-      href: "/besoin-aide",
-    },
-    {
-      name: "Donations",
-      href: "/donate",
-    },
-    {
-      name: "Nous contacter",
-      href: "/contact",
-    },
-  ];
-
   return (
-    <>
-      <header
+    <header className={header}>
+      <div
         className={cx(
-          header,
+          primaryHeader,
           scrolling ? headerOnScrollPadding : headerScrollTopPadding
         )}
       >
         <div className={cx(logoContainer, scrolling && logoReduced)}>
           <LogoLink src={AmcoeurLogo} href="/" />
+          <button className={burgerIcon} onClick={() => setMenuOpen(!menuOpen)}>
+            <BurgerIcon />
+          </button>
         </div>
-        <div className={linksContainer}>
-          {headerLinks.map((link) => (
-            <Link className={cx(headerLink, textLink)} to={link.href}>
-              {link.name}
-            </Link>
-          ))}
-        </div>
+        {isBigScreen && (
+          <div className={primaryLinksContainer}>
+            {headerLinks.map((link, index) => (
+              <Link key={index} to={link.href} variant="primary">
+                {link.name}
+              </Link>
+            ))}
+          </div>
+        )}
 
         <a
-          className={cx(css({ width: "30px", height: "30px" }), textLink)}
+          className={facebookLogo}
           href="https://www.facebook.com/amcoeur.protection.animaux"
           target="_blank"
         >
           <FacebookIcon />
         </a>
-      </header>
-      <div className={maintenanceBanner}>Site en cours de construction</div>
-    </>
+      </div>
+      {isBigScreen ? (
+        <SecondaryPanel links={secondaryLinks} isOpen={menuOpen} />
+      ) : (
+        <MobileMenu
+          links={headerLinks}
+          groupLinks={secondaryLinks}
+          isOpen={menuOpen}
+        />
+      )}
+
+      <Overlay isVisible={menuOpen} onClose={() => setMenuOpen(false)} />
+    </header>
   );
 }
 
@@ -93,14 +163,9 @@ const LogoLink = ({ src, href }: LogoLinkProps) => (
   </Link>
 );
 
-const headerLink = css({
-  textDecoration: "none",
-  fontWeight: "bold",
-  fontFamily: "body",
-  fontSize: "1.2rem",
-});
-
-const textLink = css({
+const facebookLogo = css({
+  width: "30px",
+  height: "30px",
   color: "textPrimary",
   transition: "color 0.2s ease-in-out",
   "&:hover": {
@@ -108,23 +173,11 @@ const textLink = css({
   },
 });
 
-const flexRow = css({
-  display: "flex",
-  flexFlow: "row wrap",
-  justifyContent: "space-between",
-  alignItems: "center",
+const header = css({
+  position: "sticky",
+  top: "0",
+  zIndex: "1000",
 });
-
-const header = cx(
-  flexRow,
-  css({
-    background: "backgrounds.primary.extraLight",
-    gap: "10px",
-    position: "sticky",
-    zIndex: "100",
-    top: "0",
-  })
-);
 
 const headerScrollTopPadding = css({
   padding: "25px 10vw",
@@ -134,7 +187,16 @@ const headerOnScrollPadding = css({
   padding: "10px 10vw",
 });
 
-const linksContainer = css({
+const primaryHeader = css({
+  display: "flex",
+  flexFlow: "row wrap",
+  justifyContent: "space-between",
+  alignItems: "center",
+  background: "backgrounds.primary.extraLight",
+  gap: "10px",
+});
+
+const primaryLinksContainer = css({
   display: "flex",
   flexFlow: "row wrap",
   justifyContent: "space-around",
@@ -142,17 +204,10 @@ const linksContainer = css({
   gap: "100px",
 });
 
-const maintenanceBanner = css({
-  background: "yellow",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  color: "black",
-});
-
 const logoContainer = css({
-  width: "75px",
-  height: "75px",
+  display: "flex",
+  alignItems: "center",
+  gap: "10px",
 
   "& img": {
     width: "75px",
@@ -162,12 +217,25 @@ const logoContainer = css({
 });
 
 const logoReduced = css({
-  width: "50px",
-  height: "50px",
-
   "& img": {
     width: "50px",
     height: "50px",
+  },
+});
+
+const burgerIcon = css({
+  marginRight: "auto",
+  width: "40px",
+  height: "40px",
+  cursor: "pointer",
+  "&svg": {
+    width: "100%",
+    height: "100%",
+
+    "&:hover": {
+      color: "white",
+      backgroundColor: "green",
+    },
   },
 });
 

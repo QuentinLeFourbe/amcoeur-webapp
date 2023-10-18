@@ -1,0 +1,20 @@
+name: Build and Validate on Pull Request
+
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+
+jobs:
+  build_and_validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install # ou la commande appropriée pour installer tes dépendances
+
+      - name: Build
+        run: npm run build # ou la commande pour construire ton projet

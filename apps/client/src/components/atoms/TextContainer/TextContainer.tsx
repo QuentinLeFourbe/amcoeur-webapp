@@ -17,7 +17,6 @@ function TextContainer({ children, className, size }: TextContainerProps) {
       sizeStyle = medium;
       break;
     case "large":
-    default:
       sizeStyle = large;
       break;
   }
@@ -64,6 +63,8 @@ const textContainer = css({
 
   display: "flex",
   flexFlow: "column nowrap",
+  alignItems: "flex-start",
+  padding: "1rem",
 });
 
 const small = css({

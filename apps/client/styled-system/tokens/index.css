@@ -437,9 +437,14 @@
   --breakpoints-xl: 1280px;
   --breakpoints-2xl: 1536px;
   --colors-buttons-primary-background: var(--colors-pink-medium);
-  --colors-buttons-primary-background-hover: var(--colors-pink-bright);
-  --colors-buttons-primary-background-active: var(--colors-pink-medium);
-  --colors-buttons-primary-text: var(--colors-text-secondary);
+  --colors-buttons-primary-text: var(--colors-white);
+  --colors-buttons-primary-background-hover: var(--colors-white);
+  --colors-buttons-primary-text-hover: var(--colors-pink-medium);
+  --colors-buttons-widget-background: var(--colors-pink-bright);
+  --colors-buttons-widget-background-hover: var(--colors-pink-medium);
+  --colors-buttons-widget-text: var(--colors-white);
+  --colors-input-secondary-text: var(--colors-pink-light);
+  --colors-input-secondary-text-hover: var(--colors-pink-medium);
   --colors-backgrounds-primary-extra-light: var(--colors-pink-extra-light);
   --colors-backgrounds-primary-light: var(--colors-pink-light);
   --colors-backgrounds-primary-medium: var(--colors-pink-medium);

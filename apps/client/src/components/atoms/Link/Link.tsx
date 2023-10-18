@@ -1,26 +1,38 @@
-import React from "react";
-import { Link as RouterLink } from "react-router-dom";
-import type { LinkProps as RouterLinkProps } from "react-router-dom";
-import { css, cx } from "../../../../styled-system/css";
+import type { ComponentProps } from "react";
+import { css } from "../../../../styled-system/css";
+import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
 
-type LinkProps = React.PropsWithoutRef<RouterLinkProps> & {
-  secondary?: boolean;
+type LinkProps = ComponentProps<typeof ClickablePrimitive> & {
+  variant?: "primary" | "secondary" | "tertiary" | "footer" | "default";
 };
 
 /**
  * A custom link which uses React router's Link component.
  */
-function Link({ children, secondary = false, ...props }: LinkProps) {
+function Link({ children, variant, ...props }: LinkProps) {
+  let className;
+  switch (variant) {
+    case "primary":
+      className = primaryLink;
+      break;
+    case "secondary":
+      className = secondaryLink;
+      break;
+    case "tertiary":
+      className = tertiaryLink;
+      break;
+    case "footer":
+      className = linkStyle;
+      break;
+    default:
+      className = linkStyle;
+      break;
+  }
+
   return (
-    <RouterLink
-      {...props}
-      className={cx(
-        linkStyle,
-        secondary ? linkSecondaryColor : linkPrimaryColor
-      )}
-    >
+    <ClickablePrimitive {...props} className={className}>
       {children}
-    </RouterLink>
+    </ClickablePrimitive>
   );
 }
 
@@ -34,16 +46,38 @@ const linkStyle = css({
   },
 });
 
-const linkPrimaryColor = css({
+const primaryLink = css({
+  textDecoration: "none",
+  fontWeight: "bold",
+  fontFamily: "body",
+  fontSize: "1.2rem",
   color: "textPrimary",
+  transition: "color 0.2s ease-in-out",
   "&:hover": {
     color: "textSecondary",
   },
 });
 
-const linkSecondaryColor = css({
-  color: "textSecondary",
+const secondaryLink = css({
+  textDecoration: "none",
+  fontWeight: "bold",
+  fontFamily: "body",
+  fontSize: "1.2rem",
+  color: "pinkLight",
+  transition: "color 0.2s ease-in-out",
   "&:hover": {
-    color: "textPrimary",
+    color: "pinkMedium",
+  },
+});
+
+const tertiaryLink = css({
+  textDecoration: "none",
+  fontWeight: "bold",
+  fontFamily: "body",
+  fontSize: "1rem",
+  color: "white",
+  transition: "color 0.2s ease-in-out",
+  "&:hover": {
+    color: "pinkLight",
   },
 });

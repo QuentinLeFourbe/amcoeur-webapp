@@ -2,14 +2,26 @@ import express, { Request, Response } from "express";
 import path from "path";
 import helmet from "helmet";
 import emailRoutes from "./routes/email";
-import dotenv from "dotenv";
+import "dotenv/config";
+import bodyParser from "body-parser";
 
-dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
-app.use(helmet());
+app.use(bodyParser.json());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      useDefaults: true,
+      directives: {
+        "script-src": ["'self'", "www.google.com", "www.gstatic.com"],
+        "frame-src": ["'self'", "www.google.com", "www.gstatic.com"],
+      },
+    },
+  })
+);
+
 app.use(express.static(path.join(__dirname, "../../client/dist")));
 
 app.use("/api/email", emailRoutes);

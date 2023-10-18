@@ -32,9 +32,20 @@ export const theme = {
         buttons: {
           primary: {
             background: { value: "{colors.pinkMedium}" },
-            backgroundHover: { value: "{colors.pinkBright}" },
-            backgroundActive: { value: "{colors.pinkMedium}" },
-            text: { value: "{colors.textSecondary}" },
+            text: { value: "{colors.white}" },
+            backgroundHover: { value: "{colors.white}" },
+            textHover: { value: "{colors.pinkMedium}" },
+          },
+          widget: {
+            background: { value: "{colors.pinkBright}" },
+            backgroundHover: { value: "{colors.pinkMedium}" },
+            text: { value: "{colors.white}" },
+          },
+        },
+        input: {
+          secondary: {
+            text: { value: "{colors.pinkLight}" },
+            textHover: { value: "{colors.pinkMedium}" },
           },
         },
         backgrounds: {
@@ -55,6 +66,16 @@ export const theme = {
             intense: { value: "{colors.greenish}" },
           },
         },
+      },
+    },
+    keyframes: {
+      panelFadeIn: {
+        "0%": { opacity: "0" },
+        "100%": { opacity: "1" },
+      },
+      panelFadeOut: {
+        "0%": { opacity: "1" },
+        "100%": { opacity: "0", display: "none" },
       },
     },
   },

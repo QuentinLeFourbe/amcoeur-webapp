@@ -7,12 +7,8 @@ function Footer() {
     <footer className={footer}>
       <div className={verticalFlex}>
         <div className={groupLinks}>
-          <Link secondary to="/mentions-legals">
-            Mentions légales
-          </Link>
-          <Link secondary to="/contact">
-            Contactez-nous
-          </Link>
+          <Link to="/mentions-legals">Mentions légales</Link>
+          <Link to="/contact">Contactez-nous</Link>
         </div>
         <p>Amcoeur - Copyright 2023</p>
       </div>
