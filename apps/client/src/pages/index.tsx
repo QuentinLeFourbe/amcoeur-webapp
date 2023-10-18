@@ -16,7 +16,9 @@ const IndexPage = () => {
           la vie des animaux dans le besoin. Ensemble, faisons la différence et
           bâtissons un avenir plus doux pour nos amis à quatre pattes.
         </p>
-        <Button to="/">En savoir plus</Button>
+        <Button to="/" rounded bold>
+          En savoir plus
+        </Button>
       </ContentPanel>
       <ContentPanel revert title="Appel aux dons" imageSrc={donateImage}>
         <p>
@@ -25,7 +27,9 @@ const IndexPage = () => {
           compagnons fidèles. Ensemble, battons-nous pour un monde où l'amour et
           la protection règnent. 🐾❤️
         </p>
-        <Button to="/donate">En savoir plus</Button>
+        <Button to="/donate" rounded bold>
+          En savoir plus
+        </Button>
       </ContentPanel>
       {/* <ContentPanel
         title="Devenir famille d'accueil"

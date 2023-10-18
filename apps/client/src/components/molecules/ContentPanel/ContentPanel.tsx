@@ -21,7 +21,7 @@ function ContentPanel({
   return (
     <div className={cx(container, revert ? reverse : primaryBackground)}>
       <ImageContainer src={imageSrc} alt="image" cover size="mediumLandscape" />
-      <TextContainer size={large ? "medium" : "small"}>
+      <TextContainer className={textContainerSize}>
         <h2>{title}</h2>
         {children}
       </TextContainer>
@@ -46,6 +46,10 @@ const reverse = css({
 
 const primaryBackground = css({
   backgroundColor: "backgrounds.secondary.light",
+});
+
+const textContainerSize = css({
+  maxWidth: { base: "800px", xl: "600px" },
 });
 
 export default ContentPanel;

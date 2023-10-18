@@ -25,6 +25,9 @@ function Button({ rounded, bold, ...props }: ButtonProps) {
 export default Button;
 
 const baseButton = css({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
   cursor: "pointer",
   padding: "20px 40px",
   "&:active": {
