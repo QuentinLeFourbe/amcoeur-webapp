@@ -9,9 +9,14 @@ type SidePanelProps = {
         href: string;
       }[]
     | undefined;
+  onClose?: () => void;
 };
 
-function SidePanel({ links, backgroundSrc }: SidePanelProps) {
+function SidePanel({ links, backgroundSrc, onClose }: SidePanelProps) {
+  const closeMenu = () => {
+    onClose && onClose();
+  };
+
   return (
     <div className={secondarySidePanel}>
       <img className={backgroundImage} src={backgroundSrc} />
@@ -19,7 +24,7 @@ function SidePanel({ links, backgroundSrc }: SidePanelProps) {
         <div className={linksContainer}>
           {links.map((link) => {
             return (
-              <Link to={link.href} type="tertiary">
+              <Link to={link.href} variant="tertiary" onClick={closeMenu}>
                 {link.name}
               </Link>
             );

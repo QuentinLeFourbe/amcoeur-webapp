@@ -7,6 +7,10 @@ import Link from "../../atoms/Link/Link";
 import SecondaryPanel from "./SecondaryPanel";
 import Overlay from "../../atoms/Overlay/Overlay";
 import useMediaQuery from "../../../hooks/useMediaQuery";
+import MobileMenu from "./MobileMenu";
+import ChienContent from "../../../assets/images/chien-content-alt.webp";
+import ChatonMimi from "../../../assets/images/chaton-mimi-alt.webp";
+import { useLocation } from "react-router-dom";
 
 const headerLinks = [
   {
@@ -23,10 +27,62 @@ const headerLinks = [
   },
 ];
 
+const secondaryLinks = [
+  {
+    name: "Envie d'agir",
+    src: ChienContent,
+    subLinks: [
+      {
+        name: "Devenir famille d'accueil",
+        href: "/famille",
+      },
+      {
+        name: "Devenir bénévole",
+        href: "/benevole",
+      },
+      {
+        name: "Faire un don",
+        href: "/donate",
+      },
+      {
+        name: "Collecte de nourriture",
+        href: "/collecte",
+      },
+    ],
+  },
+  {
+    name: "Besoin d'aide",
+    src: ChatonMimi,
+    subLinks: [
+      {
+        name: "Nos aides vétérinaires",
+        href: "/adoption",
+      },
+      {
+        name: "Aide alimentaire",
+        href: "/sos",
+      },
+      {
+        name: "Entre aide de proximité",
+        href: "/maltraitance",
+      },
+      {
+        name: "La mort de votre animal",
+        href: "/mort",
+      },
+    ],
+  },
+];
+
 function Header() {
   const [scrolling, setScrolling] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const isBigScreen = useMediaQuery({ breakpoint: "xl" });
+  const location = useLocation();
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,7 +123,7 @@ function Header() {
         {isBigScreen && (
           <div className={primaryLinksContainer}>
             {headerLinks.map((link, index) => (
-              <Link key={index} to={link.href} type="primary">
+              <Link key={index} to={link.href} variant="primary">
                 {link.name}
               </Link>
             ))}
@@ -82,7 +138,16 @@ function Header() {
           <FacebookIcon />
         </a>
       </div>
-      <SecondaryPanel isOpen={menuOpen} />
+      {isBigScreen ? (
+        <SecondaryPanel links={secondaryLinks} isOpen={menuOpen} />
+      ) : (
+        <MobileMenu
+          links={headerLinks}
+          groupLinks={secondaryLinks}
+          isOpen={menuOpen}
+        />
+      )}
+
       <Overlay isVisible={menuOpen} onClose={() => setMenuOpen(false)} />
     </header>
   );

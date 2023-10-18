@@ -1,47 +1,30 @@
-import type {
-  ComponentProps,
-  ForwardedRef,
-  ReactElement,
-  ReactNode,
-} from "react";
+import type { ComponentProps } from "react";
 
-import { forwardRef } from "react";
 import { Link } from "react-router-dom";
+import { css, cx } from "../../../../styled-system/css";
 
-type AnchorRef = ForwardedRef<HTMLAnchorElement | undefined>;
-type ButtonRef = ForwardedRef<HTMLButtonElement | undefined>;
-type MixedRef = ForwardedRef<HTMLAnchorElement & HTMLButtonElement>;
-
-type AnchorProps = Omit<ComponentProps<"a">, "ref"> & {
+type AnchorProps = ComponentProps<"a"> & {
   href: string;
-  ref?: AnchorRef | MixedRef | undefined;
 };
-type ButtonProps = Omit<ComponentProps<"button">, "ref"> & {
+type ButtonProps = ComponentProps<"button"> & {
   href?: undefined;
-  ref?: ButtonRef | MixedRef | undefined;
 };
-type LinkProps = Omit<ComponentProps<typeof Link>, "href" | "ref"> & {
+type LinkProps = ComponentProps<typeof Link> & {
   href?: undefined;
-  ref?: AnchorRef | MixedRef | undefined;
 };
 
-type ButtonPrimitiveProps = AnchorProps | LinkProps | ButtonProps;
+export type ClickablePrimitiveProps = AnchorProps | LinkProps | ButtonProps;
 
-export const ClickablePrimitive = forwardRef<
-  HTMLAnchorElement & HTMLButtonElement,
-  ButtonPrimitiveProps
->(function renderButtonPrimitive(props, ref) {
+export const ClickablePrimitive = function renderButtonPrimitive(
+  props: ClickablePrimitiveProps
+) {
   if (props.href !== undefined) {
-    return <a {...props} ref={ref} />;
+    return <a {...props} />;
   }
 
   if ("to" in props) {
-    return <Link {...props} ref={ref} />;
+    return <Link {...props} />;
   }
 
-  return <button {...props} ref={ref} />;
-}) as {
-  (props: AnchorProps): ReactElement<AnchorProps, "a">;
-  (props: ButtonProps): ReactElement<ButtonProps, "button">;
-  (props: LinkProps): ReactNode;
+  return <button {...props} />;
 };

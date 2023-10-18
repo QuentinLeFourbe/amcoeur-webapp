@@ -16,8 +16,6 @@ const IndexPage = () => {
           la vie des animaux dans le besoin. Ensemble, faisons la différence et
           bâtissons un avenir plus doux pour nos amis à quatre pattes.
         </p>
-        <Button href="/">En savoir plus</Button>
-        <Button>En savoir plus</Button>
         <Button to="/">En savoir plus</Button>
       </ContentPanel>
       <ContentPanel revert title="Appel aux dons" imageSrc={donateImage}>

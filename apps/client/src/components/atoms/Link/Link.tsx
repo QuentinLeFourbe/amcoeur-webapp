@@ -1,17 +1,20 @@
 import type { ComponentProps } from "react";
 import { css } from "../../../../styled-system/css";
-import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
+import {
+  ClickablePrimitive,
+  ClickablePrimitiveProps,
+} from "../Primitives/ClickablePrimitive";
 
-type LinkProps = ComponentProps<typeof ClickablePrimitive> & {
-  type?: "primary" | "secondary" | "tertiary" | "footer" | "default";
+type LinkProps = ClickablePrimitiveProps & {
+  variant?: "primary" | "secondary" | "tertiary" | "footer" | "default";
 };
 
 /**
  * A custom link which uses React router's Link component.
  */
-function Link({ children, type, ...props }: LinkProps) {
+function Link({ children, variant, ...props }: LinkProps) {
   let className;
-  switch (type) {
+  switch (variant) {
     case "primary":
       className = primaryLink;
       break;

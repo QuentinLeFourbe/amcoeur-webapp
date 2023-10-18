@@ -1759,6 +1759,14 @@ const tokens = {
     "value": "var(--colors-buttons-primary-text-hover)",
     "variable": "var(--colors-buttons-primary-text-hover)"
   },
+  "colors.input.secondary.text": {
+    "value": "var(--colors-input-secondary-text)",
+    "variable": "var(--colors-input-secondary-text)"
+  },
+  "colors.input.secondary.textHover": {
+    "value": "var(--colors-input-secondary-text-hover)",
+    "variable": "var(--colors-input-secondary-text-hover)"
+  },
   "colors.backgrounds.primary.extraLight": {
     "value": "var(--colors-backgrounds-primary-extra-light)",
     "variable": "var(--colors-backgrounds-primary-extra-light)"
@@ -2006,6 +2014,14 @@ const tokens = {
   "colors.colorPalette.textHover": {
     "value": "var(--colors-color-palette-text-hover)",
     "variable": "var(--colors-color-palette-text-hover)"
+  },
+  "colors.colorPalette.secondary.text": {
+    "value": "var(--colors-color-palette-secondary-text)",
+    "variable": "var(--colors-color-palette-secondary-text)"
+  },
+  "colors.colorPalette.secondary.textHover": {
+    "value": "var(--colors-color-palette-secondary-text-hover)",
+    "variable": "var(--colors-color-palette-secondary-text-hover)"
   },
   "colors.colorPalette.primary.extraLight": {
     "value": "var(--colors-color-palette-primary-extra-light)",

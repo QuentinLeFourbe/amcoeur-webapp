@@ -37,6 +37,12 @@ export const theme = {
             textHover: { value: "{colors.pinkMedium}" },
           },
         },
+        input: {
+          secondary: {
+            text: { value: "{colors.pinkLight}" },
+            textHover: { value: "{colors.pinkMedium}" },
+          },
+        },
         backgrounds: {
           primary: {
             extraLight: { value: "{colors.pinkExtraLight}" },
