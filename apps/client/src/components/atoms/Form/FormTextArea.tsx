@@ -1,9 +1,9 @@
 import React from "react";
 import { css } from "../../../../styled-system/css";
 import { UseFormRegister } from "react-hook-form";
-import { ContactData } from "../../../types/email";
 import FormLabel from "./FormLabel";
 import FormErrorLabel from "./FormErrorLabel";
+import { ContactFormData } from "@amcoeur/types";
 
 type FormTextAreaProps = React.InputHTMLAttributes<HTMLTextAreaElement> & {
   children: React.ReactNode;
@@ -12,7 +12,7 @@ type FormTextAreaProps = React.InputHTMLAttributes<HTMLTextAreaElement> & {
 
 const FormTextArea = React.forwardRef<
   HTMLTextAreaElement,
-  FormTextAreaProps & ReturnType<UseFormRegister<ContactData>>
+  FormTextAreaProps & ReturnType<UseFormRegister<ContactFormData>>
 >(({ children, errorMessage, ...props }: FormTextAreaProps, ref) => {
   return (
     <div>

@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { ContactData } from "../../../types/email";
 import { sendContactEmail } from "../../../api/emails";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -11,9 +10,11 @@ import FormRow from "../../atoms/Form/FormRow";
 import Captcha from "../../atoms/Captcha/Captcha";
 import { useEffect, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import { ContactFormData } from "@amcoeur/types";
 
 const schema = yup
   .object({
+    gender: yup.string().required("Civilité est requise"),
     name: yup.string().required("Nom est requis"),
     firstname: yup.string().required("Prénom est requis"),
     mail: yup
@@ -29,9 +30,7 @@ const schema = yup
       .min(10, "Votre numéro de téléphone doit avoir au moins 10 chiffres")
       .max(15, "Votre numéro de téléphone doit avoir 15 chiffres ou moins"),
     message: yup.string().required("Message est requis"),
-    recaptchaToken: yup
-      .string()
-      .required("La validation reCaptcha est requise"),
+    token: yup.string().required("La validation reCaptcha est requise"),
   })
   .required();
 
@@ -42,15 +41,15 @@ export default function ContactForm() {
     formState: { errors },
     setValue,
     reset,
-  } = useForm<ContactData>({
+  } = useForm<ContactFormData>({
     resolver: yupResolver(schema),
   });
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   useEffect(() => {
-    register("recaptchaToken", { required: true });
+    register("token", { required: true });
   }, [register]);
 
-  const onSubmit = (data: ContactData) => {
+  const onSubmit = (data: ContactFormData) => {
     try {
       sendContactEmail(data);
     } catch (e) {
@@ -99,10 +98,8 @@ export default function ContactForm() {
       <FormRow>
         <Captcha
           ref={recaptchaRef}
-          setFormValue={(value: string): void =>
-            setValue("recaptchaToken", value)
-          }
-          errorMessage={errors.recaptchaToken && errors.recaptchaToken.message}
+          setFormValue={(value: string): void => setValue("token", value)}
+          errorMessage={errors.token && errors.token.message}
         />
       </FormRow>
       <FormRow centerContent>

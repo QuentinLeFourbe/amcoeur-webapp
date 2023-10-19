@@ -9,7 +9,7 @@ type TextPanelProps = {
 function TextPanel({ children }: TextPanelProps) {
   return (
     <div className={flexContainer}>
-      <TextContainer>{children}</TextContainer>
+      <TextContainer size="large">{children}</TextContainer>
     </div>
   );
 }

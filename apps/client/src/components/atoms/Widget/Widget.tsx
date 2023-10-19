@@ -29,7 +29,7 @@ function Widget() {
       className={`donation-widget ${widgetStyle} ${atBottom ? "hidden" : ""} 
       }`}
     >
-      <Link to="/donate" className={cx(widgetButtonStyle, widgetContentStyle)}>
+      <Link to="/donc" className={cx(widgetButtonStyle, widgetContentStyle)}>
         <DonationLogo className={widgetLogo} />
         Je donne
       </Link>

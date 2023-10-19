@@ -1,18 +1,18 @@
-import React from "react";
+import React, { ComponentProps } from "react";
 import { css } from "../../../../styled-system/css";
 import { UseFormRegister } from "react-hook-form";
-import { ContactData } from "../../../types/email";
 import FormLabel from "./FormLabel";
 import FormErrorLabel from "./FormErrorLabel";
+import { ContactFormData } from "@amcoeur/types";
 
-type FormInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+type FormInputProps = ComponentProps<"input"> & {
   children: React.ReactNode;
   errorMessage?: string;
 };
 
 const FormInput = React.forwardRef<
   HTMLInputElement,
-  FormInputProps & ReturnType<UseFormRegister<ContactData>>
+  FormInputProps & ReturnType<UseFormRegister<ContactFormData>>
 >(({ children, errorMessage, ...props }: FormInputProps, ref) => {
   return (
     <div>
