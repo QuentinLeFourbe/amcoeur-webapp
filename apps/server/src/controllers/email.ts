@@ -1,4 +1,4 @@
-import { ContactData } from "@amcoeur/types";
+import { ContactFormData } from "@amcoeur/types";
 import nodemailer from "nodemailer";
 import { Request, Response } from "express";
 
@@ -20,7 +20,8 @@ const transporter = nodemailer.createTransport({
  */
 export const sendEmailHandler = async (req: Request, res: Response) => {
   try {
-    const { name, firstname, mail, phone, message } = req.body as ContactData;
+    const { name, firstname, mail, phone, message } =
+      req.body as ContactFormData;
     const mailOptions = {
       from: process.env.CONTACT_EMAIL,
       to: process.env.CONTACT_EMAIL,
