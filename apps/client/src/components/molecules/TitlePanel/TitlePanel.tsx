@@ -13,7 +13,7 @@ function TitlePanel({ src, alt = "", children }: TitlePanelProps) {
   return (
     <div className={container}>
       {src && <ImageContainer src={src} alt={alt} size="mediumLandscape" />}
-      <TextContainer size="medium">{children}</TextContainer>
+      <TextContainer className={textContainerSize}>{children}</TextContainer>
     </div>
   );
 }
@@ -28,5 +28,9 @@ const container = css({
   gap: "50px",
   margin: "0px 0px 50px 0",
   background: "backgrounds.primary.light",
-  padding: "75px",
+  padding: "75px 0px ",
+});
+
+const textContainerSize = css({
+  maxWidth: { base: "800px", xl: "600px" },
 });
