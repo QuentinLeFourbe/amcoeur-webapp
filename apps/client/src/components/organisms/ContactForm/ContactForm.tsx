@@ -10,29 +10,24 @@ import FormRow from "../../atoms/Form/FormRow";
 import Captcha from "../../atoms/Captcha/Captcha";
 import { useEffect, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import { ContactFormData } from "@amcoeur/types";
+import type { ContactFormData } from "@amcoeur/types";
+import {
+  captchaTokenSchema,
+  contactDataSchema,
+  personalDataSchema,
+} from "../../../schema/form";
+import { merge } from "../../../utils/schema";
 
-const schema = yup
-  .object({
-    gender: yup.string().required("Civilité est requise"),
-    name: yup.string().required("Nom est requis"),
-    firstname: yup.string().required("Prénom est requis"),
-    mail: yup
-      .string()
-      .required("Email est requis")
-      .email("Adresse email invalide"),
-    phone: yup
-      .string()
-      .matches(
-        /^\d+$/,
-        "Le numéro de téléphone doit contenir uniquement des chiffres"
-      )
-      .min(10, "Votre numéro de téléphone doit avoir au moins 10 chiffres")
-      .max(15, "Votre numéro de téléphone doit avoir 15 chiffres ou moins"),
-    message: yup.string().required("Message est requis"),
-    token: yup.string().required("La validation reCaptcha est requise"),
-  })
-  .required();
+const contactFormSchema = yup.object().shape({
+  message: yup.string().required("Message est requis"),
+});
+
+const contactFormMergedSchema: yup.ObjectSchema<ContactFormData> = merge(
+  personalDataSchema,
+  contactDataSchema,
+  captchaTokenSchema,
+  contactFormSchema
+) as yup.ObjectSchema<ContactFormData>;
 
 export default function ContactForm() {
   const {
@@ -42,7 +37,7 @@ export default function ContactForm() {
     setValue,
     reset,
   } = useForm<ContactFormData>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(contactFormMergedSchema),
   });
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   useEffect(() => {
@@ -64,33 +59,33 @@ export default function ContactForm() {
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormInput
-        {...register("name")}
-        errorMessage={errors.name && errors.name.message}
+        register={register("name")}
+        errorMessage={errors?.name?.message?.toString()}
       >
         Nom*
       </FormInput>
       <FormInput
-        {...register("firstname")}
-        errorMessage={errors.firstname && errors.firstname.message}
+        register={register("firstname")}
+        errorMessage={errors?.firstname?.message?.toString()}
       >
         Prénom*
       </FormInput>
       <FormInput
-        {...register("mail")}
-        errorMessage={errors.mail && errors.mail.message}
+        register={register("mail")}
+        errorMessage={errors?.mail?.message?.toString()}
       >
         Email*
       </FormInput>
       <FormInput
-        {...register("phone")}
-        errorMessage={errors.phone && errors.phone.message}
+        register={register("phone")}
+        errorMessage={errors?.phone?.message?.toString()}
       >
         Téléphone
       </FormInput>
       <FormRow>
         <FormTextArea
-          {...register("message")}
-          errorMessage={errors.message && errors.message.message}
+          register={register("message")}
+          errorMessage={errors?.message?.message?.toString()}
         >
           Message
         </FormTextArea>
@@ -99,7 +94,7 @@ export default function ContactForm() {
         <Captcha
           ref={recaptchaRef}
           setFormValue={(value: string): void => setValue("token", value)}
-          errorMessage={errors.token && errors.token.message}
+          errorMessage={errors?.token?.message?.toString()}
         />
       </FormRow>
       <FormRow centerContent>

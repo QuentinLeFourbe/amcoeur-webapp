@@ -1,7 +1,6 @@
 export type PersonalData = {
-  gender: string;
-  name: string;
   firstname: string;
+  name: string;
 };
 
 export type AddressData = {
@@ -20,7 +19,6 @@ export type CaptchaToken = {
 };
 
 export type ContactFormData = PersonalData &
-  AddressData &
   ContactData &
   CaptchaToken & {
     message: string;

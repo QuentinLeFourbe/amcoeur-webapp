@@ -1,27 +1,29 @@
 import React from "react";
 import { css } from "../../../../styled-system/css";
-import { UseFormRegister } from "react-hook-form";
 import FormLabel from "./FormLabel";
 import FormErrorLabel from "./FormErrorLabel";
-import { ContactFormData } from "@amcoeur/types";
+import type { UseFormRegisterReturn } from "react-hook-form";
 
 type FormTextAreaProps = React.InputHTMLAttributes<HTMLTextAreaElement> & {
   children: React.ReactNode;
   errorMessage?: string;
+  register: UseFormRegisterReturn;
 };
 
-const FormTextArea = React.forwardRef<
-  HTMLTextAreaElement,
-  FormTextAreaProps & ReturnType<UseFormRegister<ContactFormData>>
->(({ children, errorMessage, ...props }: FormTextAreaProps, ref) => {
+const FormTextArea = ({
+  children,
+  errorMessage,
+  register,
+  ...props
+}: FormTextAreaProps) => {
   return (
     <div>
       <FormLabel>{children}</FormLabel>
-      <textarea ref={ref} className={textAreaStyle} {...props} />
+      <textarea {...register} className={textAreaStyle} {...props} />
       {errorMessage && <FormErrorLabel>{errorMessage}</FormErrorLabel>}
     </div>
   );
-});
+};
 
 export default FormTextArea;
 
