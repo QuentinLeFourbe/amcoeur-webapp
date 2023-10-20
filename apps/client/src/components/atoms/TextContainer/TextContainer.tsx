@@ -27,6 +27,7 @@ function TextContainer({ children, className, size }: TextContainerProps) {
 }
 
 const textContainer = css({
+  fontFamily: "body",
   "& p": {
     margin: "0 0 20px 0",
     color: "textPrimary",
@@ -45,7 +46,6 @@ const textContainer = css({
     fontWeight: "600",
     color: "textPrimary",
     margin: "0 0 20px 0",
-    fontFamily: "heading",
   },
 
   "& h3": {
@@ -53,7 +53,6 @@ const textContainer = css({
     fontWeight: "600",
     color: "textPrimary",
     margin: "0 0 20px 0",
-    fontFamily: "heading",
   },
 
   "& ul": {

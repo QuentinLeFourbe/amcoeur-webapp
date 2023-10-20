@@ -21,6 +21,7 @@ export const theme = {
       fonts: {
         body: { value: "var(--font-roboto), sans-serif" },
         heading: { value: "var(--font-playfair), serif" },
+        dancing: { value: "var(--font-dancing)" },
       },
       fontSizes: {
         header: { value: "24px" },
