@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { css, cx } from "../../../../styled-system/css";
 import DonationLogo from "../../../assets/icons/coeur-donate.svg?react";
 import { Link } from "react-router-dom";
+import useMediaQuery from "../../../hooks/useMediaQuery";
 
 function Widget() {
   const [atBottom, setAtBottom] = useState(false);
+  const isMediumScreen = useMediaQuery({ breakpoint: "md" });
 
   const handleScroll = () => {
     const widgetElement = document.querySelector(
@@ -25,50 +27,53 @@ function Widget() {
   }, []);
 
   return (
-    <div
-      className={`donation-widget ${widgetStyle} ${atBottom ? "hidden" : ""} 
-      }`}
+    <Link
+      to="/donate"
+      className={cx(
+        "donation-widget",
+        widgetButtonStyle,
+        fixedElement,
+        atBottom && hidden
+      )}
     >
-      <Link to="/donate" className={cx(widgetButtonStyle, widgetContentStyle)}>
-        <DonationLogo className={widgetLogo} />
-        Je donne
-      </Link>
-    </div>
+      <DonationLogo className={widgetLogo} />
+      {!isMediumScreen && "Je donne"}
+    </Link>
   );
 }
 
-const widgetStyle = css({
+const fixedElement = css({
   position: "fixed",
-  bottom: "30px",
-  right: "20px",
+  bottom: { md: "40px", base: "20px" },
+  right: { md: "40px", base: "20px" },
+});
+
+const widgetButtonStyle = css({
+  display: "flex",
+  gap: "15px",
+  alignItems: "center",
+
+  padding: { md: "30px 50px", base: "20px 20px" },
+  borderRadius: "50px",
+  fontSize: "1.2",
+  color: "buttons.widget.text",
   backgroundColor: "buttons.widget.background",
-  padding: "10px",
-  borderRadius: "40px",
+
   transition: "0.5s",
-  "&.hidden": {
-    opacity: 0,
-  },
+
   "&:hover": {
     backgroundColor: "buttons.widget.backgroundHover",
   },
 });
 
-const widgetContentStyle = css({
-  display: "flex",
-  gap: "15px",
-  alignItems: "center",
-  color: "buttons.widget.text",
-});
-
-const widgetButtonStyle = css({
-  marginRight: "5px",
-  fontSize: "1.5rem",
-  padding: "10px 20px",
+const hidden = css({
+  opacity: 0,
+  pointerEvents: "none",
 });
 
 const widgetLogo = css({
-  width: "40px",
-  height: "40px",
+  width: { md: "30px", base: "40px" },
+  height: { md: "30px", base: "40px" },
 });
 
 export default Widget;
