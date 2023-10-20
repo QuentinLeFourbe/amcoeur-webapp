@@ -41,33 +41,65 @@
 
 @font-face {
   font-family: "Playfair Display";
-  src: url("fonts/PlayfairDisplay-Regular.ttf") format("truetype");
+  src: url("./assets/fonts/PlayfairDisplay-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Playfair Display";
-  src: url("fonts/PlayfairDisplay-Bold.ttf") format("truetype");
+  src: url("./assets/fonts/PlayfairDisplay-Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Playfair Display";
-  src: url("fonts/PlayfairDisplay-Italic.ttf") format("truetype");
+  src: url("./assets/fonts/PlayfairDisplay-Italic.ttf") format("truetype");
   font-weight: normal;
   font-style: italic;
 }
 
 @font-face {
   font-family: "Playfair Display";
-  src: url("fonts/PlayfairDisplay-BoldItalic.ttf") format("truetype");
+  src: url("./assets/fonts/PlayfairDisplay-BoldItalic.ttf") format("truetype");
   font-weight: bold;
   font-style: italic;
+}
+
+@font-face {
+  font-family: "Dancing Script";
+  src: url("./assets/fonts/DancingScript-VariableFont_wght.ttf")
+    format("truetype-variable");
+  font-weight: 400 500 600 700;
+}
+
+@font-face {
+  font-family: "Dancing Script";
+  src: url("./assets/fonts/DancingScript-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Dancing Script";
+  src: url("./assets/fonts/DancingScript-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Dancing Script";
+  src: url("./assets/fonts/DancingScript-Medium.ttf") format("truetype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Dancing Script";
+  src: url("./assets/fonts/DancingScript-Regular.ttf") format("truetype");
+  font-weight: 400;
 }
 
 :root {
   --font-roboto: "Roboto", sans-serif;
   --font-playfair: "Playfair Display", serif;
+  --font-dancing: "Dancing Script", cursive;
 }

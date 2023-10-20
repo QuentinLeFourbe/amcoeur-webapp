@@ -1659,6 +1659,10 @@ const tokens = {
     "value": "var(--font-playfair), serif",
     "variable": "var(--fonts-heading)"
   },
+  "fonts.dancing": {
+    "value": "var(--font-dancing)",
+    "variable": "var(--fonts-dancing)"
+  },
   "fontSizes.2xs": {
     "value": "0.5rem",
     "variable": "var(--font-sizes-2xs)"

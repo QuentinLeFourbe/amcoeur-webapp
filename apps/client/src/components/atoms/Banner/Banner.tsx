@@ -31,7 +31,8 @@ const container = css({
 
 const textContainer = css({
   color: "textSecondary",
-  fontFamily: "heading",
+  fontFamily: "dancing",
+  fontWeight: "700",
   fontSize: { base: "2rem", md: "3rem", lg: "3rem", xl: "4rem" },
   marginLeft: { base: "5vw", md: "10vw", lg: "10vw", xl: "15vw" },
   maxWidth: { base: "100px", md: "200px", lg: "400px", xl: "500px" },

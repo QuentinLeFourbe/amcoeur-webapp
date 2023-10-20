@@ -415,6 +415,7 @@
   --fonts-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --fonts-body: var(--font-roboto), sans-serif;
   --fonts-heading: var(--font-playfair), serif;
+  --fonts-dancing: var(--font-dancing);
   --font-sizes-2xs: 0.5rem;
   --font-sizes-xs: 0.75rem;
   --font-sizes-sm: 0.875rem;
