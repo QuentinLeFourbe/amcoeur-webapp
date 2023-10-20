@@ -27,7 +27,7 @@ const IndexPage = () => {
           compagnons fidèles. Ensemble, battons-nous pour un monde où l'amour et
           la protection règnent. 🐾❤️
         </p>
-        <Button to="/donate" rounded bold>
+        <Button to="/don" rounded bold>
           En savoir plus
         </Button>
       </ContentPanel>

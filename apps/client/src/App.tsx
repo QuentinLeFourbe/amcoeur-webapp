@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import IndexPage from "./pages";
 import PageContainer from "./components/organisms/PageContainer/PageContainer";
 import { generatePagesRoutes } from "./utils/routes";
+import NotFoundPage from "./pages/404";
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
         element: <IndexPage />,
       },
       ...generatePagesRoutes(),
+      {
+        path: "*",
+        element: <NotFoundPage />,
+      },
     ],
   },
 ]);

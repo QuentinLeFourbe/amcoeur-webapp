@@ -1,7 +1,7 @@
-import { ContactData } from "../types/email";
+import { ContactFormData } from "@amcoeur/types";
 import axios from "axios";
 
-export const sendContactEmail = async (contactData: ContactData) => {
+export const sendContactEmail = async (contactData: ContactFormData) => {
   return axios({
     method: "post",
     url: "/api/email/contact",

@@ -19,7 +19,7 @@ const headerLinks = [
   },
   {
     name: "Donations",
-    href: "/donate",
+    href: "/don",
   },
   {
     name: "Nous contacter",
@@ -34,19 +34,19 @@ const secondaryLinks = [
     subLinks: [
       {
         name: "Devenir famille d'accueil",
-        href: "/famille",
+        href: "/famille-accueil",
       },
       {
         name: "Devenir bénévole",
-        href: "/benevole",
+        href: "/devenir-benevole",
       },
       {
         name: "Faire un don",
-        href: "/donate",
+        href: "/don",
       },
       {
         name: "Collecte de nourriture",
-        href: "/collecte",
+        href: "/collecte-nourriture",
       },
     ],
   },
@@ -56,19 +56,19 @@ const secondaryLinks = [
     subLinks: [
       {
         name: "Nos aides vétérinaires",
-        href: "/adoption",
+        href: "/aide-veterinaire",
       },
       {
         name: "Aide alimentaire",
-        href: "/sos",
+        href: "/aide-alimentaire",
       },
       {
         name: "Entre aide de proximité",
-        href: "/maltraitance",
+        href: "/entraide-proximite",
       },
       {
         name: "La mort de votre animal",
-        href: "/mort",
+        href: "/mort-animal",
       },
     ],
   },

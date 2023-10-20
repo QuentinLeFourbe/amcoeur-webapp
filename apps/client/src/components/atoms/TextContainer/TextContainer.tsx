@@ -61,6 +61,10 @@ const textContainer = css({
     margin: "0 0 20px 30px",
   },
 
+  "& em": {
+    fontStyle: "italic",
+  },
+
   display: "flex",
   flexFlow: "column nowrap",
   alignItems: "flex-start",
