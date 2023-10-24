@@ -1,8 +1,8 @@
 import React from "react";
-import { css } from "../../../../styled-system/css";
-import FormLabel from "./FormLabel";
-import FormErrorLabel from "./FormErrorLabel";
 import type { UseFormRegisterReturn } from "react-hook-form";
+import { css } from "../../../../styled-system/css";
+import Label from "../../atoms/Label/Label";
+import ErrorLabel from "../../ErrorLabel/ErrorLabel";
 
 type FormTextAreaProps = React.InputHTMLAttributes<HTMLTextAreaElement> & {
   children: React.ReactNode;
@@ -18,9 +18,9 @@ const FormTextArea = ({
 }: FormTextAreaProps) => {
   return (
     <div>
-      <FormLabel>{children}</FormLabel>
+      <Label>{children}</Label>
       <textarea {...register} className={textAreaStyle} {...props} />
-      {errorMessage && <FormErrorLabel>{errorMessage}</FormErrorLabel>}
+      {errorMessage && <ErrorLabel>{errorMessage}</ErrorLabel>}
     </div>
   );
 };

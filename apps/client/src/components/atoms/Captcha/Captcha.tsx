@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import FormErrorLabel from "../Form/FormErrorLabel";
+import ErrorLabel from "../../ErrorLabel/ErrorLabel";
 
 type CaptchaProps = {
   errorMessage?: string;
@@ -19,7 +19,7 @@ const Captcha = forwardRef<ReCAPTCHA | null, CaptchaProps>(
           ref={ref}
           onChange={handleCaptchaChange}
         />
-        {errorMessage && <FormErrorLabel>{errorMessage}</FormErrorLabel>}
+        {errorMessage && <ErrorLabel>{errorMessage}</ErrorLabel>}
       </div>
     );
   }
