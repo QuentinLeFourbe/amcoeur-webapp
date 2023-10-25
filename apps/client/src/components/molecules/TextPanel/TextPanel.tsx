@@ -19,7 +19,7 @@ const flexContainer = css({
   flexFlow: "column nowrap",
   justifyContent: "center",
   alignItems: "center",
-  padding: "50px 0 100px 0",
+  padding: "50px 0 50px 0",
 });
 
 export default TextPanel;

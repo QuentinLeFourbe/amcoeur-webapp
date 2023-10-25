@@ -133,7 +133,7 @@ function Header() {
         <a
           className={facebookLogo}
           href="https://www.facebook.com/amcoeur.protection.animaux"
-          target="_blank"
+          target="_blank" rel="noreferrer"
         >
           <FacebookIcon />
         </a>
