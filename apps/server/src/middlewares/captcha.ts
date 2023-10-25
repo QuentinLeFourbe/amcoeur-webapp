@@ -27,7 +27,7 @@ const checkRecaptcha = async (
   res: Response,
   next: NextFunction
 ) => {
-  const token = req.body.recaptchaToken;
+  const token = req.body.token;
   const secretKey = process.env.CAPTCHA_SERVER_KEY;
 
   if (!token) {

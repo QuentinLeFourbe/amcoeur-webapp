@@ -1,8 +1,8 @@
+import "dotenv/config";
 import express, { Request, Response } from "express";
 import path from "path";
 import helmet from "helmet";
 import emailRoutes from "./routes/email";
-import "dotenv/config";
 import bodyParser from "body-parser";
 
 const app = express();
