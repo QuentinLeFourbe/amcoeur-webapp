@@ -36,32 +36,34 @@ function SecondaryPanel({
   }
 
   return (
-    <div
-      className={cx(
-        secondaryHeader,
-        hideOpenClassName,
-        isMediumScreen ? smallerScreen : largeScreen
-      )}
-    >
-      <div className={secondaryLinksContainer}>
-        {links.map((link, index) => (
-          <Link
-            key={index}
-            type="button"
-            variant="secondary"
-            onMouseOver={() => setSelectedLink(link)}
-            onClick={() => setSelectedLink(link)}
-          >
-            {link.name}
-          </Link>
-        ))}
+    isOpen && (
+      <div
+        className={cx(
+          secondaryHeader,
+          hideOpenClassName,
+          isMediumScreen ? smallerScreen : largeScreen,
+        )}
+      >
+        <div className={secondaryLinksContainer}>
+          {links.map((link, index) => (
+            <Link
+              key={index}
+              type="button"
+              variant="secondary"
+              onMouseOver={() => setSelectedLink(link)}
+              onClick={() => setSelectedLink(link)}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+        <SidePanel
+          links={selectedLink.subLinks}
+          backgroundSrc={selectedLink.src}
+          onClose={onClose}
+        />
       </div>
-      <SidePanel
-        links={selectedLink.subLinks}
-        backgroundSrc={selectedLink.src}
-        onClose={onClose}
-      />
-    </div>
+    )
   );
 }
 export default SecondaryPanel;
@@ -74,7 +76,6 @@ const secondaryHeader = css({
   display: "grid",
   gridTemplateColumns: "1fr 4fr",
   background: "backgrounds.secondary.light",
-  opacity: "0",
 });
 
 const largeScreen = css({

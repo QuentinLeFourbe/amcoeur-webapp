@@ -1,15 +1,15 @@
 import React from "react";
 import { css } from "../../../../styled-system/css";
 
-type FormErrorLabelProps = React.HTMLAttributes<HTMLParagraphElement> & {
+type ErrorLabelProps = React.HTMLAttributes<HTMLParagraphElement> & {
   children: React.ReactNode;
 };
 
-function FormErrorLabel({ children }: FormErrorLabelProps) {
+function ErrorLabel({ children }: ErrorLabelProps) {
   return <p className={redDanger}>{children}</p>;
 }
 
-export default FormErrorLabel;
+export default ErrorLabel;
 
 const redDanger = css({
   color: "red",

@@ -7,9 +7,21 @@ type TitlePanelProps = {
   src?: string;
   alt?: string;
   children: React.ReactNode;
+  size?:  "medium" | "large";
 };
 
-function TitlePanel({ src, alt = "", children }: TitlePanelProps) {
+function TitlePanel({ src, alt = "", children, size }: TitlePanelProps) {
+
+  let textContainerSize = src ?   mediumContainerSize : largeTextContainerSize;
+  switch (size) {
+    case "medium":
+      textContainerSize = mediumContainerSize;
+      break;
+    case "large":
+      textContainerSize = largeTextContainerSize;
+      break;
+  }
+
   return (
     <div className={container}>
       {src && <ImageContainer src={src} alt={alt} size="mediumLandscape" />}
@@ -28,9 +40,13 @@ const container = css({
   gap: "50px",
   margin: "0px 0px 50px 0",
   background: "backgrounds.primary.light",
-  padding: "75px 0px ",
+  padding: "20px 0px ",
 });
 
-const textContainerSize = css({
+const mediumContainerSize = css({
   maxWidth: { base: "800px", xl: "600px" },
+});
+
+const largeTextContainerSize = css({
+  maxWidth: { base: "800px", xl: "1200px" },
 });

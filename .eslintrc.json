@@ -36,9 +36,7 @@
   },
   "rules": {
     "linebreak-style": "off",
-    "react-hooks/exhaustive-deps": "off",
-    "object-shorthand": "error",
-    "no-console": "warn",
+
     "react/no-unescaped-entities": "off"
   }
 }
