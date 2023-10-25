@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import ErrorLabel from "../../ErrorLabel/ErrorLabel";
+import ErrorLabel from "../ErrorLabel/ErrorLabel";
 
 type CaptchaProps = {
   errorMessage?: string;

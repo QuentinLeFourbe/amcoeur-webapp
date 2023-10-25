@@ -3,7 +3,7 @@ import React, { ComponentProps } from "react";
 import Select from "../../atoms/Select/Select";
 import Label from "../../atoms/Label/Label";
 import { css } from "../../../../styled-system/css";
-import ErrorLabel from "../../ErrorLabel/ErrorLabel";
+import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
 
 type FormSelectProps = ComponentProps<typeof Select> & {
   children: React.ReactNode;

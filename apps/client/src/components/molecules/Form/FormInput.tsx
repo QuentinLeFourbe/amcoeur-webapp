@@ -2,7 +2,7 @@ import React, { ComponentPropsWithoutRef } from "react";
 import type { UseFormRegisterReturn } from "react-hook-form";
 import { css } from "../../../../styled-system/css";
 import Label from "../../atoms/Label/Label";
-import ErrorLabel from "../../ErrorLabel/ErrorLabel";
+import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
 import Input from "../../atoms/Input/Input";
 
 type FormInputProps = ComponentPropsWithoutRef<"input"> & {

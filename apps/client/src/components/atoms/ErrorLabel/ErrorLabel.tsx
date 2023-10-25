@@ -1,5 +1,5 @@
 import React from "react";
-import { css } from "../../../styled-system/css";
+import { css } from "../../../../styled-system/css";
 
 type ErrorLabelProps = React.HTMLAttributes<HTMLParagraphElement> & {
   children: React.ReactNode;

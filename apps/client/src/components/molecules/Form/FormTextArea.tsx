@@ -2,7 +2,7 @@ import React from "react";
 import type { UseFormRegisterReturn } from "react-hook-form";
 import { css } from "../../../../styled-system/css";
 import Label from "../../atoms/Label/Label";
-import ErrorLabel from "../../ErrorLabel/ErrorLabel";
+import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
 
 type FormTextAreaProps = React.InputHTMLAttributes<HTMLTextAreaElement> & {
   children: React.ReactNode;
