@@ -23,3 +23,12 @@ export type ContactFormData = PersonalData &
   CaptchaToken & {
     message: string;
   };
+
+export type ReservationFormData = PersonalData &
+  ContactData &
+  CaptchaToken & {
+    personCount: number;
+    takeMeal: boolean;
+    howDidYouHearAboutUs?: "facebook" | "display" | "hear" | "other";
+    remark?: string;
+  };

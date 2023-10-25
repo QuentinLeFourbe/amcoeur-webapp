@@ -16,7 +16,7 @@ const IndexPage = () => {
           la vie des animaux dans le besoin. Ensemble, faisons la différence et
           bâtissons un avenir plus doux pour nos amis à quatre pattes.
         </p>
-        <Button to="/" rounded bold>
+        <Button to="/loto" rounded bold>
           En savoir plus
         </Button>
       </ContentPanel>

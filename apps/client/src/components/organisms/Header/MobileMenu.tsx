@@ -42,11 +42,16 @@ function MobileMenu({ isOpen, links, groupLinks, onClose }: MobileMenuProps) {
     hideOpenClassName = cx(noPointerEvents, hasBeenOpened && hidePanel);
   }
 
-  const accordionValues = groupLinks.map((menuItem) => {
+  const accordionValues = groupLinks.map((menuItem, index) => {
     return {
       title: menuItem.name,
       content: menuItem.subLinks?.map((subLink) => (
-        <Link to={subLink.href} variant="secondary" onClick={closeMenu}>
+        <Link
+          to={subLink.href}
+          key={index}
+          variant="secondary"
+          onClick={closeMenu}
+        >
           {subLink.name}
         </Link>
       )),
@@ -54,24 +59,26 @@ function MobileMenu({ isOpen, links, groupLinks, onClose }: MobileMenuProps) {
   });
 
   return (
-    <div className={cx(centerMenu, hideOpenClassName)}>
-      <div className={panelBaseStyle}>
-        {links.map((link) => {
-          return (
-            <div>
-              <Link
-                to={link.href || "/"}
-                variant="secondary"
-                onClick={closeMenu}
-              >
-                {link.name}
-              </Link>
-            </div>
-          );
-        })}
-        <Accordion items={accordionValues} />
+    isOpen && (
+      <div className={cx(centerMenu, hideOpenClassName)} hidden={!isOpen}>
+        <div className={panelBaseStyle}>
+          {links.map((link, index) => {
+            return (
+              <div key={index}>
+                <Link
+                  to={link.href || "/"}
+                  variant="secondary"
+                  onClick={closeMenu}
+                >
+                  {link.name}
+                </Link>
+              </div>
+            );
+          })}
+          <Accordion items={accordionValues} />
+        </div>
       </div>
-    </div>
+    )
   );
 }
 
@@ -91,7 +98,6 @@ const centerMenu = css({
   background: "backgrounds.secondary.light",
   height: "80vh",
   overflow: "scroll",
-  opacity: "0",
 });
 
 const panelBaseStyle = css({
