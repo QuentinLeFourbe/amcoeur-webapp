@@ -61,7 +61,6 @@ export default function ReservationForm() {
     register("token", { required: true });
   }, [register]);
 
-  console.log({ errors });
 
   const onSubmit = (data: ReservationFormData) => {
     console.log({ data });
@@ -71,7 +70,6 @@ export default function ReservationForm() {
       console.error(e);
       return;
     } finally {
-      console.log("hey reset");
       reset();
       recaptchaRef?.current?.reset();
     }
@@ -144,9 +142,6 @@ export default function ReservationForm() {
             </FormSelect>
           )}
         />
-        {/* <FormDropdown options={options} size={"medium"}>
-          Comment avez-vous connu l&apos;évènement ?
-        </FormDropdown> */}
       </FormRow>
       <FormRow>
         <Captcha

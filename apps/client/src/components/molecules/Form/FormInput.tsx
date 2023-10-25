@@ -49,7 +49,7 @@ const container = css({
 });
 
 const fullWidth = css({
-  // width: "100%",
+  width: "100%",
 });
 
 const mediumWidth = css({
