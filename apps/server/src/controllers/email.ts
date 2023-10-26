@@ -4,13 +4,20 @@ import { Request, Response } from "express";
 
 const transporter = nodemailer.createTransport({
   host: "ssl0.ovh.net",
-  // host: "smtp.amcoeur.org",
-  port: 587,
-  secure: false,
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.CONTACT_EMAIL,
     pass: process.env.CONTACT_EMAIL_PASSWORD,
   },
+});
+
+transporter.verify(function (error, success) {
+  if (error) {
+    console.log("Erreur lors de la connexion : ", error);
+  } else {
+    console.log("Email server is ready to take our messages");
+  }
 });
 
 /**
@@ -28,9 +35,6 @@ export const sendEmailHandler = async (req: Request, res: Response) => {
       subject: `Demande de contact: ${name} ${firstname}`,
       text: `Nom: ${name}\nPrénom: ${firstname}\nEmail: ${mail}\nTéléphone: ${phone}\nMessage: ${message}`,
     };
-    console.log("mail", process.env.CONTACT_EMAIL);
-    console.log("password", process.env.CONTACT_EMAIL_PASSWORD);
-    console.log("trying to send email");
     await transporter?.sendMail(mailOptions);
     res.status(200).send("Email envoyé !");
   } catch (err) {
