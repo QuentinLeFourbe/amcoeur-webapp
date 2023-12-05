@@ -2,7 +2,6 @@ import ContentPanel from "../components/molecules/ContentPanel/ContentPanel";
 import Banner from "../components/atoms/Banner/Banner";
 import donateImage from "../assets/images/chien-dons.webp";
 import lotoImage from "../assets/images/chat-chien.webp";
-import familleImage from "../assets/images/chat-doigt.webp";
 import Button from "../components/atoms/Button/Button";
 import noelImage from "../assets/images/noel_non.jpg";
 
