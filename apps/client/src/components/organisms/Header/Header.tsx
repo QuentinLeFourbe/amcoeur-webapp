@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { css, cx } from "../../../../styled-system/css";
 import FacebookIcon from "../../../assets/icons/facebook.svg?react";
 import BurgerIcon from "../../../assets/icons/burger.svg?react";
-import AmcoeurLogo from "../../../assets/images/am-logo.webp";
+import AmcoeurLogo from "../../../assets/icons/amcoeur_logo.webp";
 import Link from "../../atoms/Link/Link";
-import SecondaryPanel from "./SecondaryPanel";
 import Overlay from "../../atoms/Overlay/Overlay";
 import useMediaQuery from "../../../hooks/useMediaQuery";
-import MobileMenu from "./MobileMenu";
 import ChienContent from "../../../assets/images/chien-content-alt.webp";
 import ChatonMimi from "../../../assets/images/chaton-mimi-alt.webp";
-import { useLocation } from "react-router-dom";
+import MobileMenu from "./MobileMenu";
+import SecondaryPanel from "./SecondaryPanel";
 
 const headerLinks = [
   {

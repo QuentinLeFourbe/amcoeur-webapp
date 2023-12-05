@@ -4,45 +4,46 @@ import donateImage from "../assets/images/chien-dons.webp";
 import lotoImage from "../assets/images/chat-chien.webp";
 import familleImage from "../assets/images/chat-doigt.webp";
 import Button from "../components/atoms/Button/Button";
+import noelImage from "../assets/images/noel_non.jpg";
 
 const IndexPage = () => {
   return (
     <>
-      <Banner>Protéger. Aimer. Secourir. Agir. </Banner>
-      <ContentPanel title="Loto Amcoeur !" imageSrc={lotoImage}>
+      <Banner>Bienvenue à tous les protecteurs des animaux</Banner>
+      <ContentPanel title="Site en construction" imageSrc={lotoImage}>
         <p>
-          Participez au loto de notre association dédiée à la protection des
-          animaux, et offrez-leur une chance de vie meilleure. Chaque ticket que
-          vous achetez contribue à financer nos actions pour sauver et améliorer
-          la vie des animaux dans le besoin. Ensemble, faisons la différence et
-          bâtissons un avenir plus doux pour nos amis à quatre pattes.
+          Le nouveau site www.amcoeur.org est en cours de reconstruction toutes
+          les rubriques ne sont pas encore fonctionnelles. Nous vous remercions
+          de votre compréhension.
         </p>
-        <Button to="/loto" rounded bold>
+      </ContentPanel>
+      <ContentPanel
+        title="Noël: pas de cadeaux d'animaux !"
+        imageSrc={noelImage}
+        revert
+      >
+        <p>
+          Bien trop de chiens, chats, NAC se retrouvent abandonnés suite à un
+          cadeau fait par des parents qui n&apos;ont pas su juger des
+          obligations qui en découleront pendant peut-être 20 ans ou plus.
+        </p>
+        <p>
+          Un animal vivant n&apos;est pas un objet et ne peut être offert comme
+          une poupée, un jeu ou autre jouet.
+        </p>
+        <Button to="/noel-cadeaux-animaux" rounded bold>
           En savoir plus
         </Button>
       </ContentPanel>
-      <ContentPanel revert title="Appel aux dons" imageSrc={donateImage}>
+      <ContentPanel title="Appel aux dons" imageSrc={donateImage}>
         <p>
           Soutenez Amcoeur et soyez le cœur qui bat pour nos amis à quatre
           pattes. Chaque don compte pour offrir une vie meilleure à ces
           compagnons fid&rsquo;les. Ensemble, battons-nous pour un monde où
-          l&rsquo;amour et la protection règnent. 🐾❤️
+          l&apos;amour et la protection règnent. 🐾❤️
         </p>
         <Button to="/don" rounded bold>
           En savoir plus
-        </Button>
-      </ContentPanel>
-      <ContentPanel title="Devenir famille d'accueil" imageSrc={familleImage}>
-        <p>
-          Devenez un refuge de chaleur et de réconfort pour les animaux dans le
-          besoin ! En tant que famille d&rsquo;accueil au grand cœur, vous
-          offrez une deuxième chance à des vies en détresse, en les entourant
-          d&rsquo;amour et de soins temporaires. Joignez-vous à notre réseau
-          dévoué pour devenir le lien vital entre le passé difficile et un
-          avenir radieux pour ces compagnons en transition.
-        </p>
-        <Button to="/don" rounded bold>
-          Ca m&rsquo;intéresse
         </Button>
       </ContentPanel>
     </>
