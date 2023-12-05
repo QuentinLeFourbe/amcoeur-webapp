@@ -40,6 +40,12 @@ const secondaryLinks = [
         name: "Devenir bénévole",
         href: "/devenir-benevole",
       },
+    ],
+  },
+  {
+    name: "Soutenir",
+    src: ChatonMimi,
+    subLinks: [
       {
         name: "Faire un don",
         href: "/don",
@@ -47,28 +53,6 @@ const secondaryLinks = [
       {
         name: "Collecte de nourriture",
         href: "/collecte-nourriture",
-      },
-    ],
-  },
-  {
-    name: "Besoin d'aide",
-    src: ChatonMimi,
-    subLinks: [
-      {
-        name: "Nos aides vétérinaires",
-        href: "/aide-veterinaire",
-      },
-      {
-        name: "Aide alimentaire",
-        href: "/aide-alimentaire",
-      },
-      {
-        name: "Entre aide de proximité",
-        href: "/entraide-proximite",
-      },
-      {
-        name: "La mort de votre animal",
-        href: "/mort-animal",
       },
     ],
   },
@@ -111,7 +95,7 @@ function Header() {
       <div
         className={cx(
           primaryHeader,
-          scrolling ? headerOnScrollPadding : headerScrollTopPadding
+          scrolling ? headerOnScrollPadding : headerScrollTopPadding,
         )}
       >
         <div className={cx(logoContainer, scrolling && logoReduced)}>
@@ -133,7 +117,8 @@ function Header() {
         <a
           className={facebookLogo}
           href="https://www.facebook.com/amcoeur.protection.animaux"
-          target="_blank" rel="noreferrer"
+          target="_blank"
+          rel="noreferrer"
         >
           <FacebookIcon />
         </a>
