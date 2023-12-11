@@ -76,6 +76,7 @@ const secondaryHeader = css({
   display: "grid",
   gridTemplateColumns: "1fr 4fr",
   background: "backgrounds.secondary.light",
+  height: "180px",
 });
 
 const largeScreen = css({

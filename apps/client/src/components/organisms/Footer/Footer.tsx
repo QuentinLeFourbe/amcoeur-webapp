@@ -1,6 +1,6 @@
 import { css } from "../../../../styled-system/css";
 import Link from "../../atoms/Link/Link";
-import AmcoeurLogo from "../../../assets/images/am-logo.webp";
+import AmcoeurLogo from "../../../assets/icons/amcoeur_logo_light.webp";
 
 function Footer() {
   return (
