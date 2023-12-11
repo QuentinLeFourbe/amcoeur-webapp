@@ -100,9 +100,9 @@ function Header() {
       >
         <div className={cx(logoContainer, scrolling && logoReduced)}>
           <LogoLink src={AmcoeurLogo} href="/" />
-          <button className={burgerIcon} onClick={() => setMenuOpen(!menuOpen)}>
+          {/* <button className={burgerIcon} onClick={() => setMenuOpen(!menuOpen)}>
             <BurgerIcon />
-          </button>
+          </button> */}
         </div>
         {isBigScreen && (
           <div className={primaryLinksContainer}>

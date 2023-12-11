@@ -36,10 +36,9 @@ const IndexPage = () => {
       </ContentPanel>
       <ContentPanel title="Appel aux dons" imageSrc={donateImage}>
         <p>
-          Soutenez Amcoeur et soyez le cœur qui bat pour nos amis à quatre
-          pattes. Chaque don compte pour offrir une vie meilleure à ces
-          compagnons fid&rsquo;les. Ensemble, battons-nous pour un monde où
-          l&apos;amour et la protection règnent. 🐾❤️
+          Votre don est notre bouée de sauvetage pour les animaux vulnérables.
+          Chaque contribution nous permet de leur offrir soins, abri et amour.
+          Ensemble, changeons leur destin grâce à votre générosité.
         </p>
         <Button to="/don" rounded bold>
           En savoir plus
