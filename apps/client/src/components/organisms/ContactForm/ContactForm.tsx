@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import type { ContactFormData } from "@amcoeur/types";
 import { sendContactEmail } from "../../../api/emails";
@@ -39,6 +39,7 @@ export default function ContactForm() {
   } = useForm<ContactFormData>({
     resolver: yupResolver(contactFormMergedSchema),
   });
+  const [displayConfirmation, setDisplayConfirmation] = useState(false);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   useEffect(() => {
     register("token", { required: true });
@@ -52,6 +53,7 @@ export default function ContactForm() {
       return;
     } finally {
       reset();
+      setDisplayConfirmation(true);
       recaptchaRef?.current?.reset();
     }
   };
@@ -98,6 +100,11 @@ export default function ContactForm() {
           errorMessage={errors?.token?.message?.toString()}
         />
       </FormRow>
+      {displayConfirmation && (
+        <FormRow>
+          <p>Votre message a bien été envoyé</p>
+        </FormRow>
+      )}
       <FormRow centerContent>
         <Button type="submit">Envoyer</Button>
       </FormRow>

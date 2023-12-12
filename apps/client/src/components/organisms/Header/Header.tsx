@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { css, cx } from "../../../../styled-system/css";
 import FacebookIcon from "../../../assets/icons/facebook.svg?react";
-import BurgerIcon from "../../../assets/icons/burger.svg?react";
+// import BurgerIcon from "../../../assets/icons/burger.svg?react";
 import AmcoeurLogo from "../../../assets/icons/amcoeur_logo.webp";
 import Link from "../../atoms/Link/Link";
 import Overlay from "../../atoms/Overlay/Overlay";
@@ -100,9 +100,9 @@ function Header() {
       >
         <div className={cx(logoContainer, scrolling && logoReduced)}>
           <LogoLink src={AmcoeurLogo} href="/" />
-          <button className={burgerIcon} onClick={() => setMenuOpen(!menuOpen)}>
+          {/* <button className={burgerIcon} onClick={() => setMenuOpen(!menuOpen)}>
             <BurgerIcon />
-          </button>
+          </button> */}
         </div>
         {isBigScreen && (
           <div className={primaryLinksContainer}>
@@ -208,20 +208,20 @@ const logoReduced = css({
   },
 });
 
-const burgerIcon = css({
-  marginRight: "auto",
-  width: "40px",
-  height: "40px",
-  cursor: "pointer",
-  "&svg": {
-    width: "100%",
-    height: "100%",
+// const   burgerIcon = css({
+//   marginRight: "auto",
+//   width: "40px",
+//   height: "40px",
+//   cursor: "pointer",
+//   "&svg": {
+//     width: "100%",
+//     height: "100%",
 
-    "&:hover": {
-      color: "white",
-      backgroundColor: "green",
-    },
-  },
-});
+//     "&:hover": {
+//       color: "white",
+//       backgroundColor: "green",
+//     },
+//   },
+// });
 
 export default Header;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { css, cx } from "../../../../styled-system/css";
 import DonationLogo from "../../../assets/icons/coeur-donate.svg?react";
-import { Link } from "react-router-dom";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 
 function Widget() {
@@ -10,7 +10,7 @@ function Widget() {
 
   const handleScroll = () => {
     const widgetElement = document.querySelector(
-      ".donation-widget"
+      ".donation-widget",
     ) as HTMLElement | null;
 
     if (widgetElement) {
@@ -28,12 +28,12 @@ function Widget() {
 
   return (
     <Link
-      to="/donate"
+      to="/don"
       className={cx(
         "donation-widget",
         widgetButtonStyle,
         fixedElement,
-        atBottom && hidden
+        atBottom && hidden,
       )}
     >
       <DonationLogo className={widgetLogo} />

@@ -35,7 +35,14 @@ export const sendEmailHandler = async (req: Request, res: Response) => {
       subject: `Demande de contact: ${name} ${firstname}`,
       text: `Nom: ${name}\nPrénom: ${firstname}\nEmail: ${mail}\nTéléphone: ${phone}\nMessage: ${message}`,
     };
+    const mailOptionsToSender = {
+      from: process.env.CONTACT_EMAIL,
+      to: mail,
+      subject: `Votre demande de contact a bien été prise en compte`,
+      text: `Bonjour,\nVotre demande de contact a bien été prise en compte. Nous vous contacterons dans les plus bref délais.\nVotre message: ${message}`,
+    };
     await transporter?.sendMail(mailOptions);
+    await transporter?.sendMail(mailOptionsToSender);
     res.status(200).send("Email envoyé !");
   } catch (err) {
     console.log(err);
