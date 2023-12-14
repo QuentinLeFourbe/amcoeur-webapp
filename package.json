@@ -8,6 +8,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run dev -w @amcoeur/client",
+    "dev-backoffice": "npm run dev -w @amcoeur/backoffice",
     "watch": "npm run watch -w @amcoeur/client",
     "watch-types": "npm run watch -w @amcoeur/types",
     "dev-server": "npm run dev -w @amcoeur/server",
