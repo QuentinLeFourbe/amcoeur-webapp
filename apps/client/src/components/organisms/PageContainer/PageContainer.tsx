@@ -1,6 +1,6 @@
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 import { useLocation, useOutlet } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { css } from "../../../../styled-system/css";
@@ -10,21 +10,12 @@ import { pagesRoutes } from "../../../routes";
 
 function PageContainer() {
   const { pathname } = useLocation();
-  const [showContent, setShowContent] = useState(false);
   const currentOutlet = useOutlet();
   const { nodeRef } =
     pagesRoutes.find((route) => route.path === location.pathname) || {};
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
-  }, [pathname]);
-
-  //show content after 1s
-  useEffect(() => {
-    setShowContent(false);
-    setTimeout(() => {
-      setShowContent(true);
-    }, 100);
+    window.scrollTo(0, 0);
   }, [pathname]);
 
   return (
@@ -80,15 +71,6 @@ const container = css({
     opacity: 1,
     animationFillMode: "forwards",
   },
-});
-
-const hidden = css({
-  opacity: 0,
-});
-
-const fadeIn = css({
-  opacity: 1,
-  transition: "opacity 0.5s ease-in-out ",
 });
 
 const contentContainer = css({
