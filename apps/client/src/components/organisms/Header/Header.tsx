@@ -71,7 +71,7 @@ function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 0 && !scrolling) {
+      if (window.scrollY > 100 && !scrolling) {
         setScrolling(true);
       } else if (window.scrollY === 0 && scrolling) {
         setScrolling(false);
@@ -99,7 +99,7 @@ function Header() {
           scrolling ? headerOnScrollPadding : headerScrollTopPadding,
         )}
       >
-        <div className={cx(logoContainer, scrolling && logoReduced)}>
+        <div className={cx(scrolling ? logoReduced : logoFullSize)}>
           <LogoLink src={AmcoeurLogo} href="/" />
           {!isBigScreen && (
             <button
@@ -185,6 +185,7 @@ const primaryHeader = css({
   alignItems: "center",
   background: "backgrounds.primary.extraLight",
   gap: "10px",
+  transition: "all 0.2s ease-in-out",
 });
 
 const primaryLinksContainer = css({
@@ -195,19 +196,25 @@ const primaryLinksContainer = css({
   gap: "100px",
 });
 
-const logoContainer = css({
+const baseLogoContainer = {
   display: "flex",
   alignItems: "center",
   gap: "10px",
 
   "& img": {
+    objectFit: "contain",
+    transition: "all 0.2s ease-in-out",
+  },
+};
+
+const logoFullSize = css(baseLogoContainer, {
+  "& img": {
     width: "75px",
     height: "75px",
-    objectFit: "contain",
   },
 });
 
-const logoReduced = css({
+const logoReduced = css(baseLogoContainer, {
   "& img": {
     width: "50px",
     height: "50px",
