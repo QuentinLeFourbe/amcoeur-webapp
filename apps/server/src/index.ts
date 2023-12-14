@@ -5,6 +5,7 @@ import helmet from "helmet";
 import emailRoutes from "./routes/email";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
+import pageRoutes from "./routes/page";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -28,7 +29,7 @@ app.use(
 app.use(express.static(path.join(__dirname, "../../client/dist")));
 
 app.use("/api/email", emailRoutes);
-// add page route here
+app.use("/api/page", pageRoutes);
 
 app.get("/*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
