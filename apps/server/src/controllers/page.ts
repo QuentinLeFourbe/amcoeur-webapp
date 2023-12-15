@@ -28,3 +28,19 @@ export const getAllPages = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const getPagesById = async (req: Request, res: Response) => {
+  try {
+    const page = await Page.findById(req.params.totoid);
+    if (!page) {
+      res.status(404).json({ message: "Page non trouvée." });
+    } else {
+      res.status(200).json(page);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Une erreur s'est produite lors de la récupération de la page.",
+    });
+  }
+};
