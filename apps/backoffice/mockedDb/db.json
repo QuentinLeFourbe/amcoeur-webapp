@@ -1,0 +1,64 @@
+{
+  "pages": [
+    {
+      "id": 1,
+      "title": "Page d'accueil",
+      "route": "/",
+      "content": "Bonjour, ici la page d'accueil"
+    },
+    {
+      "id": 2,
+      "title": "Page 2",
+      "route": "/page2",
+      "content": "Bonjour, ici la page 2"
+    },
+    {
+      "id": 3,
+      "title": "Page 3",
+      "route": "/page3",
+      "content": "Bonjour, ici la page 3"
+    },
+    {
+      "id": 4,
+      "title": "Page 4",
+      "route": "/page4",
+      "content": "Bonjour, ici la page 4"
+    },
+    {
+      "id": 5,
+      "title": "Page 5",
+      "route": "/page5",
+      "content": "Bonjour, ici la page 5"
+    },
+    {
+      "id": 6,
+      "title": "Page 6",
+      "route": "/page6",
+      "content": "Bonjour, ici la page 6"
+    },
+    {
+      "id": 7,
+      "title": "Page 7",
+      "route": "/page7",
+      "content": "Bonjour, ici la page 7"
+    },
+    {
+      "id": 8,
+      "title": "Page 8",
+      "route": "/page8",
+      "content": "Bonjour, ici la page 8"
+    },
+    {
+      "id": 9,
+      "title": "Page 9",
+      "route": "/page9",
+      "content": "Bonjour, ici la page 9"
+    },
+    {
+      "id": 10,
+      "title": "Page 10",
+      "route": "/page10",
+      "content": "Bonjour, ici la page 10"
+    }
+  ]
+}

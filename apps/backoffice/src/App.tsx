@@ -4,6 +4,8 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import ManagePages from "./pages/ManagePages";
 import Index from "./pages/Index";
+import { QueryClient } from "@tanstack/query-core";
+import { QueryClientProvider } from "@tanstack/react-query";
 
 const pagesRoutes = [
   { path: "/", element: <Index /> },
@@ -33,8 +35,14 @@ const appRoutes = [
 
 const router = createBrowserRouter(appRoutes);
 
+const queryClient = new QueryClient();
+
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
 
 export default App;

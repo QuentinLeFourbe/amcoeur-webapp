@@ -16,7 +16,7 @@ function Button({ rounded, bold, ...props }: ButtonProps) {
         primaryColors,
         rounded ? roundedBorders : squaredBorders,
         bold ? boldText : null,
-        props.className
+        props.className,
       )}
     />
   );
@@ -29,7 +29,7 @@ const baseButton = css({
   justifyContent: "center",
   alignItems: "center",
   cursor: "pointer",
-  padding: "20px 40px",
+  padding: "0.5rem",
   "&:active": {
     opacity: "0.8",
   },
