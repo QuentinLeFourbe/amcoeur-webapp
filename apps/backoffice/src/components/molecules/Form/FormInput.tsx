@@ -53,13 +53,13 @@ const fullWidth = css({
 });
 
 const mediumWidth = css({
-  maxWidth: "300px",
+  width: "300px",
 });
 
 const largeWidth = css({
-  maxWidth: "500px",
+  width: "500px",
 });
 
 const smallWidth = css({
-  maxWidth: "100px",
+  width: "100px",
 });

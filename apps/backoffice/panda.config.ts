@@ -1,24 +1,22 @@
-import { defineConfig, defineGlobalStyles } from "@pandacss/dev";
-
-const globalCss = defineGlobalStyles({
-  "html, body": {
-    fontFamily: "body",
-  },
-});
+import { defineConfig } from "@pandacss/dev"
 
 export default defineConfig({
-  // Whether to use css reset
-  preflight: true,
+    // Whether to use css reset
+    preflight: true,
+    
+    // Where to look for your css declarations
+    include: ["./src/**/*.{js,jsx,ts,tsx}", "./pages/**/*.{js,jsx,ts,tsx}"],
 
-  // Where to look for your css declarations
-  include: ["./src/**/*.{js,jsx,ts,tsx}", "./pages/**/*.{js,jsx,ts,tsx}"],
+    // Files to exclude
+    exclude: [],
 
-  // Files to exclude
-  exclude: [],
+    // Useful for theme customization
+    theme: {
+      extend: {}
+    },
 
-  // Useful for theme customization
-
-  // The output directory for your css system
-  outdir: "styled-system",
-  globalCss,
-});
+    // The output directory for your css system
+    outdir: "styled-system",
+    
+    
+})
