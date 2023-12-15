@@ -5,6 +5,7 @@ export const createPage = async (req: Request, res: Response) => {
   try {
     const newPage = new Page(req.body);
     await newPage.save();
+    console.log(req.body);
     res.status(201).json(newPage);
   } catch (err) {
     console.log(err);
