@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { createPage } from "../controllers/page";
+import { createPage, getAllPages } from "../controllers/page";
 
 const router = Router();
 
-router.post("/", createPage);
+router.post("/", createPage, getAllPages);
 // / car si autre route on peut les différencié alors que avec /*
 export default router;
