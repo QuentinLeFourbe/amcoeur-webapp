@@ -5,6 +5,7 @@ import FormInput from "../components/molecules/Form/FormInput";
 import { LoginInfo } from "../types/login";
 import { loginInfoSchema } from "../schemas/login";
 import FormRow from "../components/atoms/Form/FormRow";
+import { css } from "../../styled-system/css";
 
 function Login() {
   const {
@@ -28,27 +29,31 @@ function Login() {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormRow centerContent>
-        <FormInput
-          register={register("username")}
-          errorMessage={errors?.username?.message?.toString()}
-          width="medium"
-        >
-          Nom d&apos;utilisateur
-        </FormInput>
-      </FormRow>
-      <FormRow centerContent>
-        <FormInput
-          register={register("password")}
-          errorMessage={errors?.password?.message?.toString()}
-          width="medium"
-        >
-          Mot de passe
-        </FormInput>
-      </FormRow>
+    <Form onSubmit={handleSubmit(onSubmit)} className={container}>
+      <FormInput
+        register={register("username")}
+        errorMessage={errors?.username?.message?.toString()}
+        width="medium"
+      >
+        Nom d&apos;utilisateur
+      </FormInput>
+      <FormInput
+        register={register("password")}
+        errorMessage={errors?.password?.message?.toString()}
+        width="medium"
+      >
+        Mot de passe
+      </FormInput>
     </Form>
   );
 }
 
 export default Login;
+
+const container = css({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "2rem",
+});

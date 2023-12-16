@@ -1,6 +1,7 @@
 import { useOutlet } from "react-router-dom";
 import Header from "../../organisms/Header/Header";
 import { css } from "../../../../styled-system/css";
+import Footer from "../../organisms/Footer/Footer";
 
 function PageContainer() {
   const outlet = useOutlet();
@@ -9,6 +10,7 @@ function PageContainer() {
     <div className={container}>
       <Header />
       {outlet}
+      <Footer />
     </div>
   );
 }
@@ -20,4 +22,5 @@ const container = css({
   height: "100vh",
   display: "flex",
   flexFlow: "column nowrap",
+  gap: "2rem",
 });

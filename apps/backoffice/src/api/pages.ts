@@ -5,6 +5,14 @@ export const getPages = async () => {
   return axios.get<PageData[]>("http://localhost:3000/pages");
 };
 
-export const getPage = async (id: number) => {
-  return axios.get<PageData[]>(`http://localhost:3000/pages/${id}`);
+export const getPage = async (id: string | number) => {
+  return axios.get<PageData>(`http://localhost:3000/pages/${id}`);
+};
+
+export const createPage = async (page: PageData) => {
+  return axios.post<PageData>("http://localhost:3000/pages", page);
+};
+
+export const updatePage = async (page: PageData) => {
+  return axios.put<PageData>(`http://localhost:3000/pages/${page.id}`, page);
 };

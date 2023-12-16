@@ -1579,13 +1579,13 @@ const tokens = {
     "value": "#020617",
     "variable": "var(--colors-slate-950)"
   },
-  "colors.textPrimary": {
-    "value": "#333333",
-    "variable": "var(--colors-text-primary)"
-  },
   "colors.textSecondary": {
-    "value": "#FFFFF0",
+    "value": "#333333",
     "variable": "var(--colors-text-secondary)"
+  },
+  "colors.textPrimary": {
+    "value": "#FFFFF0",
+    "variable": "var(--colors-text-primary)"
   },
   "colors.pinkExtraLight": {
     "value": "#FFF0F5",

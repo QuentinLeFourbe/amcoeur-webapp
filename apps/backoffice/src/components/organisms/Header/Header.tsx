@@ -46,6 +46,7 @@ const header = css({
   alignItems: "center",
   gap: "10px",
   padding: "25px 10vw",
+  background: "backgrounds.primary.medium",
 });
 
 const primaryLinksContainer = css({

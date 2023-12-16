@@ -2,8 +2,8 @@ export const theme = {
   extend: {
     tokens: {
       colors: {
-        textPrimary: { value: "#333333" },
-        textSecondary: { value: "#FFFFF0" },
+        textSecondary: { value: "#333333" },
+        textPrimary: { value: "#FFFFF0" },
         pinkExtraLight: { value: "#FFF0F5" },
         pinkLight: { value: "#FFC0CB" },
         pinkMedium: { value: "#FF69B4" },

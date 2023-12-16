@@ -33,7 +33,7 @@ const textAreaStyle = css({
   backgroundColor: "backgrounds.primary.extraLight",
   borderRadius: "4px",
   width: "100%",
-  height: "200px",
+  height: "800px",
   resize: "none",
   padding: "1rem",
 });

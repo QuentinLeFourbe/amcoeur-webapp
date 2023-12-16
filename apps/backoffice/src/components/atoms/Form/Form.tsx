@@ -12,10 +12,9 @@ export default function Form({ children, ...props }: FormProps) {
   );
 }
 const formContainer = css({
-  display: "grid",
+  display: "flex",
+  flexFlow: "column nowrap",
   maxWidth: "100%",
-  margin: "5vh 20vw",
-  gridTemplateColumns: "1fr 1fr",
   justifyItems: "stretch",
   gap: "2rem",
 });
