@@ -15,7 +15,6 @@ function ManagePage() {
   const { mutate, isError: isErrorMutation } = useUpdatePage();
 
   const onEdit = (data: PageData) => {
-    console.log(data);
     mutate(data);
     setIsEditing(false);
   };
@@ -29,6 +28,7 @@ function ManagePage() {
         </div>
       ) : (
         <div className={container}>
+          <Button href="/gestion-pages">Retour</Button>
           <Button onClick={() => setIsEditing(true)}>Modifier</Button>
           {isErrorMutation && (
             <ErrorLabel>

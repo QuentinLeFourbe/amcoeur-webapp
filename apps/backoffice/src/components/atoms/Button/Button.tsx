@@ -5,6 +5,7 @@ import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
 type ButtonProps = ComponentProps<typeof ClickablePrimitive> & {
   rounded?: boolean;
   bold?: boolean;
+  size?: "small" | "medium" | "large";
 };
 
 function Button({ rounded, bold, ...props }: ButtonProps) {
@@ -16,6 +17,7 @@ function Button({ rounded, bold, ...props }: ButtonProps) {
         primaryColors,
         rounded ? roundedBorders : squaredBorders,
         bold ? boldText : null,
+        fitContent,
         props.className,
       )}
     />
@@ -29,7 +31,7 @@ const baseButton = css({
   justifyContent: "center",
   alignItems: "center",
   cursor: "pointer",
-  padding: "0.5rem",
+  padding: "0.5rem 1rem",
   "&:active": {
     opacity: "0.8",
   },
@@ -58,4 +60,8 @@ const roundedBorders = css({
 
 const squaredBorders = css({
   borderRadius: "4px",
+});
+
+const fitContent = css({
+  width: "fit-content",
 });
