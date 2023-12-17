@@ -16,3 +16,7 @@ export const createPage = async (page: PageData) => {
 export const updatePage = async (page: PageData) => {
   return axios.put<PageData>(`http://localhost:3000/pages/${page.id}`, page);
 };
+
+export const deletePage = async (id: string | number) => {
+  return axios.delete<PageData>(`http://localhost:3000/pages/${id}`);
+};

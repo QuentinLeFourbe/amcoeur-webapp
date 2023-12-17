@@ -1,13 +1,26 @@
 import { css } from "../../styled-system/css";
 import Button from "../components/atoms/Button/Button";
 import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
-import { useGetPages } from "../hooks/pagesQueries";
+import { useDeletePage, useGetPages } from "../hooks/pagesQueries";
 
 function ManagePages() {
   const { data, isLoading, isError } = useGetPages();
 
+  const {
+    mutate: deletePage,
+    isError: isDeleteError,
+    isSuccess: isDeleteSuccess,
+  } = useDeletePage();
+
   return (
     <div className={container}>
+      <Button href="/gestion-pages/creer">Créer une page</Button>
+      {isDeleteError && (
+        <ErrorLabel>
+          Une erreur est survenue lors de la suppression de la page
+        </ErrorLabel>
+      )}
+      {isDeleteSuccess && <p>La page a bien été supprimée</p>}
       <table className={pageTable}>
         <thead>
           <tr>
@@ -26,7 +39,9 @@ function ManagePages() {
                   <Button href={`/gestion-pages/${page.id}`}>Afficher</Button>
                 </td>
                 <td>
-                  <Button>Supprimer</Button>
+                  <Button onClick={() => page.id && deletePage(page.id)}>
+                    Supprimer
+                  </Button>
                 </td>
               </tr>
             );
@@ -50,6 +65,7 @@ const container = css({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
+  gap: "2rem",
 });
 
 const pageTable = css({

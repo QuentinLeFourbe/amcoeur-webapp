@@ -7,17 +7,19 @@ import NotFound from "./pages/NotFound";
 import ManagePages from "./pages/ManagePages";
 import Index from "./pages/Index";
 import ManagePage from "./pages/ManagePage";
+import CreatePage from "./pages/CreatePage";
 
 const pagesRoutes = [
   { path: "/", element: <Index /> },
   {
-    path: "/login",
+    path: "/authentification",
     element: <Login />,
   },
   {
     path: "/gestion-pages",
     element: <ManagePages />,
   },
+  { path: "/gestion-pages/creer", element: <CreatePage /> },
   {
     path: "/gestion-pages/:id",
     element: <ManagePage />,
