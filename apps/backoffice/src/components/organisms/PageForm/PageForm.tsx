@@ -1,11 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { PageData } from "@amcoeur/types";
 import Form from "../../atoms/Form/Form";
 import FormInput from "../../molecules/Form/FormInput";
 import { pageDataSchema } from "../../../schemas/page";
 import FormTextArea from "../../molecules/Form/FormTextArea";
 import Button from "../../atoms/Button/Button";
+import CodeArea from "../../atoms/CodeArea/CodeArea";
+import FormCodeArea from "../../molecules/Form/FormCodeArea";
 
 type PageFormProps = {
   data?: PageData;
@@ -18,6 +20,7 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
     handleSubmit,
     formState: { errors },
     reset,
+    control,
   } = useForm<PageData>({
     resolver: yupResolver(pageDataSchema),
     defaultValues: data,
@@ -50,13 +53,20 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
       >
         Chemin d&apos;accès
       </FormInput>
-      <FormTextArea
-        register={register("content")}
-        errorMessage={errors?.content?.message?.toString()}
-        width="medium"
-      >
-        Contenu:
-      </FormTextArea>
+      <Controller
+        control={control}
+        name="content"
+        render={({ field }) => (
+          <FormCodeArea
+            {...field}
+            errorMessage={errors?.content?.message?.toString()}
+            width="medium"
+          >
+            Contenu:
+          </FormCodeArea>
+        )}
+      />
+
       <Button type="submit">Enregistrer</Button>
     </Form>
   );

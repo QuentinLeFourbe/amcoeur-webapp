@@ -6,6 +6,7 @@ import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
 import { css } from "../../styled-system/css";
 import PageForm from "../components/organisms/PageForm/PageForm";
 import Button from "../components/atoms/Button/Button";
+import CodeArea from "../components/atoms/CodeArea/CodeArea";
 
 function ManagePage() {
   const [isEditing, setIsEditing] = useState(false);
@@ -44,7 +45,7 @@ function ManagePage() {
             <label>{data?.data.route}</label>
           </div>
           <label className={property}>Contenu: </label>
-          <p>{data?.data.content}</p>
+          <CodeArea editable={false} value={data?.data.content} />
           {isLoading && <div>Chargement en cours des données...</div>}
           {isError && (
             <ErrorLabel>
