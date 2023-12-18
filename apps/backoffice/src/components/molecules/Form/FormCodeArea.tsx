@@ -1,6 +1,4 @@
 import React from "react";
-import type { UseFormRegisterReturn } from "react-hook-form";
-import { css } from "../../../../styled-system/css";
 import Label from "../../atoms/Label/Label";
 import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
 import CodeArea from "../../atoms/CodeArea/CodeArea";

@@ -4,7 +4,6 @@ import Form from "../components/atoms/Form/Form";
 import FormInput from "../components/molecules/Form/FormInput";
 import { LoginInfo } from "../types/login";
 import { loginInfoSchema } from "../schemas/login";
-import FormRow from "../components/atoms/Form/FormRow";
 import { css } from "../../styled-system/css";
 
 function Login() {
@@ -20,6 +19,7 @@ function Login() {
   const onSubmit = (data: LoginInfo) => {
     try {
       // Do something
+      console.log(data);
     } catch (e) {
       console.error(e);
       return;

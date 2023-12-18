@@ -4,9 +4,7 @@ import { PageData } from "@amcoeur/types";
 import Form from "../../atoms/Form/Form";
 import FormInput from "../../molecules/Form/FormInput";
 import { pageDataSchema } from "../../../schemas/page";
-import FormTextArea from "../../molecules/Form/FormTextArea";
 import Button from "../../atoms/Button/Button";
-import CodeArea from "../../atoms/CodeArea/CodeArea";
 import FormCodeArea from "../../molecules/Form/FormCodeArea";
 
 type PageFormProps = {

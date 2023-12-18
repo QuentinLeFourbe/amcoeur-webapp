@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { css, cx } from "../../../../styled-system/css";
 import Link from "../../atoms/Link/Link";
-import SidePanel from "./SidePanel";
 
 import useMediaQuery from "../../../hooks/useMediaQuery";
 import { LinkGroup } from "../../../types/link";
+import SidePanel from "./SidePanel";
 
 type SecondaryPanelProps = {
   isOpen: boolean;
