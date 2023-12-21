@@ -44,3 +44,17 @@ export const getPagesById = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const updatePage = async (req: Request, res: Response) => {
+  try {
+    const updatedPage = await Page.findByIdAndUpdate(req.params.id);
+    res.status(200).json(updatePage);
+  } catch (err) {
+    res
+      .status(400)
+      .json({
+        message:
+          "Une erreur s'est produite lors de la modification de la page.",
+      });
+  }
+};
