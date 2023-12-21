@@ -47,14 +47,25 @@ export const getPagesById = async (req: Request, res: Response) => {
 
 export const updatePage = async (req: Request, res: Response) => {
   try {
-    const updatedPage = await Page.findByIdAndUpdate(req.params.id);
-    res.status(200).json(updatePage);
+    const updatedPage = await Page.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    if (!updatedPage) {
+      res.status(404).json({ message: "Page non trouvée." });
+    } else {
+      res.status(200).json(updatedPage);
+    }
   } catch (err) {
-    res
-      .status(400)
-      .json({
-        message:
-          "Une erreur s'est produite lors de la modification de la page.",
-      });
+    console.log(err);
+    if (err instanceof Error) {
+      res.status(400).json({ message: err.message });
+    } else {
+      res
+        .status(500)
+        .json({
+          message:
+            "Une erreur s'est produite lors de la modification de la page.",
+        });
+    }
   }
 };
