@@ -8,7 +8,7 @@ import Input from "../../atoms/Input/Input";
 type FormInputProps = ComponentPropsWithoutRef<"input"> & {
   children: React.ReactNode;
   errorMessage?: string;
-  register: UseFormRegisterReturn;
+  register?: UseFormRegisterReturn;
   width?: "small" | "medium" | "large";
 };
 

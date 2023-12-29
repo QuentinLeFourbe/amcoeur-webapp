@@ -7,6 +7,7 @@ import { css } from "../../styled-system/css";
 import PageForm from "../components/organisms/PageForm/PageForm";
 import Button from "../components/atoms/Button/Button";
 import CodeArea from "../components/atoms/CodeArea/CodeArea";
+import PageComponentsRenderer from "../components/molecules/PageComponentsRenderer/PageComponentsRenderer";
 
 function ManagePage() {
   const [isEditing, setIsEditing] = useState(false);
@@ -30,6 +31,9 @@ function ManagePage() {
       ) : (
         <div className={container}>
           <Button href="/gestion-pages">Retour</Button>
+          <Button href={`http://localhost:3001/preview/${data?.data.id}`}>
+            Visualiser
+          </Button>
           <Button onClick={() => setIsEditing(true)}>Modifier</Button>
           {isErrorMutation && (
             <ErrorLabel>
@@ -44,8 +48,7 @@ function ManagePage() {
             <label className={property}>Chemin d&apos;accès: </label>
             <label>{data?.data.route}</label>
           </div>
-          <label className={property}>Contenu: </label>
-          <CodeArea editable={false} value={data?.data.content} />
+          <PageComponentsRenderer components={data?.data.components || []} />
           {isLoading && <div>Chargement en cours des données...</div>}
           {isError && (
             <ErrorLabel>

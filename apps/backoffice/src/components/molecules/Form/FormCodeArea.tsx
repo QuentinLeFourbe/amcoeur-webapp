@@ -16,7 +16,7 @@ const FormCodeArea = ({
   return (
     <div>
       <Label>{children}</Label>
-      <CodeArea {...props} height="600px" />
+      <CodeArea height="600px" {...props} />
       {errorMessage && <ErrorLabel>{errorMessage}</ErrorLabel>}
     </div>
   );

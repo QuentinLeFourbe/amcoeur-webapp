@@ -6,6 +6,6 @@ export const pageDataSchema: yup.ObjectSchema<PageData> = yup.object().shape({
   route: yup
     .string()
     .required("Veuiilez renseigner le chemin d'accès de la page"),
-  content: yup.string().required("Veuiilez renseigner le contenu de la page"),
+  components: yup.array().required("Veuillez ajouter des composants à la page"),
   id: yup.number(),
 });

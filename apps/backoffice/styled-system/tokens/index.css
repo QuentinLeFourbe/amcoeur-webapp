@@ -431,6 +431,7 @@
   --font-sizes-8xl: 6rem;
   --font-sizes-9xl: 8rem;
   --font-sizes-header: 24px;
+  --font-sizes-sub-header: 24px;
   --font-sizes-body: 16px;
   --breakpoints-sm: 640px;
   --breakpoints-md: 768px;

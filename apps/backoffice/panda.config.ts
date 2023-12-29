@@ -5,6 +5,10 @@ const globalCss = defineGlobalStyles({
   "html, body": {
     fontFamily: "body",
   },
+  h2: {
+    fontFamily: "heading",
+    fontSize: "subHeader",
+  },
 });
 
 export default defineConfig({

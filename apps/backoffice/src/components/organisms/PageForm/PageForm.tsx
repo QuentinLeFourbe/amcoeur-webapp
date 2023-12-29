@@ -5,11 +5,27 @@ import Form from "../../atoms/Form/Form";
 import FormInput from "../../molecules/Form/FormInput";
 import { pageDataSchema } from "../../../schemas/page";
 import Button from "../../atoms/Button/Button";
-import FormCodeArea from "../../molecules/Form/FormCodeArea";
+import FormPageComponentsInput from "../../molecules/FormPageComponents/FormPageComponentsInput";
 
 type PageFormProps = {
   data?: PageData;
   onSubmit?: (data: PageData) => void;
+};
+
+const defaultData: PageData = {
+  name: "",
+  route: "",
+  components: [
+    {
+      type: "TitleBanner",
+      content: "",
+      imageUrl: "",
+    },
+    {
+      type: "TextArea",
+      content: "",
+    },
+  ],
 };
 
 function PageForm({ data, onSubmit }: PageFormProps = {}) {
@@ -21,7 +37,7 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
     control,
   } = useForm<PageData>({
     resolver: yupResolver(pageDataSchema),
-    defaultValues: data,
+    defaultValues: data || defaultData,
   });
 
   const onSubmitData = (data: PageData) => {
@@ -53,15 +69,16 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
       </FormInput>
       <Controller
         control={control}
-        name="content"
+        name="components"
         render={({ field }) => (
-          <FormCodeArea
-            {...field}
-            errorMessage={errors?.content?.message?.toString()}
-            width="medium"
-          >
-            Contenu:
-          </FormCodeArea>
+          //  <FormCodeArea
+          //       {...field}
+          //       errorMessage={errors?.content?.message?.toString()}
+          //       width="medium"
+          //     >
+          //       Contenu:
+          //     </FormCodeArea>
+          <FormPageComponentsInput {...field} />
         )}
       />
 

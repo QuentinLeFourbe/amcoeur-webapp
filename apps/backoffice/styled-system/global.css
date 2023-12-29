@@ -37,4 +37,9 @@
   html, body {
     font-family: var(--fonts-body)
     }
+
+  h2 {
+    font-family: var(--fonts-heading);
+    font-size: var(--font-sizes-sub-header)
+    }
 }
