@@ -29,14 +29,16 @@ function ManagePage() {
         </div>
       ) : (
         <div className={container}>
-          <Button href="/gestion-pages">Retour</Button>
-          <Button
-            href={`http://localhost:3001/preview/${data?.data.id}`}
-            target="_blank"
-          >
-            Visualiser
-          </Button>
-          <Button onClick={() => setIsEditing(true)}>Modifier</Button>
+          <div className={buttonContainer}>
+            <Button href="/gestion-pages">Retour</Button>
+            <Button
+              href={`http://localhost:3001/preview/${data?.data.id}`}
+              target="_blank"
+            >
+              Visualiser
+            </Button>
+            <Button onClick={() => setIsEditing(true)}>Modifier</Button>
+          </div>
           {isErrorMutation && (
             <ErrorLabel>
               Une erreur est survenue lors de la modification de la page
@@ -69,6 +71,11 @@ const container = css({
   display: "flex",
   flexDirection: "column",
   margin: "0 15vw",
+  gap: "32px",
+});
+
+const buttonContainer = css({
+  display: "flex",
   gap: "32px",
 });
 
