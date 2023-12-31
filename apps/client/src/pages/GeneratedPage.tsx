@@ -1,9 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useGetPageByRoute } from "../hooks/useGetPage";
 import GeneratedPageRenderer from "../components/organisms/GeneratedPageRenderer/GeneratedPageRenderer";
-import TitlePanel from "../components/molecules/TitlePanel/TitlePanel";
-import Button from "../components/atoms/Button/Button";
-import ChatOmbre from "../assets/images/chat-ombre.webp";
+import PageNotFound from "../components/organisms/PageNotFound/PageNotFound";
 
 function GeneratedPage() {
   const { pathname } = useLocation();
@@ -20,15 +18,7 @@ function GeneratedPage() {
     <>
       {isSuccess && <GeneratedPageRenderer components={pageDataComponents} />}
       {isLoading && <div>Chargement en cours des données...</div>}
-      {(isError || page === undefined) && (
-        <TitlePanel src={ChatOmbre}>
-          <h1>404</h1>
-          <h2>Il semblerait que vous vous soyez égaré...</h2>
-          <Button rounded href="/">
-            Retourner à l&apos;accueil
-          </Button>
-        </TitlePanel>
-      )}
+      {(isError || page === undefined) && <PageNotFound />}
     </>
   );
 }
