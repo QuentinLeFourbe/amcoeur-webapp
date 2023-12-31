@@ -1,8 +1,8 @@
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 import { useLocation, useOutlet } from "react-router-dom";
 import { useEffect } from "react";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
+import Header from "../../organisms/Header/Header";
+import Footer from "../../organisms/Footer/Footer";
 import { css } from "../../../../styled-system/css";
 
 import Widget from "../../atoms/Widget/Widget";

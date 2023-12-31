@@ -31,7 +31,10 @@ function ManagePage() {
       ) : (
         <div className={container}>
           <Button href="/gestion-pages">Retour</Button>
-          <Button href={`http://localhost:3001/preview/${data?.data.id}`}>
+          <Button
+            href={`http://localhost:3001/preview/${data?.data.id}`}
+            target="_blank"
+          >
             Visualiser
           </Button>
           <Button onClick={() => setIsEditing(true)}>Modifier</Button>

@@ -1,8 +1,9 @@
 import { createRef } from "react";
 import IndexPage from "./pages";
-import PageContainer from "./components/organisms/PageContainer/PageContainer";
+import PageContainer from "./components/templates/PageContainer/PageContainer";
 import { generatePagesRoutes } from "./utils/routes";
-import NotFoundPage from "./pages/404";
+import GeneratedPage from "./pages/GeneratedPage";
+import Preview from "./pages/Preview";
 
 export const pagesRoutes = [
   {
@@ -12,8 +13,13 @@ export const pagesRoutes = [
   },
   ...generatePagesRoutes(),
   {
+    path: "/preview/:id",
+    element: <Preview />,
+    nodeRef: createRef<HTMLDivElement>(),
+  },
+  {
     path: "*",
-    element: <NotFoundPage />,
+    element: <GeneratedPage />,
     nodeRef: createRef<HTMLDivElement>(),
   },
 ];
