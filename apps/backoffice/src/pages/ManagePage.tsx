@@ -6,7 +6,6 @@ import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
 import { css } from "../../styled-system/css";
 import PageForm from "../components/organisms/PageForm/PageForm";
 import Button from "../components/atoms/Button/Button";
-import CodeArea from "../components/atoms/CodeArea/CodeArea";
 import PageComponentsRenderer from "../components/molecules/PageComponentsRenderer/PageComponentsRenderer";
 
 function ManagePage() {
