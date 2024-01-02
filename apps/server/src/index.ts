@@ -9,7 +9,7 @@ import pageRoutes from "./routes/page";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const uri = "mongodb://localhost:27017/amcoeur";
+const databaseUri = "mongodb://localhost:27017/amcoeur";
 
 app.use(express.json());
 
@@ -36,7 +36,7 @@ app.get("/*", (req: Request, res: Response) => {
 });
 
 mongoose
-  .connect(uri)
+  .connect(databaseUri)
   .then(() => console.log("Connexion à la base de données établie"))
   .catch((err) =>
     console.error("Erreur de connexion à la base de données:", err),
