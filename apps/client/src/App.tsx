@@ -1,31 +1,16 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import IndexPage from "./pages";
-import PageContainer from "./components/organisms/PageContainer/PageContainer";
-import { generatePagesRoutes } from "./utils/routes";
-import NotFoundPage from "./pages/404";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { appRoutes } from "./routes";
 
-const router = createBrowserRouter([
-  {
-    element: <PageContainer />,
-    children: [
-      {
-        path: "/",
-        element: <IndexPage />,
-      },
-      ...generatePagesRoutes(),
-      {
-        path: "*",
-        element: <NotFoundPage />,
-      },
-    ],
-  },
-]);
+const router = createBrowserRouter(appRoutes);
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-    </>
+    </QueryClientProvider>
   );
 }
 

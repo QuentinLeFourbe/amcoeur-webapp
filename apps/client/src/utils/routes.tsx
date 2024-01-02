@@ -1,4 +1,5 @@
 import { ComponentType } from "react";
+import { createRef } from "react";
 
 type module = {
   [key: string]: unknown;
@@ -13,6 +14,7 @@ export const generatePagesRoutes = () => {
     return {
       path: `/${pageName}`,
       element: <PageComponent />,
+      nodeRef: createRef<HTMLDivElement>(),
     };
   });
 };

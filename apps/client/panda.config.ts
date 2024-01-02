@@ -1,5 +1,5 @@
-import { theme } from "./src/theme/theme";
 import { defineConfig, defineGlobalStyles } from "@pandacss/dev";
+import { theme } from "./src/theme/theme";
 
 const globalCss = defineGlobalStyles({
   "html, body": {
@@ -18,7 +18,7 @@ export default defineConfig({
   exclude: [],
 
   // Useful for theme customization
-  theme: theme,
+  theme,
 
   // The output directory for your css system
   outdir: "styled-system",
