@@ -8,12 +8,11 @@ type FormPageComponentsInputProps = {
   onBlur?: (component: PageComponent[]) => void;
 };
 
-function FormPageComponentsInput({
+function ComponentsFieldsRenderer({
   value,
   onChange,
   onBlur,
 }: FormPageComponentsInputProps) {
-  console.log("value in form page component input", value);
   const getHandleChange = (index: number) => {
     const handleChange = (component: PageComponent) => {
       const newValue = [...value];
@@ -60,4 +59,4 @@ function FormPageComponentsInput({
   ));
 }
 
-export default FormPageComponentsInput;
+export default ComponentsFieldsRenderer;

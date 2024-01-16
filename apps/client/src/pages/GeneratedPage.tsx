@@ -5,13 +5,15 @@ import PageNotFound from "../components/organisms/PageNotFound/PageNotFound";
 
 function GeneratedPage() {
   const { pathname } = useLocation();
+  const formattedPathname = pathname.replace("/", "");
   // get page by id or by route
   const {
     data: page,
     isLoading,
     isError,
     isSuccess,
-  } = useGetPageByRoute(pathname);
+  } = useGetPageByRoute(formattedPathname);
+  console.log("page", page);
   // const pageMdxContent = data?.data.content || "";
   const pageDataComponents = page?.components || [];
   return (

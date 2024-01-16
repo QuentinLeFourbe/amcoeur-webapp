@@ -5,7 +5,7 @@ import Form from "../../atoms/Form/Form";
 import FormInput from "../../molecules/Form/FormInput";
 import { pageDataSchema } from "../../../schemas/page";
 import Button from "../../atoms/Button/Button";
-import FormPageComponentsInput from "../../molecules/FormPageComponents/FormPageComponentsInput";
+import ComponentsFieldsRenderer from "../../molecules/FormPageComponents/ComponentsFieldsRenderer";
 
 type PageFormProps = {
   data?: PageData;
@@ -18,6 +18,7 @@ const defaultData: PageData = {
   components: [
     {
       type: "TitleBanner",
+      title: "",
       content: "",
       imageUrl: "",
     },
@@ -64,6 +65,7 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
         register={register("route")}
         errorMessage={errors?.route?.message?.toString()}
         width="medium"
+        isPath={true}
       >
         Chemin d&apos;accès
       </FormInput>
@@ -78,7 +80,7 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
           //     >
           //       Contenu:
           //     </FormCodeArea>
-          <FormPageComponentsInput {...field} />
+          <ComponentsFieldsRenderer {...field} />
         )}
       />
 

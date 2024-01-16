@@ -16,7 +16,7 @@ function Button({ rounded, bold, ...props }: ButtonProps) {
         primaryColors,
         rounded ? roundedBorders : squaredBorders,
         bold ? boldText : null,
-        props.className
+        props.className,
       )}
     />
   );

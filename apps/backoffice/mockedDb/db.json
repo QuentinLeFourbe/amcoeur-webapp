@@ -2,23 +2,24 @@
   "pages": [
     {
       "name": "Test page",
-      "route": "/toto",
+      "route": "teztez",
       "components": [
         {
           "type": "TitleBanner",
-          "content": "\n# Amcoeur\nBonjour, la bannière titre est ici. Nous avons à coeur d'avoir Amcoeur comme nom d'association. **Ceci est en gras ?** ou alors *c'est comme ça en gras ?*\n\n## Ceci étant, c'est dans le titre tout ce bousin\n\nEt oui mon cher.",
-          "imageUrl": "Osef non ?"
+          "content": "\nBonjour, la bannière titre est ici. Nous avons à coeur d'avoir Amcoeur comme nom d'association. **Ceci est en gras ?** ou alors *c'est comme ça en gras ?*\n\n## Ceci étant, c'est dans le titre tout ce bousin\n\nEt oui mon cher.\n\n[Lien vers Google](http://www.google.fr)\n\nSvp",
+          "imageUrl": "Osef non ?",
+          "title": "Amcoeur l'asso"
         },
         {
           "type": "TextArea",
-          "content": "# Les Faits Étonnants sur les Poissons Combattants : Les Betta\n\nLes poissons combattants, communément appelés bettas, sont de véritables merveilles aquatiques aux comportements fascinants. Découvrons quelques faits surprenants à propos de ces magnifiques poissons :\n\n## Lutteurs Agueris\n\nLes mâles bettas sont réputés pour leur agressivité envers leurs congénères masculins, d'où leur nom de poissons combattants. Cependant, il est important de souligner que les combats entre bettas peuvent être dangereux et stressants pour les poissons, il est donc recommandé de les maintenir seuls dans un aquarium.\n\n## Nids de Bulles Étonnants\n\nLes bettas, surtout les mâles, sont connus pour créer des nids de bulles à la surface de l'eau. Ces nids servent de berceau pour les œufs et les alevins, démontrant ainsi leur comportement de reproduction. La construction du nid demande aux mâles une grande dépense d'énergie et de temps.\n\n## Respiration Aérienne\n\nContrairement à d'autres poissons, les bettas possèdent un organe appelé labyrinthe, qui leur permet de respirer de l'air à la surface de l'eau. Cela leur confère la capacité de survivre dans des conditions d'eau pauvres en oxygène, telles que les rizières stagnantes.\n\n## Des Couleurs Éclatantes\n\nLes bettas sont renommés pour leurs couleurs vives et éclatantes. Allant du rouge au bleu en passant par le violet, ils arborent parfois des nageoires aux motifs spectaculaires. Ces couleurs sont souvent plus prononcées chez les mâles, utilisées pour attirer les femelles.\n\n## Vision Panoramique\n\nGrâce à la disposition de leurs yeux, les bettas jouissent d'une vision panoramique. Cet avantage s'avère utile lors de la chasse de proies ou de la surveillance de leur territoire.\n\n## Intelligence Surprenante\n\nMalgré leur petit cerveau, les bettas montrent des signes d'intelligence. Certains peuvent être entraînés pour reconnaître leur nourriture, démontrant ainsi une forme de mémoire.\n\n## Longévité Relative\n\nLa durée de vie moyenne d'un betta en captivité est d'environ deux à quatre ans. Avec des soins appropriés, certains individus ont atteint jusqu'à cinq ans, voire plus.\n\nLes bettas sont bien plus que de simples poissons d'aquarium. Leurs comportements uniques et leurs caractéristiques étonnantes en font des compagnons captivants pour ceux qui choisissent de les accueillir dans leur aquarium. Veillez à fournir un environnement approprié pour répondre à leurs besoins spécifiques et profitez de l'observation de ces créatures étonnantes !\n"
+          "content": "# Les Faits Étonnants sur les Poissons Combattants : Les Betta\n\nLes poissons combattants, communément appelés bettas, sont de véritables merveilles aquatiques aux comportements fascinants. Découvrons quelques faits surprenants à propos de ces magnifiques poissons :\n\n\n[Lien vers Google](http://www.google.fr)\n\n## Lutteurs Agueris\n\nLes mâles bettas sont réputés pour leur agressivité envers leurs congénères masculins, \nd'où leur nom de poissons combattants. Cependant, il est important de souligner que les combats \n\nCeci est une liste\n- test\n- encore\n- un element\n- et fini\n\nEt là: \n- premier\n- second\n- troiseoisem\n\nentre bettas peuvent être dangereux et stressants pour les poissons, il est donc recommandé de les maintenir seuls dans un aquarium.\n\n### Nids de Bulles Étonnants\n\nLes bettas, surtout les mâles, sont connus pour créer des nids de bulles à la surface de l'eau. \nCes nids servent de berceau pour les œufs et les alevins, démontrant ainsi leur comportement de reproduction. La construction du nid demande aux mâles une grande dépense d'énergie et de temps.\n\n#### Respiration Aérienne\n\nContrairement à d'autres poissons, les bettas possèdent un organe appelé labyrinthe, qui leur permet de respirer de l'air à la surface de l'eau. Cela leur confère la capacité de survivre dans des conditions d'eau pauvres en oxygène, telles que les rizières stagnantes.\n\n##### Des Couleurs Éclatantes\n\nLes bettas sont renommés pour leurs couleurs vives et éclatantes. Allant du rouge au bleu en passant par le violet, ils arborent parfois des nageoires aux motifs spectaculaires. Ces couleurs sont souvent plus prononcées chez les mâles, utilisées pour attirer les femelles.\n\n###### Vision Panoramique\n\nGrâce à la disposition de leurs yeux, les bettas jouissent d'une vision panoramique. Cet avantage s'avère utile lors de la chasse de proies ou de la surveillance de leur territoire.\n\n## Intelligence Surprenante\n\nMalgré leur petit cerveau, les bettas montrent des signes d'intelligence. Certains peuvent être entraînés pour reconnaître leur nourriture, démontrant ainsi une forme de mémoire.\n\n## Longévité Relative\n\nLa durée de vie moyenne d'un betta en captivité est d'environ deux à quatre ans. Avec des soins appropriés, certains individus ont atteint jusqu'à cinq ans, voire plus.\n\nLes bettas sont bien plus que de simples poissons d'aquarium. Leurs comportements uniques et leurs caractéristiques étonnantes en font des compagnons captivants pour ceux qui choisissent de les accueillir dans leur aquarium. Veillez à fournir un environnement approprié pour répondre à leurs besoins spécifiques et profitez de l'observation de ces créatures étonnantes !\n"
         }
       ],
       "id": 3
     },
     {
       "name": "Aide vétérinaire",
-      "route": "/aide-veterinaire",
+      "route": "aide-veterinaire",
       "components": [
         {
           "type": "TitleBanner",
@@ -31,6 +32,40 @@
         }
       ],
       "id": 4
+    },
+    {
+      "name": "Les animaux sont tristes",
+      "route": "/animaux",
+      "components": [
+        {
+          "type": "TitleBanner",
+          "content": "Les animaux sont tristes parfois. Soyez gentils.Les animaux sont tristes parfois. Soyez gentils.Les animaux sont tristes parfois. Soyez gentils.Les animaux sont tristes parfois. Soyez gentils.Les animaux sont tristes parfois. Soyez gentils.\n\nLes animaux sont tristes parfois. Soyez gentils.Les animaux sont tristes parfois. Soyez gentils.\nLes animaux sont tristes parfois. Soyez gentils.Les animaux sont tristes parfois. Soyez gentils.\n\nLes animaux sont tristes parfois. Soyez gentils.",
+          "imageUrl": "osef",
+          "title": "Les animaux tristes"
+        },
+        {
+          "type": "TextArea",
+          "content": " ## Toto la magouille\n\n Bonjour, rezoij oijer goijgreoijer goijergjioefgijofeg ioj efgoijfe ioj fegioj zdiojz dfijoz dfijoz dfoijz iojz djioz dfjioz dfojiz doij\n efgoijfe ioj fegioj zdiojz dfijoz dfijoz dfoijz iojz djioz dfjioz dfojiz doij efgoijfe ioj fegioj zdiojz dfijoz dfijoz dfoijz iojz djioz dfjioz dfojiz doij\n efgoijfe ioj fegioj zdiojz dfijoz dfijoz dfoijz iojz djioz dfjioz dfojiz doijeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\n\n ## Bonjour comment ca va\n\nFOFijezaoiferzjfoziejfzef"
+        }
+      ],
+      "id": 5
+    },
+    {
+      "name": "toto",
+      "route": "toto-taata",
+      "components": [
+        {
+          "type": "TitleBanner",
+          "title": "",
+          "content": "",
+          "imageUrl": ""
+        },
+        {
+          "type": "TextArea",
+          "content": ""
+        }
+      ],
+      "id": 6
     }
   ]
 }

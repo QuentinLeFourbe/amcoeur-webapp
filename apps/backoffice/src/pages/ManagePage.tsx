@@ -50,7 +50,7 @@ function ManagePage() {
           </div>
           <div>
             <label className={property}>Chemin d&apos;accès: </label>
-            <label>{data?.data.route}</label>
+            <label>/{data?.data.route}</label>
           </div>
           <PageComponentsRenderer components={data?.data.components || []} />
           {isLoading && <div>Chargement en cours des données...</div>}

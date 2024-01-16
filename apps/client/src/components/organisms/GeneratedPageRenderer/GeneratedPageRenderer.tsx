@@ -13,6 +13,7 @@ function GeneratedPageRenderer({ components }: GeneratedPageRendererProps) {
       case "TitleBanner":
         return (
           <TitlePanel>
+            <h1>{component.title}</h1>
             <Markdown>{component.content}</Markdown>
           </TitlePanel>
         );

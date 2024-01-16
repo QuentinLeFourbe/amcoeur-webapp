@@ -12,6 +12,8 @@ function TitleBannerPageComponent({
   return (
     <div>
       <h2>Bannière titre</h2>
+      <Label>Titre: </Label>
+      <p> {component.title}</p>
       <Label>Image src: </Label>
       <p> {component.imageUrl}</p>
       <Label>Contenu: </Label>

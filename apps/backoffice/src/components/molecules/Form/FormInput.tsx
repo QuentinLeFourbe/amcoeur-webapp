@@ -5,7 +5,7 @@ import Label from "../../atoms/Label/Label";
 import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
 import Input from "../../atoms/Input/Input";
 
-type FormInputProps = ComponentPropsWithoutRef<"input"> & {
+type FormInputProps = ComponentPropsWithoutRef<typeof Input> & {
   children: React.ReactNode;
   errorMessage?: string;
   register?: UseFormRegisterReturn;

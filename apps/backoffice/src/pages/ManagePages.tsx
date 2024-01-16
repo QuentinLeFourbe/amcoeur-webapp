@@ -34,7 +34,7 @@ function ManagePages() {
             return (
               <tr key={page.id}>
                 <td>{page.name}</td>
-                <td>{page.route}</td>
+                <td>/{page.route}</td>
                 <td>
                   <Button href={`/gestion-pages/${page.id}`}>Afficher</Button>
                 </td>
