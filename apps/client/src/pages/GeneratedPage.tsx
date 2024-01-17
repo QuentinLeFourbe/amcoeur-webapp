@@ -13,9 +13,9 @@ function GeneratedPage() {
     isError,
     isSuccess,
   } = useGetPageByRoute(formattedPathname);
-  console.log("page", page);
-  // const pageMdxContent = data?.data.content || "";
+
   const pageDataComponents = page?.components || [];
+
   return (
     <>
       {isSuccess && <GeneratedPageRenderer components={pageDataComponents} />}

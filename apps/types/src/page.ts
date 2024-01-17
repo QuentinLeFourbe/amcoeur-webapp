@@ -1,5 +1,5 @@
 export type PageData = {
-  id?: string | number;
+  _id?: string;
   name: string;
   route: string;
   components: PageComponent[];

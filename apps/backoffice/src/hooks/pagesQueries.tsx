@@ -37,7 +37,7 @@ export const useUpdatePage = () => {
         queryKey: ["page"],
       });
       queryClient.invalidateQueries({
-        queryKey: [data.data.id],
+        queryKey: [data.data._id],
       });
     },
   });
@@ -74,7 +74,7 @@ export const useDeletePage = () => {
         queryKey: ["page"],
       });
       queryClient.invalidateQueries({
-        queryKey: [data.data.id],
+        queryKey: [data.data._id],
       });
     },
   });
