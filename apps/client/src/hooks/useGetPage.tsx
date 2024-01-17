@@ -21,6 +21,7 @@ export const useGetPageByRoute = (route: string, enabled: boolean = true) => {
     select: (data) => {
       return data.data?.[0];
     },
+    retry: false,
   });
   return query;
 };

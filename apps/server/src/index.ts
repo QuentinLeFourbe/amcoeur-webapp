@@ -12,12 +12,16 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const databaseUri = "mongodb://localhost:27017/amcoeur";
 const corsOptions = {
-  origin: ["localhost:3000", "localhost:3002"],
+  origin: [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://localhost:3002",
+  ],
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(
   helmet({

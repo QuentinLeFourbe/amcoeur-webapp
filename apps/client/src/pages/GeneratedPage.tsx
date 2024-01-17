@@ -19,8 +19,8 @@ function GeneratedPage() {
   return (
     <>
       {isSuccess && <GeneratedPageRenderer components={pageDataComponents} />}
-      {isLoading && <div>Chargement en cours des données...</div>}
-      {(isError || page === undefined) && <PageNotFound />}
+      {isLoading && <div>Chargement de la page...</div>}
+      {isError && <PageNotFound />}
     </>
   );
 }
