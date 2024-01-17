@@ -6,7 +6,6 @@ import { useDeletePage, useGetPages } from "../hooks/pagesQueries";
 function ManagePages() {
   const { data, isLoading, isError } = useGetPages();
 
-  console.log({ data });
   const {
     mutate: deletePage,
     isError: isDeleteError,
