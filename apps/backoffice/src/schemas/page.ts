@@ -7,5 +7,5 @@ export const pageDataSchema: yup.ObjectSchema<PageData> = yup.object().shape({
     .string()
     .required("Veuiilez renseigner le chemin d'accès de la page"),
   components: yup.array().required("Veuillez ajouter des composants à la page"),
-  id: yup.number(),
+  _id: yup.string(),
 });
