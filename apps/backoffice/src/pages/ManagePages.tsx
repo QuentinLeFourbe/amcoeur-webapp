@@ -32,14 +32,14 @@ function ManagePages() {
         <tbody>
           {data?.data.map((page) => {
             return (
-              <tr key={page.id}>
+              <tr key={page._id}>
                 <td>{page.name}</td>
                 <td>/{page.route}</td>
                 <td>
-                  <Button href={`/gestion-pages/${page.id}`}>Afficher</Button>
+                  <Button href={`/gestion-pages/${page._id}`}>Afficher</Button>
                 </td>
                 <td>
-                  <Button onClick={() => page.id && deletePage(page.id)}>
+                  <Button onClick={() => page._id && deletePage(page._id)}>
                     Supprimer
                   </Button>
                 </td>

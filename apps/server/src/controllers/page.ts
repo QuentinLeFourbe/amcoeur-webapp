@@ -5,7 +5,6 @@ export const createPage = async (req: Request, res: Response) => {
   try {
     const newPage = new Page(req.body);
     await newPage.save();
-    console.log(req.body);
     res.status(201).json(newPage);
   } catch (err) {
     console.log(err);
@@ -60,12 +59,10 @@ export const updatePage = async (req: Request, res: Response) => {
     if (err instanceof Error) {
       res.status(400).json({ message: err.message });
     } else {
-      res
-        .status(500)
-        .json({
-          message:
-            "Une erreur s'est produite lors de la modification de la page.",
-        });
+      res.status(500).json({
+        message:
+          "Une erreur s'est produite lors de la modification de la page.",
+      });
     }
   }
 };
@@ -83,7 +80,12 @@ export const deletePage = async (req: Request, res: Response) => {
     if (err instanceof Error) {
       res.status(400).json({ message: err.message });
     } else {
-      res.status(500).json({ message: "Une erreur s'est produite lors de la suppression de la page." });
+      res
+        .status(500)
+        .json({
+          message:
+            "Une erreur s'est produite lors de la suppression de la page.",
+        });
     }
   }
 };

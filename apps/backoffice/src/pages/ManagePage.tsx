@@ -32,7 +32,7 @@ function ManagePage() {
           <div className={buttonContainer}>
             <Button href="/gestion-pages">Retour</Button>
             <Button
-              href={`http://localhost:3001/preview/${data?.data.id}`}
+              href={`http://localhost:3001/preview/${data?.data._id}`}
               target="_blank"
             >
               Visualiser

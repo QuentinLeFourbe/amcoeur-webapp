@@ -13,14 +13,14 @@ function GeneratedPage() {
     isError,
     isSuccess,
   } = useGetPageByRoute(formattedPathname);
-  console.log("page", page);
-  // const pageMdxContent = data?.data.content || "";
+
   const pageDataComponents = page?.components || [];
+
   return (
     <>
       {isSuccess && <GeneratedPageRenderer components={pageDataComponents} />}
-      {isLoading && <div>Chargement en cours des données...</div>}
-      {(isError || page === undefined) && <PageNotFound />}
+      {isLoading && <div>Chargement de la page...</div>}
+      {isError && <PageNotFound />}
     </>
   );
 }

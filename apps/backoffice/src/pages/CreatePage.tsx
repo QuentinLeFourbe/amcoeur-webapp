@@ -10,7 +10,7 @@ function CreatePage() {
   const navigate = useNavigate();
   const { mutate, isError } = useCreatePage({
     onSuccess: (data) => {
-      navigate(`/gestion-pages/${data.data.id}`);
+      navigate(`/gestion-pages/${data.data._id}`);
     },
   });
 

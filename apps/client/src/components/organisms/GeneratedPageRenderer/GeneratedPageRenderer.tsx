@@ -8,18 +8,18 @@ type GeneratedPageRendererProps = {
 };
 
 function GeneratedPageRenderer({ components }: GeneratedPageRendererProps) {
-  return components.map((component) => {
+  return components.map((component, index) => {
     switch (component.type) {
       case "TitleBanner":
         return (
-          <TitlePanel>
+          <TitlePanel key={index}>
             <h1>{component.title}</h1>
             <Markdown>{component.content}</Markdown>
           </TitlePanel>
         );
       case "TextArea":
         return (
-          <TextPanel>
+          <TextPanel key={index}>
             <Markdown>{component.content}</Markdown>
           </TextPanel>
         );
