@@ -10,19 +10,31 @@ const headerLinks = [
   },
 ];
 
-function Header() {
+type HeaderProps = {
+  isUserLoggedIn: boolean;
+};
+
+function Header({ isUserLoggedIn }: HeaderProps) {
   return (
     <header className={header}>
-      <div className={cx(logoContainer)}>
-        <LogoLink src={AmcoeurLogo} href="/" />
-      </div>
-      <div className={primaryLinksContainer}>
-        {headerLinks.map((link, index) => (
-          <Link key={index} to={link.href} variant="primary">
-            {link.name}
-          </Link>
-        ))}
-      </div>
+      {isUserLoggedIn ? (
+        <>
+          <div className={cx(logoContainer)}>
+            <LogoLink src={AmcoeurLogo} href="/" />
+          </div>
+          <div className={primaryLinksContainer}>
+            {headerLinks.map((link, index) => (
+              <Link key={index} to={link.href} variant="primary">
+                {link.name}
+              </Link>
+            ))}
+          </div>
+        </>
+      ) : (
+        <div className={cx(logoContainer)}>
+          <LogoLink src={AmcoeurLogo} href="#" />
+        </div>
+      )}
     </header>
   );
 }

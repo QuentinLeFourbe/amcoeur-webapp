@@ -1,4 +1,5 @@
 import { useOutlet } from "react-router-dom";
+import Cookies from "js-cookie";
 import Header from "../../organisms/Header/Header";
 import { css } from "../../../../styled-system/css";
 import Footer from "../../organisms/Footer/Footer";
@@ -6,9 +7,11 @@ import Footer from "../../organisms/Footer/Footer";
 function PageContainer() {
   const outlet = useOutlet();
 
+  const authToken = Cookies.get("authToken");
+
   return (
     <div className={container}>
-      <Header />
+      <Header isUserLoggedIn={!!authToken} />
       {outlet}
       <Footer />
     </div>

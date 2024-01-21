@@ -5,6 +5,8 @@ import FormInput from "../components/molecules/Form/FormInput";
 import { LoginInfo } from "../types/login";
 import { loginInfoSchema } from "../schemas/login";
 import { css } from "../../styled-system/css";
+import Button from "../components/atoms/Button/Button";
+import axios from "axios";
 
 function Login() {
   const {
@@ -19,7 +21,7 @@ function Login() {
   const onSubmit = (data: LoginInfo) => {
     try {
       // Do something
-      console.log(data);
+      axios.post("http://localhost:3000/api/users/login", data);
     } catch (e) {
       console.error(e);
       return;
@@ -44,6 +46,7 @@ function Login() {
       >
         Mot de passe
       </FormInput>
+      <Button type="submit">Se connecter</Button>
     </Form>
   );
 }

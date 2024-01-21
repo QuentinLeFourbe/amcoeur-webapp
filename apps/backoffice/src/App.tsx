@@ -1,6 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient } from "@tanstack/query-core";
 import { QueryClientProvider } from "@tanstack/react-query";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
 import PageContainer from "./components/template/PageContainer/PageContainer";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
@@ -12,7 +14,7 @@ import CreatePage from "./pages/CreatePage";
 const pagesRoutes = [
   { path: "/", element: <Index /> },
   {
-    path: "/authentification",
+    path: "/login",
     element: <Login />,
   },
   {
@@ -45,6 +47,13 @@ const router = createBrowserRouter(appRoutes);
 const queryClient = new QueryClient();
 
 function App() {
+  useEffect(() => {
+    const authToken = Cookies.get("authToken");
+    if (!authToken) {
+      router.navigate("/login");
+    }
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
