@@ -47,6 +47,7 @@ const linkStyle = css({
 });
 
 const primaryLink = css({
+  cursor: "pointer",
   textDecoration: "none",
   fontWeight: "bold",
   fontFamily: "body",

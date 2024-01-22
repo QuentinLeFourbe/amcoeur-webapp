@@ -1,12 +1,14 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
 import Form from "../components/atoms/Form/Form";
 import FormInput from "../components/molecules/Form/FormInput";
 import { LoginInfo } from "../types/login";
 import { loginInfoSchema } from "../schemas/login";
 import { css } from "../../styled-system/css";
 import Button from "../components/atoms/Button/Button";
-import axios from "axios";
+import useUser from "../hooks/useUser";
+import { login } from "../api/users";
 
 function Login() {
   const {
@@ -18,10 +20,17 @@ function Login() {
     resolver: yupResolver(loginInfoSchema),
   });
 
-  const onSubmit = (data: LoginInfo) => {
+  const { user, loginUser } = useUser();
+  const navigate = useNavigate();
+  if (user) {
+    navigate("/");
+  }
+
+  const onSubmit = async (data: LoginInfo) => {
     try {
-      // Do something
-      axios.post("http://localhost:3000/api/users/login", data);
+      const user = await login(data);
+      loginUser(user.data);
+      navigate("/");
     } catch (e) {
       console.error(e);
       return;

@@ -12,9 +12,10 @@ const headerLinks = [
 
 type HeaderProps = {
   isUserLoggedIn: boolean;
+  logout: () => void;
 };
 
-function Header({ isUserLoggedIn }: HeaderProps) {
+function Header({ isUserLoggedIn, logout }: HeaderProps) {
   return (
     <header className={header}>
       {isUserLoggedIn ? (
@@ -28,6 +29,11 @@ function Header({ isUserLoggedIn }: HeaderProps) {
                 {link.name}
               </Link>
             ))}
+          </div>
+          <div className={disconnectContainer}>
+            <Link onClick={logout} variant="primary">
+              Se déconnecter
+            </Link>
           </div>
         </>
       ) : (
@@ -80,6 +86,10 @@ const logoContainer = css({
     height: "75px",
     objectFit: "contain",
   },
+});
+
+const disconnectContainer = css({
+  marginLeft: "auto",
 });
 
 export default Header;

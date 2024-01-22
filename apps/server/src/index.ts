@@ -39,10 +39,15 @@ app.use(
 );
 
 app.use(express.static(path.join(__dirname, "../../client/dist")));
+app.use(express.static(path.join(__dirname, "../../backoffice/dist")));
 
 app.use("/api/users", userRoutes);
 app.use("/api/email", emailRoutes);
 app.use("/api/pages", pageRoutes);
+
+app.get("/administration*", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../../backoffice/dist/index.html"));
+});
 
 app.get("/*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../client/dist/index.html"));

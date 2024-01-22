@@ -19,7 +19,8 @@ export const login = async (req: Request, res: Response) => {
         );
         res.cookie("authToken", authToken, { httpOnly: true, secure: true });
         return res.status(201).send({
-          message: "User Logged In",
+          _id: user._id,
+          username: user.username,
         });
       } else {
         return res.status(400).send({
@@ -131,5 +132,48 @@ export const deleteUser = async (req: Request, res: Response) => {
           "Une erreur s'est produite lors de la suppression de l'utilisateur.",
       });
     }
+  }
+};
+
+export const logout = async (req: Request, res: Response) => {
+  try {
+    res.clearCookie("authToken");
+    res.status(200).json({ message: "User Logged Out" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Une erreur s'est produite lors de la déconnexion.",
+    });
+  }
+};
+
+export const getCurrentUserFromToken = async (req: Request, res: Response) => {
+  try {
+    const token = req.cookies.authToken;
+    if (!token) {
+      return res.status(401).send({
+        message: "No token provided.",
+      });
+    }
+    const decodedToken = jwt.verify(
+      token,
+      process.env.JWT_SECRET as Secret,
+    ) as { userId: string };
+    const user = await User.findById(decodedToken.userId);
+    if (!user) {
+      return res.status(404).send({
+        message: "User not found.",
+      });
+    }
+    return res.status(200).send({
+      _id: user._id,
+      username: user.username,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({
+      message: "An error occured while getting user.",
+      error: err,
+    });
   }
 };
