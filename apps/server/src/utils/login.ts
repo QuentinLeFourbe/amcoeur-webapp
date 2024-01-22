@@ -11,8 +11,6 @@ export const isUserBlocked = (username: string) => {
 };
 
 export const addUserToBlockedUsers = (username: string) => {
-  console.log("addUserToBlockedUsers", username);
-  console.log("blockedUsers", blockedUsers);
   if (blockedUsers.has(username)) {
     const { attempts } = blockedUsers.get(username);
     blockedUsers.set(username, {

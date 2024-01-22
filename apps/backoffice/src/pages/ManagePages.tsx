@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { css } from "../../styled-system/css";
 import Button from "../components/atoms/Button/Button";
 import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
@@ -11,6 +12,8 @@ function ManagePages() {
     isError: isDeleteError,
     isSuccess: isDeleteSuccess,
   } = useDeletePage();
+
+  const navigate = useNavigate();
 
   return (
     <div className={container}>
@@ -36,7 +39,11 @@ function ManagePages() {
                 <td>{page.name}</td>
                 <td>/{page.route}</td>
                 <td>
-                  <Button href={`/gestion-pages/${page._id}`}>Afficher</Button>
+                  <Button
+                    onClick={() => navigate(`/gestion-pages/${page._id}`)}
+                  >
+                    Afficher
+                  </Button>
                 </td>
                 <td>
                   <Button onClick={() => page._id && deletePage(page._id)}>

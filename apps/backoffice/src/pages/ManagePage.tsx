@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { useState } from "react";
 import { PageData } from "@amcoeur/types";
 import { useGetPage, useUpdatePage } from "../hooks/pagesQueries";
@@ -11,6 +11,7 @@ import PageComponentsRenderer from "../components/molecules/PageComponentsRender
 function ManagePage() {
   const [isEditing, setIsEditing] = useState(false);
   const params = useParams();
+  const navigate = useNavigate();
   const id = params.id || "";
   const { data, isLoading, isError } = useGetPage(id);
   const { mutate, isError: isErrorMutation } = useUpdatePage();
@@ -30,11 +31,8 @@ function ManagePage() {
       ) : (
         <div className={container}>
           <div className={buttonContainer}>
-            <Button href="/gestion-pages">Retour</Button>
-            <Button
-              href={`http://localhost:3001/preview/${data?.data._id}`}
-              target="_blank"
-            >
+            <Button onClick={() => navigate("/gestion-pages")}>Retour</Button>
+            <Button href={`/preview/${data?.data._id}`} target="_blank">
               Visualiser
             </Button>
             <Button onClick={() => setIsEditing(true)}>Modifier</Button>
