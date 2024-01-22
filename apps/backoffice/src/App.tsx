@@ -12,6 +12,7 @@ import ManagePage from "./pages/ManagePage";
 import CreatePage from "./pages/CreatePage";
 import { UserContext } from "./contexts/user";
 import { UserData } from "./types/user";
+import { getCurrentUser } from "./api/users";
 
 const pagesRoutes = [
   {
@@ -65,7 +66,7 @@ function App() {
   useEffect(() => {
     const checkLoggedIn = async () => {
       try {
-        const currentUser = await axios.get("/api/users/current");
+        const currentUser = await getCurrentUser();
         if (!currentUser || !currentUser.data) {
           router.navigate("/login");
         } else {
