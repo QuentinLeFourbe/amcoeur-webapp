@@ -9,6 +9,9 @@ import { css } from "../../styled-system/css";
 import Button from "../components/atoms/Button/Button";
 import useUser from "../hooks/useUser";
 import { login } from "../api/users";
+import { useState } from "react";
+import { AxiosError } from "axios";
+import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
 
 function Login() {
   const {
@@ -19,7 +22,7 @@ function Login() {
   } = useForm<LoginInfo>({
     resolver: yupResolver(loginInfoSchema),
   });
-
+  const [error, setError] = useState<string | null>(null); // [1
   const { user, loginUser } = useUser();
   const navigate = useNavigate();
   if (user) {
@@ -32,7 +35,13 @@ function Login() {
       loginUser(user.data);
       navigate("/");
     } catch (e) {
-      console.error(e);
+      const error = e as AxiosError;
+      if (error?.response?.status === 401) {
+        setError("Votre compte est bloqué, veuillez réessayer plus tard");
+      }
+      if (error?.response?.status === 400) {
+        setError("Nom d'utilisateur ou mot de passe incorrect");
+      }
       return;
     } finally {
       reset();
@@ -52,10 +61,12 @@ function Login() {
         register={register("password")}
         errorMessage={errors?.password?.message?.toString()}
         width="medium"
+        type="password"
       >
         Mot de passe
       </FormInput>
       <Button type="submit">Se connecter</Button>
+      <ErrorLabel>{error}</ErrorLabel>
     </Form>
   );
 }

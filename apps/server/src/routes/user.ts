@@ -9,7 +9,7 @@ import {
   logout,
   updateUser,
 } from "../controllers/user";
-import { requiresLogin } from "../middlewares/login";
+import { limitAttempts, requiresLogin } from "../middlewares/login";
 
 const router = Router();
 
@@ -17,7 +17,7 @@ router.get("/", requiresLogin, getAllUsers);
 router.get("/current", getCurrentUserFromToken);
 router.get("/:id", requiresLogin, getUserById);
 
-router.post("/login", login);
+router.post("/login", limitAttempts, login);
 router.post("/signup", requiresLogin, createUser);
 router.post("/logout", requiresLogin, logout);
 

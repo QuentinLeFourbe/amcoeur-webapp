@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import User from "../models/user";
 import jwt, { Secret } from "jsonwebtoken";
+import { addUserToBlockedUsers } from "../utils/login";
 
 export const login = async (req: Request, res: Response) => {
   // Find user with requested email
@@ -23,6 +24,7 @@ export const login = async (req: Request, res: Response) => {
           username: user.username,
         });
       } else {
+        addUserToBlockedUsers(req.body.username);
         return res.status(400).send({
           message: "Wrong Password",
         });
