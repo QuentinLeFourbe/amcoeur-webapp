@@ -10,19 +10,37 @@ const headerLinks = [
   },
 ];
 
-function Header() {
+type HeaderProps = {
+  isUserLoggedIn: boolean;
+  logout: () => void;
+};
+
+function Header({ isUserLoggedIn, logout }: HeaderProps) {
   return (
     <header className={header}>
-      <div className={cx(logoContainer)}>
-        <LogoLink src={AmcoeurLogo} href="/" />
-      </div>
-      <div className={primaryLinksContainer}>
-        {headerLinks.map((link, index) => (
-          <Link key={index} to={link.href} variant="primary">
-            {link.name}
-          </Link>
-        ))}
-      </div>
+      {isUserLoggedIn ? (
+        <>
+          <div className={cx(logoContainer)}>
+            <LogoLink src={AmcoeurLogo} href="/" />
+          </div>
+          <div className={primaryLinksContainer}>
+            {headerLinks.map((link, index) => (
+              <Link key={index} to={link.href} variant="primary">
+                {link.name}
+              </Link>
+            ))}
+          </div>
+          <div className={disconnectContainer}>
+            <Link onClick={logout} variant="primary">
+              Se déconnecter
+            </Link>
+          </div>
+        </>
+      ) : (
+        <div className={cx(logoContainer)}>
+          <LogoLink src={AmcoeurLogo} href="#" />
+        </div>
+      )}
     </header>
   );
 }
@@ -68,6 +86,10 @@ const logoContainer = css({
     height: "75px",
     objectFit: "contain",
   },
+});
+
+const disconnectContainer = css({
+  marginLeft: "auto",
 });
 
 export default Header;

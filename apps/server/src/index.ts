@@ -3,10 +3,12 @@ import express, { Request, Response } from "express";
 import path from "path";
 import helmet from "helmet";
 import emailRoutes from "./routes/email";
+import userRoutes from "./routes/user";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import pageRoutes from "./routes/page";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,6 +25,7 @@ const corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -36,9 +39,15 @@ app.use(
 );
 
 app.use(express.static(path.join(__dirname, "../../client/dist")));
+app.use(express.static(path.join(__dirname, "../../backoffice/dist")));
 
+app.use("/api/users", userRoutes);
 app.use("/api/email", emailRoutes);
 app.use("/api/pages", pageRoutes);
+
+app.get("/administration*", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../../backoffice/dist/index.html"));
+});
 
 app.get("/*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
