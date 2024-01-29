@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "@pandacss/dev": "^0.15.1",
+    "@tanstack/eslint-plugin-query": "^5.17.20",
     "@testing-library/react": "^14.1.2",
     "@types/axios": "^0.14.0",
     "@types/cookie-parser": "^1.4.6",

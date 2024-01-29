@@ -5,7 +5,10 @@ export type PageData = {
   components: PageComponent[];
 };
 
-export type PageComponent = TitleBannerComponent | TextAreaComponent;
+export type PageComponent =
+  | TitleBannerComponent
+  | TextAreaComponent
+  | SectionPanelComponent;
 
 export type TitleBannerComponent = {
   type: "TitleBanner";
@@ -19,9 +22,10 @@ export type TextAreaComponent = {
   content: string;
 };
 
-export type HomeSection = {
-  id?: string | number;
+export type SectionPanelComponent = {
+  type: "SectionPanel";
   imageUrl: string;
+  title: string;
   content: string;
   link: string;
   linkLabel: string;

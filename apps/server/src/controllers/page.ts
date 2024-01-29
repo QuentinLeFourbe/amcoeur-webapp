@@ -80,12 +80,32 @@ export const deletePage = async (req: Request, res: Response) => {
     if (err instanceof Error) {
       res.status(400).json({ message: err.message });
     } else {
-      res
-        .status(500)
-        .json({
-          message:
-            "Une erreur s'est produite lors de la suppression de la page.",
-        });
+      res.status(500).json({
+        message: "Une erreur s'est produite lors de la suppression de la page.",
+      });
     }
+  }
+};
+
+export const getOrCreateHomePage = async (req: Request, res: Response) => {
+  try {
+    const homePage = await Page.findOne({ route: "" });
+    if (!homePage) {
+      const newHomePage = new Page({
+        name: "Accueil",
+        route: "",
+        components: [],
+      });
+      await newHomePage.save();
+      res.status(201).json(newHomePage);
+    } else {
+      res.status(200).json(homePage);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message:
+        "Une erreur s'est produite lors de la récupération de la page d'accueil.",
+    });
   }
 };

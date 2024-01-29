@@ -12,6 +12,7 @@ import CreatePage from "./pages/CreatePage";
 import { UserContext } from "./contexts/user";
 import { UserData } from "./types/user";
 import { getCurrentUser } from "./api/users";
+import HomePageManagement from "./pages/HomePageManagement";
 
 const pagesRoutes = [
   {
@@ -27,6 +28,7 @@ const pagesRoutes = [
     element: <ManagePages />,
   },
   { path: "gestion-pages/creer", element: <CreatePage /> },
+  { path: "gestion-pages/page-accueil", element: <HomePageManagement /> },
   {
     path: "gestion-pages/:id",
     element: <ManagePage />,

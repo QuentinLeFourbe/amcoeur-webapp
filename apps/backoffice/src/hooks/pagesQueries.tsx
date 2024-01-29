@@ -4,6 +4,7 @@ import { AxiosResponse } from "axios";
 import {
   createPage,
   deletePage,
+  getHomePage,
   getPage,
   getPages,
   updatePage,
@@ -21,6 +22,14 @@ export const useGetPage = (id: number | string) => {
   const query = useQuery({
     queryKey: ["page", id],
     queryFn: () => getPage(id),
+  });
+  return query;
+};
+
+export const useGetHomePage = () => {
+  const query = useQuery({
+    queryKey: ["homePage"],
+    queryFn: () => getHomePage(),
   });
   return query;
 };

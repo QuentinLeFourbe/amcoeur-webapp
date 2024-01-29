@@ -23,3 +23,7 @@ export const updatePage = async (page: PageData) => {
 export const deletePage = async (id: string | number) => {
   return axios.delete<PageData>(`http://localhost:3000/api/pages/${id}`);
 };
+
+export const getHomePage = async () => {
+  return axios.post<PageData>("http://localhost:3000/api/pages/homepage");
+};

@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { css } from "../../styled-system/css";
 import Button from "../components/atoms/Button/Button";
 import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
@@ -13,11 +12,14 @@ function ManagePages() {
     isSuccess: isDeleteSuccess,
   } = useDeletePage();
 
-  const navigate = useNavigate();
-
   return (
     <div className={container}>
-      <Button href="/gestion-pages/creer">Créer une page</Button>
+      <div className={css({ display: "flex", gap: "12px" })}>
+        <Button to="/gestion-pages/creer">Créer une page</Button>
+        <Button to="/gestion-pages/page-accueil">
+          Modifier la page d&apos;accueil
+        </Button>
+      </div>
       {isDeleteError && (
         <ErrorLabel>
           Une erreur est survenue lors de la suppression de la page
@@ -34,16 +36,15 @@ function ManagePages() {
         </thead>
         <tbody>
           {data?.data.map((page) => {
+            if (!page.route) {
+              return null;
+            }
             return (
               <tr key={page._id}>
                 <td>{page.name}</td>
                 <td>/{page.route}</td>
                 <td>
-                  <Button
-                    onClick={() => navigate(`/gestion-pages/${page._id}`)}
-                  >
-                    Afficher
-                  </Button>
+                  <Button to={`/gestion-pages/${page._id}`}>Afficher</Button>
                 </td>
                 <td>
                   <Button onClick={() => page._id && deletePage(page._id)}>
