@@ -48,39 +48,8 @@ function FormSectionPanelComponent({
           value={component.imageUrl}
         />
       </div>
-      <div className={groupItem}>
-        <Label>Lien de navigation</Label>
-        <Input
-          onChange={(e) => {
-            onChange?.({
-              ...component,
-              link: e.target.value,
-            });
-          }}
-          onBlur={() => {
-            onBlur?.(component);
-          }}
-          value={component.link}
-        />
-      </div>
-      <div className={groupItem}>
-        <Label>Texte bouton de navigation</Label>
-        <Input
-          onChange={(e) => {
-            onChange?.({
-              ...component,
-              linkLabel: e.target.value,
-            });
-          }}
-          onBlur={() => {
-            onBlur?.(component);
-          }}
-          value={component.linkLabel}
-        />
-      </div>
-
       <FormCodeArea
-        height="300px"
+        height="200px"
         onChange={(value) => {
           onChange?.({
             ...component,
@@ -94,6 +63,41 @@ function FormSectionPanelComponent({
       >
         Contenu
       </FormCodeArea>
+      <div>
+        <label className={subtitleStyle}>Bouton de navigation</label>
+        <div className={row}>
+          <div className={groupItem}>
+            <Label>Texte</Label>
+            <Input
+              onChange={(e) => {
+                onChange?.({
+                  ...component,
+                  linkLabel: e.target.value,
+                });
+              }}
+              onBlur={() => {
+                onBlur?.(component);
+              }}
+              value={component.linkLabel}
+            />
+          </div>
+          <div className={groupItem}>
+            <Label>Lien de navigation</Label>
+            <Input
+              onChange={(e) => {
+                onChange?.({
+                  ...component,
+                  link: e.target.value,
+                });
+              }}
+              onBlur={() => {
+                onBlur?.(component);
+              }}
+              value={component.link}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -105,10 +109,25 @@ const container = css({
   flexDirection: "column",
   alignItems: "flex-start",
   gap: "16px",
+
+  "& h2": {
+    fontSize: "32px",
+    fontWeight: "bold",
+  },
 });
 
 const groupItem = css({
   display: "flex",
   flexDirection: "column",
   gap: "8px",
+});
+
+const row = css({
+  display: "flex",
+  gap: "8px",
+});
+
+const subtitleStyle = css({
+  fontSize: "24px",
+  fontWeight: "bold",
 });

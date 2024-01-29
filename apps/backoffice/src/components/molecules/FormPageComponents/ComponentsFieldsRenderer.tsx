@@ -1,9 +1,9 @@
 import { PageComponent } from "@amcoeur/types";
+import Button from "../../atoms/Button/Button";
+import { css } from "../../../../styled-system/css";
 import FormTitleBannerComponent from "./FormTitleBannerComponent";
 import FormTextAreaComponent from "./FormTextAreaComponent";
 import FormSectionPanelComponent from "./FormSectionPanelComponent";
-import Button from "../../atoms/Button/Button";
-import { css } from "../../../../styled-system/css";
 
 type FormPageComponentsInputProps = {
   value: PageComponent[];
