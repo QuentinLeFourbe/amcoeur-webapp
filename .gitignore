@@ -5,3 +5,6 @@ src/gatsby-types.d.ts
 dist
 
 .env
+
+uploads/*
+!uploads/.gitkeep
