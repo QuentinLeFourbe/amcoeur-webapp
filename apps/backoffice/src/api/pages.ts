@@ -21,6 +21,11 @@ export const updatePage = async (page: PageData) => {
   return axios.put<PageData>(
     `http://localhost:3000/api/pages/${page._id}`,
     page,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    },
   );
 };
 

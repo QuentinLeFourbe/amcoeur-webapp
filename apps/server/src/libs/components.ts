@@ -1,5 +1,14 @@
 import { PageComponent, PageComponentWithImage } from "@amcoeur/types";
+import { deleteUploadedImage } from "./files";
 
+/**
+ * Matches components with their corresponding image URLs.
+ *
+ * @param components - The array of page components.
+ * @param images - The array of uploaded image files.
+ * @returns An array of components with their image URLs.
+ * @throws Error if unable to find the index of a component with an image.
+ */
 export const matchComponentsWithImageUrl = (
   components: PageComponent[],
   images: Express.Multer.File[],
@@ -12,7 +21,7 @@ export const matchComponentsWithImageUrl = (
     return components;
   }
 
-  const indexesOfComponentsWithImage = images.map((file) => {
+  const componentsIndexWithImage = images.map((file) => {
     const fieldname = file.fieldname;
     const regex = /\[(\d+)\]/; // Expression régulière pour capturer les chiffres entre crochets
     const match = fieldname.match(regex);
@@ -27,8 +36,16 @@ export const matchComponentsWithImageUrl = (
       );
     }
   });
+
   const componentsWithImages = components;
-  indexesOfComponentsWithImage.forEach((indexWithImage) => {
+
+  componentsIndexWithImage.forEach((indexWithImage) => {
+    const componentImageUrl = (
+      componentsWithImages[indexWithImage.index] as PageComponentWithImage
+    ).imageUrl;
+    if (componentImageUrl) {
+      deleteUploadedImage(componentImageUrl);
+    }
     (
       componentsWithImages[indexWithImage.index] as PageComponentWithImage
     ).imageUrl = indexWithImage.imageUrl;

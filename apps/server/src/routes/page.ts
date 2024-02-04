@@ -18,7 +18,7 @@ router.post("/homepage", requiresLogin, getOrCreateHomePage);
 router.get("/", getAllPages);
 router.get("/:id", getPagesById);
 
-router.put("/:id", requiresLogin, updatePage);
+router.put("/:id", requiresLogin, upload.any(), updatePage);
 
 router.delete("/:id", requiresLogin, deletePage);
 

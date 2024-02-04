@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import Page from "../models/page";
 import { matchComponentsWithImageUrl } from "../libs/components";
+import { deleteUploadedImage } from "../libs/files";
+import { PageComponent } from "@amcoeur/types";
 
 export const createPage = async (req: Request, res: Response) => {
   try {
@@ -82,7 +84,12 @@ export const updatePage = async (req: Request, res: Response) => {
 
 export const deletePage = async (req: Request, res: Response) => {
   try {
-    const deletedPage = await Page.findByIdAndDelete(req.params.id);
+    const deletedPage = await Page.findOneAndDelete({ _id: req.params.id });
+    deletedPage?.components.forEach((component: PageComponent) => {
+      if ("imageUrl" in component) {
+        deleteUploadedImage(component.imageUrl);
+      }
+    });
     if (!deletedPage) {
       res.status(404).json({ message: "Page non trouvée." });
     } else {

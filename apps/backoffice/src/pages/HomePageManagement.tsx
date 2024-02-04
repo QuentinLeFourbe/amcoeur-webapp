@@ -13,7 +13,6 @@ function HomePageManagement() {
   const navigate = useNavigate();
   const { data, isLoading, isError } = useGetHomePage();
   const { mutate, isError: isErrorMutation } = useUpdatePage();
-  console.log({ data });
   const onEdit = (data: PageData) => {
     mutate(data);
     setIsEditing(false);
