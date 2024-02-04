@@ -19,8 +19,11 @@ function SectionPanelComponent({ component }: SectionPanelComponentProps) {
       <p>{component.linkLabel}</p>
       <Label className={property}>Lien bouton: </Label>
       <p>{component.link}</p>
-      <Label>Image src: </Label>
-      <p> {component.imageUrl}</p>
+      <Label>Image: </Label>
+      <img
+        src={component.imageUrl}
+        className={css({ maxWidth: "200px", maxHeight: "200px" })}
+      />
     </>
   );
 }
