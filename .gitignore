@@ -6,5 +6,5 @@ dist
 
 .env
 
-uploads/*
+apps/server/uploads/*
 !uploads/.gitkeep
