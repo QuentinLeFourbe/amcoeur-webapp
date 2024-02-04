@@ -10,7 +10,11 @@ export const getPage = async (id: string | number) => {
 };
 
 export const createPage = async (page: PageData) => {
-  return axios.post<PageData>("http://localhost:3000/api/pages", page);
+  return axios.post<PageData>("http://localhost:3000/api/pages", page, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
 
 export const updatePage = async (page: PageData) => {

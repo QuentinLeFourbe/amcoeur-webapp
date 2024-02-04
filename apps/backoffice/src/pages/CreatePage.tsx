@@ -14,7 +14,6 @@ function CreatePage() {
     },
   });
 
-  useCreatePage();
   const onSubmit = (data: PageData) => {
     mutate(data);
   };

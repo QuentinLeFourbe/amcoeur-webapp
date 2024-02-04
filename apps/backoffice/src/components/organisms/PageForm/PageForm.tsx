@@ -43,6 +43,8 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
 
   const onSubmitData = (data: PageData) => {
     try {
+      console.log("submiiit dataaa");
+      console.log(data);
       onSubmit?.(data);
     } catch (e) {
       console.error(e);
@@ -53,7 +55,7 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmitData)}>
+    <Form onSubmit={handleSubmit(onSubmitData)} encType="multipart/form-data">
       <FormInput
         register={register("name")}
         errorMessage={errors?.name?.message?.toString()}

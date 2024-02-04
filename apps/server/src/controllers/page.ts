@@ -1,9 +1,14 @@
 import { Request, Response } from "express";
 import Page from "../models/page";
+import { matchComponentsWithImageUrl } from "../libs/components";
 
 export const createPage = async (req: Request, res: Response) => {
   try {
-    const newPage = new Page(req.body);
+    const components = matchComponentsWithImageUrl(
+      req.body.components,
+      req.files as Express.Multer.File[],
+    );
+    const newPage = new Page({ ...req.body, components: components });
     await newPage.save();
     res.status(201).json(newPage);
   } catch (err) {
@@ -46,9 +51,17 @@ export const getPagesById = async (req: Request, res: Response) => {
 
 export const updatePage = async (req: Request, res: Response) => {
   try {
-    const updatedPage = await Page.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const components = matchComponentsWithImageUrl(
+      req.body.components,
+      req.files as Express.Multer.File[],
+    );
+    const updatedPage = await Page.findByIdAndUpdate(
+      req.params.id,
+      { ...req.body, components: components },
+      {
+        new: true,
+      },
+    );
     if (!updatedPage) {
       res.status(404).json({ message: "Page non trouvée." });
     } else {

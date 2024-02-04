@@ -36,16 +36,16 @@ function FormTitleBannerComponent({
       <div className={groupItem}>
         <Label>Image src</Label>
         <Input
+          type="file"
           onChange={(e) => {
             onChange?.({
               ...component,
-              imageUrl: e.target.value,
+              image: e.target.files && e.target.files[0],
             });
           }}
           onBlur={() => {
             onBlur?.(component);
           }}
-          value={component.imageUrl}
         />
       </div>
 

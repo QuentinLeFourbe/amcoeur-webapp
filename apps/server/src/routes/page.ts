@@ -8,10 +8,11 @@ import {
   getOrCreateHomePage,
 } from "../controllers/page";
 import { requiresLogin } from "../middlewares/login";
+import upload from "../middlewares/files";
 
 const router = Router();
 
-router.post("/", requiresLogin, createPage);
+router.post("/", requiresLogin, upload.any(), createPage);
 router.post("/homepage", requiresLogin, getOrCreateHomePage);
 
 router.get("/", getAllPages);

@@ -1,6 +1,6 @@
 import { css } from "../../../../styled-system/css";
 
-type FormProps = React.HTMLAttributes<HTMLFormElement> & {
+type FormProps = React.FormHTMLAttributes<HTMLFormElement> & {
   children: React.ReactNode;
 };
 
