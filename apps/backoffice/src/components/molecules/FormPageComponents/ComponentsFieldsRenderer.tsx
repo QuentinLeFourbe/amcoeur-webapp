@@ -75,15 +75,15 @@ function ComponentsFieldsRenderer({
         {moveComponent && (
           <>
             {index !== 0 && (
-              <Button
-                type="button"
-                onClick={() => moveComponent(index, "down")}
-              >
+              <Button type="button" onClick={() => moveComponent(index, "up")}>
                 Déplacer vers le haut
               </Button>
             )}
             {index !== value.length - 1 && (
-              <Button type="button" onClick={() => moveComponent(index, "up")}>
+              <Button
+                type="button"
+                onClick={() => moveComponent(index, "down")}
+              >
                 Déplacer vers le bas
               </Button>
             )}
