@@ -14,7 +14,7 @@ function PageComponentsRenderer({ components }: PageComponentsRendererProps) {
     switch (component.type) {
       case "TitleBanner":
         return (
-          <TitlePanel key={index}>
+          <TitlePanel key={index} src={component.imageUrl}>
             <h1>{component.title}</h1>
             <Markdown>{component.content}</Markdown>
           </TitlePanel>
