@@ -20,7 +20,7 @@ function CreatePage() {
 
   return (
     <div className={container}>
-      <Button href="/gestion-pages">Retour</Button>
+      <Button to="/gestion-pages">Retour</Button>
       {isError && (
         <ErrorLabel>
           Une erreur est survenue lors de la création de la page

@@ -1,9 +1,9 @@
 import { PageComponent } from "@amcoeur/types";
 import Button from "../../atoms/Button/Button";
 import { css } from "../../../../styled-system/css";
-import FormTitleBannerComponent from "./FormTitleBannerComponent";
-import FormTextAreaComponent from "./FormTextAreaComponent";
-import FormSectionPanelComponent from "./FormSectionPanelComponent";
+import FormTitleBannerComponent from "./FormTitleBanner";
+import FormTextArea from "./FormTextArea";
+import FormContentPanel from "./FormContentPanel";
 
 type FormPageComponentsInputProps = {
   value: PageComponent[];
@@ -50,15 +50,15 @@ function ComponentsFieldsRenderer({
         );
       case "TextArea":
         return (
-          <FormTextAreaComponent
+          <FormTextArea
             component={component}
             onBlur={getHandleBlur(index)}
             onChange={getHandleChange(index)}
           />
         );
-      case "SectionPanel":
+      case "ContentPanel":
         return (
-          <FormSectionPanelComponent
+          <FormContentPanel
             component={component}
             onBlur={getHandleBlur(index)}
             onChange={getHandleChange(index)}

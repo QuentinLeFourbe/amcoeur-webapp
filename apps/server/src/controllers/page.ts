@@ -1,8 +1,12 @@
 import { Request, Response } from "express";
 import Page from "../models/page";
 import { matchComponentsWithImageUrl } from "../libs/components";
-import { deleteUploadedImage } from "../libs/files";
-import { PageComponent } from "@amcoeur/types";
+import { deleteOldImages, deleteUploadedImage } from "../libs/files";
+import {
+  PageComponent,
+  PageComponentWithImage,
+  PageData,
+} from "@amcoeur/types";
 
 export const createPage = async (req: Request, res: Response) => {
   try {
@@ -57,6 +61,7 @@ export const updatePage = async (req: Request, res: Response) => {
       req.body.components,
       req.files as Express.Multer.File[],
     );
+    const oldPage = await Page.findById(req.params.id);
     const updatedPage = await Page.findByIdAndUpdate(
       req.params.id,
       { ...req.body, components: components },
@@ -64,6 +69,8 @@ export const updatePage = async (req: Request, res: Response) => {
         new: true,
       },
     );
+    deleteOldImages(oldPage, updatedPage);
+
     if (!updatedPage) {
       res.status(404).json({ message: "Page non trouvée." });
     } else {
@@ -107,7 +114,7 @@ export const deletePage = async (req: Request, res: Response) => {
   }
 };
 
-export const getOrCreateHomePage = async (req: Request, res: Response) => {
+export const createHomePage = async (req: Request, res: Response) => {
   try {
     const homePage = await Page.findOne({ route: "" });
     if (!homePage) {
@@ -118,6 +125,23 @@ export const getOrCreateHomePage = async (req: Request, res: Response) => {
       });
       await newHomePage.save();
       res.status(201).json(newHomePage);
+    } else {
+      res.status(200).json(homePage);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message:
+        "Une erreur s'est produite lors de la récupération de la page d'accueil.",
+    });
+  }
+};
+
+export const getHomePage = async (req: Request, res: Response) => {
+  try {
+    const homePage = await Page.findOne({ route: "" });
+    if (!homePage) {
+      res.status(404).json({ message: "Page d'accueil non trouvée." });
     } else {
       res.status(200).json(homePage);
     }

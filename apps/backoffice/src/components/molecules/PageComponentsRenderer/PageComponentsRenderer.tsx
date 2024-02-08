@@ -1,7 +1,7 @@
 import { PageComponent } from "@amcoeur/types";
-import TextAreaComponent from "../TextAreaComponent/TextAreaPageComponent";
-import TitleBannerComponent from "../TitleBannerComponent.tsx/TitleBannerPageComponent";
-import SectionPanelComponent from "../SectionPanelComponent/SectionPanelComponent";
+import TextArea from "../TextArea/TextArea";
+import TitleBanner from "../TitleBanner/TitleBanner";
+import ContentPanel from "../ContentPanel/ContentPanel";
 
 type PageComponentsRendererProps = {
   components: PageComponent[];
@@ -11,11 +11,11 @@ function PageComponentsRenderer({ components }: PageComponentsRendererProps) {
   const getRenderedComponent = (component: PageComponent) => {
     switch (component.type) {
       case "TitleBanner":
-        return <TitleBannerComponent component={component} />;
+        return <TitleBanner component={component} />;
       case "TextArea":
-        return <TextAreaComponent component={component} />;
-      case "SectionPanel":
-        return <SectionPanelComponent component={component} />;
+        return <TextArea component={component} />;
+      case "ContentPanel":
+        return <ContentPanel component={component} />;
       default:
         return null;
     }

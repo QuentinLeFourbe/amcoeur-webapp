@@ -3,13 +3,11 @@ import Label from "../../atoms/Label/Label";
 import CodeArea from "../../atoms/CodeArea/CodeArea";
 import { css } from "../../../../styled-system/css";
 
-type TitleBannerPageComponentProps = {
+type TitleBannerProps = {
   component: TitleBannerComponent;
 };
 
-function TitleBannerPageComponent({
-  component,
-}: TitleBannerPageComponentProps) {
+function TitleBanner({ component }: TitleBannerProps) {
   return (
     <div>
       <h2>Bannière titre</h2>
@@ -26,4 +24,4 @@ function TitleBannerPageComponent({
   );
 }
 
-export default TitleBannerPageComponent;
+export default TitleBanner;

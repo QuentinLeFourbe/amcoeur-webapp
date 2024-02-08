@@ -1,5 +1,5 @@
 import { Controller, useForm } from "react-hook-form";
-import { PageData, SectionPanelComponent } from "@amcoeur/types";
+import { ContentPanelComponent, PageData } from "@amcoeur/types";
 import Form from "../../atoms/Form/Form";
 import Button from "../../atoms/Button/Button";
 import ComponentsFieldsRenderer from "../../molecules/FormPageComponents/ComponentsFieldsRenderer";
@@ -9,8 +9,8 @@ type HomePageFormProps = {
   onSubmit?: (data: PageData) => void;
 };
 
-const emptySection: SectionPanelComponent = {
-  type: "SectionPanel",
+const emptySection: ContentPanelComponent = {
+  type: "ContentPanel",
   title: "",
   content: "",
   imageUrl: "",

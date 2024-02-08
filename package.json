@@ -8,11 +8,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run dev -w @amcoeur/client",
-    "watch-backoffice": "npm run watch -w @amcoeur/backoffice",
+    "dev-server": "npm run dev -w @amcoeur/server",
     "fakedb": "json-server --watch ./apps/backoffice/mockedDb/db.json",
     "watch": "npm run watch -w @amcoeur/client",
+    "watch-backoffice": "npm run watch -w @amcoeur/backoffice",
     "watch-types": "npm run watch -w @amcoeur/types",
-    "dev-server": "npm run dev -w @amcoeur/server",
     "build": "npm run build -w @amcoeur/types && npm run build -w @amcoeur/client  && npm run build -w @amcoeur/backoffice && npm run build -w @amcoeur/server ",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run start -w @amcoeur/server",

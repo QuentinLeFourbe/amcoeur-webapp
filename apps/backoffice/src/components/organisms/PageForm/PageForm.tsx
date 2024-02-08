@@ -21,6 +21,7 @@ const defaultData: PageData = {
       title: "",
       content: "",
       imageUrl: "",
+      image: null,
     },
     {
       type: "TextArea",

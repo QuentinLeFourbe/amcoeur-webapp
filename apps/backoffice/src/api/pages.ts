@@ -29,10 +29,14 @@ export const updatePage = async (page: PageData) => {
   );
 };
 
-export const deletePage = async (id: string | number) => {
+export const deletePage = async (id: string) => {
   return axios.delete<PageData>(`http://localhost:3000/api/pages/${id}`);
 };
 
 export const getHomePage = async () => {
+  return axios.get<PageData>("http://localhost:3000/api/pages/homepage");
+};
+
+export const createHomePage = async () => {
   return axios.post<PageData>("http://localhost:3000/api/pages/homepage");
 };

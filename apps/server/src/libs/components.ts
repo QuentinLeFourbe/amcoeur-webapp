@@ -38,17 +38,11 @@ export const matchComponentsWithImageUrl = (
   });
 
   const componentsWithImages = components;
-
   componentsIndexWithImage.forEach((indexWithImage) => {
-    const componentImageUrl = (
-      componentsWithImages[indexWithImage.index] as PageComponentWithImage
-    ).imageUrl;
-    if (componentImageUrl) {
-      deleteUploadedImage(componentImageUrl);
-    }
     (
       componentsWithImages[indexWithImage.index] as PageComponentWithImage
     ).imageUrl = indexWithImage.imageUrl;
   });
+
   return componentsWithImages;
 };

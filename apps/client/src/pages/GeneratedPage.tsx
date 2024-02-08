@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useGetPageByRoute } from "../hooks/useGetPage";
-import GeneratedPageRenderer from "../components/organisms/GeneratedPageRenderer/GeneratedPageRenderer";
+import PageComponentsRenderer from "../components/organisms/PageComponentsRenderer/PageComponentsRenderer";
 import PageNotFound from "../components/organisms/PageNotFound/PageNotFound";
 
 function GeneratedPage() {
@@ -18,7 +18,7 @@ function GeneratedPage() {
 
   return (
     <>
-      {isSuccess && <GeneratedPageRenderer components={pageDataComponents} />}
+      {isSuccess && <PageComponentsRenderer components={pageDataComponents} />}
       {isLoading && <div>Chargement de la page...</div>}
       {isError && <PageNotFound />}
     </>
