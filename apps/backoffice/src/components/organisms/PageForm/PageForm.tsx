@@ -21,6 +21,7 @@ const defaultData: PageData = {
       title: "",
       content: "",
       imageUrl: "",
+      image: null,
     },
     {
       type: "TextArea",
@@ -53,7 +54,7 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmitData)}>
+    <Form onSubmit={handleSubmit(onSubmitData)} encType="multipart/form-data">
       <FormInput
         register={register("name")}
         errorMessage={errors?.name?.message?.toString()}

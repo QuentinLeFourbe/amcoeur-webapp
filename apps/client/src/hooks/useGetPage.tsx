@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPage, getPageByRoute } from "../api/pages";
+import { getHomePage, getPage, getPageByRoute } from "../api/pages";
 
 export const useGetPage = (id: number | string, enabled: boolean = true) => {
   const query = useQuery({
@@ -22,6 +22,17 @@ export const useGetPageByRoute = (route: string, enabled: boolean = true) => {
       return data.data?.[0];
     },
     retry: false,
+  });
+  return query;
+};
+
+export const useGetHomePage = () => {
+  const query = useQuery({
+    queryKey: ["homePage"],
+    queryFn: () => getHomePage(),
+    select: (data) => {
+      return data.data;
+    },
   });
   return query;
 };

@@ -3,11 +3,11 @@ import CodeArea from "../../atoms/CodeArea/CodeArea";
 import { css } from "../../../../styled-system/css";
 import Label from "../../atoms/Label/Label";
 
-type TextAreaPageComponentProps = {
+type TextAreaProps = {
   component: TextAreaComponent;
 };
 
-function TextAreaPageComponent({ component }: TextAreaPageComponentProps) {
+function TextArea({ component }: TextAreaProps) {
   return (
     <>
       <h2>Zone de texte</h2>
@@ -17,7 +17,7 @@ function TextAreaPageComponent({ component }: TextAreaPageComponentProps) {
   );
 }
 
-export default TextAreaPageComponent;
+export default TextArea;
 
 const property = css({
   fontWeight: "bold",

@@ -1,5 +1,5 @@
 import { Controller, useForm } from "react-hook-form";
-import { PageData, SectionPanelComponent } from "@amcoeur/types";
+import { ContentPanelComponent, PageData } from "@amcoeur/types";
 import Form from "../../atoms/Form/Form";
 import Button from "../../atoms/Button/Button";
 import ComponentsFieldsRenderer from "../../molecules/FormPageComponents/ComponentsFieldsRenderer";
@@ -9,28 +9,12 @@ type HomePageFormProps = {
   onSubmit?: (data: PageData) => void;
 };
 
-const defaultData: PageData = {
-  name: "",
-  route: "",
-  components: [
-    {
-      type: "TitleBanner",
-      title: "",
-      content: "",
-      imageUrl: "",
-    },
-    {
-      type: "TextArea",
-      content: "",
-    },
-  ],
-};
-
-const emptySection: SectionPanelComponent = {
-  type: "SectionPanel",
+const emptySection: ContentPanelComponent = {
+  type: "ContentPanel",
   title: "",
   content: "",
   imageUrl: "",
+  image: undefined,
   link: "",
   linkLabel: "",
 };
@@ -46,7 +30,7 @@ function HomePageForm({ data, onSubmit }: HomePageFormProps = {}) {
     watch,
   } = useForm<PageData>({
     // resolver: yupResolver(pageDataSchema),
-    defaultValues: data || defaultData,
+    defaultValues: data,
   });
   console.log({ errors });
   const onSubmitData = (data: PageData) => {
@@ -77,7 +61,7 @@ function HomePageForm({ data, onSubmit }: HomePageFormProps = {}) {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmitData)}>
+    <Form onSubmit={handleSubmit(onSubmitData)} encType="multipart/form-data">
       {components && !!components.length && (
         <Button
           type="button"

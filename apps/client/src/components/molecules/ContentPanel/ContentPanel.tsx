@@ -2,28 +2,39 @@ import React from "react";
 import { css, cx } from "../../../../styled-system/css";
 import TextContainer from "../../atoms/TextContainer/TextContainer";
 import ImageContainer from "../../atoms/ImageContainer/ImageContainer";
+import Button from "../../atoms/Button/Button";
 
 type ContentPanelProps = {
-  imageSrc?: string;
+  imageUrl?: string;
   title: string;
   children: React.ReactNode;
+  link: string;
+  linkLabel: string;
   revert?: boolean;
-  large?: boolean;
 };
 
 function ContentPanel({
-  imageSrc = "https://www.detentejardin.com/sites/art-de-vivre/files/dj115_chaton_th.jpg",
+  imageUrl = "https://www.detentejardin.com/sites/art-de-vivre/files/dj115_chaton_th.jpg",
   title,
   children,
+  link,
+  linkLabel,
   revert = false,
 }: ContentPanelProps) {
   return (
     <div className={cx(container, revert ? reverse : primaryBackground)}>
-      <ImageContainer src={imageSrc} alt="image" cover size="mediumLandscape" />
-      <TextContainer className={textContainerSize}>
-        <h2>{title}</h2>
-        {children}
-      </TextContainer>
+      <ImageContainer src={imageUrl} alt="image" cover size="mediumLandscape" />
+      <div>
+        <TextContainer className={textContainerSize}>
+          <h2>{title}</h2>
+          {children}
+        </TextContainer>
+        {linkLabel && (
+          <Button rounded to={link || "#"}>
+            {linkLabel}
+          </Button>
+        )}
+      </div>
     </div>
   );
 }
@@ -49,6 +60,7 @@ const primaryBackground = css({
 
 const textContainerSize = css({
   maxWidth: { base: "800px", xl: "600px" },
+  padding: "1rem 0",
 });
 
 export default ContentPanel;

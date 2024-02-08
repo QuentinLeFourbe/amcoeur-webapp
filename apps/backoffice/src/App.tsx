@@ -81,7 +81,6 @@ function App() {
     checkLoggedIn();
   }, []);
 
-  console.log({ user });
   return (
     <UserContext.Provider value={{ user, logoutUser, loginUser }}>
       <QueryClientProvider client={queryClient}>

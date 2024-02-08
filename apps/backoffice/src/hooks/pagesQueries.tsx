@@ -1,7 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { PageData } from "@amcoeur/types";
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import {
+  createHomePage,
   createPage,
   deletePage,
   getHomePage,
@@ -27,10 +28,25 @@ export const useGetPage = (id: number | string) => {
 };
 
 export const useGetHomePage = () => {
+  const queryClient = useQueryClient();
   const query = useQuery({
     queryKey: ["homePage"],
     queryFn: () => getHomePage(),
   });
+
+  const { mutate } = useMutation({
+    mutationFn: () => createHomePage(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["homePage"],
+      });
+    },
+  });
+
+  if ((query.error as AxiosError)?.response?.status === 404) {
+    mutate();
+  }
+
   return query;
 };
 
@@ -74,7 +90,7 @@ export const useCreatePage = ({ onSuccess }: CreatePageProps = {}) => {
 export const useDeletePage = () => {
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: (id: number | string) => deletePage(id),
+    mutationFn: (id: string) => deletePage(id),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: ["pages"],

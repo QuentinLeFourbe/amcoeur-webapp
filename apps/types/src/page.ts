@@ -1,19 +1,22 @@
+import mongoose from "mongoose";
 export type PageData = {
-  _id?: string;
+  _id?: mongoose.Types.ObjectId;
   name: string;
   route: string;
   components: PageComponent[];
 };
 
-export type PageComponent =
+export type PageComponent = PageComponentWithImage | TextAreaComponent;
+
+export type PageComponentWithImage =
   | TitleBannerComponent
-  | TextAreaComponent
-  | SectionPanelComponent;
+  | ContentPanelComponent;
 
 export type TitleBannerComponent = {
   type: "TitleBanner";
   title: string;
   imageUrl: string;
+  image: File | null | undefined;
   content: string;
 };
 
@@ -22,9 +25,10 @@ export type TextAreaComponent = {
   content: string;
 };
 
-export type SectionPanelComponent = {
-  type: "SectionPanel";
+export type ContentPanelComponent = {
+  type: "ContentPanel";
   imageUrl: string;
+  image: File | null | undefined;
   title: string;
   content: string;
   link: string;
