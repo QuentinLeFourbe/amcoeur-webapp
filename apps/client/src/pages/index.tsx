@@ -10,8 +10,6 @@ import { useGetHomePage } from "../hooks/useGetPage";
 const IndexPage = () => {
   const { data: pageData, isLoading, isSuccess } = useGetHomePage();
 
-  console.log({ pageData });
-
   return (
     <>
       <Banner>Bienvenue à tous les protecteurs des animaux</Banner>

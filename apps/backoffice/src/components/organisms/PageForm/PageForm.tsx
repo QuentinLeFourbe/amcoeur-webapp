@@ -44,8 +44,6 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
 
   const onSubmitData = (data: PageData) => {
     try {
-      console.log("submiiit dataaa");
-      console.log(data);
       onSubmit?.(data);
     } catch (e) {
       console.error(e);
