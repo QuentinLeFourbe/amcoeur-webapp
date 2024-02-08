@@ -14,16 +14,17 @@ import path from "path";
 export const deleteUploadedImage = async (imageUrl: string) => {
   const image = imageUrl.split("/").pop();
   if (!image) {
-    throw new Error(
+    console.error(
       "Impossible de trouver l'image à supprimer pour: " + imageUrl,
     );
+    return;
   }
   const uploadFolder = path.join(__dirname, "..", "..", "uploads");
   if (fs.existsSync(path.join(uploadFolder, image))) {
     fs.unlinkSync(path.join(uploadFolder, image));
-    console.log("Image supprimée avec succès.");
+    console.error("Image supprimée avec succès.");
   } else {
-    console.log("L'image n'existe pas.");
+    console.error("L'image n'existe pas.");
   }
 };
 

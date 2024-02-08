@@ -93,7 +93,7 @@ export const deletePage = async (req: Request, res: Response) => {
   try {
     const deletedPage = await Page.findOneAndDelete({ _id: req.params.id });
     deletedPage?.components.forEach((component: PageComponent) => {
-      if ("imageUrl" in component) {
+      if ("imageUrl" in component && component.imageUrl) {
         deleteUploadedImage(component.imageUrl);
       }
     });
