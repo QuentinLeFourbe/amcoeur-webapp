@@ -6,6 +6,8 @@ import FormInput from "../../molecules/Form/FormInput";
 import { pageDataSchema } from "../../../schemas/page";
 import Button from "../../atoms/Button/Button";
 import ComponentsFieldsRenderer from "../../molecules/FormPageComponents/ComponentsFieldsRenderer";
+import HelpTooltip from "../../atoms/HelpTooltip/HelpTooltip";
+import { css } from "../../../../styled-system/css";
 
 type PageFormProps = {
   data?: PageData;
@@ -62,14 +64,19 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
       >
         Nom de la page
       </FormInput>
+
       <FormInput
         register={register("route")}
         errorMessage={errors?.route?.message?.toString()}
         width="medium"
         isPath={true}
+        helpText={
+          'Le chemin d\'accès correspond à ce que l\'utilisateur doit rajouter après "amcoeur.org" pour accéder à la page. Par exemple: amcoeur.org/dons => le chemin d\'accès est "/dons" '
+        }
       >
         Chemin d&apos;accès
       </FormInput>
+
       <Controller
         control={control}
         name="components"

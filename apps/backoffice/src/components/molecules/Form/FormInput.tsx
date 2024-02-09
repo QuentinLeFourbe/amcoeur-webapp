@@ -4,12 +4,14 @@ import { css } from "../../../../styled-system/css";
 import Label from "../../atoms/Label/Label";
 import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
 import Input from "../../atoms/Input/Input";
+import HelpTooltip from "../../atoms/HelpTooltip/HelpTooltip";
 
 type FormInputProps = ComponentPropsWithoutRef<typeof Input> & {
   children: React.ReactNode;
   errorMessage?: string;
   register?: UseFormRegisterReturn;
   width?: "small" | "medium" | "large";
+  helpText?: string;
 };
 
 function FormInput({
@@ -17,6 +19,7 @@ function FormInput({
   errorMessage,
   register,
   width,
+  helpText,
   ...props
 }: FormInputProps) {
   let widthClass = fullWidth;
@@ -35,7 +38,12 @@ function FormInput({
   return (
     <div className={container}>
       <Label>{children}</Label>
-      <Input {...props} {...register} className={widthClass} />
+      <div
+        className={css({ display: "flex", gap: "16px", alignItems: "center" })}
+      >
+        <Input {...props} {...register} className={widthClass} />
+        {helpText && <HelpTooltip>{helpText}</HelpTooltip>}
+      </div>
       {errorMessage && <ErrorLabel>{errorMessage}</ErrorLabel>}
     </div>
   );
