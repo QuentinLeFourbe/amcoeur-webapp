@@ -12,7 +12,7 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const databaseUri = "mongodb://localhost:27017/amcoeur";
+const databaseUri = process.env.DB_URI || "";
 const corsOptions = {
   origin: [
     "http://localhost:3000",
