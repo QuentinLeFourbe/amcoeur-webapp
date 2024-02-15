@@ -41,7 +41,6 @@ export const login = async (req: Request, res: Response) => {
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    console.log({ body: req.body });
     if (!req.body.username || !req.body.password) {
       return res.status(400).send({
         message: "Missing username or password.",
