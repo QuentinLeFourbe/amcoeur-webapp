@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  changeUserPassword,
   createUser,
   deleteUser,
   getAllUsers,
@@ -22,6 +23,7 @@ router.post("/signup", requiresLogin, createUser);
 router.post("/logout", requiresLogin, logout);
 
 router.put("/:id", requiresLogin, updateUser);
+router.put("/password/:id", requiresLogin, changeUserPassword);
 
 router.delete("/:id", requiresLogin, deleteUser);
 

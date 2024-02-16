@@ -21,8 +21,6 @@ export const requiresLogin = (
   }
 };
 
-const blockedUsers = new Map();
-
 export const limitAttempts = (
   req: Request,
   res: Response,

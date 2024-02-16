@@ -2,11 +2,7 @@ import { Request, Response } from "express";
 import Page from "../models/page";
 import { matchComponentsWithImageUrl } from "../libs/components";
 import { deleteOldImages, deleteUploadedImage } from "../libs/files";
-import {
-  PageComponent,
-  PageComponentWithImage,
-  PageData,
-} from "@amcoeur/types";
+import { PageComponent } from "@amcoeur/types";
 
 export const createPage = async (req: Request, res: Response) => {
   try {
@@ -116,13 +112,14 @@ export const deletePage = async (req: Request, res: Response) => {
 
 export const createHomePage = async (req: Request, res: Response) => {
   try {
-    const homePage = await Page.findOne({ route: "" });
+    const homePage = await Page.findOne({ route: "accueil" });
     if (!homePage) {
       const newHomePage = new Page({
         name: "Accueil",
-        route: "",
+        route: "accueil",
         components: [],
       });
+      console.log("We got a new homepage", newHomePage);
       await newHomePage.save();
       res.status(201).json(newHomePage);
     } else {
@@ -139,7 +136,7 @@ export const createHomePage = async (req: Request, res: Response) => {
 
 export const getHomePage = async (req: Request, res: Response) => {
   try {
-    const homePage = await Page.findOne({ route: "" });
+    const homePage = await Page.findOne({ route: "accueil" });
     if (!homePage) {
       res.status(404).json({ message: "Page d'accueil non trouvée." });
     } else {

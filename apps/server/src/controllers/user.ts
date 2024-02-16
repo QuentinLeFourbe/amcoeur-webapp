@@ -1,7 +1,10 @@
 import { Request, Response } from "express";
 import User from "../models/user";
 import jwt, { Secret } from "jsonwebtoken";
-import { addUserToBlockedUsers } from "../utils/login";
+import {
+  addUserToBlockedUsers,
+  removeUserFromBlockedUsers,
+} from "../utils/login";
 
 export const login = async (req: Request, res: Response) => {
   // Find user with requested email
@@ -115,6 +118,33 @@ export const updateUser = async (req: Request, res: Response) => {
   }
 };
 
+export const changeUserPassword = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findById(req.params.id);
+    const password = await req.body.password;
+    console.log("password, ", password);
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+    } else if (!password) {
+      res.status(400).json({ message: "Please provide a password" });
+    } else {
+      user.setPassword(req.body.password);
+      user.save();
+      res.status(200).json(user);
+    }
+  } catch (err) {
+    console.log(err);
+    if (err instanceof Error) {
+      res.status(400).json({ message: err.message });
+    } else {
+      res.status(500).json({
+        message:
+          "Une erreur s'est produite lors de la modification de l'utilisateur.",
+      });
+    }
+  }
+};
+
 export const deleteUser = async (req: Request, res: Response) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.params.id);
@@ -175,6 +205,21 @@ export const getCurrentUserFromToken = async (req: Request, res: Response) => {
     return res.status(500).send({
       message: "An error occured while getting user.",
       error: err,
+    });
+  }
+};
+
+export const unblockUser = (req: Request, res: Response) => {
+  const username = req.body.username;
+
+  if (username) {
+    removeUserFromBlockedUsers(username);
+    res.status(200).send({
+      message: "User unblocked",
+    });
+  } else {
+    res.status(500).send({
+      message: "No username provided",
     });
   }
 };
