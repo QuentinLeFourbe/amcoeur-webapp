@@ -17,5 +17,5 @@ primary_region = "cdg"
   processes = ["app"]
 
 [mounts]
-  source="imagestorage"
+  source="images"
   destination="apps/server/uploads"

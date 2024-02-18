@@ -50,7 +50,7 @@ export const createUser = async (req: Request, res: Response) => {
       });
     }
 
-    let newUser = new User();
+    const newUser = new User();
     newUser.username = req.body.username;
     newUser.setPassword(req.body.password);
     await newUser.save();
