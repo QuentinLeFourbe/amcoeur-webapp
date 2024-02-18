@@ -1,15 +1,21 @@
-import ContentPanel from "../components/molecules/ContentPanel/ContentPanel";
+// import ContentPanel from "../components/molecules/ContentPanel/ContentPanel";
 import Banner from "../components/atoms/Banner/Banner";
-import donateImage from "../assets/images/chien-dons.webp";
-import lotoImage from "../assets/images/chat-chien.webp";
-import Button from "../components/atoms/Button/Button";
-import noelImage from "../assets/images/noel_non.jpg";
+import PageComponentsRenderer from "../components/organisms/PageComponentsRenderer/PageComponentsRenderer";
+// import donateImage from "../assets/images/chien-dons.webp";
+// import lotoImage from "../assets/images/chat-chien.webp";
+// import Button from "../components/atoms/Button/Button";
+// import noelImage from "../assets/images/noel_non.jpg";
+import { useGetHomePage } from "../hooks/useGetPage";
 
 const IndexPage = () => {
+  const { data: pageData, isLoading, isSuccess } = useGetHomePage();
+
   return (
     <>
       <Banner>Bienvenue à tous les protecteurs des animaux</Banner>
-      <ContentPanel title="Site en construction" imageSrc={lotoImage}>
+      {isSuccess && <PageComponentsRenderer components={pageData.components} />}
+      {isLoading && <div>Chargement de la page...</div>}
+      {/* <ContentPanel title="Site en construction" imageSrc={lotoImage}>
         <p>
           Le nouveau site www.amcoeur.org est en cours de reconstruction toutes
           les rubriques ne sont pas encore fonctionnelles. Nous vous remercions
@@ -43,7 +49,7 @@ const IndexPage = () => {
         <Button to="/don" rounded bold>
           En savoir plus
         </Button>
-      </ContentPanel>
+      </ContentPanel> */}
     </>
   );
 };

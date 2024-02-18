@@ -12,7 +12,6 @@ const CaptchaForm = () => {
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const recaptchaToken = recaptchaRef.current?.getValue();
-    console.log(recaptchaToken);
     axios.post("/api/email", { recaptchaToken });
   };
 

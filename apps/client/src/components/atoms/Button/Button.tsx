@@ -16,7 +16,7 @@ function Button({ rounded, bold, ...props }: ButtonProps) {
         primaryColors,
         rounded ? roundedBorders : squaredBorders,
         bold ? boldText : null,
-        props.className
+        props.className,
       )}
     />
   );
@@ -25,9 +25,7 @@ function Button({ rounded, bold, ...props }: ButtonProps) {
 export default Button;
 
 const baseButton = css({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
+  display: "inline-block",
   cursor: "pointer",
   padding: "20px 40px",
   "&:active": {
@@ -37,11 +35,11 @@ const baseButton = css({
 });
 
 const primaryColors = css({
-  color: "textSecondary",
+  color: "textSecondary !important",
   backgroundColor: "buttons.primary.background",
   "&:hover": {
     backgroundColor: "buttons.primary.backgroundHover",
-    color: "buttons.primary.textHover",
+    color: "buttons.primary.textHover !important",
   },
   borderColor: "buttons.primary.background",
   borderStyle: "solid",

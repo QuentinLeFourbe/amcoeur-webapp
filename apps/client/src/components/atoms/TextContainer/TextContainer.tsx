@@ -64,6 +64,15 @@ const textContainer = css({
     fontStyle: "italic",
   },
 
+  "& a": {
+    color: "blue.600",
+
+    "&:hover": {
+      color: "blue.500",
+      textDecoration: "underline",
+    },
+  },
+
   display: "flex",
   flexFlow: "column nowrap",
   alignItems: "flex-start",
