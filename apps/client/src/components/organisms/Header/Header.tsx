@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { css, cx } from "../../../../styled-system/css";
 import FacebookIcon from "../../../assets/icons/facebook.svg?react";
-// import BurgerIcon from "../../../assets/icons/burger.svg?react";
+import BurgerIcon from "../../../assets/icons/burger.svg?react";
 import AmcoeurLogo from "../../../assets/icons/amcoeur_logo.webp";
 import Link from "../../atoms/Link/Link";
 import Overlay from "../../atoms/Overlay/Overlay";
 import useMediaQuery from "../../../hooks/useMediaQuery";
-import ChienContent from "../../../assets/images/chien-content-alt.webp";
-import ChatonMimi from "../../../assets/images/chaton-mimi-alt.webp";
+// import ChienContent from "../../../assets/images/chien-content-alt.webp";
+// import ChatonMimi from "../../../assets/images/chaton-mimi-alt.webp";
+import { LinkGroup } from "../../../types/link";
 import MobileMenu from "./MobileMenu";
 import SecondaryPanel from "./SecondaryPanel";
 
@@ -28,35 +29,35 @@ const headerLinks = [
 ];
 
 const secondaryLinks = [
-  {
-    name: "Envie d'agir",
-    src: ChienContent,
-    subLinks: [
-      {
-        name: "Devenir famille d'accueil",
-        href: "/famille-accueil",
-      },
-      {
-        name: "Devenir bénévole",
-        href: "/devenir-benevole",
-      },
-    ],
-  },
-  {
-    name: "Soutenir",
-    src: ChatonMimi,
-    subLinks: [
-      {
-        name: "Faire un don",
-        href: "/don",
-      },
-      {
-        name: "Collecte de nourriture",
-        href: "/collecte-nourriture",
-      },
-    ],
-  },
-];
+  // {
+  //   name: "Envie d'agir",
+  //   src: ChienContent,
+  //   subLinks: [
+  //     {
+  //       name: "Devenir famille d'accueil",
+  //       href: "/famille-accueil",
+  //     },
+  //     {
+  //       name: "Devenir bénévole",
+  //       href: "/devenir-benevole",
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: "Soutenir",
+  //   src: ChatonMimi,
+  //   subLinks: [
+  //     {
+  //       name: "Faire un don",
+  //       href: "/don",
+  //     },
+  //     {
+  //       name: "Collecte de nourriture",
+  //       href: "/collecte-nourriture",
+  //     },
+  //   ],
+  // },
+] as LinkGroup[];
 
 function Header() {
   const [scrolling, setScrolling] = useState(false);
@@ -70,7 +71,7 @@ function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 0 && !scrolling) {
+      if (window.scrollY > 100 && !scrolling) {
         setScrolling(true);
       } else if (window.scrollY === 0 && scrolling) {
         setScrolling(false);
@@ -98,11 +99,16 @@ function Header() {
           scrolling ? headerOnScrollPadding : headerScrollTopPadding,
         )}
       >
-        <div className={cx(logoContainer, scrolling && logoReduced)}>
+        <div className={cx(scrolling ? logoReduced : logoFullSize)}>
           <LogoLink src={AmcoeurLogo} href="/" />
-          {/* <button className={burgerIcon} onClick={() => setMenuOpen(!menuOpen)}>
-            <BurgerIcon />
-          </button> */}
+          {!isBigScreen && (
+            <button
+              className={burgerIcon}
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              <BurgerIcon />
+            </button>
+          )}
         </div>
         {isBigScreen && (
           <div className={primaryLinksContainer}>
@@ -179,6 +185,7 @@ const primaryHeader = css({
   alignItems: "center",
   background: "backgrounds.primary.extraLight",
   gap: "10px",
+  transition: "all 0.2s ease-in-out",
 });
 
 const primaryLinksContainer = css({
@@ -189,39 +196,45 @@ const primaryLinksContainer = css({
   gap: "100px",
 });
 
-const logoContainer = css({
+const baseLogoContainer = {
   display: "flex",
   alignItems: "center",
   gap: "10px",
 
   "& img": {
+    objectFit: "contain",
+    transition: "all 0.2s ease-in-out",
+  },
+};
+
+const logoFullSize = css(baseLogoContainer, {
+  "& img": {
     width: "75px",
     height: "75px",
-    objectFit: "contain",
   },
 });
 
-const logoReduced = css({
+const logoReduced = css(baseLogoContainer, {
   "& img": {
     width: "50px",
     height: "50px",
   },
 });
 
-// const   burgerIcon = css({
-//   marginRight: "auto",
-//   width: "40px",
-//   height: "40px",
-//   cursor: "pointer",
-//   "&svg": {
-//     width: "100%",
-//     height: "100%",
+const burgerIcon = css({
+  marginRight: "auto",
+  width: "40px",
+  height: "40px",
+  cursor: "pointer",
+  "&svg": {
+    width: "100%",
+    height: "100%",
 
-//     "&:hover": {
-//       color: "white",
-//       backgroundColor: "green",
-//     },
-//   },
-// });
+    "&:hover": {
+      color: "white",
+      backgroundColor: "green",
+    },
+  },
+});
 
 export default Header;
