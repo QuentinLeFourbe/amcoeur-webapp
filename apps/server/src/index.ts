@@ -53,7 +53,7 @@ app.get("/*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
 });
 
-console.log("The length of the db string: ", databaseUri.length());
+console.log("The length of the db string: ", databaseUri.length)
 
 mongoose
   .connect(databaseUri)
