@@ -3,6 +3,7 @@ import path from "path";
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
+    // If you change this path, update it in the fly.toml for the volume mounts
     cb(null, path.join(__dirname, "../../uploads"));
   },
   filename: function (req, file, cb) {

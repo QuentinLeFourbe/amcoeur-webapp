@@ -1,5 +1,4 @@
 import { PageComponent, PageComponentWithImage } from "@amcoeur/types";
-import { deleteUploadedImage } from "./files";
 
 /**
  * Matches components with their corresponding image URLs.

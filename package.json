@@ -17,7 +17,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run start -w @amcoeur/server",
     "start-db": "docker-compose up -d",
-    "stop-db": "docker-compose down"
+    "stop-db": "docker-compose down",
+    "lint": "eslint './apps/server/src/**'"
   },
   "author": "",
   "license": "ISC",
