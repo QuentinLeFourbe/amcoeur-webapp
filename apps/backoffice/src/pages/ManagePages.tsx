@@ -36,7 +36,7 @@ function ManagePages() {
         </thead>
         <tbody>
           {data?.data.map((page) => {
-            if (!page.route) {
+            if (page.route === "accueil") {
               return null;
             }
             return (

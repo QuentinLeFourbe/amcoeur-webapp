@@ -3,6 +3,7 @@ import FormCodeArea from "../Form/FormCodeArea";
 import Input from "../../atoms/Input/Input";
 import Label from "../../atoms/Label/Label";
 import { css } from "../../../../styled-system/css";
+import NavButtonHelper from "../ButtonHelper/ButtonHelper";
 
 type FormContentPanelProps = {
   component: ContentPanelComponent;
@@ -85,6 +86,7 @@ function FormContentPanel({
                 />
               </div>
             </div>
+            <NavButtonHelper className={css({maxWidth: "400px"})}/>
           </div>
         </div>
         <div>
