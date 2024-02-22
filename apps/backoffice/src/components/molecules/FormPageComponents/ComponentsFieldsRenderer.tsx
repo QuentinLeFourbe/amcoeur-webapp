@@ -4,6 +4,7 @@ import { css } from "../../../../styled-system/css";
 import FormTitleBannerComponent from "./FormTitleBanner";
 import FormTextArea from "./FormTextArea";
 import FormContentPanel from "./FormContentPanel";
+import { FieldError, FieldErrorsImpl, Merge} from "react-hook-form";
 
 type FormPageComponentsInputProps = {
   value: PageComponent[];
@@ -11,6 +12,7 @@ type FormPageComponentsInputProps = {
   onBlur?: (component: PageComponent[]) => void;
   moveComponent?: (index: number, direction: "up" | "down") => void;
   removeComponent?: (index: number) => void;
+  errors?:Merge<FieldError, (Merge<FieldError, FieldErrorsImpl<NonNullable<PageComponent>>> | undefined )[]>;
 };
 
 function ComponentsFieldsRenderer({
@@ -19,6 +21,7 @@ function ComponentsFieldsRenderer({
   onBlur,
   moveComponent,
   removeComponent,
+  errors,
 }: FormPageComponentsInputProps) {
   const getHandleChange = (index: number) => {
     const handleChange = (component: PageComponent) => {
@@ -46,6 +49,7 @@ function ComponentsFieldsRenderer({
             component={component}
             onBlur={getHandleBlur(index)}
             onChange={getHandleChange(index)}
+            errors={errors && errors[index]}
           />
         );
       case "TextArea":

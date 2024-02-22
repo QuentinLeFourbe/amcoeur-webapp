@@ -53,6 +53,7 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
     }
   };
 
+  console.log("errors", errors)
   return (
     <Form onSubmit={handleSubmit(onSubmitData)} encType="multipart/form-data">
       <FormInput
@@ -81,7 +82,7 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
           //     >
           //       Contenu:
           //     </FormCodeArea>
-          <ComponentsFieldsRenderer {...field} />
+          <ComponentsFieldsRenderer {...field} errors={errors?.components} />
         )}
       />
 

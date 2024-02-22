@@ -7,12 +7,22 @@ type InputProps = Omit<ComponentPropsWithoutRef<"input">, "children"> & {
 
 const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const { isPath, ...restProps } = props;
+  
+  let typeStyle;
+  switch (props.type) {
+    case "file":
+     typeStyle = fileStyle 
+      break;
+
+    default:
+      break;
+  }
 
   const renderedInput = (
     <input
       {...restProps}
       ref={ref}
-      className={cx(isPath ? pathInput : inputStyle, props.className)}
+      className={cx(isPath ? pathInput : inputStyle, typeStyle,  props.className)}
     />
   );
 
@@ -60,3 +70,7 @@ const pathContainer = css({
     borderWidth: "1px",
   },
 });
+
+const fileStyle = css({
+  color: "black"
+})
