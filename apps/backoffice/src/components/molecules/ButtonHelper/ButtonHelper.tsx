@@ -1,7 +1,10 @@
 import { ComponentProps } from "react";
 import Helper from "../../atoms/Helper/Helper";
 
-type NavButtonHelperProps = ComponentProps<typeof Helper>
+type NavButtonHelperProps = Omit<
+  ComponentProps<typeof Helper>,
+  "label" | "children"
+>;
 
 function NavButtonHelper(props: NavButtonHelperProps) {
   return (
