@@ -1,7 +1,7 @@
 {
   "name": "@amcoeur/types",
   "version": "1.0.0",
-  "description": "Shared TypeScript types for your project",
+  "description": "Shared types for Amcoeur projects",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -14,10 +14,6 @@
     "shared",
     "types"
   ],
-  "author": "Votre Nom <votre@email.com>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/votre-username/votre-projet.git"
-  }
+  "author": "Quentin Garcia <quentingarcia@gmail.com>",
+  "license": "MIT"
 }

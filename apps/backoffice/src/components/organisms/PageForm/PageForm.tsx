@@ -1,6 +1,6 @@
 import { zodResolver} from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { PageComponentSchema, PageDataSchema} from "@amcoeur/types";
+import { PageDataSchema} from "@amcoeur/types";
 import type { PageData } from "@amcoeur/types";
 import Form from "../../atoms/Form/Form";
 import FormInput from "../../molecules/Form/FormInput";
@@ -41,7 +41,6 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
     resolver: zodResolver(PageDataSchema),
     defaultValues: data || defaultData,
   });
-console.log(PageComponentSchema)
   const onSubmitData = (data: PageData) => {
     try {
       console.log("Datasss ", data);
@@ -54,7 +53,6 @@ console.log(PageComponentSchema)
     }
   };
 
-  console.log("errors", errors);
   return (
     <Form onSubmit={handleSubmit(onSubmitData)} encType="multipart/form-data">
       <FormInput
