@@ -86,7 +86,7 @@ function FormContentPanel({
                 />
               </div>
             </div>
-            <NavButtonHelper className={css({maxWidth: "400px"})}/>
+            <NavButtonHelper className={css({ maxWidth: "400px" })} />
           </div>
         </div>
         <div>

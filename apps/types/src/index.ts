@@ -1,3 +1,3 @@
 export type * from "./email";
-export type * from "./page";
+export * from "./page";
 export type * from "./user";

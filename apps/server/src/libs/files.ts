@@ -46,7 +46,7 @@ export const deleteOldImages = (
           (c) => (c as PageComponentWithImage).imageUrl === component.imageUrl,
         )
       ) {
-        deleteUploadedImage(component.imageUrl);
+        component.imageUrl && deleteUploadedImage(component.imageUrl);
       }
     }
   });

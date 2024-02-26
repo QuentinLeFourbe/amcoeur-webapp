@@ -6,7 +6,7 @@ import FormTextArea from "./FormTextArea";
 import FormContentPanel from "./FormContentPanel";
 import { FieldError, FieldErrorsImpl, Merge} from "react-hook-form";
 
-type FormPageComponentsInputProps = {
+type ComponentsFieldsRendererProps = {
   value: PageComponent[];
   onChange?: (component: PageComponent[]) => void;
   onBlur?: (component: PageComponent[]) => void;
@@ -22,7 +22,7 @@ function ComponentsFieldsRenderer({
   moveComponent,
   removeComponent,
   errors,
-}: FormPageComponentsInputProps) {
+}: ComponentsFieldsRendererProps) {
   const getHandleChange = (index: number) => {
     const handleChange = (component: PageComponent) => {
       const newValue = [...value];

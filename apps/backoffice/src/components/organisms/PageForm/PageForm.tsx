@@ -1,9 +1,9 @@
-import { yupResolver } from "@hookform/resolvers/yup";
+import { zodResolver} from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { PageData } from "@amcoeur/types";
+import { PageComponentSchema, PageDataSchema} from "@amcoeur/types";
+import type { PageData } from "@amcoeur/types";
 import Form from "../../atoms/Form/Form";
 import FormInput from "../../molecules/Form/FormInput";
-import { pageDataSchema } from "../../../schemas/page";
 import Button from "../../atoms/Button/Button";
 import ComponentsFieldsRenderer from "../../molecules/FormPageComponents/ComponentsFieldsRenderer";
 
@@ -38,12 +38,13 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
     reset,
     control,
   } = useForm<PageData>({
-    resolver: yupResolver(pageDataSchema),
+    resolver: zodResolver(PageDataSchema),
     defaultValues: data || defaultData,
   });
-
+console.log(PageComponentSchema)
   const onSubmitData = (data: PageData) => {
     try {
+      console.log("Datasss ", data);
       onSubmit?.(data);
     } catch (e) {
       console.error(e);
@@ -53,7 +54,7 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
     }
   };
 
-  console.log("errors", errors)
+  console.log("errors", errors);
   return (
     <Form onSubmit={handleSubmit(onSubmitData)} encType="multipart/form-data">
       <FormInput
@@ -85,7 +86,6 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
           <ComponentsFieldsRenderer {...field} errors={errors?.components} />
         )}
       />
-
       <Button type="submit">Enregistrer</Button>
     </Form>
   );
