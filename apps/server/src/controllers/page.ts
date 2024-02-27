@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
 import Page from "../models/page";
 import { matchComponentsWithImageUrl } from "../libs/components";
 import { deleteOldImages, deleteUploadedImage } from "../libs/files";
-import { PageComponent } from "@amcoeur/types";
+import type { Request, Response } from "express";
+import { type PageComponent } from "@amcoeur/types";
 
 export const createPage = async (req: Request, res: Response) => {
   try {
@@ -23,7 +23,7 @@ export const createPage = async (req: Request, res: Response) => {
   }
 };
 
-export const getAllPages = async (req: Request, res: Response) => {
+export const getAllPages = async (_req: Request, res: Response) => {
   try {
     const pages = await Page.find();
     res.status(200).json(pages);
@@ -110,7 +110,7 @@ export const deletePage = async (req: Request, res: Response) => {
   }
 };
 
-export const createHomePage = async (req: Request, res: Response) => {
+export const createHomePage = async (_req: Request, res: Response) => {
   try {
     const homePage = await Page.findOne({ route: "accueil" });
     if (!homePage) {
@@ -134,7 +134,7 @@ export const createHomePage = async (req: Request, res: Response) => {
   }
 };
 
-export const getHomePage = async (req: Request, res: Response) => {
+export const getHomePage = async (_req: Request, res: Response) => {
   try {
     const homePage = await Page.findOne({ route: "accueil" });
     if (!homePage) {

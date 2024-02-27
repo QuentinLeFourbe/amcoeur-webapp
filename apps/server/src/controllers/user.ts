@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
 import User from "../models/user";
-import jwt, { Secret } from "jsonwebtoken";
+import { type Request,type  Response } from "express";
+import jwt, { type Secret } from "jsonwebtoken";
 import {
   addUserToBlockedUsers,
   removeUserFromBlockedUsers,
-} from "../utils/login";
+} from "../utils/login.js";
 
 export const login = async (req: Request, res: Response) => {
   // Find user with requested email
@@ -65,7 +65,7 @@ export const createUser = async (req: Request, res: Response) => {
   }
 };
 
-export const getAllUsers = async (req: Request, res: Response) => {
+export const getAllUsers = async (_req: Request, res: Response) => {
   try {
     const users = await User.find();
     res.status(200).json(users);
@@ -166,7 +166,7 @@ export const deleteUser = async (req: Request, res: Response) => {
   }
 };
 
-export const logout = async (req: Request, res: Response) => {
+export const logout = async (_req: Request, res: Response) => {
   try {
     res.clearCookie("authToken");
     res.status(200).json({ message: "User Logged Out" });

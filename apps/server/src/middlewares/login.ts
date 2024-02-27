@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express";
-import jwt, { Secret } from "jsonwebtoken";
 import { isUserBlocked } from "../utils/login";
+import type { Request, Response, NextFunction } from "express";
+import jwt, {type Secret } from "jsonwebtoken";
 
 export const requiresLogin = (
   req: Request,
@@ -13,7 +13,7 @@ export const requiresLogin = (
     if (!authToken) {
       throw new Error("Token non présent");
     }
-    jwt.verify(authToken, process.env.JWT_SECRET as Secret);
+    jwt.verify(authToken, process.env["JWT_SECRET"] as Secret);
     next();
   } catch (error) {
     console.error(error);

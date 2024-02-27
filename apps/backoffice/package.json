@@ -10,5 +10,8 @@
     "watch": "tsc && vite build --watch --mode=development",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
+  },
+  "dependencies": {
+    "@amcoeur/types": "1.0.0"
   }
 }

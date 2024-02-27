@@ -1,6 +1,6 @@
-import { ContactFormData } from "@amcoeur/types";
+import type { ContactFormData } from "@amcoeur/types";
 import nodemailer from "nodemailer";
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 
 const transporter = nodemailer.createTransport({
   host: "ssl0.ovh.net",
@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-transporter.verify(function (error, success) {
+transporter.verify(function (error) {
   if (error) {
     console.log("Erreur lors de la connexion : ", error);
   } else {

@@ -1,4 +1,4 @@
-import {
+import type {
   PageComponent,
   PageComponentWithImage,
   PageData,
@@ -43,7 +43,7 @@ export const deleteOldImages = (
     if ("imageUrl" in component) {
       if (
         !newPage.components.some(
-          (c) => (c as PageComponentWithImage).imageUrl === component.imageUrl,
+          (c: PageComponent) => (c as PageComponentWithImage).imageUrl === component.imageUrl,
         )
       ) {
         component.imageUrl && deleteUploadedImage(component.imageUrl);
