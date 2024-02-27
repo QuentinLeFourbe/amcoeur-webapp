@@ -1,10 +1,10 @@
 import { PageComponent } from "@amcoeur/types";
+import { FieldError, FieldErrorsImpl, Merge} from "react-hook-form";
 import Button from "../../atoms/Button/Button";
 import { css } from "../../../../styled-system/css";
 import FormTitleBannerComponent from "./FormTitleBanner";
 import FormTextArea from "./FormTextArea";
 import FormContentPanel from "./FormContentPanel";
-import { FieldError, FieldErrorsImpl, Merge} from "react-hook-form";
 
 type ComponentsFieldsRendererProps = {
   value: PageComponent[];
@@ -66,6 +66,7 @@ function ComponentsFieldsRenderer({
             component={component}
             onBlur={getHandleBlur(index)}
             onChange={getHandleChange(index)}
+            errors={errors && errors[index]}
           />
         );
       default:

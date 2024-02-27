@@ -43,7 +43,6 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
   });
   const onSubmitData = (data: PageData) => {
     try {
-      console.log("Datasss ", data);
       onSubmit?.(data);
     } catch (e) {
       console.error(e);
@@ -52,7 +51,6 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
       reset();
     }
   };
-
   return (
     <Form onSubmit={handleSubmit(onSubmitData)} encType="multipart/form-data">
       <FormInput

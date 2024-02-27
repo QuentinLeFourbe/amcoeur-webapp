@@ -1,8 +1,9 @@
 import { Controller, useForm } from "react-hook-form";
-import { ContentPanelComponent, PageData } from "@amcoeur/types";
+import { ContentPanelComponent, PageData, PageDataSchema } from "@amcoeur/types";
 import Form from "../../atoms/Form/Form";
 import Button from "../../atoms/Button/Button";
 import ComponentsFieldsRenderer from "../../molecules/FormPageComponents/ComponentsFieldsRenderer";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type HomePageFormProps = {
   data?: PageData;
@@ -29,10 +30,9 @@ function HomePageForm({ data, onSubmit }: HomePageFormProps = {}) {
     getValues,
     watch,
   } = useForm<PageData>({
-    // resolver: yupResolver(pageDataSchema),
+    resolver: zodResolver(PageDataSchema),
     defaultValues: data,
   });
-  console.log({ errors });
   const onSubmitData = (data: PageData) => {
     try {
       onSubmit?.(data);
@@ -87,6 +87,7 @@ function HomePageForm({ data, onSubmit }: HomePageFormProps = {}) {
             {...field}
             moveComponent={handleMoveComponent}
             removeComponent={handleRemoveComponent}
+            errors={errors?.components}
           />
         )}
       />

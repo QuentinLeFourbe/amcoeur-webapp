@@ -119,7 +119,6 @@ export const createHomePage = async (_req: Request, res: Response) => {
         route: "accueil",
         components: [],
       });
-      console.log("We got a new homepage", newHomePage);
       await newHomePage.save();
       res.status(201).json(newHomePage);
     } else {

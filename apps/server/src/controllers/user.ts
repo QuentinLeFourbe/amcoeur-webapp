@@ -122,7 +122,6 @@ export const changeUserPassword = async (req: Request, res: Response) => {
   try {
     const user = await User.findById(req.params.id);
     const password = await req.body.password;
-    console.log("password, ", password);
     if (!user) {
       res.status(404).json({ message: "User not found" });
     } else if (!password) {

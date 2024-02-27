@@ -17,7 +17,6 @@ function HomePageManagement() {
     mutate(data);
     setIsEditing(false);
   };
-  console.log(data?.data);
 
   return (
     <>

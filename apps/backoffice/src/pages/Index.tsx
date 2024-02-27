@@ -27,6 +27,7 @@ const containerStyle = css({
   flexFlow: "column nowrap",
   alignItems: "center",
   gap: "16px",
+  margin: "0 10vw",
 
   "& h1": {
     fontSize: "2rem",
