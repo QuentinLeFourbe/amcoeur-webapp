@@ -1,4 +1,4 @@
-import { PageComponent, PageComponentWithImage } from "@amcoeur/types";
+import type { PageComponent, PageComponentWithImage } from "@amcoeur/types";
 
 /**
  * Matches components with their corresponding image URLs.
@@ -24,7 +24,7 @@ export const matchComponentsWithImageUrl = (
     const fieldname = file.fieldname;
     const regex = /\[(\d+)\]/; // Expression régulière pour capturer les chiffres entre crochets
     const match = fieldname.match(regex);
-    if (match) {
+    if (match && match[1]) {
       return {
         index: parseInt(match[1]),
         imageUrl: `/api/images/${file.filename}`,

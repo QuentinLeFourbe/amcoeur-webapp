@@ -1,19 +1,27 @@
 import { ContentPanelComponent } from "@amcoeur/types";
+import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
 import FormCodeArea from "../Form/FormCodeArea";
 import Input from "../../atoms/Input/Input";
 import Label from "../../atoms/Label/Label";
 import { css } from "../../../../styled-system/css";
+import NavButtonHelper from "../ButtonHelper/ButtonHelper";
+import FormInput from "../Form/FormInput";
 
 type FormContentPanelProps = {
   component: ContentPanelComponent;
   onChange?: (component: ContentPanelComponent) => void;
   onBlur?: (component: ContentPanelComponent) => void;
+  errors?: Merge<
+    FieldError,
+    FieldErrorsImpl<NonNullable<ContentPanelComponent>>
+  >;
 };
 
 function FormContentPanel({
   component,
   onChange,
   onBlur,
+  errors,
 }: FormContentPanelProps) {
   return (
     <>
@@ -36,8 +44,7 @@ function FormContentPanel({
             />
           </div>
           <div className={groupItem}>
-            <Label>Image src</Label>
-            <Input
+            <FormInput
               type="file"
               onChange={(e) => {
                 onChange?.({
@@ -48,7 +55,10 @@ function FormContentPanel({
               onBlur={() => {
                 onBlur?.(component);
               }}
-            />
+              errorMessage={errors?.image?.message}
+            >
+              Image src
+            </FormInput>
           </div>
 
           <div>
@@ -85,6 +95,7 @@ function FormContentPanel({
                 />
               </div>
             </div>
+            <NavButtonHelper className={css({ maxWidth: "400px" })} />
           </div>
         </div>
         <div>

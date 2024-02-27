@@ -1,10 +1,13 @@
+import { useState } from "react";
 import { css } from "../../styled-system/css";
 import Button from "../components/atoms/Button/Button";
 import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
 import { useDeletePage, useGetPages } from "../hooks/pagesQueries";
+import Overlay from "../components/atoms/Overlay/Overlay";
 
 function ManagePages() {
   const { data, isLoading, isError } = useGetPages();
+  const [pageIdToDelete, setPageIdToDelete] = useState<string | null>(null);
 
   const {
     mutate: deletePage,
@@ -36,7 +39,7 @@ function ManagePages() {
         </thead>
         <tbody>
           {data?.data.map((page) => {
-            if (!page.route) {
+            if (page.route === "accueil") {
               return null;
             }
             return (
@@ -48,7 +51,9 @@ function ManagePages() {
                 </td>
                 <td>
                   <Button
-                    onClick={() => page._id && deletePage(page._id.toString())}
+                    onClick={() =>
+                      page._id && setPageIdToDelete(page._id?.toString())
+                    }
                   >
                     Supprimer
                   </Button>
@@ -64,6 +69,18 @@ function ManagePages() {
           Une erreur est survenue lors du chargement des données
         </ErrorLabel>
       )}
+      <Overlay
+        isVisible={!!pageIdToDelete}
+        onClose={() => setPageIdToDelete(null)}
+      >
+        <p>Vous êtes sur le point de supprimer une page, êtes vous sûr ?</p>
+        <div className={css({ display: "flex", gap: "1rem" })}>
+          <Button onClick={() => pageIdToDelete && deletePage(pageIdToDelete)}>
+            Oui
+          </Button>
+          <Button onClick={() => setPageIdToDelete(null)}>Non</Button>
+        </div>
+      </Overlay>
     </div>
   );
 }

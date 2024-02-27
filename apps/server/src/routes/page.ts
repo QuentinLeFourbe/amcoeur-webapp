@@ -7,9 +7,9 @@ import {
   deletePage,
   createHomePage,
   getHomePage,
-} from "../controllers/page";
-import { requiresLogin } from "../middlewares/login";
-import upload from "../middlewares/files";
+} from "../controllers/page.js";
+import { requiresLogin } from "../middlewares/login.js";
+import upload from "../middlewares/files.js";
 
 const router = Router();
 

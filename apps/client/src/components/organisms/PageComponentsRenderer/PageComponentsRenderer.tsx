@@ -16,13 +16,13 @@ function PageComponentsRenderer({ components }: PageComponentsRendererProps) {
         return (
           <TitlePanel key={index}>
             <h1>{component.title}</h1>
-            <Markdown>{component.content}</Markdown>
+            <Markdown>{component.content || ""}</Markdown>
           </TitlePanel>
         );
       case "TextArea":
         return (
           <TextPanel key={index}>
-            <Markdown>{component.content}</Markdown>
+            <Markdown>{component.content || ""}</Markdown>
           </TextPanel>
         );
       case "ContentPanel":
@@ -30,13 +30,13 @@ function PageComponentsRenderer({ components }: PageComponentsRendererProps) {
         return (
           <ContentPanel
             key={index}
-            title={component.title}
-            imageUrl={component.imageUrl}
-            link={component.link}
-            linkLabel={component.linkLabel}
+            title={component.title || ""}
+            imageUrl={component.imageUrl || ""}
+            link={component.link || ""}
+            linkLabel={component.linkLabel || ""}
             revert={!isContentPanelReversed}
           >
-            <Markdown>{component.content}</Markdown>
+            <Markdown>{component.content || ""}</Markdown>
           </ContentPanel>
         );
       default:

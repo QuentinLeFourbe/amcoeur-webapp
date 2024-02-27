@@ -1,11 +1,13 @@
-import {
+import type {
   PageComponent,
   PageComponentWithImage,
   PageData,
 } from "@amcoeur/types";
 import fs from "fs";
-import path from "path";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
 
+const __dirname = dirname(fileURLToPath(import.meta.url))
 /**
  * Deletes the uploaded image from the server.
  * @param imageUrl - The URL of the image to be deleted.
@@ -43,10 +45,10 @@ export const deleteOldImages = (
     if ("imageUrl" in component) {
       if (
         !newPage.components.some(
-          (c) => (c as PageComponentWithImage).imageUrl === component.imageUrl,
+          (c: PageComponent) => (c as PageComponentWithImage).imageUrl === component.imageUrl,
         )
       ) {
-        deleteUploadedImage(component.imageUrl);
+        component.imageUrl && deleteUploadedImage(component.imageUrl);
       }
     }
   });

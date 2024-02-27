@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "npm run dev -w @amcoeur/client",
     "dev-server": "npm run dev -w @amcoeur/server",
+    "watch-server": "npm run watch -w @amcoeur/server",
     "fakedb": "json-server --watch ./apps/backoffice/mockedDb/db.json",
     "watch": "npm run watch -w @amcoeur/client",
     "watch-backoffice": "npm run watch -w @amcoeur/backoffice",
@@ -52,8 +53,8 @@
     "react-hook-form": "^7.46.2",
     "react-router-dom": "^6.16.0",
     "react-transition-group": "^4.4.5",
-    "ts-node": "^10.9.1",
-    "yup": "^1.3.2"
+    "yup": "^1.3.2",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@pandacss/dev": "^0.15.1",
@@ -69,7 +70,6 @@
     "@types/node": "^20.10.4",
     "@types/nodemailer": "^6.4.11",
     "@types/react": "^18.2.15",
-    "@types/react-transition-group": "^4.4.8",
     "@types/react-dom": "^18.2.7",
     "@types/react-google-recaptcha": "^2.1.6",
     "@types/react-transition-group": "^4.4.8",
@@ -85,6 +85,7 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "nodemon": "^3.0.1",
     "prettier": "^3.0.3",
+    "ts-node": "^10.9.2",
     "typescript": "^5.2.2",
     "vite": "^4.4.5",
     "vite-plugin-svgr": "^4.0.0"

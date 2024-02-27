@@ -3,7 +3,7 @@ node_modules/
 public
 src/gatsby-types.d.ts
 dist
-
+build
 .env
 
 apps/server/uploads/*

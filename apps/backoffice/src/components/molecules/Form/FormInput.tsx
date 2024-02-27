@@ -4,6 +4,7 @@ import { css } from "../../../../styled-system/css";
 import Label from "../../atoms/Label/Label";
 import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
 import Input from "../../atoms/Input/Input";
+import Helper from "../../atoms/Helper/Helper";
 
 type FormInputProps = ComponentPropsWithoutRef<typeof Input> & {
   children: React.ReactNode;
@@ -37,6 +38,19 @@ function FormInput({
       <Label>{children}</Label>
       <Input {...props} {...register} className={widthClass} />
       {errorMessage && <ErrorLabel>{errorMessage}</ErrorLabel>}
+      {props.isPath && (
+        <Helper
+          className={css({ width: "300px" })}
+          label="Aide: chemin d'accès"
+        >
+          <p>
+            Le chemin d&apos;accès représente l&apos;adresse de la page. Par
+            exemple, une page dont le chemin d&apos;accès est: don ; sera
+            accessible sur le site de l&apos;association via l&apos;URL:
+            www.amcoeur.org/don
+          </p>
+        </Helper>
+      )}
     </div>
   );
 }

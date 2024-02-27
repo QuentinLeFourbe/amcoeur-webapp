@@ -1,14 +1,18 @@
 import "dotenv/config";
-import express, { Request, Response } from "express";
-import path from "path";
+import express, { type Request, type Response } from "express";
+import path, { dirname } from "path";
 import helmet from "helmet";
-import emailRoutes from "./routes/email";
-import userRoutes from "./routes/user";
+import emailRoutes from "./routes/email.js";
+import userRoutes from "./routes/user.js";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
-import pageRoutes from "./routes/page";
+import pageRoutes from "./routes/page.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -45,11 +49,11 @@ app.use("/api/users", userRoutes);
 app.use("/api/email", emailRoutes);
 app.use("/api/pages", pageRoutes);
 
-app.get("/administration*", (req: Request, res: Response) => {
+app.get("/administration*", (_req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../backoffice/dist/index.html"));
 });
 
-app.get("/*", (req: Request, res: Response) => {
+app.get("/*", (_req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
 });
 
