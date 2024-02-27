@@ -1,12 +1,36 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Base",
   "compilerOptions": {
-    "outDir": "./dist",
-    "target": "ES6",
-    "module": "CommonJS",
+    // Stop TypeScript from aggressively deleting unreachable code
+    // and let ESLint warn about it (no-unreachable rule)
+    "allowUnreachableCode": true,
+    "allowUnusedLabels": false,
+    "checkJs": true,
+    "composite": false,
     "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "exactOptionalPropertyTypes": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": false,
+    "isolatedModules": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveSymlinks": true,
+    "preserveWatchOutput": true,
+    "skipLibCheck": true,
     "strict": true,
-    "esModuleInterop": true
+    "target": "es2022",
+    "verbatimModuleSyntax": true
   },
-  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }

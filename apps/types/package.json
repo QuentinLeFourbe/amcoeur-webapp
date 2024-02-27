@@ -2,10 +2,19 @@
   "name": "@amcoeur/types",
   "version": "1.0.0",
   "description": "Shared types for Amcoeur projects",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./build/index.js",
+      "types": "./build/index.d.ts"
+    },
+    "./*": {
+      "import": "./build/*.js",
+      "types": "./build/*.d.ts"
+    }
+  },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --build --force tsconfig.build.json",
     "watch": "tsc --watch",
     "test": "echo \"No tests available\""
   },
@@ -15,5 +24,5 @@
     "types"
   ],
   "author": "Quentin Garcia <quentingarcia@gmail.com>",
-  "license": "MIT"
+  "license": "UNLICENSED"
 }
