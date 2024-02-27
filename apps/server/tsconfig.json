@@ -1,10 +1,7 @@
 {
   "display": "Base",
   "compilerOptions": {
-    "target": "es2016" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-    "module": "commonjs" /* Specify what module code is generated. */,
-    "outDir": "./dist" /* Specify an output folder for all emitted files. */,
-    // Stop TypeScript from aggressively deleting unreachable code
+ // Stop TypeScript from aggressively deleting unreachable code
     // and let ESLint warn about it (no-unreachable rule)
     "allowUnreachableCode": true,
     "allowUnusedLabels": false,
@@ -12,11 +9,17 @@
     "composite": false,
     "declaration": true,
     "declarationMap": true,
+    "esModuleInterop": true,
+    "exactOptionalPropertyTypes": true,
+    "forceConsistentCasingInFileNames": true,
     "inlineSources": false,
     "isolatedModules": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
+    "noImplicitReturns": true,
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -24,8 +27,12 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "strict": true,
-    "verbatimModuleSyntax": true
+    "target": "es2022",
+    "verbatimModuleSyntax": true,
+    "noEmit": false,
+    "outDir": "build",
+    "rootDir": "src"
   },
-  "include": ["src/**/*.ts", ".eslintrc.cjs"],
-  "exclude": ["node_modules"],
+  "include": ["src/**/*.ts" ]
 }
+

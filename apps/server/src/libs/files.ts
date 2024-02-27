@@ -18,7 +18,7 @@ export const deleteUploadedImage = async (imageUrl: string) => {
       "Impossible de trouver l'image à supprimer pour: " + imageUrl,
     );
   }
-  const uploadFolder = path.join(__dirname, "..", "..", "uploads");
+  const uploadFolder = new URL("uploads", import.meta.url).toString();
   if (fs.existsSync(path.join(uploadFolder, image))) {
     fs.unlinkSync(path.join(uploadFolder, image));
     console.log("Image supprimée avec succès.");

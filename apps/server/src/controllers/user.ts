@@ -1,5 +1,5 @@
-import User from "../models/user";
-import { type Request,type  Response } from "express";
+import User from "../models/user.js";
+import { type Request, type Response } from "express";
 import jwt, { type Secret } from "jsonwebtoken";
 import {
   addUserToBlockedUsers,
@@ -54,7 +54,7 @@ export const createUser = async (req: Request, res: Response) => {
     newUser.username = req.body.username;
     newUser.setPassword(req.body.password);
     await newUser.save();
-    res.status(201).send({
+    return res.status(201).send({
       message: "User added successfully.",
     });
   } catch (err) {
