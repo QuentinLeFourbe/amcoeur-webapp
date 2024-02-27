@@ -4,8 +4,10 @@ import type {
   PageData,
 } from "@amcoeur/types";
 import fs from "fs";
-import path from "path";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
 
+const __dirname = dirname(fileURLToPath(import.meta.url))
 /**
  * Deletes the uploaded image from the server.
  * @param imageUrl - The URL of the image to be deleted.
@@ -18,7 +20,7 @@ export const deleteUploadedImage = async (imageUrl: string) => {
       "Impossible de trouver l'image à supprimer pour: " + imageUrl,
     );
   }
-  const uploadFolder = new URL("uploads", import.meta.url).toString();
+  const uploadFolder = path.join(__dirname, "..", "..", "uploads");
   if (fs.existsSync(path.join(uploadFolder, image))) {
     fs.unlinkSync(path.join(uploadFolder, image));
     console.log("Image supprimée avec succès.");

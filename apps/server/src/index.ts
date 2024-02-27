@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express, { type Request, type Response } from "express";
+import path, { dirname } from "path";
 import helmet from "helmet";
 import emailRoutes from "./routes/email.js";
 import userRoutes from "./routes/user.js";
@@ -8,6 +9,9 @@ import mongoose from "mongoose";
 import pageRoutes from "./routes/page.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 
 const app = express();
@@ -38,19 +42,19 @@ app.use(
   }),
 );
 
-app.use(express.static(new URL("../../client/dist", import.meta.url).toString()));
-app.use(express.static(new URL("../../backoffice/dist", import.meta.url).toString()));
-app.use("/api/images", express.static(new URL("../uploads", import.meta.url).toString()));
+app.use(express.static(path.join(__dirname, "../../client/dist")));
+app.use(express.static(path.join(__dirname, "../../backoffice/dist")));
+app.use("/api/images", express.static(path.join(__dirname, "../uploads")));
 app.use("/api/users", userRoutes);
 app.use("/api/email", emailRoutes);
 app.use("/api/pages", pageRoutes);
 
 app.get("/administration*", (_req: Request, res: Response) => {
-  res.sendFile(new URL("../../backoffice/dist/index.html", import.meta.url).toString());
+  res.sendFile(path.join(__dirname, "../../backoffice/dist/index.html"));
 });
 
 app.get("/*", (_req: Request, res: Response) => {
-  res.sendFile(new URL("../../client/dist/index.html", import.meta.url).toString());
+  res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
 });
 
 mongoose
