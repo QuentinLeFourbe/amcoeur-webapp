@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express";
-import jwt, { Secret } from "jsonwebtoken";
-import { isUserBlocked } from "../utils/login";
+import { isUserBlocked } from "../utils/login.js";
+import type { Request, Response, NextFunction } from "express";
+import jwt, {type Secret } from "jsonwebtoken";
 
 export const requiresLogin = (
   req: Request,
@@ -13,8 +13,9 @@ export const requiresLogin = (
     if (!authToken) {
       throw new Error("Token non présent");
     }
-    jwt.verify(authToken, process.env.JWT_SECRET as Secret);
+    jwt.verify(authToken, process.env["JWT_SECRET"] as Secret);
     next();
+    return;
   } catch (error) {
     console.error(error);
     res.status(401).json({ message: "Non autorisé" });
@@ -33,4 +34,5 @@ export const limitAttempts = (
       .json({ error: "Utilisateur bloqué. Réessayez dans 10 minutes." });
   }
   next();
+  return;
 };

@@ -1,19 +1,26 @@
 import { TitleBannerComponent } from "@amcoeur/types";
+import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
 import FormCodeArea from "../Form/FormCodeArea";
 import Input from "../../atoms/Input/Input";
 import Label from "../../atoms/Label/Label";
 import { css } from "../../../../styled-system/css";
+import FormInput from "../Form/FormInput";
 
 type FormTitleBannerComponentProps = {
   component: TitleBannerComponent;
   onChange?: (component: TitleBannerComponent) => void;
   onBlur?: (component: TitleBannerComponent) => void;
+  errors?: Merge<
+    FieldError,
+    FieldErrorsImpl<NonNullable<TitleBannerComponent>>
+  >;
 };
 
 function FormTitleBannerComponent({
   component,
   onChange,
   onBlur,
+  errors,
 }: FormTitleBannerComponentProps) {
   return (
     <div className={container}>
@@ -33,21 +40,21 @@ function FormTitleBannerComponent({
           value={component.title}
         />
       </div>
-      <div className={groupItem}>
-        <Label>Image src</Label>
-        <Input
-          type="file"
-          onChange={(e) => {
-            onChange?.({
-              ...component,
-              image: e.target.files && e.target.files[0],
-            });
-          }}
-          onBlur={() => {
-            onBlur?.(component);
-          }}
-        />
-      </div>
+      <FormInput
+        type="file"
+        onChange={(e) => {
+          onChange?.({
+            ...component,
+            image: e.target.files && e.target.files[0],
+          });
+        }}
+        onBlur={() => {
+          onBlur?.(component);
+        }}
+        errorMessage={errors?.image?.message}
+      >
+        Image 
+      </FormInput>
 
       <FormCodeArea
         height="300px"

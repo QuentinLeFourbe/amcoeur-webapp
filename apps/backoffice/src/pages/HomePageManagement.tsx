@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { useState } from "react";
-import { PageData } from "@amcoeur/types";
+import { PageDataClient } from "@amcoeur/types";
 import { useGetHomePage, useUpdatePage } from "../hooks/pagesQueries";
 import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
 import { css } from "../../styled-system/css";
@@ -13,11 +13,10 @@ function HomePageManagement() {
   const navigate = useNavigate();
   const { data, isLoading, isError } = useGetHomePage();
   const { mutate, isError: isErrorMutation } = useUpdatePage();
-  const onEdit = (data: PageData) => {
+  const onEdit = (data: PageDataClient) => {
     mutate(data);
     setIsEditing(false);
   };
-  console.log(data?.data);
 
   return (
     <>

@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
-import User from "../models/user";
-import jwt, { Secret } from "jsonwebtoken";
+import User from "../models/user.js";
+import { type Request, type Response } from "express";
+import jwt, { type Secret } from "jsonwebtoken";
 import {
   addUserToBlockedUsers,
   removeUserFromBlockedUsers,
-} from "../utils/login";
+} from "../utils/login.js";
 
 export const login = async (req: Request, res: Response) => {
   // Find user with requested email
@@ -54,7 +54,7 @@ export const createUser = async (req: Request, res: Response) => {
     newUser.username = req.body.username;
     newUser.setPassword(req.body.password);
     await newUser.save();
-    res.status(201).send({
+    return res.status(201).send({
       message: "User added successfully.",
     });
   } catch (err) {
@@ -65,7 +65,7 @@ export const createUser = async (req: Request, res: Response) => {
   }
 };
 
-export const getAllUsers = async (req: Request, res: Response) => {
+export const getAllUsers = async (_req: Request, res: Response) => {
   try {
     const users = await User.find();
     res.status(200).json(users);
@@ -122,7 +122,6 @@ export const changeUserPassword = async (req: Request, res: Response) => {
   try {
     const user = await User.findById(req.params.id);
     const password = await req.body.password;
-    console.log("password, ", password);
     if (!user) {
       res.status(404).json({ message: "User not found" });
     } else if (!password) {
@@ -166,7 +165,7 @@ export const deleteUser = async (req: Request, res: Response) => {
   }
 };
 
-export const logout = async (req: Request, res: Response) => {
+export const logout = async (_req: Request, res: Response) => {
   try {
     res.clearCookie("authToken");
     res.status(200).json({ message: "User Logged Out" });

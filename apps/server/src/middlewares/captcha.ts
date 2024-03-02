@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import type { Request, Response, NextFunction } from "express";
 import axios from "axios";
 
 const verifyRecaptcha = async (
@@ -28,7 +28,7 @@ const checkRecaptcha = async (
   next: NextFunction
 ) => {
   const token = req.body.token;
-  const secretKey = process.env.CAPTCHA_SERVER_KEY;
+  const secretKey = process.env["CAPTCHA_SERVER_KEY"];
 
   if (!token) {
     return res
@@ -47,6 +47,7 @@ const checkRecaptcha = async (
 
   if (isTokenValid) {
     next();
+    return;
   } else {
     return res.status(400).json({
       success: false,

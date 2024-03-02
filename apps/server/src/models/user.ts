@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import crypto from "crypto";
-import { User, UserMethods } from "@amcoeur/types";
+import type { User as UserType, UserMethods } from "@amcoeur/types";
 
-type UserModel = mongoose.Model<User, {}, UserMethods>;
+type UserModel = mongoose.Model<UserType, NonNullable<unknown>, UserMethods>;
 
-const schema = new mongoose.Schema<User, UserModel, UserMethods>({
+const schema = new mongoose.Schema<UserType, UserModel, UserMethods>({
   username: {
     type: String,
     required: true,
@@ -29,6 +29,6 @@ schema.method("validPassword", function (password: string) {
   return this.hash === hash;
 });
 
-const User = mongoose.model<User, UserModel>("User", schema);
+const User = mongoose.model<UserType, UserModel>("User", schema);
 
 export default User;

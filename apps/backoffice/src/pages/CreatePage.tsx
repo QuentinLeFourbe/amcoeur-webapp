@@ -1,4 +1,4 @@
-import { PageData } from "@amcoeur/types";
+import { PageDataClient } from "@amcoeur/types";
 import { useNavigate } from "react-router-dom";
 import PageForm from "../components/organisms/PageForm/PageForm";
 import { useCreatePage } from "../hooks/pagesQueries";
@@ -14,7 +14,7 @@ function CreatePage() {
     },
   });
 
-  const onSubmit = (data: PageData) => {
+  const onSubmit = (data: PageDataClient) => {
     mutate(data);
   };
 

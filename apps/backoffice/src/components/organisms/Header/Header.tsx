@@ -58,7 +58,6 @@ const LogoLink = ({ src, href }: LogoLinkProps) => (
 const header = css({
   position: "sticky",
   top: "0",
-  zIndex: "1000",
   display: "flex",
   flexFlow: "row wrap",
   alignItems: "center",

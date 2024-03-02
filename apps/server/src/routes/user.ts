@@ -9,8 +9,8 @@ import {
   login,
   logout,
   updateUser,
-} from "../controllers/user";
-import { limitAttempts, requiresLogin } from "../middlewares/login";
+} from "../controllers/user.js";
+import { limitAttempts, requiresLogin } from "../middlewares/login.js";
 
 const router = Router();
 
