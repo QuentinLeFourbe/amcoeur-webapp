@@ -53,7 +53,7 @@ function FormTitleBannerComponent({
         }}
         errorMessage={errors?.image?.message}
       >
-        Image src
+        Image 
       </FormInput>
 
       <FormCodeArea
