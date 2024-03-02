@@ -1,18 +1,18 @@
 import { zodResolver} from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { PageDataSchema} from "@amcoeur/types";
-import type { PageData } from "@amcoeur/types";
+import { PageDataClientSchema} from "@amcoeur/types";
+import type { PageDataClient } from "@amcoeur/types";
 import Form from "../../atoms/Form/Form";
 import FormInput from "../../molecules/Form/FormInput";
 import Button from "../../atoms/Button/Button";
 import ComponentsFieldsRenderer from "../../molecules/FormPageComponents/ComponentsFieldsRenderer";
 
 type PageFormProps = {
-  data?: PageData;
-  onSubmit?: (data: PageData) => void;
+  data?: PageDataClient;
+  onSubmit?: (data: PageDataClient) => void;
 };
 
-const defaultData: PageData = {
+const defaultData: PageDataClient = {
   name: "",
   route: "",
   components: [
@@ -37,11 +37,11 @@ function PageForm({ data, onSubmit }: PageFormProps = {}) {
     formState: { errors },
     reset,
     control,
-  } = useForm<PageData>({
-    resolver: zodResolver(PageDataSchema),
+  } = useForm<PageDataClient>({
+    resolver: zodResolver(PageDataClientSchema),
     defaultValues: data || defaultData,
   });
-  const onSubmitData = (data: PageData) => {
+  const onSubmitData = (data: PageDataClient) => {
     try {
       onSubmit?.(data);
     } catch (e) {

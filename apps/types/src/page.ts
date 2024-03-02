@@ -27,7 +27,6 @@ export const PageComponentWithImageSchema = z.object({
     ),
 });
 
-
 export const TitleBannerComponentSchema = z
   .object({
     type: z.literal("TitleBanner"),
@@ -58,11 +57,27 @@ export const PageComponentSchema = z.union([
 ]);
 
 export const PageDataSchema = z.object({
-  _id: z.instanceof(mongoose.Types.ObjectId).optional(),
   name: z.string(),
-  route: z.string(),
+  route: z
+    .string()
+    .regex(/^[a-z0-9-]+$/, {
+      message:
+        "Le chemin d'accès ne doit contenir que des lettres minuscules, chiffres ou tirets.",
+    }),
   components: z.array(PageComponentSchema),
 });
+
+export const PageDataClientSchema = z
+  .object({
+    _id: z.string().optional(),
+  })
+  .merge(PageDataSchema);
+
+export const PageDataServerSchema = z
+  .object({
+    _id: z.custom<mongoose.Types.ObjectId>().optional(),
+  })
+  .merge(PageDataSchema);
 
 export type TitleBannerComponent = z.infer<typeof TitleBannerComponentSchema>;
 export type ContentPanelComponent = z.infer<typeof ContentPanelComponentSchema>;
@@ -71,4 +86,5 @@ export type PageComponentWithImage = z.infer<
 >;
 export type TextAreaComponent = z.infer<typeof TextAreaComponentSchema>;
 export type PageComponent = z.infer<typeof PageComponentSchema>;
-export type PageData = z.infer<typeof PageDataSchema> 
+export type PageDataClient = z.infer<typeof PageDataClientSchema>;
+export type PageDataServer = z.infer<typeof PageDataServerSchema>;

@@ -4,7 +4,6 @@ import path, { dirname } from "path";
 import helmet from "helmet";
 import emailRoutes from "./routes/email.js";
 import userRoutes from "./routes/user.js";
-import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import pageRoutes from "./routes/page.js";
 import cors from "cors";
@@ -28,7 +27,6 @@ const corsOptions = {
 
 app.use(express.json());
 app.use(cors(corsOptions));
-app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(
   helmet({

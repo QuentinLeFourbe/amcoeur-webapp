@@ -1,13 +1,17 @@
 import { Controller, useForm } from "react-hook-form";
-import { ContentPanelComponent, PageData, PageDataSchema } from "@amcoeur/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  ContentPanelComponent,
+  PageDataClient,
+  PageDataClientSchema,
+} from "@amcoeur/types";
 import Form from "../../atoms/Form/Form";
 import Button from "../../atoms/Button/Button";
 import ComponentsFieldsRenderer from "../../molecules/FormPageComponents/ComponentsFieldsRenderer";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 type HomePageFormProps = {
-  data?: PageData;
-  onSubmit?: (data: PageData) => void;
+  data?: PageDataClient;
+  onSubmit?: (data: PageDataClient) => void;
 };
 
 const emptySection: ContentPanelComponent = {
@@ -29,11 +33,11 @@ function HomePageForm({ data, onSubmit }: HomePageFormProps = {}) {
     setValue,
     getValues,
     watch,
-  } = useForm<PageData>({
-    resolver: zodResolver(PageDataSchema),
+  } = useForm<PageDataClient>({
+    resolver: zodResolver(PageDataClientSchema),
     defaultValues: data,
   });
-  const onSubmitData = (data: PageData) => {
+  const onSubmitData = (data: PageDataClient) => {
     try {
       onSubmit?.(data);
     } catch (e) {
@@ -43,7 +47,6 @@ function HomePageForm({ data, onSubmit }: HomePageFormProps = {}) {
       reset();
     }
   };
-
   const components = watch("components");
 
   const handleMoveComponent = (index: number, direction: "up" | "down") => {

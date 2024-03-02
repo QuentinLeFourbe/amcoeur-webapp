@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router";
 import { useState } from "react";
-import { PageData } from "@amcoeur/types";
+import { PageDataClient } from "@amcoeur/types";
 import { useGetPage, useUpdatePage } from "../hooks/pagesQueries";
 import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
 import { css } from "../../styled-system/css";
@@ -16,7 +16,7 @@ function ManagePage() {
   const { data, isLoading, isError } = useGetPage(id);
   const { mutate, isError: isErrorMutation } = useUpdatePage();
 
-  const onEdit = (data: PageData) => {
+  const onEdit = (data: PageDataClient) => {
     mutate(data);
     setIsEditing(false);
   };

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { PageData } from "@amcoeur/types";
+import { PageDataClient } from "@amcoeur/types";
 import { AxiosError, AxiosResponse } from "axios";
 import {
   createHomePage,
@@ -53,8 +53,8 @@ export const useGetHomePage = () => {
 export const useUpdatePage = () => {
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: (data: PageData) => updatePage(data as PageData),
-    onSuccess: (data: AxiosResponse<PageData, unknown>) => {
+    mutationFn: (data: PageDataClient) => updatePage(data as PageDataClient),
+    onSuccess: (data: AxiosResponse<PageDataClient, unknown>) => {
       queryClient.invalidateQueries({
         queryKey: ["pages"],
       });
@@ -70,13 +70,13 @@ export const useUpdatePage = () => {
 };
 
 type CreatePageProps = {
-  onSuccess?: (data: AxiosResponse<PageData, unknown>) => void;
+  onSuccess?: (data: AxiosResponse<PageDataClient, unknown>) => void;
 };
 
 export const useCreatePage = ({ onSuccess }: CreatePageProps = {}) => {
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: (data: PageData) => createPage(data as PageData),
+    mutationFn: (data: PageDataClient) => createPage(data as PageDataClient),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: ["pages"],
