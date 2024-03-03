@@ -1,16 +1,14 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import type { PageDataClient } from "@amcoeur/types";
 
-export const getPage = async (id: string | number) => {
+export const getPage = (id: string | number) => {
   return axios.get<PageDataClient>(`/api/pages/${id}`);
 };
 
-export const getPageByRoute = async (route: string) => {
-  return axios.get<PageDataClient[]>(
-    `/api/pages?route=${route}`,
-  );
-};
+export const getPages = (config: AxiosRequestConfig) => {
+  return axios.get("/api/pages", config)
+}
 
-export const getHomePage = async () => {
+export const getHomePage = () => {
   return axios.get<PageDataClient>("/api/pages/homepage");
 };

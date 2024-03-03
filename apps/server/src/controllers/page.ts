@@ -23,9 +23,9 @@ export const createPage = async (req: Request, res: Response) => {
   }
 };
 
-export const getAllPages = async (_req: Request, res: Response) => {
+export const getPages = async (req: Request, res: Response) => {
   try {
-    const pages = await Page.find();
+    const pages = await Page.find(req.query);
     res.status(200).json(pages);
   } catch (err) {
     console.log(err);

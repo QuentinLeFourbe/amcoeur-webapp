@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {
   createPage,
-  getAllPages,
+  getPages,
   getPagesById,
   updatePage,
   deletePage,
@@ -16,7 +16,7 @@ const router = Router();
 router.post("/", requiresLogin, upload.any(), createPage);
 router.post("/homepage", requiresLogin, createHomePage);
 
-router.get("/", getAllPages);
+router.get("/", getPages);
 router.get("/homepage", getHomePage);
 router.get("/:id", getPagesById);
 
