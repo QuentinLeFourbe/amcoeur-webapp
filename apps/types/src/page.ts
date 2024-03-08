@@ -27,6 +27,14 @@ export const PageComponentWithImageSchema = z.object({
     ),
 });
 
+export const EmptyComponentSchema = z.object({ type: z.literal("Empty") });
+
+export const ImageComponentSchema = z
+  .object({
+    type: z.literal("Image"),
+  })
+  .merge(PageComponentWithImageSchema);
+
 export const TitleBannerComponentSchema = z
   .object({
     type: z.literal("TitleBanner"),
@@ -54,16 +62,16 @@ export const PageComponentSchema = z.union([
   TitleBannerComponentSchema,
   ContentPanelComponentSchema,
   TextAreaComponentSchema,
+  ImageComponentSchema,
+  EmptyComponentSchema,
 ]);
 
 export const PageDataSchema = z.object({
   name: z.string(),
-  route: z
-    .string()
-    .regex(/^[a-z0-9-]+$/, {
-      message:
-        "Le chemin d'accès ne doit contenir que des lettres minuscules, chiffres ou tirets.",
-    }),
+  route: z.string().regex(/^[a-z0-9-]+$/, {
+    message:
+      "Le chemin d'accès ne doit contenir que des lettres minuscules, chiffres ou tirets.",
+  }),
   components: z.array(PageComponentSchema),
 });
 
@@ -79,12 +87,19 @@ export const PageDataServerSchema = z
   })
   .merge(PageDataSchema);
 
-export type TitleBannerComponent = z.infer<typeof TitleBannerComponentSchema>;
-export type ContentPanelComponent = z.infer<typeof ContentPanelComponentSchema>;
+// General types
+export type PageComponent = z.infer<typeof PageComponentSchema>;
 export type PageComponentWithImage = z.infer<
   typeof PageComponentWithImageSchema
 >;
+
+// Components types
+export type EmptyComponent = z.infer<typeof EmptyComponentSchema>;
+export type ImageComponent = z.infer<typeof ImageComponentSchema>;
+export type TitleBannerComponent = z.infer<typeof TitleBannerComponentSchema>;
+export type ContentPanelComponent = z.infer<typeof ContentPanelComponentSchema>;
 export type TextAreaComponent = z.infer<typeof TextAreaComponentSchema>;
-export type PageComponent = z.infer<typeof PageComponentSchema>;
+export type PageComponentType = PageComponent["type"];
+
 export type PageDataClient = z.infer<typeof PageDataClientSchema>;
 export type PageDataServer = z.infer<typeof PageDataServerSchema>;
