@@ -7,11 +7,14 @@ import FormInput from "../../molecules/Form/FormInput";
 import Button from "../../atoms/Button/Button";
 import ComponentsFieldsRenderer from "../../molecules/FormPageComponents/ComponentsFieldsRenderer";
 import { getNewComponent } from "../../../utils/page";
+import PlusIcon from "../../../assets/icons/plus.svg?react";
+import { css } from "../../../../styled-system/css";
 
 type PageFormProps = {
   data?: PageDataClient;
   onSubmit?: (data: PageDataClient) => void;
   homePage?: boolean;
+  onCancel?: () => void;
 };
 
 const defaultData: PageDataClient = {
@@ -32,7 +35,12 @@ const defaultData: PageDataClient = {
   ],
 };
 
-function PageForm({ data, onSubmit, homePage = false }: PageFormProps = {}) {
+function PageForm({
+  data,
+  onSubmit,
+  homePage = false,
+  onCancel,
+}: PageFormProps = {}) {
   const {
     register,
     handleSubmit,
@@ -45,6 +53,7 @@ function PageForm({ data, onSubmit, homePage = false }: PageFormProps = {}) {
     resolver: zodResolver(PageDataClientSchema),
     defaultValues: data || defaultData,
   });
+
   const onSubmitData = (data: PageDataClient) => {
     try {
       const dataWithoutEmptyComponents = {
@@ -84,6 +93,14 @@ function PageForm({ data, onSubmit, homePage = false }: PageFormProps = {}) {
 
   return (
     <Form onSubmit={handleSubmit(onSubmitData)} encType="multipart/form-data">
+      <div className={css({ display: "flex" , gap: "16px"})}>
+        <Button color="red" onClick={onCancel} type="button">
+          Annuler
+        </Button>
+        <Button color="green" type="submit">
+          Enregistrer
+        </Button>
+      </div>
       {!homePage && (
         <FormInput
           register={register("name")}
@@ -116,19 +133,37 @@ function PageForm({ data, onSubmit, homePage = false }: PageFormProps = {}) {
           />
         )}
       />
-
-      <Button
-        type="button"
-        onClick={() =>
-          setValue("components", [
-            ...getValues("components"),
-            getNewComponent("Empty"),
-          ])
-        }
+      <div
+        className={css({
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        })}
       >
-        Ajouter composant
+        <Button
+          type="button"
+          onClick={() =>
+            setValue("components", [
+              ...getValues("components"),
+              getNewComponent("Empty"),
+            ])
+          }
+          className={css({
+            alignSelf: "center",
+            borderRadius: "50%",
+            width: "100px",
+            height: "100px",
+            "&:hover": { "& svg": { color: "pink.400" } },
+          })}
+        >
+          <PlusIcon
+            className={css({ width: "50px", height: "50px", color: "white" })}
+          />
+        </Button>
+      </div>
+      <Button color="green" type="submit">
+        Enregistrer
       </Button>
-      <Button type="submit">Enregistrer</Button>
     </Form>
   );
 }

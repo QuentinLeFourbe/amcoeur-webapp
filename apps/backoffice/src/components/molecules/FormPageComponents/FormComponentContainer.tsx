@@ -1,5 +1,8 @@
 import { css } from "../../../../styled-system/css";
 import Button from "../../atoms/Button/Button";
+import ArrowUp from "../../../assets/icons/arrow-up.svg?react";
+import ArrowDown from "../../../assets/icons/arrow-down.svg?react";
+import Trash from "../../../assets/icons/trash.svg?react";
 
 type FormComponentContainerProps = {
   onDelete?: () => void;
@@ -19,20 +22,35 @@ function FormComponentContainer({
       <div className={buttonsContainer}>
         <>
           {onMoveUp && (
-            <Button type="button" onClick={onMoveUp}>
-              Déplacer vers le haut
+            <Button
+              type="button"
+              onClick={onMoveUp}
+              className={buttonStyle}
+              color="blue"
+            >
+              <ArrowUp className={css({ width: "30px", height: "30px" })} />
             </Button>
           )}
 
           {onMoveDown && (
-            <Button type="button" onClick={onMoveDown}>
-              Déplacer vers le bas
+            <Button
+              type="button"
+              onClick={onMoveDown}
+              className={buttonStyle}
+              color="blue"
+            >
+              <ArrowDown className={css({ width: "30px", height: "30px" })} />
             </Button>
           )}
         </>
         {onDelete && (
-          <Button type="button" onClick={onDelete}>
-            Supprimer
+          <Button
+            type="button"
+            color="red"
+            onClick={onDelete}
+            className={buttonStyle}
+          >
+            <Trash className={css({ width: "30px", height: "30px" })} />
           </Button>
         )}
       </div>
@@ -42,6 +60,10 @@ function FormComponentContainer({
 }
 
 export default FormComponentContainer;
+
+const buttonStyle = css({
+  padding: "8px",
+});
 
 const container = css({
   position: "relative",

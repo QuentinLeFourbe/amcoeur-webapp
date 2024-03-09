@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PageDataClient } from "@amcoeur/types";
 import { css } from "../../styled-system/css";
 import Button from "../components/atoms/Button/Button";
 import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
@@ -7,7 +8,7 @@ import Overlay from "../components/atoms/Overlay/Overlay";
 
 function ManagePages() {
   const { data, isLoading, isError } = useGetPages();
-  const [pageIdToDelete, setPageIdToDelete] = useState<string | null>(null);
+  const [pageToDelete, setPageToDelete] = useState<PageDataClient | null>(null);
 
   const {
     mutate: deletePage,
@@ -50,11 +51,7 @@ function ManagePages() {
                   <Button to={`/gestion-pages/${page._id}`}>Afficher</Button>
                 </td>
                 <td>
-                  <Button
-                    onClick={() =>
-                      page._id && setPageIdToDelete(page._id?.toString())
-                    }
-                  >
+                  <Button onClick={() => setPageToDelete(page)} color="red">
                     Supprimer
                   </Button>
                 </td>
@@ -69,16 +66,21 @@ function ManagePages() {
           Une erreur est survenue lors du chargement des données
         </ErrorLabel>
       )}
-      <Overlay
-        isVisible={!!pageIdToDelete}
-        onClose={() => setPageIdToDelete(null)}
-      >
-        <p>Vous êtes sur le point de supprimer une page, êtes vous sûr ?</p>
+      <Overlay isVisible={!!pageToDelete} onClose={() => setPageToDelete(null)}>
+        <p>
+          Vous êtes sur le point de supprimer la page {pageToDelete?.name}, êtes
+          vous sûr ?
+        </p>
         <div className={css({ display: "flex", gap: "1rem" })}>
-          <Button onClick={() => pageIdToDelete && deletePage(pageIdToDelete)}>
-            Oui
+          <Button
+            color="red"
+            onClick={() => pageToDelete?._id && deletePage(pageToDelete._id)}
+          >
+            Supprimer
           </Button>
-          <Button onClick={() => setPageIdToDelete(null)}>Non</Button>
+          <Button color="secondary" onClick={() => setPageToDelete(null)}>
+            Annuler
+          </Button>
         </div>
       </Overlay>
     </div>

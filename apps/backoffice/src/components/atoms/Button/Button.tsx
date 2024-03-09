@@ -6,15 +6,34 @@ type ButtonProps = ComponentProps<typeof ClickablePrimitive> & {
   rounded?: boolean;
   bold?: boolean;
   size?: "small" | "medium" | "large";
+  color?: "green" | "blue" | "red" | "secondary";
 };
 
-function Button({ rounded, bold, ...props }: ButtonProps) {
+function Button({ rounded, bold, color, ...props }: ButtonProps) {
+  let colorStyle = "";
+  switch (color) {
+    case "red":
+      colorStyle = redColors;
+      break;
+    case "blue":
+      colorStyle = blueColors;
+      break;
+    case "green":
+      colorStyle = greenColors;
+      break;
+    case "secondary":
+      colorStyle = secondaryColors;
+      break;
+    default:
+      colorStyle = primaryColors;
+      break;
+  }
   return (
     <ClickablePrimitive
       {...props}
       className={cx(
         baseButton,
-        primaryColors,
+        colorStyle,
         rounded ? roundedBorders : squaredBorders,
         bold ? boldText : null,
         fitContent,
@@ -38,14 +57,62 @@ const baseButton = css({
   transition: "background-color 0.3s ease",
 });
 
-const primaryColors = css({
-  color: "textSecondary",
-  backgroundColor: "buttons.primary.background",
+const greenColors = css({
+  color: "white",
+  backgroundColor: "green.700",
   "&:hover": {
-    backgroundColor: "buttons.primary.backgroundHover",
-    color: "buttons.primary.textHover",
+    backgroundColor: "green.100",
+    color: "green.700",
   },
-  borderColor: "buttons.primary.background",
+  borderColor: "green.700",
+  borderStyle: "solid",
+  borderWidth: "2px",
+});
+
+const redColors = css({
+  color: "white",
+  backgroundColor: "red.400",
+  "&:hover": {
+    backgroundColor: "red.100",
+    color: "red.400",
+  },
+  borderColor: "red.400",
+  borderStyle: "solid",
+  borderWidth: "2px",
+});
+
+const blueColors = css({
+  color: "blue.50",
+  backgroundColor: "blue.500",
+  "&:hover": {
+    backgroundColor: "blue.100",
+    color: "blue.500",
+  },
+  borderColor: "blue.500",
+  borderStyle: "solid",
+  borderWidth: "2px",
+});
+
+const primaryColors = css({
+  color: "pink.50",
+  backgroundColor: "pink.500",
+  "&:hover": {
+    backgroundColor: "pink.100",
+    color: "pink.500",
+  },
+  borderColor: "pink.500",
+  borderStyle: "solid",
+  borderWidth: "2px",
+});
+
+const secondaryColors = css({
+  color: "pink.400",
+  backgroundColor: "pink.50",
+  "&:hover": {
+    backgroundColor: "pink.100",
+    color: "pink.700",
+  },
+  borderColor: "pink.300",
   borderStyle: "solid",
   borderWidth: "2px",
 });
