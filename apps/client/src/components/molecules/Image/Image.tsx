@@ -13,10 +13,11 @@ function Image({ component }: ImageProps) {
         display: "flex",
         flexFlow: "column nowrap",
         alignItems: "center",
+        marginBottom: "64px"
       })}
     >
       <ImageContainer src={component.imageUrl || ""} size="medium" />
-      <p>{component.caption}</p>
+      <p className={css({maxWidth: "700px", textAlign: "center", marginTop: "1rem"})}>{component.caption}</p>
     </div>
   );
 }

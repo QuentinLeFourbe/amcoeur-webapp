@@ -31,7 +31,7 @@ function ManagePage() {
         <div className={container}>
           <div className={buttonContainer}>
             <Button onClick={() => navigate("/gestion-pages")}>Retour</Button>
-            <Button href={`/preview/${data?.data._id}`} target="_blank" >
+            <Button href={`/${data?.data.route}`} target="_blank" >
               Visualiser
             </Button>
             <Button color="blue" onClick={() => setIsEditing(true)}>Modifier</Button>

@@ -1,18 +1,27 @@
 import { ImageComponent } from "@amcoeur/types";
 import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
+import { useState } from "react";
 import FormInput from "../Form/FormInput";
+import Button from "../../atoms/Button/Button";
+import { css } from "../../../../styled-system/css";
+import Input from "../../atoms/Input/Input";
+import Label from "../../atoms/Label/Label";
 
 type FormImageProps = {
   component: ImageComponent;
   onChange?: (component: ImageComponent) => void;
   onBlur?: (component: ImageComponent) => void;
-  errors?: Merge<
-    FieldError,
-    FieldErrorsImpl<NonNullable<ImageComponent>>
-  >;
+  errors?: Merge<FieldError, FieldErrorsImpl<NonNullable<ImageComponent>>>;
 };
 
 function FormImage({ component, onChange, onBlur, errors }: FormImageProps) {
+  const [showCaptionField, setShowCaptionField] = useState(!!component.caption);
+
+  const handleRemoveCaption = () => {
+    setShowCaptionField(false);
+    onChange?.({ ...component, caption: undefined });
+  };
+
   return (
     <div>
       <h2>Image</h2>
@@ -29,8 +38,39 @@ function FormImage({ component, onChange, onBlur, errors }: FormImageProps) {
         }}
         errorMessage={errors?.image?.message}
       >
-        Image 
+        Image
       </FormInput>
+      {!showCaptionField && (
+        <Button
+          color="blue"
+          type="button"
+          className={css({ margin: "16px 0" })}
+          onClick={() => setShowCaptionField(true)}
+        >
+          Ajouter une légende
+        </Button>
+      )}
+      {showCaptionField && (
+        <>
+          <FormInput
+            onChange={(e) => {
+              onChange?.({
+                ...component,
+                caption: e.target.value,
+              });
+            }}
+            onBlur={() => {
+              onBlur?.(component);
+            }}
+            value={component.caption}
+            className={css({ width: "100%" })}
+            removable
+            onRemove={handleRemoveCaption}
+          >
+            Légende
+          </FormInput>
+        </>
+      )}
     </div>
   );
 }
