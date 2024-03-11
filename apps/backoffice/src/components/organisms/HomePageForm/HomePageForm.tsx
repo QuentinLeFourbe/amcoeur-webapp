@@ -8,21 +8,14 @@ import {
 import Form from "../../atoms/Form/Form";
 import Button from "../../atoms/Button/Button";
 import ComponentsFieldsRenderer from "../../molecules/FormPageComponents/ComponentsFieldsRenderer";
+import { getNewComponent } from "../../../utils/page";
 
 type HomePageFormProps = {
   data?: PageDataClient;
   onSubmit?: (data: PageDataClient) => void;
 };
 
-const emptySection: ContentPanelComponent = {
-  type: "ContentPanel",
-  title: "",
-  content: "",
-  imageUrl: "",
-  image: undefined,
-  link: "",
-  linkLabel: "",
-};
+const emptySection: ContentPanelComponent = getNewComponent("ContentPanel") as ContentPanelComponent;
 
 function HomePageForm({ data, onSubmit }: HomePageFormProps = {}) {
   const {

@@ -64,6 +64,7 @@ const header = css({
   gap: "10px",
   padding: "25px 10vw",
   background: "backgrounds.primary.medium",
+  zIndex: "50",
 });
 
 const primaryLinksContainer = css({

@@ -2,15 +2,18 @@ import { css, cx } from "../../../../styled-system/css";
 
 type ImageContainerProps = {
   src: string;
-  alt: string;
+  alt?: string;
   size?:
-    | "smallLandscape"
-    | "smallPortrait"
-    | "mediumLandscape"
-    | "mediumPortrait"
-    | "largeLandscape"
-    | "largePortrait"
-    | "background";
+  | "small"
+  | "smallLandscape"
+  | "smallPortrait"
+  | "medium"
+  | "mediumLandscape"
+  | "mediumPortrait"
+  | "large"
+  | "largeLandscape"
+  | "largePortrait"
+  | "background";
   classname?: string;
   cover?: boolean;
 };
@@ -33,24 +36,32 @@ function ImageContainer({
 }: ImageContainerProps) {
   let style = "";
   switch (size) {
-    case "smallLandscape":
-      style = smallLandscape;
+    case "small":
+      style = small;
+      break;
+    case "medium":
+      style = medium;
+      break;
+    case "large":
+      style = large;
       break;
     case "smallPortrait":
       style = smallPortrait;
       break;
-    case "mediumLandscape":
-      style = mediumLandscape;
-      break;
     case "mediumPortrait":
       style = mediumPortrait;
       break;
-
     case "largePortrait":
       style = largePortrait;
       break;
     case "background":
       style = background;
+      break;
+    case "smallLandscape":
+      style = smallLandscape;
+      break;
+    case "mediumLandscape":
+      style = mediumLandscape;
       break;
     case "largeLandscape":
     default:
@@ -61,7 +72,7 @@ function ImageContainer({
   return (
     <img
       src={src}
-      alt={alt}
+      alt={alt || ""}
       className={cx(baseStyle, style, cover ? coverStyle : "", classname)}
       loading="lazy"
     />
@@ -75,6 +86,11 @@ const baseStyle = css({
 const coverStyle = css({
   objectFit: "cover",
   objectPosition: "center top",
+});
+
+const small = css({
+  maxWidth: "500px",
+  maxHeight: "500px",
 });
 
 const smallLandscape = css({
@@ -92,6 +108,15 @@ const mediumLandscape = css({
 const mediumPortrait = css({
   maxWidth: "500px",
   maxHeight: "800px",
+});
+const medium = css({
+  maxWidth: "800px",
+  maxHeight: "800px",
+});
+
+const large = css({
+  width: "800px",
+  height: "800px",
 });
 const largeLandscape = css({
   maxWidth: "1000px",

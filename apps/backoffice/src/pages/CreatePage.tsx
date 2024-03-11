@@ -4,7 +4,6 @@ import PageForm from "../components/organisms/PageForm/PageForm";
 import { useCreatePage } from "../hooks/pagesQueries";
 import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
 import { css } from "../../styled-system/css";
-import Button from "../components/atoms/Button/Button";
 
 function CreatePage() {
   const navigate = useNavigate();
@@ -14,19 +13,22 @@ function CreatePage() {
     },
   });
 
+  const handleCancel = () => {
+    navigate("/gestion-pages")
+  }
+
   const onSubmit = (data: PageDataClient) => {
     mutate(data);
   };
 
   return (
     <div className={container}>
-      <Button to="/gestion-pages">Retour</Button>
       {isError && (
         <ErrorLabel>
           Une erreur est survenue lors de la création de la page
         </ErrorLabel>
       )}
-      <PageForm onSubmit={onSubmit} />
+      <PageForm onSubmit={onSubmit} onCancel={handleCancel} />
     </div>
   );
 }
