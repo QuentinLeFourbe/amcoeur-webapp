@@ -3,6 +3,7 @@ import Markdown from "markdown-to-jsx";
 import TitlePanel from "../../molecules/TitlePanel/TitlePanel";
 import TextPanel from "../../molecules/TextPanel/TextPanel";
 import ContentPanel from "../../molecules/ContentPanel/ContentPanel";
+import Image from "../../molecules/Image/Image";
 
 type PageComponentsRendererProps = {
   components: PageComponent[];
@@ -39,6 +40,8 @@ function PageComponentsRenderer({ components }: PageComponentsRendererProps) {
             <Markdown>{component.content || ""}</Markdown>
           </ContentPanel>
         );
+      case "Image":
+        return <Image key={index} component={component} />;
       default:
         return null;
     }

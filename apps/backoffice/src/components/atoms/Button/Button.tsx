@@ -1,15 +1,24 @@
 import type { ComponentProps } from "react";
 import { css, cx } from "../../../../styled-system/css";
 import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
+import Icon, { type IconType } from "../Icon/Icon";
 
 type ButtonProps = ComponentProps<typeof ClickablePrimitive> & {
   rounded?: boolean;
   bold?: boolean;
   size?: "small" | "medium" | "large";
   color?: "green" | "blue" | "red" | "secondary";
+  icon?: IconType; 
 };
 
-function Button({ rounded, bold, color, ...props }: ButtonProps) {
+function Button({
+  rounded,
+  bold,
+  color,
+  children,
+  icon,
+  ...props
+}: ButtonProps) {
   let colorStyle = "";
   switch (color) {
     case "red":
@@ -28,6 +37,7 @@ function Button({ rounded, bold, color, ...props }: ButtonProps) {
       colorStyle = primaryColors;
       break;
   }
+
   return (
     <ClickablePrimitive
       {...props}
@@ -37,20 +47,29 @@ function Button({ rounded, bold, color, ...props }: ButtonProps) {
         rounded ? roundedBorders : squaredBorders,
         bold ? boldText : null,
         fitContent,
+        icon ? iconPadding : basePadding,
         props.className,
       )}
-    />
+    >
+      {icon ? <Icon type={icon}/> : children}
+    </ClickablePrimitive>
   );
 }
 
 export default Button;
+
+const basePadding = css({
+  padding: "0.5rem 1rem",
+});
+const iconPadding = css({
+  padding: "8px",
+});
 
 const baseButton = css({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   cursor: "pointer",
-  padding: "0.5rem 1rem",
   "&:active": {
     opacity: "0.8",
   },

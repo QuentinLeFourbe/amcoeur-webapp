@@ -32,6 +32,7 @@ export const EmptyComponentSchema = z.object({ type: z.literal("Empty") });
 export const ImageComponentSchema = z
   .object({
     type: z.literal("Image"),
+    caption: z.string().optional(),
   })
   .merge(PageComponentWithImageSchema);
 
