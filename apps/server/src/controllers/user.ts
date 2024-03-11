@@ -34,7 +34,7 @@ export const login = async (req: Request, res: Response) => {
       }
     }
   } catch (err) {
-    console.log(err);
+    res.locals.logger.error(err);
     return res.status(500).send({
       message: "An error occured while logging in.",
       error: err,
@@ -70,7 +70,7 @@ export const getAllUsers = async (_req: Request, res: Response) => {
     const users = await User.find();
     res.status(200).json(users);
   } catch (err) {
-    console.log(err);
+    res.locals.logger.error(err);
     res.status(500).json({
       message:
         "Une erreur s'est produite lors de la récupération des utilisateur.",
@@ -87,7 +87,7 @@ export const getUserById = async (req: Request, res: Response) => {
       res.status(200).json(user);
     }
   } catch (err) {
-    console.log(err);
+    res.locals.logger.error(err);
     res.status(500).json({
       message:
         "Une erreur s'est produite lors de la récupération de l'utilisateur.",
@@ -106,7 +106,7 @@ export const updateUser = async (req: Request, res: Response) => {
       res.status(200).json(updatedUser);
     }
   } catch (err) {
-    console.log(err);
+    res.locals.logger.error(err);
     if (err instanceof Error) {
       res.status(400).json({ message: err.message });
     } else {
@@ -132,7 +132,7 @@ export const changeUserPassword = async (req: Request, res: Response) => {
       res.status(200).json(user);
     }
   } catch (err) {
-    console.log(err);
+    res.locals.logger.error(err);
     if (err instanceof Error) {
       res.status(400).json({ message: err.message });
     } else {
@@ -153,7 +153,7 @@ export const deleteUser = async (req: Request, res: Response) => {
       res.status(200).json({ message: "Utilisateur supprimée avec succès." });
     }
   } catch (err) {
-    console.log(err);
+    res.locals.logger.error(err);
     if (err instanceof Error) {
       res.status(400).json({ message: err.message });
     } else {
@@ -170,7 +170,7 @@ export const logout = async (_req: Request, res: Response) => {
     res.clearCookie("authToken");
     res.status(200).json({ message: "User Logged Out" });
   } catch (err) {
-    console.log(err);
+    res.locals.logger.error(err);
     res.status(500).json({
       message: "Une erreur s'est produite lors de la déconnexion.",
     });
@@ -200,7 +200,7 @@ export const getCurrentUserFromToken = async (req: Request, res: Response) => {
       username: user.username,
     });
   } catch (err) {
-    console.log(err);
+    res.locals.logger.error(err);
     return res.status(500).send({
       message: "An error occured while getting user.",
       error: err,

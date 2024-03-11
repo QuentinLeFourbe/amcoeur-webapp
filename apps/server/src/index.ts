@@ -9,6 +9,8 @@ import pageRoutes from "./routes/page.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { fileURLToPath } from "url";
+import { getRequestLogger } from "./middlewares/logger.js";
+import { logger } from "./utils/logger.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -43,6 +45,8 @@ app.use(
 app.use(express.static(path.join(__dirname, "../../client/dist")));
 app.use(express.static(path.join(__dirname, "../../backoffice/dist")));
 app.use("/api/images", express.static(path.join(__dirname, "../uploads")));
+
+app.use(getRequestLogger)
 app.use("/api/users", userRoutes);
 app.use("/api/email", emailRoutes);
 app.use("/api/pages", pageRoutes);
@@ -57,11 +61,11 @@ app.get("/*", (_req: Request, res: Response) => {
 
 mongoose
   .connect(databaseUri)
-  .then(() => console.log("Connexion à la base de données établie"))
+  .then(() => logger.info("Connexion à la base de données établie"))
   .catch((err) =>
-    console.error("Erreur de connexion à la base de données:", err),
+    logger.error("Erreur de connexion à la base de données:", err),
   );
 
 app.listen(PORT, () => {
-  console.log(`Serveur en cours d'exécution sur le port ${PORT}`);
+  logger.info(`Serveur en cours d'exécution sur le port ${PORT}`);
 });
