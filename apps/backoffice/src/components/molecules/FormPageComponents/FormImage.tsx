@@ -4,8 +4,6 @@ import { useState } from "react";
 import FormInput from "../Form/FormInput";
 import Button from "../../atoms/Button/Button";
 import { css } from "../../../../styled-system/css";
-import Input from "../../atoms/Input/Input";
-import Label from "../../atoms/Label/Label";
 
 type FormImageProps = {
   component: ImageComponent;
