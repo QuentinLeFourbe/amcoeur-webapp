@@ -1,31 +1,41 @@
 import { PageComponent } from "@amcoeur/types";
-import { FieldError, FieldErrorsImpl, Merge} from "react-hook-form";
-import Button from "../../atoms/Button/Button";
-import { css } from "../../../../styled-system/css";
+import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
+import { getNewComponent } from "../../../utils/page";
 import FormTitleBannerComponent from "./FormTitleBanner";
 import FormTextArea from "./FormTextArea";
 import FormContentPanel from "./FormContentPanel";
+import FormImage from "./FormImage";
+import FormComponentContainer from "./FormComponentContainer";
+import FormEmptyComponent from "./FormEmptyComponent";
 
 type ComponentsFieldsRendererProps = {
   value: PageComponent[];
-  onChange?: (component: PageComponent[]) => void;
-  onBlur?: (component: PageComponent[]) => void;
+  onChange?: (components: PageComponent[]) => void;
+  onBlur?: (components: PageComponent[]) => void;
   moveComponent?: (index: number, direction: "up" | "down") => void;
   removeComponent?: (index: number) => void;
-  errors?:Merge<FieldError, (Merge<FieldError, FieldErrorsImpl<NonNullable<PageComponent>>> | undefined )[]>;
+  updateComponent?: (component: PageComponent, index: number) => void;
+  errors?: Merge<
+    FieldError,
+    (
+      | Merge<FieldError, FieldErrorsImpl<NonNullable<PageComponent>>>
+      | undefined
+    )[]
+  >;
 };
 
 function ComponentsFieldsRenderer({
-  value,
+  value: components,
   onChange,
   onBlur,
   moveComponent,
   removeComponent,
+  updateComponent,
   errors,
 }: ComponentsFieldsRendererProps) {
   const getHandleChange = (index: number) => {
     const handleChange = (component: PageComponent) => {
-      const newValue = [...value];
+      const newValue = [...components];
       newValue[index] = component;
       onChange?.(newValue);
     };
@@ -34,7 +44,7 @@ function ComponentsFieldsRenderer({
 
   const getHandleBlur = (index: number) => {
     const handleBlur = (component: PageComponent) => {
-      const newValue = [...value];
+      const newValue = [...components];
       newValue[index] = component;
       onBlur?.(newValue);
     };
@@ -43,6 +53,15 @@ function ComponentsFieldsRenderer({
 
   const getRenderedComponent = (component: PageComponent, index: number) => {
     switch (component.type) {
+      case "Image":
+        return (
+          <FormImage
+            component={component}
+            onBlur={getHandleBlur(index)}
+            onChange={getHandleChange(index)}
+            errors={errors && errors[index]}
+          />
+        );
       case "TitleBanner":
         return (
           <FormTitleBannerComponent
@@ -69,51 +88,37 @@ function ComponentsFieldsRenderer({
             errors={errors && errors[index]}
           />
         );
+      case "Empty":
+        return (
+          <FormEmptyComponent
+            onChange={(type) => {
+              updateComponent && updateComponent(getNewComponent(type), index)
+            }}
+          />
+        );
       default:
         return null;
     }
   };
 
-  return value?.map((component, index) => (
-    <div key={index} className={container}>
-      <div className={buttonsContainer}>
-        {moveComponent && (
-          <>
-            {index !== 0 && (
-              <Button
-                type="button"
-                onClick={() => moveComponent(index, "down")}
-              >
-                Déplacer vers le haut
-              </Button>
-            )}
-            {index !== value.length - 1 && (
-              <Button type="button" onClick={() => moveComponent(index, "up")}>
-                Déplacer vers le bas
-              </Button>
-            )}
-          </>
-        )}
-        {removeComponent && (
-          <Button type="button" onClick={() => removeComponent(index)}>
-            Supprimer
-          </Button>
-        )}
-      </div>
+  return components?.map((component, index) => (
+    <FormComponentContainer
+      key={index}
+      onDelete={removeComponent && (() => removeComponent(index))}
+      onMoveUp={
+        index !== 0 && moveComponent
+          ? () => moveComponent(index, "up")
+          : undefined
+      }
+      onMoveDown={
+        index !== components.length - 1 && moveComponent
+          ? () => moveComponent(index, "down")
+          : undefined
+      }
+    >
       {getRenderedComponent(component, index)}
-    </div>
+    </FormComponentContainer>
   ));
 }
 
 export default ComponentsFieldsRenderer;
-
-const container = css({
-  borderTop: "1px solid white",
-  borderBottom: "1px solid white",
-  padding: "16px 0",
-});
-
-const buttonsContainer = css({
-  display: "flex",
-  gap: "16px",
-});

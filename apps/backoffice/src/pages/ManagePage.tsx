@@ -25,17 +25,16 @@ function ManagePage() {
     <>
       {isEditing ? (
         <div className={editContainer}>
-          <Button onClick={() => setIsEditing(false)}>Annuler</Button>
-          <PageForm data={data?.data} onSubmit={onEdit} />
+          <PageForm data={data?.data} onSubmit={onEdit} onCancel={() => setIsEditing(false)} />
         </div>
       ) : (
         <div className={container}>
           <div className={buttonContainer}>
             <Button onClick={() => navigate("/gestion-pages")}>Retour</Button>
-            <Button href={`/preview/${data?.data._id}`} target="_blank">
+            <Button href={`/${data?.data.route}`} target="_blank" >
               Visualiser
             </Button>
-            <Button onClick={() => setIsEditing(true)}>Modifier</Button>
+            <Button color="blue" onClick={() => setIsEditing(true)}>Modifier</Button>
           </div>
           {isErrorMutation && (
             <ErrorLabel>

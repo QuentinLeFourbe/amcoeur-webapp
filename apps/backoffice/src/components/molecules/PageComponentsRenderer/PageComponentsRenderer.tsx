@@ -2,6 +2,7 @@ import { PageComponent } from "@amcoeur/types";
 import TextArea from "../TextArea/TextArea";
 import TitleBanner from "../TitleBanner/TitleBanner";
 import ContentPanel from "../ContentPanel/ContentPanel";
+import Image from "../Image/Image";
 
 type PageComponentsRendererProps = {
   components: PageComponent[];
@@ -16,6 +17,8 @@ function PageComponentsRenderer({ components }: PageComponentsRendererProps) {
         return <TextArea component={component} />;
       case "ContentPanel":
         return <ContentPanel component={component} />;
+      case "Image": 
+      return <Image component={component} />
       default:
         return null;
     }
