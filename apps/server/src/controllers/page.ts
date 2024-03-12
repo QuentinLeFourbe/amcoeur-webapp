@@ -14,7 +14,7 @@ export const createPage = async (req: Request, res: Response) => {
     await newPage.save();
     res.status(201).json(newPage);
   } catch (err) {
-    console.log(err);
+    res.locals.logger.error(err);
     if (err instanceof Error) {
       res.status(400).json({ message: err.message });
     } else {
@@ -28,7 +28,7 @@ export const getPages = async (req: Request, res: Response) => {
     const pages = await Page.find(req.query);
     res.status(200).json(pages);
   } catch (err) {
-    console.log(err);
+    res.locals.logger.error(err);
     res.status(500).json({
       message: "Une erreur s'est produite lors de la récupération des pages.",
     });
@@ -44,7 +44,7 @@ export const getPagesById = async (req: Request, res: Response) => {
       res.status(200).json(page);
     }
   } catch (err) {
-    console.log(err);
+    res.locals.logger.error(err);
     res.status(500).json({
       message: "Une erreur s'est produite lors de la récupération de la page.",
     });
@@ -73,7 +73,7 @@ export const updatePage = async (req: Request, res: Response) => {
       res.status(200).json(updatedPage);
     }
   } catch (err) {
-    console.log(err);
+    res.locals.logger.error(err);
     if (err instanceof Error) {
       res.status(400).json({ message: err.message });
     } else {
@@ -99,7 +99,7 @@ export const deletePage = async (req: Request, res: Response) => {
       res.status(200).json({ message: "Page supprimée avec succès." });
     }
   } catch (err) {
-    console.log(err);
+    res.locals.logger.error(err);
     if (err instanceof Error) {
       res.status(400).json({ message: err.message });
     } else {
@@ -125,7 +125,7 @@ export const createHomePage = async (_req: Request, res: Response) => {
       res.status(200).json(homePage);
     }
   } catch (err) {
-    console.log(err);
+    res.locals.logger.error(err);
     res.status(500).json({
       message:
         "Une erreur s'est produite lors de la récupération de la page d'accueil.",
@@ -142,7 +142,7 @@ export const getHomePage = async (_req: Request, res: Response) => {
       res.status(200).json(homePage);
     }
   } catch (err) {
-    console.log(err);
+    res.locals.logger.error(err);
     res.status(500).json({
       message:
         "Une erreur s'est produite lors de la récupération de la page d'accueil.",

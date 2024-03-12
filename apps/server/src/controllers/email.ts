@@ -1,6 +1,7 @@
 import type { ContactFormData } from "@amcoeur/types";
 import nodemailer from "nodemailer";
 import type { Request, Response } from "express";
+import { logger } from "../utils/logger.js";
 
 const transporter = nodemailer.createTransport({
   host: "ssl0.ovh.net",
@@ -14,9 +15,9 @@ const transporter = nodemailer.createTransport({
 
 transporter.verify(function (error) {
   if (error) {
-    console.log("Erreur lors de la connexion : ", error);
+    logger.error("Erreur lors de la connexion : ", error);
   } else {
-    console.log("Email server is ready to take our messages");
+    logger.info("Email server is ready to take our messages");
   }
 });
 
@@ -45,7 +46,7 @@ export const sendEmailHandler = async (req: Request, res: Response) => {
     await transporter?.sendMail(mailOptionsToSender);
     res.status(200).send("Email envoyé !");
   } catch (err) {
-    console.log(err);
+    res.locals.logger.error(err);
     res.status(500).send(`Erreur lors de l'envoi de l'e-mail : ${err}`);
   }
 };

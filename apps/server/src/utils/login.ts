@@ -27,7 +27,7 @@ export const addUserToBlockedUsers = (username: string) => {
 
 export const removeUserFromBlockedUsers = (username: string) => {
   if (!username) {
-    console.warn("No user name provided");
+    throw new Error("No user name provided");
   }
   if (blockedUsers.has(username)) {
     blockedUsers.delete(username);

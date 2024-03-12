@@ -5,14 +5,9 @@ const verifyRecaptcha = async (
   token: string,
   secretKey: string
 ): Promise<boolean> => {
-  try {
     const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`;
     const response = await axios.post(verificationUrl);
     return response.data.success;
-  } catch (error) {
-    console.error("Error verifying reCAPTCHA:", error);
-    return false;
-  }
 };
 
 /**
@@ -27,31 +22,39 @@ const checkRecaptcha = async (
   res: Response,
   next: NextFunction
 ) => {
-  const token = req.body.token;
-  const secretKey = process.env["CAPTCHA_SERVER_KEY"];
+  try {
+    const token = req.body.token;
+    const secretKey = process.env["CAPTCHA_SERVER_KEY"];
 
-  if (!token) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Token reCAPTCHA manquant." });
-  }
+    if (!token) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Missing reCAPTCHA token." });
+    }
 
-  if (!secretKey) {
+    if (!secretKey) {
+      return res.status(500).json({
+        success: false,
+        message: "Missing reCaptcha secret key configuration.",
+      });
+    }
+
+    const isTokenValid = await verifyRecaptcha(token, secretKey);
+
+    if (isTokenValid) {
+      next();
+      return;
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "Failed to validate reCAPTCHA token.",
+      });
+    }
+  } catch (error) {
+    res.locals.logger.error("Error on reCaptcha token validation", error)
     return res.status(500).json({
       success: false,
-      message: "Clé secrète de configuration reCaptcha manquante",
-    });
-  }
-
-  const isTokenValid = await verifyRecaptcha(token, secretKey);
-
-  if (isTokenValid) {
-    next();
-    return;
-  } else {
-    return res.status(400).json({
-      success: false,
-      message: "Échec de validation du token reCAPTCHA.",
+      message: "An error occurred while validating the reCAPTCHA token.",
     });
   }
 };
