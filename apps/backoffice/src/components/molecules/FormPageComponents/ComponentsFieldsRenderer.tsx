@@ -103,7 +103,7 @@ function ComponentsFieldsRenderer({
 
   return components?.map((component, index) => (
     <FormComponentContainer
-      key={index}
+      key={component.id}
       onDelete={removeComponent && (() => removeComponent(index))}
       onMoveUp={
         index !== 0 && moveComponent

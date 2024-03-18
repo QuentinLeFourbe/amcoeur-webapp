@@ -10,6 +10,7 @@ import {
   getPages,
   updatePage,
 } from "../api/pages";
+import { addIdToComponents } from "../utils/page";
 
 export const useGetPages = () => {
   const query = useQuery({
@@ -23,6 +24,7 @@ export const useGetPage = (id: number | string) => {
   const query = useQuery({
     queryKey: ["page", id],
     queryFn: () => getPage(id),
+    select: (data) => ({ ...data, data: addIdToComponents(data.data) }),
   });
   return query;
 };

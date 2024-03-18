@@ -6,7 +6,7 @@ import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
 import { css } from "../../styled-system/css";
 import Button from "../components/atoms/Button/Button";
 import PageComponentsRenderer from "../components/molecules/PageComponentsRenderer/PageComponentsRenderer";
-import HomePageForm from "../components/organisms/HomePageForm/HomePageForm";
+import PageForm from "../components/organisms/PageForm/PageForm";
 
 function HomePageManagement() {
   const [isEditing, setIsEditing] = useState(false);
@@ -22,8 +22,12 @@ function HomePageManagement() {
     <>
       {isEditing ? (
         <div className={editContainer}>
-          <Button onClick={() => setIsEditing(false)}>Annuler</Button>
-          <HomePageForm data={data?.data} onSubmit={onEdit} />
+          <PageForm
+            homePage
+            data={data?.data}
+            onSubmit={onEdit}
+            onCancel={() => setIsEditing(false)}
+          />
         </div>
       ) : (
         <div className={container}>

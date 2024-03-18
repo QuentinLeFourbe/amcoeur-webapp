@@ -1,33 +1,41 @@
 import mongoose from "mongoose";
 import { z } from "zod";
 
-export const PageComponentWithImageSchema = z.object({
-  imageUrl: z.string().optional(),
-  image: z
-    .instanceof(File)
-    .nullable()
-    .optional()
-    .refine(
-      (image) => {
-        if (!image) return true;
-
-        return (
-          image &&
-          ["image/webp", "image/png", "image/jpeg"].includes(image.type)
-        );
-      },
-      { message: "Seuls les fichiers WEBP, PNG ou JPG sont autorisés" },
-    )
-    .refine(
-      (image) => {
-        if (!image) return true;
-        return image.size <= 2 * 1024 * 1024;
-      },
-      { message: "La taille du fichier ne doit pas dépasser 2 Mo" },
-    ),
+export const BasePageComponentSchema = z.object({
+  id: z.string().optional(),
 });
 
-export const EmptyComponentSchema = z.object({ type: z.literal("Empty") });
+export const PageComponentWithImageSchema = z
+  .object({
+    imageUrl: z.string().optional(),
+    image: z
+      .instanceof(File)
+      .nullable()
+      .optional()
+      .refine(
+        (image) => {
+          if (!image) return true;
+
+          return (
+            image &&
+            ["image/webp", "image/png", "image/jpeg"].includes(image.type)
+          );
+        },
+        { message: "Seuls les fichiers WEBP, PNG ou JPG sont autorisés" },
+      )
+      .refine(
+        (image) => {
+          if (!image) return true;
+          return image.size <= 2 * 1024 * 1024;
+        },
+        { message: "La taille du fichier ne doit pas dépasser 2 Mo" },
+      ),
+  })
+  .merge(BasePageComponentSchema);
+
+export const EmptyComponentSchema = z
+  .object({ type: z.literal("Empty") })
+  .merge(BasePageComponentSchema);
 
 export const ImageComponentSchema = z
   .object({
@@ -54,10 +62,12 @@ export const ContentPanelComponentSchema = z
   })
   .merge(PageComponentWithImageSchema);
 
-export const TextAreaComponentSchema = z.object({
-  type: z.literal("TextArea"),
-  content: z.string().optional(),
-});
+export const TextAreaComponentSchema = z
+  .object({
+    type: z.literal("TextArea"),
+    content: z.string().optional(),
+  })
+  .merge(BasePageComponentSchema);
 
 export const PageComponentSchema = z.union([
   TitleBannerComponentSchema,

@@ -93,7 +93,7 @@ function PageForm({
 
   return (
     <Form onSubmit={handleSubmit(onSubmitData)} encType="multipart/form-data">
-      <div className={css({ display: "flex" , gap: "16px"})}>
+      <div className={css({ display: "flex", gap: "16px" })}>
         <Button color="red" onClick={onCancel} type="button">
           Annuler
         </Button>
@@ -120,6 +120,16 @@ function PageForm({
           Chemin d&apos;accès
         </FormInput>
       )}
+      {homePage && (
+        <AddButton
+          onClick={() =>
+            setValue("components", [
+              getNewComponent("ContentPanel"),
+              ...getValues("components"),
+            ])
+          }
+        />
+      )}
       <Controller
         control={control}
         name="components"
@@ -133,34 +143,14 @@ function PageForm({
           />
         )}
       />
-      <div
-        className={css({
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        })}
-      >
-        <Button
-          type="button"
-          onClick={() =>
-            setValue("components", [
-              ...getValues("components"),
-              getNewComponent("Empty"),
-            ])
-          }
-          className={css({
-            alignSelf: "center",
-            borderRadius: "50%",
-            width: "100px",
-            height: "100px",
-            "&:hover": { "& svg": { color: "pink.400" } },
-          })}
-        >
-          <PlusIcon
-            className={css({ width: "50px", height: "50px", color: "white" })}
-          />
-        </Button>
-      </div>
+      <AddButton
+        onClick={() =>
+          setValue("components", [
+            ...getValues("components"),
+            getNewComponent(homePage ? "ContentPanel" : "Empty"),
+          ])
+        }
+      />
       <Button color="green" type="submit">
         Enregistrer
       </Button>
@@ -169,3 +159,31 @@ function PageForm({
 }
 
 export default PageForm;
+
+const AddButton = ({ onClick }: { onClick: () => void }) => {
+  return (
+    <div
+      className={css({
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      })}
+    >
+      <Button
+        type="button"
+        onClick={onClick}
+        className={css({
+          alignSelf: "center",
+          borderRadius: "50%",
+          width: "100px",
+          height: "100px",
+          "&:hover": { "& svg": { color: "pink.400" } },
+        })}
+      >
+        <PlusIcon
+          className={css({ width: "50px", height: "50px", color: "white" })}
+        />
+      </Button>
+    </div>
+  );
+};
