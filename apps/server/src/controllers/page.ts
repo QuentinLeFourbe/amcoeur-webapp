@@ -1,6 +1,6 @@
 import Page from "../models/page.js";
-import { matchComponentsWithImageUrl } from "../libs/components.js";
-import { deleteOldImages, deleteUploadedImage } from "../libs/files.js";
+import { matchComponentsWithImageUrl } from "../utils/components.js";
+import { deleteOldImages, deleteUploadedImage } from "../utils/files.js";
 import type { Request, Response } from "express";
 import { type PageComponent } from "@amcoeur/types";
 

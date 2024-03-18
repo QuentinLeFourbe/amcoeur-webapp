@@ -10,7 +10,7 @@ import type { PageComponent, PageComponentWithImage } from "@amcoeur/types";
  */
 export const matchComponentsWithImageUrl = (
   components: PageComponent[],
-  images: Express.Multer.File[],
+  images: Pick<Express.Multer.File,"fieldname" | "filename">[]
 ) => {
   if (!components || components.length === 0) {
     return [];
@@ -20,23 +20,21 @@ export const matchComponentsWithImageUrl = (
     return components;
   }
 
-  const componentsIndexWithImage = images.map((file) => {
-    const fieldname = file.fieldname;
+  const componentsIndexWithImage = images.map((image) => {
+    const fieldname = image.fieldname;
     const regex = /\[(\d+)\]/; // Expression régulière pour capturer les chiffres entre crochets
     const match = fieldname.match(regex);
     if (match && match[1]) {
       return {
         index: parseInt(match[1]),
-        imageUrl: `/api/images/${file.filename}`,
+        imageUrl: `/api/images/${image.filename}`,
       };
     } else {
-      throw new Error(
-        "Impossible de trouver l'index du composant avec l'image.",
-      );
+      throw new Error("Cannot extract an index from image's fieldname");
     }
   });
 
-  const componentsWithImages = components;
+  const componentsWithImages = [...components];
   componentsIndexWithImage.forEach((indexWithImage) => {
     (
       componentsWithImages[indexWithImage.index] as PageComponentWithImage
