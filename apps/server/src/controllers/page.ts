@@ -1,8 +1,11 @@
 import Page from "../models/page.js";
 import { matchComponentsWithImageUrl } from "../utils/components.js";
-import { deleteOldImages, deleteUploadedImage } from "../utils/files.js";
+import {
+  deleteOldImages,
+  deletePageImages,
+} from "../utils/files.js";
 import type { Request, Response } from "express";
-import { type PageComponent } from "@amcoeur/types";
+import {  type PageDataServer } from "@amcoeur/types";
 
 export const createPage = async (req: Request, res: Response) => {
   try {
@@ -88,11 +91,7 @@ export const updatePage = async (req: Request, res: Response) => {
 export const deletePage = async (req: Request, res: Response) => {
   try {
     const deletedPage = await Page.findOneAndDelete({ _id: req.params.id });
-    deletedPage?.components.forEach((component: PageComponent) => {
-      if ("imageUrl" in component && component.imageUrl) {
-        deleteUploadedImage(component.imageUrl);
-      }
-    });
+    deletePageImages(deletedPage as PageDataServer);
     if (!deletedPage) {
       res.status(404).json({ message: "Page non trouvée." });
     } else {

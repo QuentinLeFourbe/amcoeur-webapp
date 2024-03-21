@@ -10,14 +10,14 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 /**
  * Deletes the uploaded image from the server.
- * @param imageUrl - The URL of the image to be deleted.
+ * @param imageUrl - The URL of the image to be deleted. It should be of the form XXX/filename 
  * @throws Error if the image cannot be found.
  */
 export const deleteUploadedImage = async (imageUrl: string) => {
-  const image = imageUrl.split("/").pop();
-  if (!image) {
-    throw new Error("Can't find any image name in the url: " + imageUrl);
+  if (!imageUrl) {
+    throw new Error("Missing param imageUrl");
   }
+  const image = imageUrl.split("/").pop() || "";
   const uploadFolder = path.join(__dirname, "..", "..", "uploads");
   if (fs.existsSync(path.join(uploadFolder, image))) {
     fs.unlinkSync(path.join(uploadFolder, image));
@@ -25,6 +25,15 @@ export const deleteUploadedImage = async (imageUrl: string) => {
     throw new Error("Image to delete does not exist");
   }
 };
+
+export const deletePageImages = async (page: PageDataServer) => {
+    page?.components.forEach((component: PageComponent) => {
+      if ("imageUrl" in component && component.imageUrl) {
+        deleteUploadedImage(component.imageUrl);
+      }
+    });
+}
+
 
 /**
  * Deletes old images that are no longer used in the new page.
