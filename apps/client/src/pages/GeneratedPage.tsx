@@ -20,7 +20,7 @@ function GeneratedPage() {
     <>
       {isSuccess && <PageComponentsRenderer components={pageDataComponents} />}
       {isLoading && <div>Chargement de la page...</div>}
-      {isError && <PageNotFound />}
+      {(isError || (isSuccess && pageDataComponents.length === 0)) && <PageNotFound />}
     </>
   );
 }
