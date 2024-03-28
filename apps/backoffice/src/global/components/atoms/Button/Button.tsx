@@ -7,8 +7,10 @@ type ButtonProps = ComponentProps<typeof ClickablePrimitive> & {
   borderRadius?: "rounded" | "square" | "circle";
   bold?: boolean;
   size?: "small" | "medium" | "large";
-  color?: "green" | "blue" | "red" | "secondary";
+  color?: "green" | "blue" | "red" | "secondary" | "lightGray";
   icon?: IconType;
+  isActive?: boolean;
+  isDisabled?: boolean;
 };
 
 function Button({
@@ -17,8 +19,13 @@ function Button({
   color,
   children,
   icon,
+  isActive,
+  isDisabled,
   ...props
 }: ButtonProps) {
+  const isAnchor = "href" in props || "to" in props;
+  const isButton = !isAnchor;
+
   let borderRadiusStyle = "";
   switch (borderRadius) {
     case "rounded":
@@ -47,11 +54,16 @@ function Button({
     case "secondary":
       colorStyle = secondaryColors;
       break;
+    case "lightGray":
+      colorStyle = lightGray;
+      break;
     default:
       colorStyle = primaryColors;
       break;
   }
-
+  console.log("is button ?", isButton, children);
+  console.log("is Disable ou active", isDisabled, isActive);
+  const disabledProps = isButton ? { disabled: isDisabled || isActive } : {};
   return (
     <ClickablePrimitive
       {...props}
@@ -59,11 +71,16 @@ function Button({
         baseButton,
         colorStyle,
         borderRadiusStyle,
-        bold ? boldText : null,
         fitContent,
+        (isDisabled || isActive) && isAnchor && disabledAnchor,
+        !isActive && isDisabledStyle,
+        isDisabled && "button-disabled",
+        isActive && "button-active",
+        bold ? boldText : null,
         icon ? iconPadding : basePadding,
         props.className,
       )}
+      {...disabledProps}
     >
       {icon ? <Icon type={icon} /> : children}
     </ClickablePrimitive>
@@ -84,18 +101,30 @@ const baseButton = css({
   justifyContent: "center",
   alignItems: "center",
   cursor: "pointer",
-  "&:active": {
+  "&:active:not(.button-active):not(.button-disabled)": {
     opacity: "0.8",
   },
   transition: "background-color 0.3s ease",
 });
 
+const isDisabledStyle = css({
+  "&:disabled": {
+    opacity: "0.5",
+    cursor: "auto",
+  },
+});
+
 const greenColors = css({
   color: "white",
   backgroundColor: "green.700",
-  "&:hover": {
+  "&:hover:not(.button-active):not(.button-disabled)": {
     backgroundColor: "green.100",
     color: "green.700",
+  },
+  "&:disabled .button-active": {
+    cursor: "default",
+    backgroundColor: "green.200",
+    color: "green.800",
   },
   borderColor: "green.700",
   borderStyle: "solid",
@@ -105,7 +134,7 @@ const greenColors = css({
 const redColors = css({
   color: "white",
   backgroundColor: "red.400",
-  "&:hover": {
+  "&:hover:not(.button-active):not(.button-disabled)": {
     backgroundColor: "red.100",
     color: "red.400",
   },
@@ -117,7 +146,7 @@ const redColors = css({
 const blueColors = css({
   color: "blue.50",
   backgroundColor: "blue.500",
-  "&:hover": {
+  "&:hover:not(.button-active):not(.button-disabled)": {
     backgroundColor: "blue.100",
     color: "blue.500",
   },
@@ -129,7 +158,7 @@ const blueColors = css({
 const primaryColors = css({
   color: "pink.50",
   backgroundColor: "pink.500",
-  "&:hover": {
+  "&:hover:not(.button-active):not(.button-disabled)": {
     backgroundColor: "pink.100",
     color: "pink.500",
   },
@@ -141,13 +170,35 @@ const primaryColors = css({
 const secondaryColors = css({
   color: "pink.400",
   backgroundColor: "pink.50",
-  "&:hover": {
+  "&:hover:not(.button-active):not(.button-disabled)": {
     backgroundColor: "pink.100",
     color: "pink.700",
+  },
+  "&:disabled.button-active": {
+    cursor: "auto",
+    backgroundColor: "pink.200",
+    color: "pink.800",
   },
   borderColor: "pink.300",
   borderStyle: "solid",
   borderWidth: "2px",
+});
+
+const lightGray = css({
+  color: "gray.700",
+  backgroundColor: "gray.300",
+  "&:hover:not(.button-active):not(.button-disabled)": {
+    backgroundColor: "gray.400",
+    color: "gray.800",
+  },
+  "&:disabled.button-active": {
+    cursor: "default",
+    backgroundColor: "gray.500",
+    color: "gray.200",
+  },
+  borderColor: "transparent",
+  borderStyle: "solid",
+  borderWidth: "1px",
 });
 
 const boldText = css({
@@ -168,4 +219,8 @@ const circleBorders = css({
 
 const fitContent = css({
   width: "fit-content",
+});
+
+const disabledAnchor = css({
+  pointerEvents: "none",
 });

@@ -8,6 +8,10 @@ const headerLinks = [
     name: "Gestion des pages",
     href: "/gestion-pages",
   },
+  {
+    name: "Formulaires",
+    href: "/formulaires",
+  }
 ];
 
 type HeaderProps = {

@@ -13,6 +13,9 @@ import { UserContext } from "./global/contexts/user";
 import Index from "./global/pages/Index";
 import Login from "./global/pages/Login";
 import NotFound from "./global/pages/NotFound";
+import FormsDashboard from "./forms/pages/FormsDashboard";
+import FormsManagement from "./forms/pages/FormsManagement";
+import QuestionsManagement from "./forms/pages/QuestionsManagement";
 
 const pagesRoutes = [
   {
@@ -34,6 +37,17 @@ const pagesRoutes = [
     element: <ManagePage />,
   },
   {
+    path: "formulaires",
+    element: <FormsDashboard />,
+    children: [
+      {
+        path: "",
+        element: <FormsManagement />,
+      },
+      { path: "questions", element: <QuestionsManagement /> },
+    ],
+  },
+  {
     path: "*",
     element: <NotFound />,
   },
@@ -43,8 +57,7 @@ const appRoutes = [
   {
     element: <PageContainer />,
     children: pagesRoutes.map((route) => ({
-      path: route.path,
-      element: route.element,
+      ...route
     })),
   },
 ];
