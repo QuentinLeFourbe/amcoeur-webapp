@@ -1,0 +1,124 @@
+import { PageComponent } from "@amcoeur/types";
+import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
+import { getNewComponent } from "../../utils/page";
+import FormTitleBannerComponent from "./FormTitleBanner";
+import FormTextArea from "./FormTextArea";
+import FormContentPanel from "./FormContentPanel";
+import FormImage from "./FormImage";
+import FormComponentContainer from "./FormComponentContainer";
+import FormEmptyComponent from "./FormEmptyComponent";
+
+type ComponentsFieldsRendererProps = {
+  value: PageComponent[];
+  onChange?: (components: PageComponent[]) => void;
+  onBlur?: (components: PageComponent[]) => void;
+  moveComponent?: (index: number, direction: "up" | "down") => void;
+  removeComponent?: (index: number) => void;
+  updateComponent?: (component: PageComponent, index: number) => void;
+  errors?: Merge<
+    FieldError,
+    (
+      | Merge<FieldError, FieldErrorsImpl<NonNullable<PageComponent>>>
+      | undefined
+    )[]
+  >;
+};
+
+function ComponentsFieldsRenderer({
+  value: components,
+  onChange,
+  onBlur,
+  moveComponent,
+  removeComponent,
+  updateComponent,
+  errors,
+}: ComponentsFieldsRendererProps) {
+  const getHandleChange = (index: number) => {
+    const handleChange = (component: PageComponent) => {
+      const newValue = [...components];
+      newValue[index] = component;
+      onChange?.(newValue);
+    };
+    return handleChange;
+  };
+
+  const getHandleBlur = (index: number) => {
+    const handleBlur = (component: PageComponent) => {
+      const newValue = [...components];
+      newValue[index] = component;
+      onBlur?.(newValue);
+    };
+    return handleBlur;
+  };
+
+  const getRenderedComponent = (component: PageComponent, index: number) => {
+    switch (component.type) {
+      case "Image":
+        return (
+          <FormImage
+            component={component}
+            onBlur={getHandleBlur(index)}
+            onChange={getHandleChange(index)}
+            errors={errors && errors[index]}
+          />
+        );
+      case "TitleBanner":
+        return (
+          <FormTitleBannerComponent
+            component={component}
+            onBlur={getHandleBlur(index)}
+            onChange={getHandleChange(index)}
+            errors={errors && errors[index]}
+          />
+        );
+      case "TextArea":
+        return (
+          <FormTextArea
+            component={component}
+            onBlur={getHandleBlur(index)}
+            onChange={getHandleChange(index)}
+          />
+        );
+      case "ContentPanel":
+        return (
+          <FormContentPanel
+            component={component}
+            onBlur={getHandleBlur(index)}
+            onChange={getHandleChange(index)}
+            errors={errors && errors[index]}
+          />
+        );
+      case "Empty":
+        return (
+          <FormEmptyComponent
+            onChange={(type) => {
+              updateComponent && updateComponent(getNewComponent(type), index)
+            }}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  return components?.map((component, index) => (
+    <FormComponentContainer
+      key={component.id}
+      onDelete={removeComponent && (() => removeComponent(index))}
+      onMoveUp={
+        index !== 0 && moveComponent
+          ? () => moveComponent(index, "up")
+          : undefined
+      }
+      onMoveDown={
+        index !== components.length - 1 && moveComponent
+          ? () => moveComponent(index, "down")
+          : undefined
+      }
+    >
+      {getRenderedComponent(component, index)}
+    </FormComponentContainer>
+  ));
+}
+
+export default ComponentsFieldsRenderer;
