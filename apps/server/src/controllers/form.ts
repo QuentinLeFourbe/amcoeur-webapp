@@ -1,11 +1,21 @@
 import type { Request, Response } from "express";
 import Form from "../models/form.js";
+import type { FormClientData, FormServerData } from "@amcoeur/types";
+import {
+  convertToFormClientData,
+  convertToFormServerData,
+} from "../services/formService.js";
 
 export const createForm = async (req: Request, res: Response) => {
   try {
-    const newForm = new Form({ ...req.body });
+    const formClientData = req.body as FormClientData;
+    const formServerData = convertToFormServerData(formClientData);
+    const newForm = new Form({ ...formServerData });
     await newForm.save();
-    res.status(201).json(newForm);
+    console.log({formServerData})
+    console.log({formClientData})
+    console.log({newForm})
+    res.status(201).json("Formulaire créé");
   } catch (error) {
     res.locals.logger.error(error);
     if (error instanceof Error) {
@@ -44,7 +54,10 @@ export const updateForm = async (req: Request, res: Response) => {
       new: true,
     });
     if (updatedForm) {
-      res.status(200).json(updateForm);
+      const clientFormattedForm = await convertToFormClientData(
+        updatedForm as FormServerData,
+      );
+      res.status(200).json(clientFormattedForm);
     } else {
       res.status(404).json({ message: "Formulaire non trouvé" });
     }
@@ -65,7 +78,10 @@ export const getForm = async (req: Request, res: Response) => {
   try {
     const form = await Form.findById(req.params.id);
     if (form) {
-      res.status(200).json(form);
+      const clientFormattedForm = await convertToFormClientData(
+        form as FormServerData,
+      );
+      res.status(200).json(clientFormattedForm);
     } else {
       res.status(404).json({ message: "Formulaire introuvable" });
     }
@@ -84,8 +100,8 @@ export const getForm = async (req: Request, res: Response) => {
 
 export const getForms = async (req: Request, res: Response) => {
   try {
-    const form = await Form.find(req.query);
-    res.status(200).json(form);
+    const forms = await Form.find(req.query);
+    res.status(200).json(forms);
   } catch (error) {
     res.locals.logger.error(error);
     if (error instanceof Error) {

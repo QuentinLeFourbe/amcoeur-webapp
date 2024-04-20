@@ -10,7 +10,7 @@ import type { PageComponent, PageComponentWithImage } from "@amcoeur/types";
  */
 export const matchComponentsWithImageUrl = (
   components: PageComponent[],
-  images: Pick<Express.Multer.File,"fieldname" | "filename">[]
+  images: Pick<Express.Multer.File, "fieldname" | "filename">[],
 ) => {
   if (!components || components.length === 0) {
     return [];

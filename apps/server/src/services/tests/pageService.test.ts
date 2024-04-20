@@ -1,6 +1,6 @@
 import type { PageComponent } from "@amcoeur/types";
 import { it, describe, expect, beforeEach, } from "vitest";
-import { matchComponentsWithImageUrl } from "../components.js";
+import { matchComponentsWithImageUrl } from "../pageService.js";
 
 describe("match components with image URL", () => {
   let images: { fieldname: string; filename: string }[];

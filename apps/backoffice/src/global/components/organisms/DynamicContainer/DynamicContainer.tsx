@@ -1,19 +1,19 @@
-import { css } from "../../../../styled-system/css";
-import Button from "../../../global/components/atoms/Button/Button";
+import { css } from "../../../../../styled-system/css";
+import Button from "../../atoms/Button/Button";
 
-type FormComponentContainerProps = {
+type DynamicContainerProps = {
   onDelete?: () => void;
   onMoveUp?: () => void;
   onMoveDown?: () => void;
   children: React.ReactNode;
 };
 
-function FormComponentContainer({
+function DynamicContainer({
   onDelete,
   onMoveUp,
   onMoveDown,
   children,
-}: FormComponentContainerProps) {
+}: DynamicContainerProps) {
   return (
     <div className={container}>
       <div className={buttonsContainer}>
@@ -53,7 +53,7 @@ function FormComponentContainer({
   );
 }
 
-export default FormComponentContainer;
+export default DynamicContainer;
 
 const buttonStyle = css({
   padding: "8px",
@@ -67,6 +67,9 @@ const container = css({
   borderWidth: "2px",
   borderColor: "neutral.700",
   padding: "32px",
+  display: "flex",
+  flexFlow: "column nowrap",
+  gap: "16px",
 });
 
 const buttonsContainer = css({

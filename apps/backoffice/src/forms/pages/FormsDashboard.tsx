@@ -10,7 +10,7 @@ function FormsDashboard() {
       className={css({
         display: "flex",
         flexFlow: "column nowrap",
-        alignItems: "center",
+        margin: "0 10vw",
         gap: "16px",
       })}
     >

@@ -19,8 +19,8 @@ function ManagePages() {
   return (
     <div className={container}>
       <div className={css({ display: "flex", gap: "12px" })}>
-        <Button to="/gestion-pages/creer">Créer une page</Button>
-        <Button to="/gestion-pages/page-accueil">
+        <Button to="/pages/creer">Créer une page</Button>
+        <Button to="/pages/page-accueil">
           Modifier la page d&apos;accueil
         </Button>
       </div>
@@ -48,7 +48,7 @@ function ManagePages() {
                 <td>{page.name}</td>
                 <td>/{page.route}</td>
                 <td>
-                  <Button to={`/gestion-pages/${page._id}`}>Afficher</Button>
+                  <Button to={`/pages/${page._id}`}>Afficher</Button>
                 </td>
                 <td>
                   <Button onClick={() => setPageToDelete(page)} color="red">

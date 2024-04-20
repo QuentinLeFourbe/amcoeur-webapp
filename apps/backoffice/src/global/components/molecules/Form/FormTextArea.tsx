@@ -2,24 +2,30 @@ import React from "react";
 import type { UseFormRegisterReturn } from "react-hook-form";
 import Label from "../../atoms/Label/Label";
 import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
-import { css } from "../../../../../styled-system/css";
+import { css, cx } from "../../../../../styled-system/css";
 
 type FormTextAreaProps = React.InputHTMLAttributes<HTMLTextAreaElement> & {
   children: React.ReactNode;
   errorMessage?: string;
   register: UseFormRegisterReturn;
+  fixedSize?: boolean;
 };
 
 const FormTextArea = ({
   children,
   errorMessage,
   register,
+  fixedSize,
   ...props
 }: FormTextAreaProps) => {
   return (
     <div>
       <Label>{children}</Label>
-      <textarea {...register} className={textAreaStyle} {...props} />
+      <textarea
+        {...register}
+        {...props}
+        className={cx(textAreaStyle, fixedSize && notResizable, props.className)}
+      />
       {errorMessage && <ErrorLabel>{errorMessage}</ErrorLabel>}
     </div>
   );
@@ -32,8 +38,9 @@ const textAreaStyle = css({
   justifyContent: "flex-start",
   backgroundColor: "backgrounds.primary.extraLight",
   borderRadius: "4px",
-  width: "100%",
-  height: "800px",
-  resize: "none",
   padding: "1rem",
+});
+
+const notResizable = css({
+  resize: "none",
 });

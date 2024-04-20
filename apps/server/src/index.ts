@@ -2,6 +2,8 @@ import "dotenv/config";
 import express, { type Request, type Response } from "express";
 import path, { dirname } from "path";
 import helmet from "helmet";
+import questionsRoutes from "./routes/question.js"
+import formsRoutes from "./routes/form.js";
 import emailRoutes from "./routes/email.js";
 import userRoutes from "./routes/user.js";
 import mongoose from "mongoose";
@@ -50,6 +52,8 @@ app.use(getRequestLogger)
 app.use("/api/users", userRoutes);
 app.use("/api/email", emailRoutes);
 app.use("/api/pages", pageRoutes);
+app.use("/api/questions", questionsRoutes);
+app.use("/api/forms", formsRoutes);
 
 app.get("/administration*", (_req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../backoffice/dist/index.html"));

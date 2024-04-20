@@ -32,7 +32,7 @@ import { css } from "../../../styled-system/css";
       ) : (
         <div className={container}>
           <div className={buttonContainer}>
-            <Button onClick={() => navigate("/gestion-pages")}>Retour</Button>
+            <Button onClick={() => navigate("/pages")}>Retour</Button>
             <Button href={`/preview/${data?.data._id}`} target="_blank">
               Visualiser
             </Button>

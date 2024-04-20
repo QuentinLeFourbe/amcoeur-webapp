@@ -1,28 +1,29 @@
 import type { ComponentProps } from "react";
-import { css } from "../../../../../styled-system/css";
+import { css, cx } from "../../../../../styled-system/css";
 import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
 
 type LinkProps = ComponentProps<typeof ClickablePrimitive> & {
   variant?: "primary" | "secondary" | "tertiary" | "footer" | "default";
+  isActive?: boolean;
 };
 
 /**
- * A custom link which uses React router's Link component.
+ * A Link component which can be used for a button, an anchor or a Link from React Router
  */
-function Link({ children, variant, ...props }: LinkProps) {
+function Link({ children, variant, isActive, ...props }: LinkProps) {
   let className;
   switch (variant) {
     case "primary":
-      className = primaryLink;
+      className = cx("primary", primaryLink);
       break;
     case "secondary":
-      className = secondaryLink;
+      className = cx("secondary", secondaryLink);
       break;
     case "tertiary":
-      className = tertiaryLink;
+      className = cx("tertiary", tertiaryLink);
       break;
     case "footer":
-      className = linkStyle;
+      className = cx("footer-link", linkStyle);
       break;
     default:
       className = linkStyle;
@@ -30,7 +31,10 @@ function Link({ children, variant, ...props }: LinkProps) {
   }
 
   return (
-    <ClickablePrimitive {...props} className={className}>
+    <ClickablePrimitive
+      {...props}
+      className={cx(className, linkBaseStyle, isActive && "link-active")}
+    >
       {children}
     </ClickablePrimitive>
   );
@@ -38,46 +42,57 @@ function Link({ children, variant, ...props }: LinkProps) {
 
 export default Link;
 
-const linkStyle = css({
+const linkBaseStyle = css({
+  cursor: "pointer",
   textDecoration: "none",
   transition: "color 0.2s ease-in-out",
+  fontWeight: "bold",
+  fontFamily: "body",
+
+  "&.link-active": {
+    pointerEvents: "none",
+    cursor: "default",
+  },
+});
+
+const linkStyle = css({
+  textDecoration: "none",
   "&:hover": {
     textDecoration: "underline",
   },
 });
 
 const primaryLink = css({
-  cursor: "pointer",
-  textDecoration: "none",
-  fontWeight: "bold",
-  fontFamily: "body",
   fontSize: "1.2rem",
-  color: "textPrimary",
-  transition: "color 0.2s ease-in-out",
+  color: "gray.50",
   "&:hover": {
-    color: "textSecondary",
+    color: "gray.700",
+  },
+  "&.link-active": {
+    color: "rose.500",
+    borderColor: "rose.500",
+    borderStyle: "solid",
+    borderWidth: "0 0 2px 0",
   },
 });
 
 const secondaryLink = css({
-  textDecoration: "none",
-  fontWeight: "bold",
-  fontFamily: "body",
   fontSize: "1.2rem",
-  color: "pinkLight",
-  transition: "color 0.2s ease-in-out",
+  color: "gray.50",
   "&:hover": {
-    color: "pinkMedium",
+    color: "rose.400",
+  },
+  "&.link-active": {
+    color: "rose.500",
+    borderColor: "rose.500",
+    borderStyle: "solid",
+    borderWidth: "0 0 2px 0",
   },
 });
 
 const tertiaryLink = css({
-  textDecoration: "none",
-  fontWeight: "bold",
-  fontFamily: "body",
   fontSize: "1rem",
   color: "white",
-  transition: "color 0.2s ease-in-out",
   "&:hover": {
     color: "pinkLight",
   },

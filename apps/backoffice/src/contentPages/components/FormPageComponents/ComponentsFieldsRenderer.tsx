@@ -1,11 +1,11 @@
 import { PageComponent } from "@amcoeur/types";
 import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
 import { getNewComponent } from "../../utils/page";
+import DynamicContainer from "../../../global/components/organisms/DynamicContainer/DynamicContainer";
 import FormTitleBannerComponent from "./FormTitleBanner";
-import FormTextArea from "./FormTextArea";
+import FormTextAreaComponent from "./FormTextAreaComponent";
 import FormContentPanel from "./FormContentPanel";
 import FormImage from "./FormImage";
-import FormComponentContainer from "./FormComponentContainer";
 import FormEmptyComponent from "./FormEmptyComponent";
 
 type ComponentsFieldsRendererProps = {
@@ -73,7 +73,7 @@ function ComponentsFieldsRenderer({
         );
       case "TextArea":
         return (
-          <FormTextArea
+          <FormTextAreaComponent
             component={component}
             onBlur={getHandleBlur(index)}
             onChange={getHandleChange(index)}
@@ -102,7 +102,7 @@ function ComponentsFieldsRenderer({
   };
 
   return components?.map((component, index) => (
-    <FormComponentContainer
+    <DynamicContainer
       key={component.id}
       onDelete={removeComponent && (() => removeComponent(index))}
       onMoveUp={
@@ -117,7 +117,7 @@ function ComponentsFieldsRenderer({
       }
     >
       {getRenderedComponent(component, index)}
-    </FormComponentContainer>
+    </DynamicContainer>
   ));
 }
 

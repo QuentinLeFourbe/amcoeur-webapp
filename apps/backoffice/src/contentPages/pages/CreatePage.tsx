@@ -9,12 +9,12 @@ function CreatePage() {
   const navigate = useNavigate();
   const { mutate, isError } = useCreatePage({
     onSuccess: (data) => {
-      navigate(`/gestion-pages/${data.data._id}`);
+      navigate(`/pages/${data.data._id}`);
     },
   });
 
   const handleCancel = () => {
-    navigate("/gestion-pages")
+    navigate("/pages")
   }
 
   const onSubmit = (data: PageDataClient) => {

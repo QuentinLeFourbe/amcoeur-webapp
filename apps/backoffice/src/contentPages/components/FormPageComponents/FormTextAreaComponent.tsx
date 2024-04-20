@@ -1,13 +1,13 @@
 import { TextAreaComponent } from "@amcoeur/types";
 import FormCodeArea from "../../../global/components/molecules/Form/FormCodeArea";
 
-type FormTextAreaProps = {
+type FormTextAreaComponentProps = {
   component: TextAreaComponent;
   onChange?: (component: TextAreaComponent) => void;
   onBlur?: (component: TextAreaComponent) => void;
 };
 
-function FormTextArea({ component, onChange, onBlur }: FormTextAreaProps) {
+function FormTextAreaComponent({ component, onChange, onBlur }: FormTextAreaComponentProps) {
   return (
     <div>
       <h2>Zone de texte</h2>
@@ -32,4 +32,4 @@ function FormTextArea({ component, onChange, onBlur }: FormTextAreaProps) {
   );
 }
 
-export default FormTextArea;
+export default FormTextAreaComponent;

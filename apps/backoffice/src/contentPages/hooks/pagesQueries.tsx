@@ -61,10 +61,7 @@ export const useUpdatePage = () => {
         queryKey: ["pages"],
       });
       queryClient.invalidateQueries({
-        queryKey: ["page"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: [data.data._id],
+        queryKey: ["page", data.data._id],
       });
     },
   });

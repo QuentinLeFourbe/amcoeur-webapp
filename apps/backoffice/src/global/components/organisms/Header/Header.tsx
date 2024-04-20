@@ -6,7 +6,7 @@ import Link from "../../atoms/Link/Link";
 const headerLinks = [
   {
     name: "Gestion des pages",
-    href: "/gestion-pages",
+    href: "/pages",
   },
   {
     name: "Formulaires",

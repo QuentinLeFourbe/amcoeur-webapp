@@ -61,8 +61,6 @@ function Button({
       colorStyle = primaryColors;
       break;
   }
-  console.log("is button ?", isButton, children);
-  console.log("is Disable ou active", isDisabled, isActive);
   const disabledProps = isButton ? { disabled: isDisabled || isActive } : {};
   return (
     <ClickablePrimitive

@@ -16,6 +16,9 @@ type FormInputProps = ComponentPropsWithoutRef<typeof Input> & {
   onRemove?: () => void;
 };
 
+/**
+ * A input for a Form. It is compatible with React hook form or native onChange support.
+ * **/
 const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
   function FormInput(
     {
@@ -42,8 +45,11 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
         break;
     }
 
+    const inputStyle = props.type === "checkbox" ? checkMark : widthClass;
+    const containerStyle = props.type === "checkbox" ? rowContainer : container;
+
     return (
-      <div className={container}>
+      <div className={containerStyle}>
         <Label htmlFor={props.name}>{children}</Label>
         {removable ? (
           <div
@@ -54,7 +60,7 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
               gap: "8px",
             })}
           >
-            <Input {...props} ref={ref} className={widthClass} {...register} />
+            <Input {...props} ref={ref} className={inputStyle} {...register} />
             <Button
               color="red"
               icon="x-mark"
@@ -63,7 +69,7 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
             />
           </div>
         ) : (
-          <Input {...props} ref={ref} className={widthClass} {...register} />
+          <Input {...props} ref={ref} className={inputStyle} {...register} />
         )}
         {errorMessage && <ErrorLabel>{errorMessage}</ErrorLabel>}
         {props.isPath && (
@@ -89,6 +95,22 @@ export default FormInput;
 const container = css({
   display: "flex",
   flexFlow: "column nowrap",
+  gap: "8px",
+});
+
+const rowContainer = css({
+  display: "flex",
+  flexFlow: "row wrap",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: "32px",
+  maxWidth: "300px",
+});
+
+const checkMark = css({
+  height: "20px",
+  width: "20px",
+  borderRadius: "4px",
 });
 
 const fullWidth = css({
