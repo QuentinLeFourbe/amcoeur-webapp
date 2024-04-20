@@ -59,9 +59,16 @@ function FormsManagement() {
                 <td>todo</td>
                 <td>
                   <div className={css({ display: "flex", gap: "16px" })}>
-                    <Button to={`/formulaires/modifier/${form._id}`} color="blue">Modifier</Button>
+                    <Button
+                      to={`/formulaires/modifier/${form._id}`}
+                      color="blue"
+                    >
+                      Modifier
+                    </Button>
                     <Button color="blue">Dupliquer</Button>
-                    <Button color="red">Supprimer</Button>
+                    <Button onClick={() => setFormToDelete(form)} color="red">
+                      Supprimer
+                    </Button>
                   </div>
                 </td>
               </tr>
@@ -71,8 +78,8 @@ function FormsManagement() {
       </div>
       <Overlay isVisible={!!formToDelete} onClose={() => setFormToDelete(null)}>
         <p>
-          Vous êtes sur le point de supprimer le formulaire
-          {formToDelete?.name}, êtes vous sûr ?
+          Vous êtes sur le point de supprimer le formulaire {formToDelete?.name}
+          , êtes vous sûr ?
         </p>
         <div className={css({ display: "flex", gap: "1rem" })}>
           <Button
