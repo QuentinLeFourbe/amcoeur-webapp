@@ -2,7 +2,6 @@ import type { Request, Response } from "express";
 import Form from "../models/form.js";
 import type { FormClientData, FormServerData } from "@amcoeur/types";
 import {
-  convertToFormClientData,
   convertToFormServerData,
 } from "../services/formService.js";
 
@@ -12,9 +11,6 @@ export const createForm = async (req: Request, res: Response) => {
     const formServerData = convertToFormServerData(formClientData);
     const newForm = new Form({ ...formServerData });
     await newForm.save();
-    console.log({formServerData})
-    console.log({formClientData})
-    console.log({newForm})
     res.status(201).json("Formulaire créé");
   } catch (error) {
     res.locals.logger.error(error);
@@ -54,10 +50,7 @@ export const updateForm = async (req: Request, res: Response) => {
       new: true,
     });
     if (updatedForm) {
-      const clientFormattedForm = await convertToFormClientData(
-        updatedForm as FormServerData,
-      );
-      res.status(200).json(clientFormattedForm);
+      res.status(200).json(updatedForm);
     } else {
       res.status(404).json({ message: "Formulaire non trouvé" });
     }
@@ -78,10 +71,7 @@ export const getForm = async (req: Request, res: Response) => {
   try {
     const form = await Form.findById(req.params.id);
     if (form) {
-      const clientFormattedForm = await convertToFormClientData(
-        form as FormServerData,
-      );
-      res.status(200).json(clientFormattedForm);
+      res.status(200).json(form);
     } else {
       res.status(404).json({ message: "Formulaire introuvable" });
     }

@@ -59,7 +59,7 @@ function FormsManagement() {
                 <td>todo</td>
                 <td>
                   <div className={css({ display: "flex", gap: "16px" })}>
-                    <Button color="blue">Modifier</Button>
+                    <Button to={`/formulaires/modifier/${form._id}`} color="blue">Modifier</Button>
                     <Button color="blue">Dupliquer</Button>
                     <Button color="red">Supprimer</Button>
                   </div>

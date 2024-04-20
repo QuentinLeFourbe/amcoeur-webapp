@@ -13,6 +13,7 @@ import QuestionsManagement from "./questions/pages/QuestionsManagement";
 import CreateQuestion from "./questions/pages/CreateQuestion";
 import UpdateQuestion from "./questions/pages/UpdateQuestion";
 import CreateForm from "./forms/pages/CreateForm";
+import UpdateForm from "./forms/pages/UpdateForm";
 
 const commonRoutes = [
   {
@@ -77,6 +78,7 @@ const formsRoutes = {
       ],
     },
     { path: "creer", element: <CreateForm /> },
+    { path: "modifier/:id", element: <UpdateForm /> },
     questionsRoutes,
   ],
 };

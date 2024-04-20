@@ -63,7 +63,6 @@ export default function ReservationForm() {
 
 
   const onSubmit = (data: ReservationFormData) => {
-    console.log({ data });
     try {
       // sendContactEmail(data);
     } catch (e) {

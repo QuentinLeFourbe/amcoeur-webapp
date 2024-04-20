@@ -82,6 +82,7 @@ function FormQuestions({
             />
           )}
           <FormInput
+            checked={question.isFullLine}
             type="checkbox"
             onChange={(e) =>
               handleChange({ ...question, isFullLine: e.target.checked }, index)
@@ -94,6 +95,7 @@ function FormQuestions({
           </FormInput>
           <FormInput
             type="checkbox"
+            checked={question.isRequired}
             onChange={(e) =>
               handleChange({ ...question, isRequired: e.target.checked }, index)
             }
@@ -105,6 +107,7 @@ function FormQuestions({
           </FormInput>
           <FormInput
             type="checkbox"
+            checked={question.showOnlyInput}
             onChange={(e) =>
               handleChange(
                 { ...question, showOnlyInput: e.target.checked },
@@ -138,8 +141,8 @@ const QuestionDetails = ({
   const question = questionsData.find(
     (question) => questionId === question._id,
   );
-  return (
-    question ? <>
+  return question ? (
+    <>
       <div className={questionDetailsStyle}>
         <Label>Contenu</Label>
         <div>{question?.content}</div>
@@ -148,8 +151,8 @@ const QuestionDetails = ({
         <Label>Type</Label>
         <div>{getLabelFromValue(question?.type)}</div>
       </div>
-    </> : null
-  );
+    </>
+  ) : null;
 };
 const questionDetailsStyle = css({
   display: "flex",

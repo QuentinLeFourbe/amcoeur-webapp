@@ -53,10 +53,15 @@ function FormBlocks({
         <DynamicContainer
           key={block.id}
           onMoveUp={index !== 0 ? () => handleMoveBlockUp(index) : undefined}
-          onMoveDown={index +1 !== blocks.length ? () => handleMoveBlockDown(index) : undefined}
+          onMoveDown={
+            index + 1 !== blocks.length
+              ? () => handleMoveBlockDown(index)
+              : undefined
+          }
           onDelete={() => handleDeleteBlock(index)}
         >
           <FormInput
+            value={block.title}
             onChange={(e) => {
               handleChange({ ...block, title: e.target.value }, index);
             }}
