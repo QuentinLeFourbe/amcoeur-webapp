@@ -7,6 +7,7 @@ import FormTextAreaComponent from "./FormTextAreaComponent";
 import FormContentPanel from "./FormContentPanel";
 import FormImage from "./FormImage";
 import FormEmptyComponent from "./FormEmptyComponent";
+import DynamicFormFields from "./DynamicFormFields";
 
 type ComponentsFieldsRendererProps = {
   value: PageComponent[];
@@ -33,13 +34,10 @@ function ComponentsFieldsRenderer({
   updateComponent,
   errors,
 }: ComponentsFieldsRendererProps) {
-  const getHandleChange = (index: number) => {
-    const handleChange = (component: PageComponent) => {
-      const newValue = [...components];
-      newValue[index] = component;
-      onChange?.(newValue);
-    };
-    return handleChange;
+  const handleChange = (component: PageComponent, index: number) => {
+    const newValue = [...components];
+    newValue[index] = component;
+    onChange?.(newValue);
   };
 
   const getHandleBlur = (index: number) => {
@@ -58,7 +56,7 @@ function ComponentsFieldsRenderer({
           <FormImage
             component={component}
             onBlur={getHandleBlur(index)}
-            onChange={getHandleChange(index)}
+            onChange={(component) => handleChange(component, index)}
             errors={errors && errors[index]}
           />
         );
@@ -67,7 +65,7 @@ function ComponentsFieldsRenderer({
           <FormTitleBannerComponent
             component={component}
             onBlur={getHandleBlur(index)}
-            onChange={getHandleChange(index)}
+            onChange={(component) => handleChange(component, index)}
             errors={errors && errors[index]}
           />
         );
@@ -76,7 +74,7 @@ function ComponentsFieldsRenderer({
           <FormTextAreaComponent
             component={component}
             onBlur={getHandleBlur(index)}
-            onChange={getHandleChange(index)}
+            onChange={(component) => handleChange(component, index)}
           />
         );
       case "ContentPanel":
@@ -84,15 +82,22 @@ function ComponentsFieldsRenderer({
           <FormContentPanel
             component={component}
             onBlur={getHandleBlur(index)}
-            onChange={getHandleChange(index)}
+            onChange={(component) => handleChange(component, index)}
             errors={errors && errors[index]}
+          />
+        );
+      case "Form":
+        return (
+          <DynamicFormFields
+            component={component}
+            onChange={(component) => handleChange(component, index)}
           />
         );
       case "Empty":
         return (
           <FormEmptyComponent
             onChange={(type) => {
-              updateComponent && updateComponent(getNewComponent(type), index)
+              updateComponent && updateComponent(getNewComponent(type), index);
             }}
           />
         );

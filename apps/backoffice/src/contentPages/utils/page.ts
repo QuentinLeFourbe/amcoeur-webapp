@@ -38,6 +38,11 @@ export const getNewComponent = (type: PageComponentType): PageComponent => {
         id,
         ...emptyComponentWithImage,
       };
+    case "Form":
+      return {
+        type,
+        id,
+      };
     default:
       return {
         type: "Empty",

@@ -5,11 +5,12 @@ import { css } from "../../../../styled-system/css";
 type FormEmptyComponentProps = {
   onChange: (type: PageComponentType) => void;
 };
-const options = [
+const options: { label: string; value: PageComponentType }[] = [
   { label: "Image", value: "Image" },
   { label: "Zone de texte", value: "TextArea" },
   { label: "Bannière titre", value: "TitleBanner" },
   { label: "Panneau", value: "ContentPanel" },
+  { label: "Formulaire", value: "Form" },
 ];
 
 function FormEmptyComponent({ onChange }: FormEmptyComponentProps) {
