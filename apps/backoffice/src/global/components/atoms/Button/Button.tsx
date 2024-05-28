@@ -6,7 +6,6 @@ import Icon, { type IconType } from "../Icon/Icon";
 type ButtonProps = ComponentProps<typeof ClickablePrimitive> & {
   borderRadius?: "rounded" | "square" | "circle";
   bold?: boolean;
-  size?: "small" | "medium" | "large";
   color?: "green" | "blue" | "red" | "secondary" | "lightGray";
   icon?: IconType;
   isActive?: boolean;

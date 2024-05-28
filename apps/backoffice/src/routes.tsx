@@ -9,11 +9,10 @@ import Login from "./global/pages/Login";
 import NotFound from "./global/pages/NotFound";
 import FormsDashboard from "./forms/pages/FormsDashboard";
 import FormsManagement from "./forms/pages/FormsManagement";
-import QuestionsManagement from "./questions/pages/QuestionsManagement";
-import CreateQuestion from "./questions/pages/CreateQuestion";
-import UpdateQuestion from "./questions/pages/UpdateQuestion";
 import CreateForm from "./forms/pages/CreateForm";
 import UpdateForm from "./forms/pages/UpdateForm";
+import AnswersDashboard from "./answers/pages/AnswersDashboard";
+import ViewAnswer from "./answers/pages/ViewAnswer";
 
 const commonRoutes = [
   {
@@ -46,24 +45,6 @@ const pagesRoutes = {
   ],
 };
 
-const questionsRoutes = {
-  path: "questions",
-  children: [
-    {
-      path: "*",
-      element: <FormsDashboard />,
-      children: [
-        {
-          path: "*",
-          element: <QuestionsManagement />,
-        },
-      ],
-    },
-    { path: "creer", element: <CreateQuestion /> },
-    { path: ":id/modifier", element: <UpdateQuestion /> },
-  ],
-};
-
 const formsRoutes = {
   path: "formulaires",
   children: [
@@ -75,11 +56,12 @@ const formsRoutes = {
           path: "*",
           element: <FormsManagement />,
         },
+        { path: "reponses/:formId", element: <AnswersDashboard /> },
       ],
     },
     { path: "creer", element: <CreateForm /> },
     { path: "modifier/:id", element: <UpdateForm /> },
-    questionsRoutes,
+    { path: "reponses/:formId/:answerId", element: <ViewAnswer /> },
   ],
 };
 

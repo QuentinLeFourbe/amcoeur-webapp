@@ -11,22 +11,30 @@ type SelectProps = {
   value?: string;
   placeholder?: string;
   onChange?: (value: string) => void;
+  onBlur?: (value: string) => void;
   className?: string;
 };
 
 /**
  * A custom select component that allows users to select an option from a dropdown list.
- * 
+ *
  * @param options - An array of objects representing the options available in the dropdown list. Each object should have a 'value' and 'label' property.
  * @param value - The currently selected value from the dropdown list.
  * @param onChange - A callback function that is called when a new option is selected. It receives the value of the selected option as a parameter.
  * @param className - An optional CSS class name to apply to the select component.
- * 
+ *
  * @returns A custom select component with a dropdown list of options.
- * 
+ *
  * @throws {TypeError} If the options array is empty or if any option object is missing the 'value' or 'label' property.
  */
-function Select({ options, value, placeholder,  onChange, className }: SelectProps) {
+function Select({
+  options,
+  value,
+  placeholder,
+  onChange,
+  onBlur,
+  className,
+}: SelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [focusedOptionIndex, setFocusedOptionIndex] = useState(-1);
   const selectRef = useRef<HTMLDivElement>(null);
@@ -37,10 +45,11 @@ function Select({ options, value, placeholder,  onChange, className }: SelectPro
 
   const closeDropdown = () => {
     setIsOpen(false);
+    onBlur?.(value || "");
   };
 
-  const selectOption = (value: string) => {
-    onChange?.(value);
+  const selectOption = (selectedValue: string) => {
+    onChange?.(selectedValue);
     closeDropdown();
   };
 
@@ -149,7 +158,7 @@ const dropdownButtonStyle = css({
   padding: "8px 12px",
   border: "1px solid #ccc",
   borderRadius: "4px",
-    backgroundColor: "#f4f4f4",
+  backgroundColor: "#f4f4f4",
   cursor: "pointer",
   "&:hover": {
     backgroundColor: "#f5f5f5",

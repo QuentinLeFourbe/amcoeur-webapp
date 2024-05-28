@@ -1,26 +1,25 @@
-import {
-  FormBlockClient,
-  FormClientData,
-  FormQuestionClient,
-} from "@amcoeur/types";
+import {  FormField, FormFieldType } from "@amcoeur/types";
 
-export const createBlock = (block?: FormBlockClient) => {
-  const randomId = crypto.randomUUID();
-  return { questions: [], ...block, id: randomId } as FormBlockClient;
-};
 
-export const createQuestion = (question?: FormQuestionClient) => {
-  const randomId = crypto.randomUUID();
-  return { ...question, id: randomId } as FormQuestionClient;
-};
 
-export const removeEmptyQuestions = (form: FormClientData) => {
-  const cleanedBlocks = form.blocks.map((block) => {
-    const cleanedQuestions = block.questions.filter(
-      (question) => question.questionId,
-    );
-    return { ...block, questions: cleanedQuestions };
-  });
+export const getLabelFromValue = (value: FormFieldType) => {
+  switch(value) {
+    case "MULTIPLE_CHOICES": return "Choix multiples";
+    case "UNIQUE_CHOICE": return "Choix unique";
+    case "SHORT_TEXT": return "Texte court";
+    case "TEXT_AREA": return "Bloc de texte";
+    case "NUMERIC": return "Numérique";
+    case "GENDER": return "Civilité";
+    case "PHONE": return "Téléphone";
+    case "EMAIL": return "Email";
+  }
+}
 
-  return { ...form, blocks: cleanedBlocks } as FormClientData;
+export const getNewField = () => {
+  return {
+    id: crypto.randomUUID(),
+    content: "",
+    type: "SHORT_TEXT",
+    isRequired: false,
+  } as FormField;
 };

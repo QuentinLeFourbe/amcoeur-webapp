@@ -1,10 +1,7 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import NavigationBar from "../../global/components/molecules/NavigationBar/NavigationBar";
+import { Outlet } from "react-router-dom";
 import { css } from "../../../styled-system/css";
 
 function FormsDashboard() {
-  const navigate = useNavigate();
-  const location = useLocation(); 
   return (
     <div
       className={css({
@@ -14,12 +11,6 @@ function FormsDashboard() {
         gap: "16px",
       })}
     >
-      <NavigationBar
-        links={[
-          { label: "Formulaires", onClick: () => navigate("/formulaires"), isActive: location.pathname === "/formulaires"},
-          { label: "Questions", onClick: () => navigate("/formulaires/questions") , isActive: location.pathname === "/formulaires/questions"},
-        ]}
-      />
       <Outlet />
     </div>
   );

@@ -1,14 +1,13 @@
-import React, { ComponentProps } from "react";
-
-import Select from "../../atoms/Select/Select";
+import React, { ComponentPropsWithRef, forwardRef } from "react";
 import Label from "../../atoms/Label/Label";
 import { css } from "../../../../../styled-system/css";
 import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
+import SelectAlt from "../../atoms/Select/SelectAlt";
 
-type FormSelectProps = ComponentProps<typeof Select> & {
+type FormSelectProps = ComponentPropsWithRef<typeof SelectAlt> & {
   children: React.ReactNode;
   errorMessage?: string;
-  size?: "small" | "medium" | "large";
+  inputSize?: "small" | "medium" | "large";
 };
 
 /**
@@ -19,34 +18,38 @@ type FormSelectProps = ComponentProps<typeof Select> & {
  * @param props - Additional props to pass to the select input.
  * @returns The rendered form select component.
  */
-function FormSelect({
-  children,
-  size,
-  errorMessage,
-  ...props
-}: FormSelectProps) {
-  let sizeClass = fullWidth;
-  switch (size) {
-    case "small":
-      sizeClass = smallSize;
-      break;
-    case "medium":
-      sizeClass = mediumSize;
-      break;
-    case "large":
-      sizeClass = largeSize;
-      break;
-  }
-  return (
-    <div>
-      <Label>{children}</Label>
-      <Select {...props} className={sizeClass} />
-      {errorMessage && <ErrorLabel>{errorMessage}</ErrorLabel>}
-    </div>
-  );
-}
+const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
+  function FormSelect({ children, errorMessage, inputSize, ...props }, ref) {
+    let sizeClass = fullWidth;
+    switch (inputSize) {
+      case "small":
+        sizeClass = smallSize;
+        break;
+      case "medium":
+        sizeClass = mediumSize;
+        break;
+      case "large":
+        sizeClass = largeSize;
+        break;
+    }
+
+    return (
+      <div className={container}>
+        <Label htmlFor={props.name}>{children}</Label>
+        <SelectAlt {...props} className={sizeClass} ref={ref} />
+        {errorMessage && <ErrorLabel>{errorMessage}</ErrorLabel>}
+      </div>
+    );
+  },
+);
 
 export default FormSelect;
+
+const container = css({
+  display: "flex",
+  flexFlow: "column nowrap",
+  gap: "8px",
+});
 
 const smallSize = css({
   width: "200px",
