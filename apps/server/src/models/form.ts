@@ -1,25 +1,20 @@
 import mongoose, { Schema } from "mongoose";
 
-const questionSchema = new Schema({
+const fieldSchema = new Schema({
   id: { type: String, required: true },
-  questionId: { type: Schema.ObjectId, required: true },
+  content: { type: String, required: true },
+  type: { type: String, required: true },
+  choices: [String],
   isRequired: Boolean,
-  isFullLine: Boolean,
-  showOnlyInput: Boolean,
-  showPlaceholder: Boolean,
 });
 
-const blocSchema = new Schema({
-  id: { type: String, required: true },
-  title: String,
-  questions: [questionSchema],
-  isCompact: Boolean,
-});
-
-const form = new Schema({
-  name: { type: String, required: true },
-  blocks: [blocSchema],
-});
+const form = new Schema(
+  {
+    name: { type: String, required: true },
+    fields: [fieldSchema],
+  },
+  { timestamps: true },
+);
 
 const Form = mongoose.model("Form", form);
 

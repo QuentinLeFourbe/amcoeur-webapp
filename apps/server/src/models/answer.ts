@@ -1,11 +1,18 @@
 import mongoose, { Schema } from "mongoose";
 
 const answer = new Schema({
-  formId: { type: String, required: true },
-  questionId: { type: String, required: true },
-  values: [Schema.Types.Mixed],
+  field: { type: String, required: true },
+  value: Schema.Types.Mixed,
 });
 
-const Answer = mongoose.model("Answer", answer);
+const formAnswers = new Schema(
+  {
+    formId: { type: String, required: true },
+    answers: [answer],
+  },
+  { timestamps: true },
+);
 
-export default Answer;
+const FormAnswers = mongoose.model("FormAnswers", formAnswers);
+
+export default FormAnswers;

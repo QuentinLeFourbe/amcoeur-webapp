@@ -1,13 +1,10 @@
 import type { Request, Response } from "express";
 import Form from "../models/form.js";
-import type { FormClientData } from "@amcoeur/types";
-import { convertToFormServerData } from "../services/formService.js";
 
 export const createForm = async (req: Request, res: Response) => {
   try {
-    const formClientData = req.body as FormClientData;
-    const formServerData = convertToFormServerData(formClientData);
-    const newForm = new Form({ ...formServerData });
+    const formData = req.body ;
+    const newForm = new Form({ ...formData});
     await newForm.save();
     res.status(201).json("Formulaire créé");
   } catch (error) {

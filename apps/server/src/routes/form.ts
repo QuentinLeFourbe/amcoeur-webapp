@@ -13,7 +13,7 @@ const router = Router();
 router.post("/", requiresLogin, createForm);
 
 router.get("/", requiresLogin, getForms);
-router.get("/:id", requiresLogin, getForm);
+router.get("/:id",  getForm);
 
 router.put("/:id", requiresLogin, updateForm);
 

@@ -1,9 +1,9 @@
 import type { Request, Response } from "express";
-import Answer from "../models/answer.js";
+import FormAnswers from "../models/answer.js";
 
 export const createAnswer = async (req: Request, res: Response) => {
   try {
-    const newAnswer = new Answer({ ...req.body });
+    const newAnswer = new FormAnswers({ ...req.body });
     await newAnswer.save();
     res.status(201).json(newAnswer);
   } catch (error) {
@@ -20,7 +20,9 @@ export const createAnswer = async (req: Request, res: Response) => {
 
 export const deleteAnswer = async (req: Request, res: Response) => {
   try {
-    const deletedAnswer = await Answer.findOneAndDelete({ _id: req.params.id });
+    const deletedAnswer = await FormAnswers.findOneAndDelete({
+      _id: req.params.id,
+    });
     if (deletedAnswer) {
       res.status(200).json({ message: "Réponse supprimé avec succès" });
     } else {
@@ -40,9 +42,13 @@ export const deleteAnswer = async (req: Request, res: Response) => {
 
 export const updateAnswer = async (req: Request, res: Response) => {
   try {
-    const updatedAnswer = await Answer.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const updatedAnswer = await FormAnswers.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+      },
+    );
     if (updatedAnswer) {
       res.status(200).json(updateAnswer);
     } else {
@@ -63,7 +69,7 @@ export const updateAnswer = async (req: Request, res: Response) => {
 
 export const getAnswer = async (req: Request, res: Response) => {
   try {
-    const answer = await Answer.findById(req.params.id);
+    const answer = await FormAnswers.findById(req.params.id);
     if (answer) {
       res.status(200).json(answer);
     } else {
@@ -84,7 +90,7 @@ export const getAnswer = async (req: Request, res: Response) => {
 
 export const getAnswers = async (req: Request, res: Response) => {
   try {
-    const answer = await Answer.find(req.query);
+    const answer = await FormAnswers.find(req.query);
     res.status(200).json(answer);
   } catch (error) {
     res.locals.logger.error(error);
