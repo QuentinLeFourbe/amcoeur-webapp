@@ -61,9 +61,9 @@ export default function ReservationForm() {
     register("token", { required: true });
   }, [register]);
 
-
   const onSubmit = (data: ReservationFormData) => {
     try {
+      console.log(data);
       // sendContactEmail(data);
     } catch (e) {
       console.error(e);
@@ -77,32 +77,32 @@ export default function ReservationForm() {
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormInput
-        register={register("name")}
+        {...register("name")}
         errorMessage={errors?.name?.message?.toString()}
       >
         Nom*
       </FormInput>
       <FormInput
-        register={register("firstname")}
+        {...register("firstname")}
         errorMessage={errors?.firstname?.message?.toString()}
       >
         Prénom*
       </FormInput>
       <FormInput
-        register={register("mail")}
+        {...register("mail")}
         errorMessage={errors?.mail?.message?.toString()}
       >
         Email*
       </FormInput>
       <FormInput
-        register={register("phone")}
+        {...register("phone")}
         errorMessage={errors?.phone?.message?.toString()}
       >
         Téléphone
       </FormInput>
       <FormRow>
         <FormInput
-          register={register("personCount")}
+          {...register("personCount")}
           errorMessage={errors?.personCount?.message?.toString()}
           type="number"
           width="small"
@@ -112,7 +112,7 @@ export default function ReservationForm() {
       </FormRow>
       <FormRow>
         <FormCheckbox
-          register={register("takeMeal")}
+          {...register("takeMeal")}
           errorMessage={errors?.takeMeal?.message?.toString()}
         >
           Repas sur place
@@ -120,7 +120,7 @@ export default function ReservationForm() {
       </FormRow>
       <FormRow>
         <FormTextArea
-          register={register("remark")}
+          {...register("remark")}
           errorMessage={errors?.remark?.message?.toString()}
         >
           Remarque
@@ -133,16 +133,18 @@ export default function ReservationForm() {
           render={({ field }) => (
             <FormSelect
               options={options}
-              size={"medium"}
+              inputSize="medium"
               errorMessage={errors?.howDidYouHearAboutUs?.message?.toString()}
               {...field}
             >
-              Comment avez-vous connu l&apos;évènement ?
+              {" "}
+              Comment avez-vous connu l&apos;évènement ?{" "}
             </FormSelect>
           )}
-        />
-      </FormRow>
+        />{" "}
+      </FormRow>{" "}
       <FormRow>
+        {" "}
         <Captcha
           ref={recaptchaRef}
           setFormValue={(value: string): void => setValue("token", value)}

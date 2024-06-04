@@ -3,6 +3,7 @@ import TextArea from "../TextArea/TextArea";
 import TitleBanner from "../TitleBanner/TitleBanner";
 import ContentPanel from "../ContentPanel/ContentPanel";
 import Image from "../../../global/components/molecules/Image/Image";
+import PageFormRenderer from "../PageFormRenderer/PageFormRenderer";
 
 type PageComponentsRendererProps = {
   components: PageComponent[];
@@ -17,8 +18,10 @@ function PageComponentsRenderer({ components }: PageComponentsRendererProps) {
         return <TextArea component={component} />;
       case "ContentPanel":
         return <ContentPanel component={component} />;
-      case "Image": 
-      return <Image component={component} />
+      case "Image":
+        return <Image component={component} />;
+      case "Form":
+        return <PageFormRenderer component={component} />;
       default:
         return null;
     }

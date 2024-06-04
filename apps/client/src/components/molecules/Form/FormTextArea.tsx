@@ -1,29 +1,27 @@
-import React from "react";
-import type { UseFormRegisterReturn } from "react-hook-form";
+import React, { ComponentProps, forwardRef } from "react";
 import { css } from "../../../../styled-system/css";
 import Label from "../../atoms/Label/Label";
 import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
 
-type FormTextAreaProps = React.InputHTMLAttributes<HTMLTextAreaElement> & {
+type FormTextAreaProps = ComponentProps<"textarea"> & {
   children: React.ReactNode;
   errorMessage?: string;
-  register: UseFormRegisterReturn;
 };
 
-const FormTextArea = ({
-  children,
-  errorMessage,
-  register,
-  ...props
-}: FormTextAreaProps) => {
-  return (
-    <div>
-      <Label>{children}</Label>
-      <textarea {...register} className={textAreaStyle} {...props} />
-      {errorMessage && <ErrorLabel>{errorMessage}</ErrorLabel>}
-    </div>
-  );
-};
+const FormTextArea = forwardRef<HTMLTextAreaElement, FormTextAreaProps>(
+  function FormTextArea(
+    { children, errorMessage, ...props }: FormTextAreaProps,
+    ref,
+  ) {
+    return (
+      <div>
+        <Label>{children}</Label>
+        <textarea className={textAreaStyle} {...props} ref={ref} />
+        {errorMessage && <ErrorLabel>{errorMessage}</ErrorLabel>}
+      </div>
+    );
+  },
+);
 
 export default FormTextArea;
 
