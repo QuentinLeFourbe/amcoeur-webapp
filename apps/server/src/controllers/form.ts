@@ -3,8 +3,8 @@ import Form from "../models/form.js";
 
 export const createForm = async (req: Request, res: Response) => {
   try {
-    const formData = req.body ;
-    const newForm = new Form({ ...formData});
+    const formData = req.body;
+    const newForm = new Form({ ...formData });
     await newForm.save();
     res.status(201).json("Formulaire créé");
   } catch (error) {
@@ -83,9 +83,26 @@ export const getForm = async (req: Request, res: Response) => {
   }
 };
 
-export const getForms = async (req: Request, res: Response) => {
+export const getForms = async (_req: Request, res: Response) => {
   try {
-    const forms = await Form.find(req.query);
+    const forms = await Form.aggregate([
+      {
+        $lookup: {
+          from: "formanswers",
+          localField: "_id",
+          foreignField: "formId",
+          as: "answers",
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          answerCount: { $size: "$answers" },
+        },
+      },
+    ]);
+
     res.status(200).json(forms);
   } catch (error) {
     res.locals.logger.error(error);

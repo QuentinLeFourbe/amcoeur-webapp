@@ -1,7 +1,7 @@
-import { FormClientData } from "@amcoeur/types";
+import { FormClientData, FormSummary } from "@amcoeur/types";
 import axios from "axios";
 
-export const getForms = () => axios.get<FormClientData[]>("/api/forms");
+export const getForms = () => axios.get<FormSummary[]>("/api/forms");
 
 export const getForm = (id: string) =>
   axios.get<FormClientData>(`/api/forms/${id}`);

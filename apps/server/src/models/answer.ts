@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, type CallbackError } from "mongoose";
 
 const answer = new Schema({
   field: { type: String, required: true },
@@ -7,11 +7,23 @@ const answer = new Schema({
 
 const formAnswers = new Schema(
   {
-    formId: { type: String, required: true },
+    formId: { type: Schema.Types.ObjectId, required: true },
     answers: [answer],
   },
   { timestamps: true },
 );
+
+formAnswers.pre("save", async function (next) {
+  try {
+    if (typeof this.formId === "string") {
+      const temp = new mongoose.Types.ObjectId(this.formId);
+      this.formId = temp;
+    }
+    next();
+  } catch (error) {
+    next(error as CallbackError);
+  }
+});
 
 const FormAnswers = mongoose.model("FormAnswers", formAnswers);
 

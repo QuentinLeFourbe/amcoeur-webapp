@@ -56,12 +56,15 @@ function FormsManagement() {
             {formsData?.map((form) => (
               <tr key={form._id}>
                 <td>{form.name}</td>
-                <td>todo</td>
+                <td>{form.answerCount}</td>
                 <td>
                   <div className={css({ display: "flex", gap: "16px" })}>
-                    <Button 
+                    <Button
                       to={`/formulaires/reponses/${form._id}`}
-                      color="green">Réponses</Button>
+                      color="green"
+                    >
+                      Réponses
+                    </Button>
                     <Button
                       to={`/formulaires/modifier/${form._id}`}
                       color="blue"
