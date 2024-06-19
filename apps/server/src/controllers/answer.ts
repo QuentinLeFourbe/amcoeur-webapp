@@ -1,10 +1,27 @@
 import type { Request, Response } from "express";
 import FormAnswers from "../models/answer.js";
+import type { FormAnswersServer } from "@amcoeur/types";
+import Form from "../models/form.js";
+import { sendEmail } from "../services/mailService.js";
 
 export const createAnswer = async (req: Request, res: Response) => {
   try {
     const newAnswer = new FormAnswers({ ...req.body });
     await newAnswer.save();
+
+    const { formId } = req.body as FormAnswersServer;
+
+    const form = await Form.findById(formId);
+
+    const answerUrl = `${req.protocol}://${req.hostname}/formulaires/reponses/${formId}/${newAnswer._id}`;
+
+    const mailOptions = {
+      from: process.env.CONTACT_EMAIL,
+      to: process.env.CONTACT_EMAIL,
+      subject: `Nouvelle réponse pour le formulaire: ${form?.name}`,
+      text: `Une nouvelle réponse vient d'être enregistré pour le formulaire ${form?.name}, vous pouvez la consulter à l'adresse suivante: ${answerUrl}`,
+    };
+    await sendEmail(mailOptions);
     res.status(201).json(newAnswer);
   } catch (error) {
     res.locals.logger.error(error);

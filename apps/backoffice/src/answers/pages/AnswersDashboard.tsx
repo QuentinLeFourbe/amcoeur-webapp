@@ -26,7 +26,7 @@ function AnswersDashboard() {
     >
       <Button
         className={css({ alignSelf: "start" })}
-        to={`/formulaires/reponses`}
+        to={`/formulaires`}
       >
         Retour
       </Button>

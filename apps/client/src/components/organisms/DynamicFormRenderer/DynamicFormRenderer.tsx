@@ -4,7 +4,8 @@ import {
   FormComponent,
 } from "@amcoeur/types";
 import { Controller, useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import {
   useGetDynamicForm,
   useSubmitAnswers,
@@ -22,6 +23,7 @@ import {
 } from "../../../utils/form";
 import FormMultipleSelect from "../../molecules/Form/FormMultipleSelect";
 import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
+import Captcha from "../../atoms/Captcha/Captcha";
 
 type DynamicFormRendererProps = {
   component: FormComponent;
@@ -65,6 +67,11 @@ type DynamicFormProps = {
   isSubmitSuccess: boolean;
   isSubmitError: boolean;
 };
+
+type DynamicFormWithCaptcha = FormAnswersClient & {
+  token: string;
+};
+
 const DynamicForm = ({
   data,
   onSubmit,
@@ -79,12 +86,14 @@ const DynamicForm = ({
     control,
     formState: { errors },
     reset,
-  } = useForm<FormAnswersClient>({
+  } = useForm<DynamicFormWithCaptcha>({
     defaultValues: {
       formId: data._id,
       answers: [],
     },
   });
+
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const submitData = (data: FormAnswersClient) => {
     console.log("submitdata !!!!", data);
@@ -98,9 +107,15 @@ const DynamicForm = ({
     });
   }, []);
 
-  console.log("answers", watch());
-  console.log("errors", errors);
-  console.log("fieeelds", data.fields);
+  useEffect(() => {
+    register("token", {
+      required: {
+        value: true,
+        message: "Vous devez cocher cette case pour continuer",
+      },
+    });
+  }, [register]);
+
   return (
     <Form column onSubmit={handleSubmit(submitData)}>
       {data.fields.map((field, index) => {
@@ -214,6 +229,12 @@ const DynamicForm = ({
             );
         }
       })}
+
+      <Captcha
+        ref={recaptchaRef}
+        setFormValue={(value: string): void => setValue("token", value)}
+        errorMessage={errors?.token?.message?.toString()}
+      />
       {isSubmitSuccess && (
         <p
           className={css({

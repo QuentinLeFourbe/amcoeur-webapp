@@ -1,4 +1,4 @@
-import { FormClientData } from "@amcoeur/types";
+import { FormSummary } from "@amcoeur/types";
 import { useState } from "react";
 import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
@@ -20,7 +20,7 @@ function FormsManagement() {
     isError: isDeleteError,
     isSuccess: isDeleteSuccess,
   } = useDeleteForm();
-  const [formToDelete, setFormToDelete] = useState<FormClientData | null>(null);
+  const [formToDelete, setFormToDelete] = useState<FormSummary | null>(null);
   return (
     <div
       className={css({
