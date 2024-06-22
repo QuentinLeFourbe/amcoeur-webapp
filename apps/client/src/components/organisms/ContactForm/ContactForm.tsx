@@ -61,25 +61,25 @@ export default function ContactForm() {
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormInput
-        register={register("name")}
+        {...register("name")}
         errorMessage={errors?.name?.message?.toString()}
       >
         Nom*
       </FormInput>
       <FormInput
-        register={register("firstname")}
+        {...register("firstname")}
         errorMessage={errors?.firstname?.message?.toString()}
       >
         Prénom*
       </FormInput>
       <FormInput
-        register={register("mail")}
+        {...register("mail")}
         errorMessage={errors?.mail?.message?.toString()}
       >
         Email*
       </FormInput>
       <FormInput
-        register={register("phone")}
+        {...register("phone")}
         errorMessage={errors?.phone?.message?.toString()}
         pattern="\d+"
       >
@@ -87,7 +87,7 @@ export default function ContactForm() {
       </FormInput>
       <FormRow>
         <FormTextArea
-          register={register("message")}
+          {...register("message")}
           errorMessage={errors?.message?.message?.toString()}
         >
           Message*

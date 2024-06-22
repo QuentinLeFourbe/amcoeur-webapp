@@ -24,7 +24,7 @@ export const contactDataSchema: yup.ObjectSchema<ContactData> = yup
       .string()
       .matches(
         /^\d+$/,
-        "Le numéro de téléphone doit contenir uniquement des chiffres"
+        "Le numéro de téléphone doit contenir uniquement des chiffres",
       )
       .min(10, "Votre numéro de téléphone doit avoir au moins 10 chiffres")
       .max(15, "Votre numéro de téléphone doit avoir 15 chiffres ou moins"),
@@ -44,5 +44,5 @@ export const addressDataSchema: yup.ObjectSchema<AddressData> = yup
 export const captchaTokenSchema: yup.ObjectSchema<CaptchaToken> = yup
   .object()
   .shape({
-    token: yup.string().required("Le token est requis"),
+    token: yup.string().required("Vous devez cocher cette case pour continuer"),
   });

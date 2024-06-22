@@ -3,11 +3,11 @@ import axios from "axios";
 
 const verifyRecaptcha = async (
   token: string,
-  secretKey: string
+  secretKey: string,
 ): Promise<boolean> => {
-    const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`;
-    const response = await axios.post(verificationUrl);
-    return response.data.success;
+  const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`;
+  const response = await axios.post(verificationUrl);
+  return response.data.success;
 };
 
 /**
@@ -17,21 +17,13 @@ const verifyRecaptcha = async (
  * @param next
  * @returns
  */
-const checkRecaptcha = async (
+export const checkRecaptcha = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
-    const token = req.body.token;
     const secretKey = process.env["CAPTCHA_SERVER_KEY"];
-
-    if (!token) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Missing reCAPTCHA token." });
-    }
-
     if (!secretKey) {
       return res.status(500).json({
         success: false,
@@ -39,11 +31,16 @@ const checkRecaptcha = async (
       });
     }
 
-    const isTokenValid = await verifyRecaptcha(token, secretKey);
+    const token = req.body.token;
+    if (!token) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Missing reCAPTCHA token." });
+    }
 
+    const isTokenValid = await verifyRecaptcha(token, secretKey);
     if (isTokenValid) {
-      next();
-      return;
+      return next();
     } else {
       return res.status(400).json({
         success: false,
@@ -51,12 +48,10 @@ const checkRecaptcha = async (
       });
     }
   } catch (error) {
-    res.locals.logger.error("Error on reCaptcha token validation", error)
+    res.locals.logger.error("Error on reCaptcha token validation", error);
     return res.status(500).json({
       success: false,
       message: "An error occurred while validating the reCAPTCHA token.",
     });
   }
 };
-
-export default checkRecaptcha;

@@ -4,6 +4,7 @@ import TitlePanel from "../../molecules/TitlePanel/TitlePanel";
 import TextPanel from "../../molecules/TextPanel/TextPanel";
 import ContentPanel from "../../molecules/ContentPanel/ContentPanel";
 import Image from "../../molecules/Image/Image";
+import DynamicFormRenderer from "../DynamicFormRenderer/DynamicFormRenderer";
 
 type PageComponentsRendererProps = {
   components: PageComponent[];
@@ -42,6 +43,8 @@ function PageComponentsRenderer({ components }: PageComponentsRendererProps) {
         );
       case "Image":
         return <Image key={index} component={component} />;
+      case "Form":
+        return <DynamicFormRenderer component={component} />;
       default:
         return null;
     }

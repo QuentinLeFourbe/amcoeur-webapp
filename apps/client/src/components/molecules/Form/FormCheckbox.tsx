@@ -1,5 +1,4 @@
-import React, { ComponentPropsWithoutRef } from "react";
-import type { UseFormRegisterReturn } from "react-hook-form";
+import React, { ComponentPropsWithoutRef, forwardRef } from "react";
 import { css } from "../../../../styled-system/css";
 import Label from "../../atoms/Label/Label";
 import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
@@ -8,22 +7,24 @@ import Checkbox from "../../atoms/Checkbox/Checkbox";
 type FormCheckboxProps = ComponentPropsWithoutRef<"input"> & {
   children: React.ReactNode;
   errorMessage?: string;
-  register: UseFormRegisterReturn;
 };
 
-
-  function FormCheckbox({ children, errorMessage, register }: FormCheckboxProps) {
+const FormCheckbox = forwardRef<HTMLInputElement, FormCheckboxProps>(
+  function FormCheckbox(
+    { children, errorMessage, ...props }: FormCheckboxProps,
+    ref,
+  ) {
     return (
       <div className={mainContainer}>
         <div className={checkboxContainer}>
-          <Checkbox {...register} />
+          <Checkbox {...props} ref={ref} />
           <Label>{children}</Label>
         </div>
         {errorMessage && <ErrorLabel>{errorMessage}</ErrorLabel>}
       </div>
     );
-  }
-
+  },
+);
 
 export default FormCheckbox;
 

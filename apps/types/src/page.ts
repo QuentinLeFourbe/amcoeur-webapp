@@ -69,12 +69,20 @@ export const TextAreaComponentSchema = z
   })
   .merge(BasePageComponentSchema);
 
+export const FormComponentSchema = z
+  .object({
+    type: z.literal("Form"),
+    formId: z.string().optional(),
+  })
+  .merge(BasePageComponentSchema);
+
 export const PageComponentSchema = z.union([
   TitleBannerComponentSchema,
   ContentPanelComponentSchema,
   TextAreaComponentSchema,
   ImageComponentSchema,
   EmptyComponentSchema,
+  FormComponentSchema,
 ]);
 
 export const PageDataSchema = z.object({
@@ -110,6 +118,7 @@ export type ImageComponent = z.infer<typeof ImageComponentSchema>;
 export type TitleBannerComponent = z.infer<typeof TitleBannerComponentSchema>;
 export type ContentPanelComponent = z.infer<typeof ContentPanelComponentSchema>;
 export type TextAreaComponent = z.infer<typeof TextAreaComponentSchema>;
+export type FormComponent = z.infer<typeof FormComponentSchema>;
 export type PageComponentType = PageComponent["type"];
 
 export type PageDataClient = z.infer<typeof PageDataClientSchema>;
