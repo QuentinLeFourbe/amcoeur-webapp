@@ -9,6 +9,7 @@ module.exports = {
     "plugin:react-hooks/recommended",
     "prettier",
     "plugin:@tanstack/eslint-plugin-query/recommended",
+    "plugin:storybook/recommended"
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",

@@ -1,4 +1,4 @@
-import React, { ComponentProps } from "react";
+import React, { ComponentProps, forwardRef } from "react";
 
 import Select from "../../atoms/Select/Select";
 import Label from "../../atoms/Label/Label";
@@ -8,7 +8,7 @@ import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
 type FormSelectProps = ComponentProps<typeof Select> & {
   children: React.ReactNode;
   errorMessage?: string;
-  size?: "small" | "medium" | "large";
+  inputSize?: "small" | "medium" | "large";
 };
 
 /**
@@ -19,33 +19,32 @@ type FormSelectProps = ComponentProps<typeof Select> & {
  * @param props - Additional props to pass to the select input.
  * @returns The rendered form select component.
  */
-function FormSelect({
-  children,
-  size,
-  errorMessage,
-  ...props
-}: FormSelectProps) {
-  let sizeClass = fullWidth;
-  switch (size) {
-    case "small":
-      sizeClass = smallSize;
-      break;
-    case "medium":
-      sizeClass = mediumSize;
-      break;
-    case "large":
-      sizeClass = largeSize;
-      break;
-  }
-  return (
-    <div>
-      <Label>{children}</Label>
-      <Select {...props} className={sizeClass} />
-      {errorMessage && <ErrorLabel>{errorMessage}</ErrorLabel>}
-    </div>
-  );
-}
-
+const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
+  function FormSelect(
+    { children, inputSize, errorMessage, ...props }: FormSelectProps,
+    ref,
+  ) {
+    let sizeClass = fullWidth;
+    switch (inputSize) {
+      case "small":
+        sizeClass = smallSize;
+        break;
+      case "medium":
+        sizeClass = mediumSize;
+        break;
+      case "large":
+        sizeClass = largeSize;
+        break;
+    }
+    return (
+      <div>
+        <Label>{children}</Label>
+        <Select {...props} ref={ref} className={sizeClass} />
+        {errorMessage && <ErrorLabel>{errorMessage}</ErrorLabel>}
+      </div>
+    );
+  },
+);
 export default FormSelect;
 
 const smallSize = css({

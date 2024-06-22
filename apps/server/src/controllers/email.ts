@@ -1,25 +1,6 @@
 import type { ContactFormData } from "@amcoeur/types";
-import nodemailer from "nodemailer";
 import type { Request, Response } from "express";
-import { logger } from "../utils/logger.js";
-
-const transporter = nodemailer.createTransport({
-  host: "ssl0.ovh.net",
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.CONTACT_EMAIL,
-    pass: process.env.CONTACT_EMAIL_PASSWORD,
-  },
-});
-
-transporter.verify(function (error) {
-  if (error) {
-    logger.error("Erreur lors de la connexion : ", error);
-  } else {
-    logger.info("Email server is ready to take our messages");
-  }
-});
+import { sendEmail } from "../services/mailService.js";
 
 /**
  * Send an email to the contact email address
@@ -42,8 +23,8 @@ export const sendEmailHandler = async (req: Request, res: Response) => {
       subject: `Votre demande de contact a bien été prise en compte`,
       text: `Bonjour,\nVotre demande de contact a bien été prise en compte. Nous vous contacterons dans les plus bref délais.\nVotre message: ${message}`,
     };
-    await transporter?.sendMail(mailOptions);
-    await transporter?.sendMail(mailOptionsToSender);
+    await sendEmail(mailOptions);
+    await sendEmail(mailOptionsToSender);
     res.status(200).send("Email envoyé !");
   } catch (err) {
     res.locals.logger.error(err);

@@ -1,11 +1,8 @@
 import Page from "../models/page.js";
-import { matchComponentsWithImageUrl } from "../utils/components.js";
-import {
-  deleteOldImages,
-  deletePageImages,
-} from "../utils/files.js";
+import { matchComponentsWithImageUrl } from "../services/pageService.js";
+import { deleteOldImages, deletePageImages } from "../utils/files.js";
 import type { Request, Response } from "express";
-import {  type PageDataServer } from "@amcoeur/types";
+import { type PageDataServer } from "@amcoeur/types";
 
 export const createPage = async (req: Request, res: Response) => {
   try {
