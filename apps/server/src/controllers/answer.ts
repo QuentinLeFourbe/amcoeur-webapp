@@ -13,13 +13,18 @@ export const createAnswer = async (req: Request, res: Response) => {
 
     const form = await Form.findById(formId);
 
-    const answerUrl = `${req.protocol}://${req.hostname}/formulaires/reponses/${formId}/${newAnswer._id}`;
-
+    const answerUrl = `${req.protocol}://${req.hostname}/administration/formulaires/reponses/${formId}/${newAnswer._id}`;
+    let mailText = `Une nouvelle réponse vient d'être enregistré pour le formulaire "${form?.name}", vous pouvez la consulter à l'adresse suivante: ${answerUrl}\n\nVoici les réponses à ce formulaire:\n`;
+    mailText = newAnswer.answers.reduce(
+      (accText, answer) =>
+        accText.concat(`\n${answer.field}\n${answer.value}\n`),
+      mailText,
+    );
     const mailOptions = {
       from: process.env.CONTACT_EMAIL,
       to: process.env.CONTACT_EMAIL,
       subject: `Nouvelle réponse pour le formulaire: ${form?.name}`,
-      text: `Une nouvelle réponse vient d'être enregistré pour le formulaire ${form?.name}, vous pouvez la consulter à l'adresse suivante: ${answerUrl}`,
+      text: mailText,
     };
     await sendEmail(mailOptions);
     res.status(201).json(newAnswer);
