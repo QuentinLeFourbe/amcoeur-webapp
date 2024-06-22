@@ -82,7 +82,6 @@ const DynamicForm = ({
     register,
     handleSubmit,
     setValue,
-    watch,
     control,
     formState: { errors },
     reset,
@@ -96,15 +95,20 @@ const DynamicForm = ({
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const submitData = (data: FormAnswersClient) => {
-    console.log("submitdata !!!!", data);
     onSubmit(data);
     reset();
+    recaptchaRef?.current?.reset();
+    fillFieldsValues();
   };
 
-  useEffect(() => {
+  const fillFieldsValues = () => {
     data.fields.map((field, index) => {
       setValue(`answers.${index}.field`, field.content);
     });
+  };
+
+  useEffect(() => {
+    fillFieldsValues();
   }, []);
 
   useEffect(() => {
