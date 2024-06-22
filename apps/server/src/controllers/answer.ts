@@ -64,15 +64,16 @@ export const deleteAnswer = async (req: Request, res: Response) => {
 
 export const updateAnswer = async (req: Request, res: Response) => {
   try {
+    const { note, archived } = req.body as FormAnswersServer;
     const updatedAnswer = await FormAnswers.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      { note, archived },
       {
         new: true,
       },
     );
     if (updatedAnswer) {
-      res.status(200).json(updateAnswer);
+      res.status(200).json(updatedAnswer);
     } else {
       res.status(404).json({ message: "Réponse non trouvée" });
     }

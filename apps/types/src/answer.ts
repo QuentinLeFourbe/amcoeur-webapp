@@ -9,6 +9,8 @@ export const AnswerSchema = z.object({
 const formAnswersBaseSchema = z.object({
   formId: z.string(),
   answers: z.array(AnswerSchema),
+  note: z.string().optional(),
+  archived: z.boolean().optional(),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
 });

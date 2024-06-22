@@ -6,3 +6,7 @@ export const getAnswers = (formId: string) =>
 
 export const getAnswer = (id: string) =>
   axios.get<FormAnswersClient>(`/api/answers/${id}`);
+
+export const updateAnswer = (
+  data: Pick<FormAnswersClient, "_id" | "note" | "archived">,
+) => axios.put(`/api/answers/${data._id}`, data);

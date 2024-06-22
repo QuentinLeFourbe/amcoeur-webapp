@@ -7,7 +7,7 @@ import { css, cx } from "../../../../../styled-system/css";
 type FormTextAreaProps = React.InputHTMLAttributes<HTMLTextAreaElement> & {
   children: React.ReactNode;
   errorMessage?: string;
-  register: UseFormRegisterReturn;
+  register?: UseFormRegisterReturn;
   fixedSize?: boolean;
 };
 
@@ -24,7 +24,11 @@ const FormTextArea = ({
       <textarea
         {...register}
         {...props}
-        className={cx(textAreaStyle, fixedSize && notResizable, props.className)}
+        className={cx(
+          textAreaStyle,
+          fixedSize && notResizable,
+          props.className,
+        )}
       />
       {errorMessage && <ErrorLabel>{errorMessage}</ErrorLabel>}
     </div>

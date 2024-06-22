@@ -8,22 +8,25 @@ import { css } from "../../../../../styled-system/css";
 type FormCheckboxProps = ComponentPropsWithoutRef<"input"> & {
   children: React.ReactNode;
   errorMessage?: string;
-  register: UseFormRegisterReturn;
+  register?: UseFormRegisterReturn;
 };
 
-
-  function FormCheckbox({ children, errorMessage, register }: FormCheckboxProps) {
-    return (
-      <div className={mainContainer}>
-        <div className={checkboxContainer}>
-          <Checkbox {...register} />
-          <Label>{children}</Label>
-        </div>
-        {errorMessage && <ErrorLabel>{errorMessage}</ErrorLabel>}
+function FormCheckbox({
+  children,
+  errorMessage,
+  register,
+  ...props
+}: FormCheckboxProps) {
+  return (
+    <div className={mainContainer}>
+      <div className={checkboxContainer}>
+        <Checkbox {...props} {...register} />
+        <Label>{children}</Label>
       </div>
-    );
-  }
-
+      {errorMessage && <ErrorLabel>{errorMessage}</ErrorLabel>}
+    </div>
+  );
+}
 
 export default FormCheckbox;
 

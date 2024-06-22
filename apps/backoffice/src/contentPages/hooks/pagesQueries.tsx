@@ -55,7 +55,7 @@ export const useGetHomePage = () => {
 export const useUpdatePage = () => {
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: (data: PageDataClient) => updatePage(data as PageDataClient),
+    mutationFn: (data: PageDataClient) => updatePage(data),
     onSuccess: (data: AxiosResponse<PageDataClient, unknown>) => {
       queryClient.invalidateQueries({
         queryKey: ["pages"],

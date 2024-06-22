@@ -8,6 +8,8 @@ const answer = new Schema({
 const formAnswers = new Schema(
   {
     formId: { type: Schema.Types.ObjectId, required: true },
+    archived: Boolean,
+    note: String,
     answers: [answer],
   },
   { timestamps: true },
