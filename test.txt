@@ -1,1 +1,0 @@
-Ceci est un fichier de test pour tester si le fait de remettre en prod supprime les images ou si c'était un autre soucis
