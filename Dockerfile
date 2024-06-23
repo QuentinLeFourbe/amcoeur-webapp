@@ -2,7 +2,7 @@
 FROM node:lts
 
 # Répertoire de travail dans le conteneur
-WORKDIR .
+WORKDIR /app
 
 # Copie de la racine de ton monorepo
 COPY . .
