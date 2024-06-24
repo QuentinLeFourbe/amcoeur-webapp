@@ -62,3 +62,16 @@ export const addIdToComponents = (page: PageDataClient) => {
   });
   return { ...page, components: componentsWithId };
 };
+
+export const generateRouteFromName = (name: string) => {
+  // Convertir en minuscules
+  let formatted: string = name.toLowerCase();
+
+  // Remplacer les espaces et les caractères spéciaux par des tirets
+  formatted = formatted.replace(/[^a-z0-9]+/g, "-");
+
+  // Supprimer les tirets en début et fin de chaîne
+  formatted = formatted.replace(/^-+|-+$/g, "");
+
+  return formatted;
+};

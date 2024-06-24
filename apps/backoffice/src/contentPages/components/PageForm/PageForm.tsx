@@ -6,9 +6,11 @@ import Form from "../../../global/components/atoms/Form/Form";
 import FormInput from "../../../global/components/molecules/Form/FormInput";
 import Button from "../../../global/components/atoms/Button/Button";
 import { css } from "../../../../styled-system/css";
-import { getNewComponent } from "../../utils/page";
+import { generateRouteFromName, getNewComponent } from "../../utils/page";
 import ComponentsFieldsRenderer from "../FormPageComponents/ComponentsFieldsRenderer";
 import { AddButton } from "../../../global/components/atoms/AddButton/AddButton";
+import FormCheckbox from "../../../global/components/molecules/Form/FormCheckbox";
+import { useState } from "react";
 
 type PageFormProps = {
   data?: PageDataClient;
@@ -53,6 +55,10 @@ function PageForm({
     resolver: zodResolver(PageDataClientSchema),
     defaultValues: data || defaultData,
   });
+
+  const [isUsingCustomRoute, setIsUsingCustomRoute] = useState(
+    data?.route !== generateRouteFromName(data?.name || ""),
+  );
 
   const onSubmitData = (data: PageDataClient) => {
     try {
@@ -103,7 +109,11 @@ function PageForm({
       </div>
       {!homePage && (
         <FormInput
-          register={register("name")}
+          register={register("name", {
+            onChange: (e) =>
+              !isUsingCustomRoute &&
+              setValue("route", generateRouteFromName(e.currentTarget.value)),
+          })}
           errorMessage={errors?.name?.message?.toString()}
           width="medium"
         >
@@ -111,14 +121,27 @@ function PageForm({
         </FormInput>
       )}
       {!homePage && (
-        <FormInput
-          register={register("route")}
-          errorMessage={errors?.route?.message?.toString()}
-          width="medium"
-          isPath={true}
-        >
-          Chemin d&apos;accès
-        </FormInput>
+        <>
+          <FormInput
+            register={register("route")}
+            errorMessage={errors?.route?.message?.toString()}
+            width="medium"
+            isPath={true}
+            disabled={!isUsingCustomRoute}
+          >
+            Chemin d&apos;accès
+          </FormInput>
+          <FormCheckbox
+            checked={isUsingCustomRoute}
+            onChange={(e) => {
+              setIsUsingCustomRoute(e.currentTarget.checked);
+              if (!e.currentTarget.checked)
+                setValue("route", generateRouteFromName(getValues("name")));
+            }}
+          >
+            Chemin d&apos;accès personnalisé
+          </FormCheckbox>
+        </>
       )}
       {homePage && (
         <AddButton
@@ -159,4 +182,3 @@ function PageForm({
 }
 
 export default PageForm;
-
