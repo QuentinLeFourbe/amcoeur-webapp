@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { PageDataClientSchema } from "@amcoeur/types";
 import type { PageComponent, PageDataClient } from "@amcoeur/types";
+import { useState } from "react";
 import Form from "../../../global/components/atoms/Form/Form";
 import FormInput from "../../../global/components/molecules/Form/FormInput";
 import Button from "../../../global/components/atoms/Button/Button";
@@ -10,7 +11,6 @@ import { generateRouteFromName, getNewComponent } from "../../utils/page";
 import ComponentsFieldsRenderer from "../FormPageComponents/ComponentsFieldsRenderer";
 import { AddButton } from "../../../global/components/atoms/AddButton/AddButton";
 import FormCheckbox from "../../../global/components/molecules/Form/FormCheckbox";
-import { useState } from "react";
 
 type PageFormProps = {
   data?: PageDataClient;
@@ -57,7 +57,7 @@ function PageForm({
   });
 
   const [isUsingCustomRoute, setIsUsingCustomRoute] = useState(
-    data?.route !== generateRouteFromName(data?.name || ""),
+    (data?.route || "") !== generateRouteFromName(data?.name || ""),
   );
 
   const onSubmitData = (data: PageDataClient) => {
