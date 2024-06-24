@@ -63,6 +63,11 @@ export const useUpdatePage = () => {
       queryClient.invalidateQueries({
         queryKey: ["page", data.data._id],
       });
+      if (data.data.route === "accueil") {
+        queryClient.invalidateQueries({
+          queryKey: ["homePage"],
+        });
+      }
     },
   });
   return mutation;
