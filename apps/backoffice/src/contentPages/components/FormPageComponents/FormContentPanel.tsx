@@ -1,11 +1,14 @@
-import { ContentPanelComponent } from "@amcoeur/types";
+import { ContentPanelComponent, PageDataClient } from "@amcoeur/types";
 import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
+import { useState } from "react";
 import { css } from "../../../../styled-system/css";
 import Label from "../../../global/components/atoms/Label/Label";
 import Input from "../../../global/components/atoms/Input/Input";
 import FormInput from "../../../global/components/molecules/Form/FormInput";
 import FormCodeArea from "../../../global/components/molecules/Form/FormCodeArea";
 import NavButtonHelper from "../../../global/components/molecules/ButtonHelper/ButtonHelper";
+import Select from "../../../global/components/atoms/Select/SelectAlt";
+import FormCheckbox from "../../../global/components/molecules/Form/FormCheckbox";
 
 type FormContentPanelProps = {
   component: ContentPanelComponent;
@@ -15,6 +18,7 @@ type FormContentPanelProps = {
     FieldError,
     FieldErrorsImpl<NonNullable<ContentPanelComponent>>
   >;
+  pages?: Pick<PageDataClient, "route" | "name">[];
 };
 
 function FormContentPanel({
@@ -22,7 +26,19 @@ function FormContentPanel({
   onChange,
   onBlur,
   errors,
+  pages = [],
 }: FormContentPanelProps) {
+  const isLinkMatchingPage = !!pages.find(
+    (page) => component.link === `/${page.route}`,
+  );
+  const [isUsingCustomLink, setIsUsingCustomLink] =
+    useState(!isLinkMatchingPage);
+
+  const pageSelectOptions = pages.map((page) => ({
+    label: page.name,
+    value: `/${page.route}`,
+  }));
+
   return (
     <>
       <h2>Section</h2>
@@ -57,7 +73,7 @@ function FormContentPanel({
               }}
               errorMessage={errors?.image?.message}
             >
-              Image 
+              Image
             </FormInput>
           </div>
 
@@ -81,21 +97,52 @@ function FormContentPanel({
               </div>
               <div className={groupItem}>
                 <Label>Lien de navigation</Label>
-                <Input
+                {isUsingCustomLink ? (
+                  <Input
+                    onChange={(e) => {
+                      onChange?.({
+                        ...component,
+                        link: e.target.value,
+                      });
+                    }}
+                    onBlur={() => {
+                      onBlur?.(component);
+                    }}
+                    value={component.link}
+                  />
+                ) : (
+                  <Select
+                    options={pageSelectOptions}
+                    className={css({ height: "56px" })}
+                    onChange={(e) => {
+                      onChange?.({
+                        ...component,
+                        link: e.target.value,
+                      });
+                    }}
+                    onBlur={() => {
+                      onBlur?.(component);
+                    }}
+                    value={component.link}
+                  />
+                )}
+                <FormCheckbox
+                  checked={isUsingCustomLink}
                   onChange={(e) => {
+                    setIsUsingCustomLink(e.currentTarget.checked);
                     onChange?.({
                       ...component,
-                      link: e.target.value,
+                      link: "",
                     });
                   }}
-                  onBlur={() => {
-                    onBlur?.(component);
-                  }}
-                  value={component.link}
-                />
+                >
+                  Lien personnalisé
+                </FormCheckbox>
               </div>
             </div>
-            <NavButtonHelper className={css({ maxWidth: "400px" })} />
+            <NavButtonHelper
+              className={css({ maxWidth: "400px", marginTop: "16px" })}
+            />
           </div>
         </div>
         <div>

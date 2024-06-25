@@ -9,6 +9,7 @@ type Option = {
 type SelectProps = ComponentPropsWithRef<"select"> & {
   options: Option[];
   className?: string;
+  placeholder?: string;
 };
 
 /**
@@ -22,11 +23,14 @@ type SelectProps = ComponentPropsWithRef<"select"> & {
  * @throws {TypeError} If the options array is empty or if any option object is missing the 'value' or 'label' property.
  */
 const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
-  { options, className, ...props },
+  { options, className, placeholder = "Sélectionner...", ...props },
   ref,
 ) {
   return (
     <select {...props} className={cx(selectStyle, className)} ref={ref}>
+      <option value="" selected disabled className={css({ display: "none" })}>
+        {placeholder}
+      </option>
       {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}
