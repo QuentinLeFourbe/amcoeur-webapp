@@ -4,10 +4,10 @@ import { getNewComponent } from "../../utils/page";
 import DynamicContainer from "../../../global/components/organisms/DynamicContainer/DynamicContainer";
 import FormTitleBannerComponent from "./FormTitleBanner";
 import FormTextAreaComponent from "./FormTextAreaComponent";
-import FormContentPanel from "./FormContentPanel";
 import FormImage from "./FormImage";
 import FormEmptyComponent from "./FormEmptyComponent";
 import DynamicFormFields from "./DynamicFormFields";
+import WrappedFormContentPanel from "./WrappedFormContentPanel";
 
 type ComponentsFieldsRendererProps = {
   value: PageComponent[];
@@ -79,7 +79,7 @@ function ComponentsFieldsRenderer({
         );
       case "ContentPanel":
         return (
-          <FormContentPanel
+          <WrappedFormContentPanel
             component={component}
             onBlur={getHandleBlur(index)}
             onChange={(component) => handleChange(component, index)}
