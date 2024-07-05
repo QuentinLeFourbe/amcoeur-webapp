@@ -1,73 +1,37 @@
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { AxiosError } from "axios";
-import Form from "../components/atoms/Form/Form";
-import FormInput from "../components/molecules/Form/FormInput";
-import { LoginInfo } from "../types/login";
-import { loginInfoSchema } from "../schemas/login";
+import axios from "axios";
 import { css } from "../../../styled-system/css";
 import Button from "../components/atoms/Button/Button";
-import { login } from "../api/users";
-import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
-import useUser from "../../contentPages/hooks/useUser";
+import { useCurrentUser } from "../hooks/useUser";
 
 function Login() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<LoginInfo>({
-    resolver: yupResolver(loginInfoSchema),
-  });
-  const [error, setError] = useState<string | null>(null); // [1
-  const { user, loginUser } = useUser();
+  const { currentUser, isSuccess } = useCurrentUser();
   const navigate = useNavigate();
-  if (user) {
-    navigate("/");
+  if (currentUser && isSuccess) {
+    navigate(currentUser.isActive ? "/" : "/inactive", { replace: true });
   }
 
-  const onSubmit = async (data: LoginInfo) => {
+  const facebookLogin = async () => {
     try {
-      const user = await login(data);
-      loginUser(user.data);
-      navigate("/");
+      const response = await axios.get("/api/users/login/facebook");
+      const loginUrl = response.data;
+      window.location.href = loginUrl;
     } catch (e) {
-      const error = e as AxiosError;
-      if (error?.response?.status === 401) {
-        setError("Votre compte est bloqué, veuillez réessayer plus tard");
-      }
-      if (error?.response?.status === 400) {
-        setError("Nom d'utilisateur ou mot de passe incorrect");
-      }
-      return;
-    } finally {
-      reset();
+      console.error(e);
     }
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} className={container}>
-      <FormInput
-        register={register("username")}
-        errorMessage={errors?.username?.message?.toString()}
-        width="medium"
-      >
-        Nom d&apos;utilisateur
-      </FormInput>
-      <FormInput
-        register={register("password")}
-        errorMessage={errors?.password?.message?.toString()}
-        width="medium"
-        type="password"
-      >
-        Mot de passe
-      </FormInput>
-      <Button type="submit">Se connecter</Button>
-      <ErrorLabel>{error}</ErrorLabel>
-    </Form>
+    <div className={container}>
+      <p>
+        Bonjour, la connexion s&apos;effectue via Facebook. Une fois connectée,
+        un email sera envoyé au responsable afin de valider votre compte. Merci
+        de vous rapprocher de Roger ou de Quentin.
+      </p>
+      <Button type="button" onClick={facebookLogin}>
+        Se connecter avec Facebook
+      </Button>
+    </div>
   );
 }
 

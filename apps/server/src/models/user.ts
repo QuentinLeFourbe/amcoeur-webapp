@@ -1,32 +1,24 @@
 import mongoose from "mongoose";
-import crypto from "crypto";
-import type { User as UserType, UserMethods } from "@amcoeur/types";
+import type { User as UserType } from "@amcoeur/types";
 
-type UserModel = mongoose.Model<UserType, NonNullable<unknown>, UserMethods>;
+type UserModel = mongoose.Model<UserType, NonNullable<unknown>>;
 
-const schema = new mongoose.Schema<UserType, UserModel, UserMethods>({
-  username: {
+const schema = new mongoose.Schema<UserType, UserModel>({
+  fullname: {
     type: String,
     required: true,
   },
-  hash: String,
-  salt: String,
-});
+  email: {
+    type: String,
+    required: true,
+  },
 
-schema.method("setPassword", function (password: string) {
-  this.salt = crypto.randomBytes(16).toString("hex");
-  this.hash = crypto
-    .pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
-    .toString(`hex`);
-});
-
-schema.method("validPassword", function (password: string) {
-  if (!this.salt) return false;
-
-  const hash = crypto
-    .pbkdf2Sync(password, this.salt, 1000, 64, `sha512`)
-    .toString(`hex`) as string;
-  return this.hash === hash;
+  facebookId: {
+    type: String,
+    required: true,
+  },
+  isAdmin: { type: Boolean, required: true },
+  isActive: { type: Boolean, required: true },
 });
 
 const User = mongoose.model<UserType, UserModel>("User", schema);

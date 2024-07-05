@@ -2,7 +2,6 @@ import "dotenv/config";
 import express, { type Request, type Response } from "express";
 import path, { dirname } from "path";
 import helmet from "helmet";
-import questionsRoutes from "./routes/question.js";
 import formsRoutes from "./routes/form.js";
 import emailRoutes from "./routes/email.js";
 import answersRoutes from "./routes/answer.js";
@@ -39,6 +38,7 @@ app.use(
       directives: {
         "script-src": ["'self'", "www.google.com", "www.gstatic.com"],
         "frame-src": ["'self'", "www.google.com", "www.gstatic.com"],
+        "connect-src": ["'self'", "https://www.facebook.com", "www.google.com"],
       },
     },
   }),
@@ -52,7 +52,6 @@ app.use(getRequestLogger);
 app.use("/api/users", userRoutes);
 app.use("/api/email", emailRoutes);
 app.use("/api/pages", pageRoutes);
-app.use("/api/questions", questionsRoutes);
 app.use("/api/forms", formsRoutes);
 app.use("/api/answers", answersRoutes);
 

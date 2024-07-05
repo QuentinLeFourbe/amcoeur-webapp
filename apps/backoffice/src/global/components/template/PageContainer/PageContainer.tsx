@@ -1,20 +1,17 @@
-import { useNavigate, useOutlet } from "react-router-dom";
+import { useOutlet } from "react-router-dom";
 import Header from "../../organisms/Header/Header";
 import Footer from "../../organisms/Footer/Footer";
-import { logout } from "../../../api/users";
-import useUser from "../../../../contentPages/hooks/useUser";
 import { css } from "../../../../../styled-system/css";
+import { useCurrentUser, useLogout } from "../../../hooks/useUser";
 
 function PageContainer() {
   const outlet = useOutlet();
-  const { user, logoutUser } = useUser();
-  const navigate = useNavigate();
+  const { mutate: logout } = useLogout();
+  const { data: { data: currentUser } = {} } = useCurrentUser();
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     try {
-      await logout();
-      logoutUser();
-      navigate("/login");
+      logout();
     } catch (error) {
       console.error(error);
     }
@@ -22,7 +19,11 @@ function PageContainer() {
 
   return (
     <div className={container}>
-      <Header isUserLoggedIn={!!user} logout={handleLogout} />
+      <Header
+        isUserLoggedIn={!!currentUser}
+        isUserActive={currentUser?.isActive || false}
+        logout={handleLogout}
+      />
       {outlet}
       <Footer />
     </div>

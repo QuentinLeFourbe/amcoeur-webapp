@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { requiresLogin } from "../middlewares/login.js";
+import { requiresActive } from "../middlewares/login.js";
 import {
   createForm,
   deleteForm,
@@ -10,13 +10,13 @@ import {
 
 const router = Router();
 
-router.post("/", requiresLogin, createForm);
+router.post("/", requiresActive, createForm);
 
-router.get("/", requiresLogin, getForms);
-router.get("/:id",  getForm);
+router.get("/", requiresActive, getForms);
+router.get("/:id", getForm);
 
-router.put("/:id", requiresLogin, updateForm);
+router.put("/:id", requiresActive, updateForm);
 
-router.delete("/:id", requiresLogin, deleteForm);
+router.delete("/:id", requiresActive, deleteForm);
 
 export default router;

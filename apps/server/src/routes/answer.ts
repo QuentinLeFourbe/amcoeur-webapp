@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { requiresLogin } from "../middlewares/login.js";
+import { requiresActive } from "../middlewares/login.js";
 import {
   createAnswer,
   deleteAnswer,
@@ -11,11 +11,11 @@ import { checkRecaptcha } from "../middlewares/captcha.js";
 
 const router = Router();
 
-router.get("/", requiresLogin, getAnswers);
-router.get("/:id", requiresLogin, getAnswer);
+router.get("/", requiresActive, getAnswers);
+router.get("/:id", requiresActive, getAnswer);
 
-router.put("/:id", requiresLogin, updateAnswer);
+router.put("/:id", requiresActive, updateAnswer);
 router.post("/", checkRecaptcha, createAnswer);
-router.delete("/:id", requiresLogin, deleteAnswer);
+router.delete("/:id", requiresActive, deleteAnswer);
 
 export default router;

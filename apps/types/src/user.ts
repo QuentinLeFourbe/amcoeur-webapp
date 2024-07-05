@@ -1,8 +1,12 @@
 export type User = {
-  username: string;
-  hash: string | null | undefined;
-  salt: string | null | undefined;
+  fullname: string;
+  facebookId: string;
+  email: string;
+  isActive: boolean;
+  isAdmin: boolean;
 };
+
+export type UserClientData = Pick<User, "isAdmin" | "isActive" | "fullname">;
 
 export type UserMethods = {
   setPassword: (password: string) => void;

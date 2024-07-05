@@ -1,10 +1,10 @@
+import { UserClientData } from "@amcoeur/types";
 import { createContext } from "react";
-import { UserData } from "../types/user";
 
 export type UserContextType = {
-  user: UserData | null;
+  user: UserClientData | null;
   logoutUser: () => void;
-  loginUser: (user: UserData) => void;
+  loginUser: (user: UserClientData) => void;
 };
 
 export const UserContext = createContext<UserContextType | undefined>(

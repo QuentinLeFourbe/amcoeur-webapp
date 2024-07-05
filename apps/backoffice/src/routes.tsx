@@ -13,6 +13,7 @@ import CreateForm from "./forms/pages/CreateForm";
 import UpdateForm from "./forms/pages/UpdateForm";
 import AnswersDashboard from "./answers/pages/AnswersDashboard";
 import ViewAnswer from "./answers/pages/ViewAnswer";
+import InactiveAccount from "./global/pages/InactiveAccount";
 
 const commonRoutes = [
   {
@@ -23,6 +24,7 @@ const commonRoutes = [
     path: "login",
     element: <Login />,
   },
+  { path: "inactive", element: <InactiveAccount /> },
   {
     path: "*",
     element: <NotFound />,

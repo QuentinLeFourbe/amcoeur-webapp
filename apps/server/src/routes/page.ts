@@ -8,20 +8,20 @@ import {
   createHomePage,
   getHomePage,
 } from "../controllers/page.js";
-import { requiresLogin } from "../middlewares/login.js";
+import { requiresActive } from "../middlewares/login.js";
 import upload from "../middlewares/files.js";
 
 const router = Router();
 
-router.post("/", requiresLogin, upload.any(), createPage);
-router.post("/homepage", requiresLogin, createHomePage);
+router.post("/", requiresActive, upload.any(), createPage);
+router.post("/homepage", requiresActive, createHomePage);
 
 router.get("/", getPages);
 router.get("/homepage", getHomePage);
 router.get("/:id", getPagesById);
 
-router.put("/:id", requiresLogin, upload.any(), updatePage);
+router.put("/:id", requiresActive, upload.any(), updatePage);
 
-router.delete("/:id", requiresLogin, deletePage);
+router.delete("/:id", requiresActive, deletePage);
 
 export default router;

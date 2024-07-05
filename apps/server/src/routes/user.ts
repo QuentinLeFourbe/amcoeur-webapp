@@ -1,30 +1,28 @@
 import { Router } from "express";
 import {
-  changeUserPassword,
-  createUser,
   deleteUser,
+  facebookLogin,
   getAllUsers,
   getCurrentUserFromToken,
   getUserById,
-  login,
   logout,
+  processFacebookCallback,
   updateUser,
 } from "../controllers/user.js";
-import { limitAttempts, requiresLogin } from "../middlewares/login.js";
+import { requiresAdmin, requiresLogin } from "../middlewares/login.js";
 
 const router = Router();
 
-router.get("/", requiresLogin, getAllUsers);
+router.get("/", requiresAdmin, getAllUsers);
 router.get("/current", getCurrentUserFromToken);
-router.get("/:id", requiresLogin, getUserById);
+router.get("/:id", requiresAdmin, getUserById);
+router.get("/login/facebook", facebookLogin);
+router.get("/login/facebook/callback", processFacebookCallback);
 
-router.post("/login", limitAttempts, login);
-router.post("/signup", requiresLogin, createUser);
 router.post("/logout", requiresLogin, logout);
 
-router.put("/:id", requiresLogin, updateUser);
-router.put("/password/:id", requiresLogin, changeUserPassword);
+router.put("/:id", requiresAdmin, updateUser);
 
-router.delete("/:id", requiresLogin, deleteUser);
+router.delete("/:id", requiresAdmin, deleteUser);
 
 export default router;

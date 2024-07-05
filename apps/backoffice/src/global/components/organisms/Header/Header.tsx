@@ -11,39 +11,45 @@ const headerLinks = [
   {
     name: "Formulaires",
     href: "/formulaires",
-  }
+  },
 ];
 
 type HeaderProps = {
   isUserLoggedIn: boolean;
+  isUserActive: boolean;
   logout: () => void;
 };
 
-function Header({ isUserLoggedIn, logout }: HeaderProps) {
+function Header({ isUserLoggedIn, isUserActive, logout }: HeaderProps) {
   return (
     <header className={header}>
-      {isUserLoggedIn ? (
+      {!isUserActive && (
+        <div className={cx(logoContainer)}>
+          <LogoLink src={AmcoeurLogo} href="#" />
+        </div>
+      )}
+      {isUserLoggedIn && (
         <>
-          <div className={cx(logoContainer)}>
-            <LogoLink src={AmcoeurLogo} href="/" />
-          </div>
-          <div className={primaryLinksContainer}>
-            {headerLinks.map((link, index) => (
-              <Link key={index} to={link.href} variant="primary">
-                {link.name}
-              </Link>
-            ))}
-          </div>
+          {isUserActive && (
+            <>
+              <div className={cx(logoContainer)}>
+                <LogoLink src={AmcoeurLogo} href="/" />
+              </div>
+              <div className={primaryLinksContainer}>
+                {headerLinks.map((link, index) => (
+                  <Link key={index} to={link.href} variant="primary">
+                    {link.name}
+                  </Link>
+                ))}
+              </div>
+            </>
+          )}
           <div className={disconnectContainer}>
             <Link onClick={logout} variant="primary">
               Se déconnecter
             </Link>
           </div>
         </>
-      ) : (
-        <div className={cx(logoContainer)}>
-          <LogoLink src={AmcoeurLogo} href="#" />
-        </div>
       )}
     </header>
   );
