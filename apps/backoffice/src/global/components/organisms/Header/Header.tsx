@@ -3,53 +3,60 @@ import { css, cx } from "../../../../../styled-system/css";
 import AmcoeurLogo from "../../../assets/icons/amcoeur_logo_light.webp";
 import Link from "../../atoms/Link/Link";
 
-const headerLinks = [
-  {
-    name: "Gestion des pages",
-    href: "/pages",
-  },
-  {
-    name: "Formulaires",
-    href: "/formulaires",
-  },
-];
-
 type HeaderProps = {
   isUserLoggedIn: boolean;
-  isUserActive: boolean;
+  isUserInactive: boolean;
+  isUserAdmin: boolean;
   logout: () => void;
 };
 
-function Header({ isUserLoggedIn, isUserActive, logout }: HeaderProps) {
+function Header({
+  isUserLoggedIn,
+  isUserInactive,
+  isUserAdmin,
+  logout,
+}: HeaderProps) {
+  let headerLinks: { name: string; href: string }[] = [];
+  if (!isUserInactive) {
+    headerLinks = [
+      ...headerLinks,
+      {
+        name: "Gestion des pages",
+        href: "/pages",
+      },
+      {
+        name: "Formulaires",
+        href: "/formulaires",
+      },
+    ];
+  }
+  if (isUserAdmin) {
+    headerLinks.push({ name: "Utilisateurs", href: "/users" });
+  }
   return (
     <header className={header}>
-      {!isUserActive && (
+      {isUserInactive ? (
         <div className={cx(logoContainer)}>
           <LogoLink src={AmcoeurLogo} href="#" />
         </div>
+      ) : (
+        <div className={cx(logoContainer)}>
+          <LogoLink src={AmcoeurLogo} href="/" />
+        </div>
       )}
+      <div className={primaryLinksContainer}>
+        {headerLinks.map((link, index) => (
+          <Link key={index} to={link.href} variant="primary">
+            {link.name}
+          </Link>
+        ))}
+      </div>
       {isUserLoggedIn && (
-        <>
-          {isUserActive && (
-            <>
-              <div className={cx(logoContainer)}>
-                <LogoLink src={AmcoeurLogo} href="/" />
-              </div>
-              <div className={primaryLinksContainer}>
-                {headerLinks.map((link, index) => (
-                  <Link key={index} to={link.href} variant="primary">
-                    {link.name}
-                  </Link>
-                ))}
-              </div>
-            </>
-          )}
-          <div className={disconnectContainer}>
-            <Link onClick={logout} variant="primary">
-              Se déconnecter
-            </Link>
-          </div>
-        </>
+        <div className={disconnectContainer}>
+          <Link onClick={logout} variant="primary">
+            Se déconnecter
+          </Link>
+        </div>
       )}
     </header>
   );

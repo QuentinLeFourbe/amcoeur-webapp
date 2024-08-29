@@ -1,3 +1,6 @@
+import type { Request } from "express";
+import { validateToken } from "../services/oauthService.js";
+
 const blockedUsers = new Map();
 
 export const isUserBlocked = (username: string) => {
@@ -34,3 +37,14 @@ export const removeUserFromBlockedUsers = (username: string) => {
   }
 };
 
+export const extractToken = async (req: Request) => {
+  const authHeader = req.headers["authorization"];
+  const authToken =
+    authHeader && authHeader.startsWith("Bearer ") ? authHeader.slice(7) : null;
+
+  if (!authToken) {
+    throw new Error("Token not present");
+  }
+  const token = await validateToken(authToken);
+  return token;
+};

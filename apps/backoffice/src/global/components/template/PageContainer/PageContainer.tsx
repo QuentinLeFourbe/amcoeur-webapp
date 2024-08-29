@@ -2,27 +2,23 @@ import { useOutlet } from "react-router-dom";
 import Header from "../../organisms/Header/Header";
 import Footer from "../../organisms/Footer/Footer";
 import { css } from "../../../../../styled-system/css";
-import { useCurrentUser, useLogout } from "../../../hooks/useUser";
+import { useCurrentUser, useUserContext } from "../../../hooks/useUser";
+import { checkUserPermissions } from "../../../utils/user";
 
 function PageContainer() {
   const outlet = useOutlet();
-  const { mutate: logout } = useLogout();
+  const { logout } = useUserContext() || {};
   const { data: { data: currentUser } = {} } = useCurrentUser();
-
-  const handleLogout = () => {
-    try {
-      logout();
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <div className={container}>
       <Header
         isUserLoggedIn={!!currentUser}
-        isUserActive={currentUser?.isActive || false}
-        logout={handleLogout}
+        isUserInactive={
+          !currentUser || checkUserPermissions(currentUser, ["inactive"])
+        }
+        isUserAdmin={checkUserPermissions(currentUser, ["admin"]) || false}
+        logout={() => logout?.()}
       />
       {outlet}
       <Footer />

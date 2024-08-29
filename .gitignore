@@ -8,3 +8,6 @@ build
 
 apps/server/uploads/*
 !uploads/.gitkeep
+
+*.crt
+*.key

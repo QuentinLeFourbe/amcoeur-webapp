@@ -1,14 +1,23 @@
+import type mongoose from "mongoose";
+
+export type UserPermission = "admin" | "inactive" | "forms" | "pages";
+
 export type User = {
-  fullname: string;
-  facebookId: string;
-  email: string;
-  isActive: boolean;
-  isAdmin: boolean;
+  fullname?: string;
+  facebookId?: string;
+  microsoftId?: string;
+  googleId?: string;
+  email?: string;
+  permissions: UserPermission[];
 };
 
-export type UserClientData = Pick<User, "isAdmin" | "isActive" | "fullname">;
+export type UserClientData = Pick<
+  User,
+  "permissions" | "fullname" | "email"
+> & {
+  _id: string;
+};
 
-export type UserMethods = {
-  setPassword: (password: string) => void;
-  validPassword: (password: string) => boolean;
+export type UserServerData = User & {
+  _id: mongoose.Types.ObjectId;
 };

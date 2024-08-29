@@ -14,6 +14,8 @@ import UpdateForm from "./forms/pages/UpdateForm";
 import AnswersDashboard from "./answers/pages/AnswersDashboard";
 import ViewAnswer from "./answers/pages/ViewAnswer";
 import InactiveAccount from "./global/pages/InactiveAccount";
+import ManageUsers from "./users/pages/ManageUsers";
+import LoginRedirect from "./global/pages/LoginRedirect";
 
 const commonRoutes = [
   {
@@ -23,6 +25,10 @@ const commonRoutes = [
   {
     path: "login",
     element: <Login />,
+  },
+  {
+    path: "login/redirect",
+    element: <LoginRedirect />,
   },
   { path: "inactive", element: <InactiveAccount /> },
   {
@@ -67,10 +73,15 @@ const formsRoutes = {
   ],
 };
 
+const usersRoutes = {
+  path: "users",
+  element: <ManageUsers />,
+};
+
 const appRoutes = [
   {
     element: <PageContainer />,
-    children: [pagesRoutes, formsRoutes, ...commonRoutes],
+    children: [pagesRoutes, formsRoutes, usersRoutes, ...commonRoutes],
   },
 ];
 

@@ -22,7 +22,6 @@ function DynamicFormFields({ component, onChange }: DynamicFormFieldsProps) {
       value: form._id || "",
     })) || [];
 
-  console.log("component", component);
   return (
     <div className={container}>
       <h2>Formulaire</h2>

@@ -7,8 +7,8 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: process.env.CONTACT_EMAIL,
-    pass: process.env.CONTACT_EMAIL_PASSWORD,
+    user: process.env.NOREPLY_EMAIL,
+    pass: process.env.NOREPLY_EMAIL_PASSWORD,
   },
 });
 
@@ -26,7 +26,8 @@ transporter.verify(function (error) {
  */
 export const sendEmail = async (mailOptions: MailOptions) => {
   try {
-    await transporter?.sendMail(mailOptions);
+    const options = {...mailOptions, from: process.env.NOREPLY_EMAIL}
+    await transporter?.sendMail(options);
   } catch (err) {
     throw new Error("Erreur lors de l'envoie du mail: " + err);
   }

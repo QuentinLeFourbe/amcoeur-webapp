@@ -1,23 +1,33 @@
 import type { Request, Response, NextFunction } from "express";
-import jwt, { type JwtPayload, type Secret } from "jsonwebtoken";
+import { extractToken } from "../utils/login.js";
+import type { MicrosoftToken } from "../types/oauth.js";
+import { getOrCreateMsUser } from "../services/userService.js";
+import {
+  addMsUserToRedis,
+  getMsUserFromRedis,
+} from "../services/redisService.js";
+import type { UserServerData } from "@amcoeur/types";
+import { checkUserPermissions } from "../utils/user.js";
 
-const extractToken = (req: Request) => {
-  const authToken = req.cookies.authToken;
-
-  if (!authToken) {
-    throw new Error("Token not present");
+const extractUser = async (req: Request, res: Response) => {
+  const token = (await extractToken(req)) as MicrosoftToken;
+  let user;
+  try {
+    user = await getMsUserFromRedis(token.oid);
+  } catch {
+    user = await getOrCreateMsUser(token);
+    addMsUserToRedis(user, token.exp);
   }
-  const token = jwt.verify(authToken, process.env["JWT_SECRET"] as Secret);
-  return token;
+  res.locals.user = user;
 };
 
-export const requiresLogin = (
+export const requiresLogin = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    extractToken(req);
+    await extractUser(req, res);
     next();
     return;
   } catch (error) {
@@ -26,15 +36,15 @@ export const requiresLogin = (
   }
 };
 
-export const requiresActive = (
+export const requiresActive = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    const token = extractToken(req);
-    const isActive = (token as JwtPayload).isActive;
-    if (!isActive) {
+    await extractUser(req, res);
+    const user = res.locals.user as UserServerData;
+    if (checkUserPermissions(user, ["inactive"])) {
       res.locals.logger.error({ message: "User not active" });
       return res.status(401).json({ message: "Unauthorized" });
     }
@@ -45,21 +55,20 @@ export const requiresActive = (
   }
 };
 
-export const requiresAdmin = (
+export const requiresAdmin = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    const token = extractToken(req);
-    const isActive = (token as JwtPayload).isActive;
-    if (!isActive) {
+    await extractUser(req, res);
+    const user = res.locals.user as UserServerData;
+    if (checkUserPermissions(user, ["inactive"])) {
       res.locals.logger.error({ message: "User not active" });
       return res.status(401).json({ message: "Unauthorized" });
     }
 
-    const isAdmin = (token as JwtPayload).isAdmin;
-    if (!isAdmin) {
+    if (checkUserPermissions(user, ["admin"]) === false) {
       res.locals.logger.error({ message: "User not admin" });
       return res.status(401).json({ message: "Unauthorized" });
     }

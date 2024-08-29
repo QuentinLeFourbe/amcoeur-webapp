@@ -12,13 +12,22 @@ const schema = new mongoose.Schema<UserType, UserModel>({
     type: String,
     required: true,
   },
-
   facebookId: {
     type: String,
+    required: false,
+  },
+  microsoftId: {
+    type: String,
+    required: false,
+  },
+  googleId: {
+    type: String,
+    required: false,
+  },
+  permissions: {
+    type: [String],
     required: true,
   },
-  isAdmin: { type: Boolean, required: true },
-  isActive: { type: Boolean, required: true },
 });
 
 const User = mongoose.model<UserType, UserModel>("User", schema);

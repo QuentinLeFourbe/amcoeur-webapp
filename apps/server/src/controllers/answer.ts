@@ -21,7 +21,6 @@ export const createAnswer = async (req: Request, res: Response) => {
       mailText,
     );
     const mailOptions = {
-      from: process.env.CONTACT_EMAIL,
       to: process.env.CONTACT_EMAIL,
       subject: `Nouvelle réponse pour le formulaire: ${form?.name}`,
       text: mailText,

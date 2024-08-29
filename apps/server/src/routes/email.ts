@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { sendEmailHandler } from "../controllers/email.js";
+import { sendContactEmail } from "../controllers/email.js";
 import { checkRecaptcha } from "../middlewares/captcha.js";
 
 const router = Router();
 
-router.post("/contact", checkRecaptcha, sendEmailHandler);
+router.post("/contact", checkRecaptcha, sendContactEmail);
 
 export default router;

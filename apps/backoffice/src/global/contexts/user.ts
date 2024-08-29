@@ -1,10 +1,10 @@
-import { UserClientData } from "@amcoeur/types";
 import { createContext } from "react";
 
 export type UserContextType = {
-  user: UserClientData | null;
-  logoutUser: () => void;
-  loginUser: (user: UserClientData) => void;
+  loginState?: string; //use to retrieve the user's flow in the app after the login
+  setLoginState: (state: string) => void;
+  logout: () => void;
+  setAccessToken: (token: string) => void;
 };
 
 export const UserContext = createContext<UserContextType | undefined>(

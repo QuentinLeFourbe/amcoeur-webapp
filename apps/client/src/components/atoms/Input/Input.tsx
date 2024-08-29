@@ -20,7 +20,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         event.preventDefault();
       }
     };
-    console.log("numeric: ", numeric);
     return (
       <input
         {...props}

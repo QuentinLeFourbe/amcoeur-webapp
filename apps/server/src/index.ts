@@ -13,6 +13,9 @@ import cookieParser from "cookie-parser";
 import { fileURLToPath } from "url";
 import { getRequestLogger } from "./middlewares/logger.js";
 import { logger } from "./utils/logger.js";
+import { redisClient } from "./services/redisService.js";
+import * as https from "https";
+import * as fs from "fs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -38,7 +41,7 @@ app.use(
       directives: {
         "script-src": ["'self'", "www.google.com", "www.gstatic.com"],
         "frame-src": ["'self'", "www.google.com", "www.gstatic.com"],
-        "connect-src": ["'self'", "https://www.facebook.com", "www.google.com"],
+        "connect-src": ["'self'", "https://www.facebook.com", "www.google.com", "https://login.microsoftonline.com"],
       },
     },
   }),
@@ -63,6 +66,8 @@ app.get("/*", (_req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
 });
 
+redisClient.connect();
+
 mongoose
   .connect(databaseUri)
   .then(() => logger.info("Connexion à la base de données établie"))
@@ -70,6 +75,11 @@ mongoose
     logger.error("Erreur de connexion à la base de données:", err),
   );
 
-app.listen(PORT, () => {
+const options = {
+  key: fs.readFileSync(path.join(__dirname, "../../../certs/localhost.key")),
+  cert: fs.readFileSync(path.join(__dirname, "../../../certs/localhost.crt")),
+};
+
+https.createServer(options, app).listen(PORT, () => {
   logger.info(`Serveur en cours d'exécution sur le port ${PORT}`);
 });
