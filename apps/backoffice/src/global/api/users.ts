@@ -10,7 +10,7 @@ export const getAccessToken = (code: string, codeVerifier: string) =>
   axios.post(
     "https://login.microsoftonline.com/consumers/oauth2/v2.0/token",
     {
-      redirect_uri: "https://localhost:3000/administration/login/redirect",
+      redirect_uri: "https://amcoeur.org/administration/login/redirect",
       grant_type: "authorization_code",
       scope: "openid",
       code,
