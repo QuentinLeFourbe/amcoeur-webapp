@@ -41,7 +41,12 @@ app.use(
       directives: {
         "script-src": ["'self'", "www.google.com", "www.gstatic.com"],
         "frame-src": ["'self'", "www.google.com", "www.gstatic.com"],
-        "connect-src": ["'self'", "https://www.facebook.com", "www.google.com", "https://login.microsoftonline.com"],
+        "connect-src": [
+          "'self'",
+          "https://www.facebook.com",
+          "www.google.com",
+          "https://login.microsoftonline.com",
+        ],
       },
     },
   }),
@@ -75,11 +80,16 @@ mongoose
     logger.error("Erreur de connexion à la base de données:", err),
   );
 
-const options = {
-  key: fs.readFileSync(path.join(__dirname, "../../../certs/localhost.key")),
-  cert: fs.readFileSync(path.join(__dirname, "../../../certs/localhost.crt")),
-};
-
-https.createServer(options, app).listen(PORT, () => {
-  logger.info(`Serveur en cours d'exécution sur le port ${PORT}`);
-});
+if (process.env.NODE_ENV === "development") {
+  const options = {
+    key: fs.readFileSync(path.join(__dirname, "../../../certs/localhost.key")),
+    cert: fs.readFileSync(path.join(__dirname, "../../../certs/localhost.crt")),
+  };
+  https.createServer(options, app).listen(PORT, () => {
+    logger.info(`Serveur en cours d'exécution sur le port ${PORT}`);
+  });
+} else {
+  app.listen(PORT, () => {
+    logger.info(`Serveur en cours d'exécution sur le port ${PORT}`);
+  });
+}
