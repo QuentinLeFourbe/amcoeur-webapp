@@ -2,7 +2,7 @@ import { createClient } from "redis";
 import { logger } from "../utils/logger.js";
 import type { UserServerData } from "@amcoeur/types";
 
-export const redisClient = createClient();
+export const redisClient = createClient({ url: process.env.REDIS_URL || "" });
 
 redisClient.on("connect", () => logger.info("Connected to Redis"));
 
