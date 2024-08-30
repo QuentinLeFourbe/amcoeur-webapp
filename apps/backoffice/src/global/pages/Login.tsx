@@ -27,7 +27,7 @@ function Login() {
         `client_id=${import.meta.env.VITE_MS_CLIENT_ID}` +
         "&scope=openid" +
         "&response_type=code" +
-        `&redirect_uri=https://localhost:3000/administration/login/redirect
+        `&redirect_uri=https://amcoeur.org/administration/login/redirect
 ` +
         `&code_challenge=${codeChallenge}` +
         "&code_challenge_method=S256";
