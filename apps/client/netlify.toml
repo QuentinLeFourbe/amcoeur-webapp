@@ -4,4 +4,4 @@ to = "https://api.amcoeur.org"
 status = 301
 
 [build]
-publish = "dist"
+publish = "apps/client/dist"
