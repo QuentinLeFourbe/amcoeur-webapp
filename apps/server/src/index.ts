@@ -1,5 +1,5 @@
 import "dotenv/config";
-import express, { type Request, type Response } from "express";
+import express from "express";
 import path, { dirname } from "path";
 import helmet from "helmet";
 import formsRoutes from "./routes/form.js";
@@ -24,9 +24,10 @@ const PORT = process.env.PORT || 3000;
 const databaseUri = process.env.DB_URI || "";
 const corsOptions = {
   origin: [
-    "http://localhost:3000",
     "http://localhost:3001",
     "http://localhost:3002",
+    "https://amcoeur.org",
+    "https://administration.amcoeur.org",
   ],
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
@@ -34,26 +35,8 @@ const corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions));
 app.use(cookieParser());
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      useDefaults: true,
-      directives: {
-        "script-src": ["'self'", "www.google.com", "www.gstatic.com"],
-        "frame-src": ["'self'", "www.google.com", "www.gstatic.com"],
-        "connect-src": [
-          "'self'",
-          "https://www.facebook.com",
-          "www.google.com",
-          "https://login.microsoftonline.com",
-        ],
-      },
-    },
-  }),
-);
+app.use(helmet());
 
-app.use(express.static(path.join(__dirname, "../../client/dist")));
-app.use(express.static(path.join(__dirname, "../../backoffice/dist")));
 app.use("/api/images", express.static(path.join(__dirname, "../uploads")));
 
 app.use(getRequestLogger);
@@ -62,14 +45,6 @@ app.use("/api/email", emailRoutes);
 app.use("/api/pages", pageRoutes);
 app.use("/api/forms", formsRoutes);
 app.use("/api/answers", answersRoutes);
-
-app.get("/administration*", (_req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "../../backoffice/dist/index.html"));
-});
-
-app.get("/*", (_req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
-});
 
 redisClient.connect();
 

@@ -23,11 +23,11 @@ function Login() {
       const codeChallenge = await generateCodeChallenge(codeVerifier);
 
       const loginUrl =
-        "https://login.microsoftonline.com/consumers/oauth2/v2.0/authorize?" +
+        "//login.microsoftonline.com/consumers/oauth2/v2.0/authorize?" +
         `client_id=${import.meta.env.VITE_MS_CLIENT_ID}` +
         "&scope=openid" +
         "&response_type=code" +
-        `&redirect_uri=https://amcoeur.org/administration/login/redirect
+        `&redirect_uri=${window.location.origin}/login/redirect
 ` +
         `&code_challenge=${codeChallenge}` +
         "&code_challenge_method=S256";
@@ -40,9 +40,10 @@ function Login() {
   return (
     <div className={container}>
       <p>
-        Bonjour, la connexion s&apos;effectue via votre adresse email Microsoft (Outlook, Hotmail, Live). Une fois connectée,
-        un email sera envoyé au responsable afin de valider votre compte. Merci
-        de vous rapprocher de Roger ou de Quentin.
+        Bonjour, la connexion s&apos;effectue via votre adresse email Microsoft
+        (Outlook, Hotmail, Live). Une fois connectée, un email sera envoyé au
+        responsable afin de valider votre compte. Merci de vous rapprocher de
+        Roger ou de Quentin.
       </p>
       <Button type="button" onClick={microsoftLogin}>
         Se connecter avec Outlook

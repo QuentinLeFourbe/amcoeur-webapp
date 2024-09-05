@@ -85,5 +85,5 @@ const appRoutes = [
   },
 ];
 
-const router = createBrowserRouter(appRoutes, { basename: "/administration" });
+const router = createBrowserRouter(appRoutes);
 export default router;
