@@ -1,0 +1,6 @@
+[[redirects]]
+from = "/api/*"
+to = "https://api.amcoeur.org/api/:splat"
+
+[build]
+publish = "apps/backoffice/dist"
