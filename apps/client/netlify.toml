@@ -1,7 +1,6 @@
-[[redirect]]
-from = "/api"
-to = "https://api.amcoeur.org"
-status = 301
+[[redirects]]
+from = "/api/*"
+to = "https://api.amcoeur.org/api/:splat"
 
 [build]
 publish = "apps/client/dist"
