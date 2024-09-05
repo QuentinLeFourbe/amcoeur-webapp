@@ -11,3 +11,6 @@ apps/server/uploads/*
 
 *.crt
 *.key
+
+# Local Netlify folder
+.netlify
