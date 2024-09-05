@@ -1,0 +1,4 @@
+[[redirect]]
+from = "/api"
+to = "https://api.amcoeur.org"
+status = 301
