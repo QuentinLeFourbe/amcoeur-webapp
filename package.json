@@ -17,7 +17,7 @@
     "watch-backoffice": "npm run watch -w @amcoeur/backoffice",
     "watch-types": "npm run watch -w @amcoeur/types",
     "build-types": "npm run build -w @amcoeur/types",
-    "prebuild": "npm run prebuild",
+    "prebuild": "npm run build-types",
     "build-client": "npm run prebuild && npm run build -w @amcoeur/client",
     "build-backoffice": "npm run prebuild && npm run build -w @amcoeur/backoffice",
     "build-server": "npm run prebuild && npm run build -w @amcoeur/server",
