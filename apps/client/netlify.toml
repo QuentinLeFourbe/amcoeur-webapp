@@ -2,5 +2,10 @@
 from = "/api/*"
 to = "https://api.amcoeur.org/api/:splat"
 
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
+
 [build]
 publish = "apps/client/dist"
