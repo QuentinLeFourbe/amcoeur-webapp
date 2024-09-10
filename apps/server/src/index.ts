@@ -22,16 +22,23 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3000;
 const databaseUri = process.env.DB_URI || "";
-const corsOptions = {
-  origin: [
-    "http://localhost:3001",
-    "http://localhost:3002",
-    "https://www.amcoeur.org",
-    "https://amcoeur.org",
-    "https://administration.amcoeur.org",
-  ],
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
+const corsOptions =
+  process.env.NODE_ENV === "development"
+    ? {
+      origin: [
+        "https://localhost:3001",
+        "https://localhost:3002",
+        "http://localhost:8888",
+      ],
+      optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    }
+    : {
+      origin: [
+        "https://www.amcoeur.org",
+        "https://administration.amcoeur.org",
+      ],
+      optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    };
 
 app.use(express.json());
 app.use(cors(corsOptions));
