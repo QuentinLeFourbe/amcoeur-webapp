@@ -9,3 +9,9 @@ status = 200
 
 [build]
 publish = "apps/client/dist"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; img-src 'self' https://api.amcoeur.org;"
+
