@@ -27,6 +27,7 @@ const corsOptions = {
     "http://localhost:3001",
     "http://localhost:3002",
     "https://www.amcoeur.org",
+    "https://amcoeur.org",
     "https://administration.amcoeur.org",
   ],
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
@@ -37,14 +38,14 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(helmet());
 
-app.use("/api/images", express.static(path.join(__dirname, "../uploads")));
+app.use("/images", express.static(path.join(__dirname, "../uploads")));
 
 app.use(getRequestLogger);
-app.use("/api/users", userRoutes);
-app.use("/api/email", emailRoutes);
-app.use("/api/pages", pageRoutes);
-app.use("/api/forms", formsRoutes);
-app.use("/api/answers", answersRoutes);
+app.use("/users", userRoutes);
+app.use("/email", emailRoutes);
+app.use("/pages", pageRoutes);
+app.use("/forms", formsRoutes);
+app.use("/answers", answersRoutes);
 
 redisClient.connect();
 
