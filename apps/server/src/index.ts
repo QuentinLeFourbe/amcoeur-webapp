@@ -41,7 +41,7 @@ const corsOptions =
     };
 
 app.use((_req, res, next) => {
-  res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+  res.set({ "Cross-Origin-Resource-Policy": "cross-origin" });
   next();
 });
 app.use(express.json());
