@@ -11,7 +11,7 @@ COPY . .
 RUN npm install
 
 # Construction du client et du serveur
-RUN npm run build
+RUN npm run build-server
 
 # Exposer le port que ton serveur utilise
 EXPOSE 5000
