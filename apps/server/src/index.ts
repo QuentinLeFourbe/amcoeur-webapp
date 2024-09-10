@@ -40,6 +40,10 @@ const corsOptions =
       optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
     };
 
+app.use((_req, res, next) => {
+  res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+  next();
+});
 app.use(express.json());
 app.use(cors(corsOptions));
 app.use(cookieParser());
