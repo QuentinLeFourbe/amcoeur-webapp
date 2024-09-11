@@ -16,6 +16,7 @@ import ViewAnswer from "./answers/pages/ViewAnswer";
 import InactiveAccount from "./global/pages/InactiveAccount";
 import ManageUsers from "./users/pages/ManageUsers";
 import LoginRedirect from "./global/pages/LoginRedirect";
+import StaticPageContainer from "./global/components/template/StaticPageContainer/StaticPageContainer";
 
 const commonRoutes = [
   {
@@ -25,10 +26,6 @@ const commonRoutes = [
   {
     path: "login",
     element: <Login />,
-  },
-  {
-    path: "login/redirect",
-    element: <LoginRedirect />,
   },
   { path: "inactive", element: <InactiveAccount /> },
   {
@@ -79,6 +76,15 @@ const usersRoutes = {
 };
 
 const appRoutes = [
+  {
+    element: <StaticPageContainer />,
+    children: [
+      {
+        path: "login/redirect",
+        element: <LoginRedirect />,
+      },
+    ],
+  },
   {
     element: <PageContainer />,
     children: [pagesRoutes, formsRoutes, usersRoutes, ...commonRoutes],
