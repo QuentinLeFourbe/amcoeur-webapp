@@ -1,6 +1,7 @@
 [[redirects]]
 from = "/api/*"
 to = "https://api.amcoeur.org/:splat"
+status = 200
 
 [[redirects]]
 from = "/*"
