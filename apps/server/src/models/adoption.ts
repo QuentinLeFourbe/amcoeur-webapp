@@ -1,5 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-import { boolean } from "zod";
 
 const adoption = new Schema(
   {
@@ -8,8 +7,8 @@ const adoption = new Schema(
     race: { type: String, required: false },
     description: { type: String, required: false },
     imageUrl: { type: String, required: false },
-    visible: { type: boolean, required: false },
-    archived: { type: boolean, required: false },
+    visible: { type: Boolean, required: false },
+    archived: { type: Boolean, required: false },
     commentary: { type: String, required: false },
   },
 

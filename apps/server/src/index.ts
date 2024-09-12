@@ -6,6 +6,7 @@ import formsRoutes from "./routes/form.js";
 import emailRoutes from "./routes/email.js";
 import answersRoutes from "./routes/answer.js";
 import userRoutes from "./routes/user.js";
+import adoptionsRoutes from "./routes/adoption.js";
 import mongoose from "mongoose";
 import pageRoutes from "./routes/page.js";
 import cors from "cors";
@@ -57,6 +58,7 @@ app.use("/email", emailRoutes);
 app.use("/pages", pageRoutes);
 app.use("/forms", formsRoutes);
 app.use("/answers", answersRoutes);
+app.use("/adoptions", adoptionsRoutes);
 
 redisClient.connect();
 
