@@ -1,5 +1,5 @@
 import { defineConfig, defineGlobalStyles } from "@pandacss/dev";
-import { theme } from "./src/theme/theme";
+import { theme } from "./src/global/theme/theme";
 
 const globalCss = defineGlobalStyles({
   "html, body": {

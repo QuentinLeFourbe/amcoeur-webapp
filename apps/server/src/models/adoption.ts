@@ -5,6 +5,7 @@ const adoption = new Schema(
     name: { type: String, required: true },
     species: { type: String, required: true },
     race: { type: String, required: false },
+    gender: { type: String, required: true },
     description: { type: String, required: false },
     imageUrl: { type: String, required: false },
     visible: { type: Boolean, required: false },

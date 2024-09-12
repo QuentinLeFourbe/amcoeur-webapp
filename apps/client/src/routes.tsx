@@ -1,9 +1,9 @@
 import { createRef } from "react";
-import IndexPage from "./pages";
-import PageContainer from "./components/templates/PageContainer/PageContainer";
-import { generatePagesRoutes } from "./utils/routes";
-import GeneratedPage from "./pages/GeneratedPage";
-import Preview from "./pages/Preview";
+import IndexPage from "./global/pages";
+import { generatePagesRoutes } from "./global/utils/routes";
+import Preview from "./generated/pages/Preview";
+import GeneratedPage from "./generated/pages/GeneratedPage";
+import PageContainer from "./global/components/templates/PageContainer/PageContainer";
 
 export const pagesRoutes = [
   {

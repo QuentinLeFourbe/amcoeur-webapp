@@ -2,11 +2,13 @@ import mongoose from "mongoose";
 import { z } from "zod";
 
 const speciesSchema = z.enum(["CAT", "DOG", "HORSE"]);
+const genderSchema = z.enum(["MALE", "FEMALE"]);
 
 const adoptionBaseSchema = z.object({
   name: z.string(),
   species: speciesSchema,
   race: z.string().optional(),
+  gender: genderSchema,
   description: z.string().optional(),
   imageUrl: z.string().optional(),
   visible: z.boolean(),
