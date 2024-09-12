@@ -4,16 +4,16 @@ import AmcoeurLogo from "../../../assets/icons/amcoeur_logo_light.webp";
 import Link from "../../atoms/Link/Link";
 
 type HeaderProps = {
-  isUserLoggedIn: boolean;
-  isUserInactive: boolean;
-  isUserAdmin: boolean;
-  logout: () => void;
+  isUserLoggedIn?: boolean;
+  isUserInactive?: boolean;
+  isUserAdmin?: boolean;
+  logout?: () => void;
 };
 
 function Header({
-  isUserLoggedIn,
-  isUserInactive,
-  isUserAdmin,
+  isUserLoggedIn = false,
+  isUserInactive = true,
+  isUserAdmin = false,
   logout,
 }: HeaderProps) {
   let headerLinks: { name: string; href: string }[] = [];
