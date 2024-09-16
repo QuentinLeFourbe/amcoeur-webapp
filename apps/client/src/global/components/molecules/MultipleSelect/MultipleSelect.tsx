@@ -35,6 +35,7 @@ function MultipleSelect({
     >
       {options.map((choice, index) => (
         <FormCheckbox
+          type="checkbox"
           checked={!!value?.find((item) => item === choice)}
           onChange={(e) => handleChange(e.target.checked, choice)}
           name={name}

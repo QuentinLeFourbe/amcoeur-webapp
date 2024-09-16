@@ -26,6 +26,10 @@ const headerLinks = [
     name: "Nous contacter",
     href: "/contact",
   },
+  {
+    name: "Adoptions",
+    href: "/adoptions",
+  },
 ];
 
 const secondaryLinks = [

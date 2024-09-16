@@ -4,21 +4,23 @@ import Label from "../../atoms/Label/Label";
 import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
 import Checkbox from "../../atoms/Checkbox/Checkbox";
 
-type FormCheckboxProps = ComponentPropsWithoutRef<"input"> & {
+type FormCheckboxProps = Omit<ComponentPropsWithoutRef<"input">, "type"> & {
   children: React.ReactNode;
   errorMessage?: string;
+  labelClassName?: string;
+  type: "radio" | "checkbox";
 };
 
 const FormCheckbox = forwardRef<HTMLInputElement, FormCheckboxProps>(
   function FormCheckbox(
-    { children, errorMessage, ...props }: FormCheckboxProps,
+    { children, errorMessage, labelClassName, ...props }: FormCheckboxProps,
     ref,
   ) {
     return (
       <div className={mainContainer}>
         <div className={checkboxContainer}>
           <Checkbox {...props} ref={ref} />
-          <Label>{children}</Label>
+          <Label className={labelClassName}>{children}</Label>
         </div>
         {errorMessage && <ErrorLabel>{errorMessage}</ErrorLabel>}
       </div>

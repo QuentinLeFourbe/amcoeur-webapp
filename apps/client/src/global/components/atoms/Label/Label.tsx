@@ -6,6 +6,4 @@ export default function Label(props: LabelProps) {
   return <label {...props} className={cx(props.className, labelStyle)} />;
 }
 
-const labelStyle = css({
-  fontWeight: "bold",
-});
+const labelStyle = css({});

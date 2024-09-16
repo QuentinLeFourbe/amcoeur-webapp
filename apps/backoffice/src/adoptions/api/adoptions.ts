@@ -1,16 +1,20 @@
-import { AdoptionClient } from "@amcoeur/types";
+import {
+  AdoptionClientData,
+  AdoptionClientServerResponseData,
+} from "@amcoeur/types";
 import axios from "axios";
 
-export const getAdoptions = () => axios.get<AdoptionClient[]>("/api/adoptions");
+export const getAdoptions = () =>
+  axios.get<AdoptionClientServerResponseData[]>("/api/adoptions");
 
 export const getAdoption = (id: string) =>
-  axios.get<AdoptionClient>(`/api/adoptions/${id}`);
+  axios.get<AdoptionClientData>(`/api/adoptions/${id}`);
 
-export const updateAdoption = (adoption: AdoptionClient) =>
-  axios.put<AdoptionClient>(`/api/adoptions/${adoption._id}`, adoption);
+export const updateAdoption = (adoption: AdoptionClientData) =>
+  axios.put<AdoptionClientData>(`/api/adoptions/${adoption._id}`, adoption);
 
 export const deleteAdoption = (id: string) =>
-  axios.delete<AdoptionClient>(`/api/adoptions/${id}`);
+  axios.delete<AdoptionClientData>(`/api/adoptions/${id}`);
 
-export const createAdoption = (adoption: AdoptionClient) =>
-  axios.post<AdoptionClient>("/api/adoptions", adoption);
+export const createAdoption = (adoption: AdoptionClientData) =>
+  axios.post<AdoptionClientData>("/api/adoptions", adoption);

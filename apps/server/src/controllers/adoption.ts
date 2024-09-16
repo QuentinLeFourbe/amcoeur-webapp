@@ -1,6 +1,16 @@
 import type { Request, Response } from "express";
-import type { AdoptionServer } from "@amcoeur/types";
 import Adoption from "../models/adoption.js";
+import {
+  getAdoptionFilter,
+  convertAdoptionToPublicData,
+} from "../utils/adoptions.js";
+import { addPagination } from "../utils/db.js";
+import { parseBoolean, queryToArray } from "../utils/query.js";
+import type { AdoptionFilter } from "../types/adoptions.js";
+import type {
+  AdoptionServerData,
+  AdoptionServerResponseData,
+} from "@amcoeur/types";
 
 export const createAdoption = async (req: Request, res: Response) => {
   try {
@@ -44,7 +54,7 @@ export const deleteAdoption = async (req: Request, res: Response) => {
 
 export const updateAdoption = async (req: Request, res: Response) => {
   try {
-    const updatedAdoptionData = req.body as AdoptionServer;
+    const updatedAdoptionData = req.body as AdoptionServerData;
     const updatedAnswer = await Adoption.findByIdAndUpdate(
       req.params.id,
       updatedAdoptionData,
@@ -72,9 +82,15 @@ export const updateAdoption = async (req: Request, res: Response) => {
 
 export const getAdoption = async (req: Request, res: Response) => {
   try {
-    const answer = await Adoption.findById(req.params.id);
-    if (answer) {
-      res.status(200).json(answer);
+    const adoption = await Adoption.findById(req.params.id);
+    if (adoption) {
+      if (res.locals.user) {
+        res.status(200).json(adoption);
+      } else {
+        res
+          .status(200)
+          .json(convertAdoptionToPublicData(adoption as AdoptionServerData));
+      }
     } else {
       res.status(404).json({ message: "Adoption introuvable" });
     }
@@ -93,14 +109,97 @@ export const getAdoption = async (req: Request, res: Response) => {
 
 export const getAdoptions = async (req: Request, res: Response) => {
   try {
-    const answer = await Adoption.find(req.query);
-    res.status(200).json(answer);
+    const { count, limit, page, gender, species, name } = req.query;
+
+    const parsedLimit = parseInt(limit as string);
+    const pageLimit = !parsedLimit || parsedLimit < 1 ? 20 : parsedLimit;
+    const parsedPage = parseInt(page as string);
+    const pageNumber = !parsedPage || parsedPage < 1 ? 1 : parsedPage;
+    const isCounting = parseBoolean(count as string);
+
+    const speciesFilterValue = queryToArray(species as string);
+    const filter = getAdoptionFilter({
+      gender,
+      species: speciesFilterValue,
+      name,
+    } as AdoptionFilter);
+
+    const countRequest = isCounting
+      ? {
+        speciesCount: [
+          {
+            $group: {
+              _id: "$species", // Grouper par la species
+              count: { $sum: 1 }, // Compter le nombre pour chaque species
+            },
+          },
+        ],
+
+        genderCount: [
+          {
+            $group: {
+              _id: "$gender", // Grouper par sexe
+              count: { $sum: 1 }, // Compter le nombre pour chaque sexe
+            },
+          },
+        ],
+      }
+      : {};
+
+    const results = await Adoption.aggregate([
+      {
+        $match: filter,
+      },
+      {
+        $facet: {
+          paginatedAdoptions: addPagination(pageNumber, pageLimit),
+          totalAdoptions: [{ $count: "total" }], // Compte le nombre total d'adoptions
+          ...countRequest,
+        },
+      },
+    ]);
+    const totalAdoptions = results[0]?.totalAdoptions[0]?.total || 0;
+    const totalPages = Math.ceil(totalAdoptions / pageLimit);
+    const currentPage = pageNumber > totalPages ? totalPages : pageNumber;
+    const response = {
+      pagination: {
+        page: currentPage,
+        totalPages,
+        perPage: pageLimit,
+        totalItems: totalAdoptions,
+      },
+    } as Omit<AdoptionServerResponseData, "data">;
+
+    if (isCounting) {
+      const count = {
+        species: results[0].speciesCount,
+        gender: results[0].genderCount,
+      };
+      response.count = count;
+    }
+
+    if (res.locals.user) {
+      const responseWithData = {
+        ...response,
+        data: results[0].paginatedAdoptions,
+      } as AdoptionServerResponseData;
+      return res.status(200).json(responseWithData);
+    } else {
+      const publicData = (results[0].paginatedAdoptions as []).map((adoption) =>
+        convertAdoptionToPublicData(adoption as AdoptionServerData),
+      );
+      const responseWithData = {
+        ...response,
+        data: publicData,
+      };
+      return res.status(200).json(responseWithData);
+    }
   } catch (error) {
     res.locals.logger.error(error);
     if (error instanceof Error) {
-      res.status(400).json({ message: error.message });
+      return res.status(400).json({ message: error.message });
     } else {
-      res.status(500).json({
+      return res.status(500).json({
         message:
           "Une erreur s'est produite lors de la récupération des adoptions.",
       });
