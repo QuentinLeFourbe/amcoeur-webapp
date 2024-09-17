@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAdoptions } from "../api/adoptions";
+import { AdoptionFilter } from "../types/filter";
 
-export const useAdoptions = () => {
+export const useAdoptions = (filter: AdoptionFilter) => {
   const query = useQuery({
-    queryFn: getAdoptions,
-    queryKey: ["adoptions"],
+    queryFn: () => getAdoptions(filter),
+    queryKey: ["adoptions", filter],
   });
   return query;
 };

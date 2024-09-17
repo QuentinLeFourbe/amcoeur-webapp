@@ -1,8 +1,9 @@
+import { useGetAdoptions } from "../hooks/useAdoptions";
 
 function AdoptionsDashboard() {
-  return (
-    <div>AdoptionsDashboard</div>
-  )
+  const { data } = useGetAdoptions();
+  console.log("data", data);
+  return <div>AdoptionsDashboard</div>;
 }
 
-export default AdoptionsDashboard
+export default AdoptionsDashboard;

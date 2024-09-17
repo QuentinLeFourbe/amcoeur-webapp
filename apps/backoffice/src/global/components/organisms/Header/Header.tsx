@@ -28,6 +28,10 @@ function Header({
         name: "Formulaires",
         href: "/formulaires",
       },
+      {
+        name: "Adoptions",
+        href: "/adoptions",
+      },
     ];
   }
   if (isUserAdmin) {

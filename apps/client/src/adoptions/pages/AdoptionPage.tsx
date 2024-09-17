@@ -7,13 +7,13 @@ import { useAdoptions } from "../hooks/useAdoptions";
 import { AdoptionFilter } from "../types/filter";
 
 function AdoptionPage() {
-  const [filter, setFilter] = useState<AdoptionFilter>({});
+  const [filter, setFilter] = useState<AdoptionFilter | null>(null);
   const {
     data: { data: adoptionsData } = {},
     isLoading,
     isSuccess,
     isError,
-  } = useAdoptions();
+  } = useAdoptions(filter || {});
   const adoptions = adoptionsData?.data;
 
   return (
@@ -24,14 +24,14 @@ function AdoptionPage() {
         </ErrorLabel>
       )}
       {isLoading && <div>Chargement en cours...</div>}
-      {isSuccess && (
-        <div
-          className={css({
-            display: "flex",
-            flexFlow: "row nowrap",
-          })}
-        >
-          <AdoptionFilterBar filter={filter} setFilter={setFilter} />
+      <div
+        className={css({
+          display: "flex",
+          flexFlow: "row nowrap",
+        })}
+      >
+        <AdoptionFilterBar filter={filter} setFilter={setFilter} />
+        {isSuccess && (
           <div
             className={css({
               display: "flex",
@@ -51,8 +51,8 @@ function AdoptionPage() {
               />
             ))}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 }

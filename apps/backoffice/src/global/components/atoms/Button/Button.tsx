@@ -130,12 +130,12 @@ const greenColors = css({
 
 const redColors = css({
   color: "white",
-  backgroundColor: "red.400",
+  backgroundColor: "red.500",
   "&:hover:not(.button-active):not(.button-disabled)": {
     backgroundColor: "red.100",
     color: "red.400",
   },
-  borderColor: "red.400",
+  borderColor: "red.500",
   borderStyle: "solid",
   borderWidth: "2px",
 });

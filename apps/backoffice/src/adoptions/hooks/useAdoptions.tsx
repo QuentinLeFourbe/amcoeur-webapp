@@ -15,6 +15,7 @@ export const useGetAdoptions = () => {
   return query;
 };
 
+
 export const useGetAdoption = (id: string) => {
   const query = useQuery({
     queryKey: ["adoptions", id],

@@ -10,10 +10,10 @@ import {
 
 const router = Router();
 
-router.get("/private/", requiresActive, getAdoptions);
-router.get("/private/:id", requiresActive, getAdoption);
-router.get("/public/",  getAdoptions);
-router.get("/public/:id",  getAdoption);
+router.get("/", requiresActive, getAdoptions);
+router.get("/:id", requiresActive, getAdoption);
+router.get("/public/", getAdoptions);
+router.get("/public/:id", getAdoption);
 
 router.put("/:id", requiresActive, updateAdoption);
 router.post("/", requiresActive, createAdoption);

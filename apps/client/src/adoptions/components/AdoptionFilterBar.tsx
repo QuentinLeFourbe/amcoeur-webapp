@@ -2,36 +2,40 @@ import { AdoptionGender, AdoptionSpecies } from "@amcoeur/types";
 import { css } from "../../../styled-system/css";
 import FormCheckbox from "../../global/components/molecules/Form/FormCheckbox";
 import Magnify from "../../global/assets/icons/magnify.svg?react";
+import Cross from "../../global/assets/icons/cross.svg?react";
 import { AdoptionFilter } from "../types/filter";
-import Button from "../../global/components/atoms/Button/Button";
 
 type AdoptionFilterBarProps = {
-  filter: AdoptionFilter;
-  setFilter?: (filter: AdoptionFilter) => void;
+  filter: AdoptionFilter | null;
+  setFilter?: (filter: AdoptionFilter | null) => void;
 };
 
-function AdoptionFilterBar({ filter = {}, setFilter }: AdoptionFilterBarProps) {
+function AdoptionFilterBar({ filter, setFilter }: AdoptionFilterBarProps) {
   const onResetFilter = () => {
-    setFilter?.({});
+    setFilter?.(null);
   };
 
-  const onFilterName = (name: string) => {
-    setFilter?.({ ...filter, name });
-  };
-
-  const onFilterGender = (gender: AdoptionGender) => {
-    setFilter?.({ ...filter, gender });
-  };
-
-  const onFilterSpecies = (species: AdoptionSpecies) => {
-    const newSpeciesFilter = filter.species || [];
-    const index = newSpeciesFilter.findIndex((spec) => spec === species);
-    if (index > -1) {
-      newSpeciesFilter?.splice(index, 1);
-    } else {
-      newSpeciesFilter.push(species);
+  const onUpdateFilter = (addedFilter: {
+    gender?: AdoptionGender;
+    name?: string;
+    species?: AdoptionSpecies;
+  }) => {
+    const newSpeciesFilter = filter?.species || [];
+    const filteredSpeciesIndex = newSpeciesFilter.findIndex(
+      (spec) => spec === addedFilter.species,
+    );
+    if (filteredSpeciesIndex > -1) {
+      newSpeciesFilter?.splice(filteredSpeciesIndex, 1);
+    } else if (addedFilter.species) {
+      newSpeciesFilter.push(addedFilter.species);
     }
-    setFilter?.({ ...filter, species: newSpeciesFilter });
+
+    const newFilter = {
+      name: addedFilter.name !== undefined ? addedFilter.name : filter?.name,
+      gender: addedFilter.gender || filter?.gender,
+      species: newSpeciesFilter,
+    };
+    setFilter?.(newFilter);
   };
 
   return (
@@ -49,9 +53,27 @@ function AdoptionFilterBar({ filter = {}, setFilter }: AdoptionFilterBarProps) {
         margin: "16px",
       })}
     >
-      <Button type="button" onClick={onResetFilter}>
-        Réinitialiser les filtres
-      </Button>
+      {filter && (
+        <button
+          className={css({
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+          })}
+          type="button"
+          onClick={onResetFilter}
+        >
+          <Cross
+            className={css({
+              width: "16px",
+              height: "16px",
+              color: "pink.600",
+            })}
+          />
+          Réinitialiser les filtres
+        </button>
+      )}
       <div className={paramContainer}>
         <p>Nom</p>
         <div
@@ -68,8 +90,8 @@ function AdoptionFilterBar({ filter = {}, setFilter }: AdoptionFilterBarProps) {
               padding: "8px 8px 2px 28px",
               "&:focus": { outline: "transparent" },
             })}
-            value={filter.name || ""}
-            onChange={(e) => onFilterName(e.currentTarget.value)}
+            value={filter?.name || ""}
+            onChange={(e) => onUpdateFilter({ name: e.currentTarget.value })}
           />
           <Magnify
             className={css({
@@ -88,10 +110,12 @@ function AdoptionFilterBar({ filter = {}, setFilter }: AdoptionFilterBarProps) {
         <FormCheckbox
           type="radio"
           name="gender"
-          checked={filter.gender === "MALE"}
+          checked={filter?.gender === "MALE"}
           value={"MALE"}
           labelClassName={leanText}
-          onChange={(e) => onFilterGender(e.target.value as AdoptionGender)}
+          onChange={(e) =>
+            onUpdateFilter({ gender: e.target.value as AdoptionGender })
+          }
         >
           Mâle
         </FormCheckbox>
@@ -100,8 +124,10 @@ function AdoptionFilterBar({ filter = {}, setFilter }: AdoptionFilterBarProps) {
           name="gender"
           value={"FEMALE"}
           labelClassName={leanText}
-          checked={filter.gender === "FEMALE"}
-          onChange={(e) => onFilterGender(e.target.value as AdoptionGender)}
+          checked={filter?.gender === "FEMALE"}
+          onChange={(e) =>
+            onUpdateFilter({ gender: e.target.value as AdoptionGender })
+          }
         >
           Femelle
         </FormCheckbox>
@@ -111,10 +137,12 @@ function AdoptionFilterBar({ filter = {}, setFilter }: AdoptionFilterBarProps) {
         <FormCheckbox
           type="checkbox"
           labelClassName={leanText}
-          checked={!!filter.species?.find((species) => species === "DOG")}
+          checked={!!filter?.species?.find((species) => species === "DOG")}
           value={"DOG"}
           onChange={(e) =>
-            onFilterSpecies(e.currentTarget.value as AdoptionSpecies)
+            onUpdateFilter({
+              species: e.currentTarget.value as AdoptionSpecies,
+            })
           }
         >
           Chien
@@ -122,10 +150,12 @@ function AdoptionFilterBar({ filter = {}, setFilter }: AdoptionFilterBarProps) {
         <FormCheckbox
           type="checkbox"
           labelClassName={leanText}
-          checked={!!filter.species?.find((species) => species === "CAT")}
+          checked={!!filter?.species?.find((species) => species === "CAT")}
           value={"CAT"}
           onChange={(e) =>
-            onFilterSpecies(e.currentTarget.value as AdoptionSpecies)
+            onUpdateFilter({
+              species: e.currentTarget.value as AdoptionSpecies,
+            })
           }
         >
           Chat
@@ -133,10 +163,12 @@ function AdoptionFilterBar({ filter = {}, setFilter }: AdoptionFilterBarProps) {
         <FormCheckbox
           type="checkbox"
           labelClassName={leanText}
-          checked={!!filter.species?.find((species) => species === "HORSE")}
+          checked={!!filter?.species?.find((species) => species === "HORSE")}
           value={"HORSE"}
           onChange={(e) =>
-            onFilterSpecies(e.currentTarget.value as AdoptionSpecies)
+            onUpdateFilter({
+              species: e.currentTarget.value as AdoptionSpecies,
+            })
           }
         >
           Cheval

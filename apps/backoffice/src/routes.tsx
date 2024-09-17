@@ -17,6 +17,10 @@ import InactiveAccount from "./global/pages/InactiveAccount";
 import ManageUsers from "./users/pages/ManageUsers";
 import LoginRedirect from "./global/pages/LoginRedirect";
 import StaticPageContainer from "./global/components/template/StaticPageContainer/StaticPageContainer";
+import AdoptionsDashboard from "./adoptions/pages/AdoptionsDashboard";
+import CreateAdoption from "./adoptions/pages/CreateAdoption";
+import UpdateAdoption from "./adoptions/pages/UpdateAdoption";
+import AdoptionDetails from "./adoptions/pages/AdoptionDetails";
 
 const commonRoutes = [
   {
@@ -70,6 +74,19 @@ const formsRoutes = {
   ],
 };
 
+const adoptionsRoutes = {
+  path: "adoptions",
+  children: [
+    { path: "creer", element: <CreateAdoption /> },
+    { path: "modifier/:id", element: <UpdateAdoption /> },
+    { path: ":id", element: <AdoptionDetails /> },
+    {
+      path: "",
+      element: <AdoptionsDashboard />,
+    },
+  ],
+};
+
 const usersRoutes = {
   path: "users",
   element: <ManageUsers />,
@@ -87,7 +104,13 @@ const appRoutes = [
   },
   {
     element: <PageContainer />,
-    children: [pagesRoutes, formsRoutes, usersRoutes, ...commonRoutes],
+    children: [
+      adoptionsRoutes,
+      pagesRoutes,
+      formsRoutes,
+      usersRoutes,
+      ...commonRoutes,
+    ],
   },
 ];
 
