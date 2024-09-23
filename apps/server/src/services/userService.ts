@@ -23,19 +23,6 @@ export const getOrCreateMsUser = async (msToken: MicrosoftToken) => {
 
   let user = await User.findOne({ microsoftId: oid });
 
-  if (
-    user?.microsoftId === process.env.ADMIN_MS_ID &&
-    !checkUserPermissions(user as UserServerData, ["admin"])
-  ) {
-    user = await User.findByIdAndUpdate(
-      user?._id,
-      { permissions: ["admin"] },
-      {
-        new: true,
-      },
-    );
-  }
-
   if (!user) {
     user = await createUser({
       microsoftId: oid,

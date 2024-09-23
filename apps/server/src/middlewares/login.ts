@@ -8,6 +8,7 @@ import {
 } from "../services/redisService.js";
 import type { UserServerData } from "@amcoeur/types";
 import { checkUserPermissions } from "../utils/user.js";
+import User from "../models/user.js";
 
 const extractUser = async (req: Request, res: Response) => {
   const token = (await extractToken(req)) as MicrosoftToken;
@@ -18,6 +19,21 @@ const extractUser = async (req: Request, res: Response) => {
     user = await getOrCreateMsUser(token);
     addMsUserToRedis(user, token.exp);
   }
+
+  if (
+    user?.microsoftId === process.env.ADMIN_MS_ID &&
+    (!checkUserPermissions(user as UserServerData, ["admin"]) ||
+      checkUserPermissions(user as UserServerData, ["inactive"]))
+  ) {
+    user = await User.findByIdAndUpdate(
+      user?._id,
+      { permissions: ["admin"] },
+      {
+        new: true,
+      },
+    );
+  }
+
   res.locals.user = user;
 };
 
