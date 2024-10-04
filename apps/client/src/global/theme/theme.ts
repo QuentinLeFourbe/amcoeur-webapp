@@ -78,6 +78,10 @@ export const theme = {
         "0%": { opacity: "1" },
         "100%": { opacity: "0", display: "none" },
       },
+      rotate: {
+        "100%": { transform: "rotate(1turn)" },
+      },
+      l12: { "100%": { clipPath: "inset(0 -30px 0 0)" } },
     },
   },
 };
