@@ -16,3 +16,5 @@ publish = "apps/backoffice/dist"
   [headers.values]
     Content-Security-Policy = "default-src 'self'; img-src 'self' https://api.amcoeur.org; connect-src 'self' https://api.amcoeur.org https://login.microsoftonline.com;"
 
+[[plugins]]
+  package = "@netlify/plugin-csp-nonce"
