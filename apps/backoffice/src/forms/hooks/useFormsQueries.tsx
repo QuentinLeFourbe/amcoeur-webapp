@@ -4,6 +4,7 @@ import { AxiosResponse } from "axios";
 import {
   createForm,
   deleteForm,
+  duplicateForm,
   getForm,
   getForms,
   updateForm,
@@ -39,7 +40,7 @@ export const useCreateForm = ({ onSuccess }: UseQueryParams = {}) => {
   return mutation;
 };
 
-export const useUpdateForm = ({ onSuccess  }: UseQueryParams = {}) => {
+export const useUpdateForm = ({ onSuccess }: UseQueryParams = {}) => {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (data: FormClientData) => updateForm(data),
@@ -58,6 +59,18 @@ export const useDeleteForm = ({ onSuccess }: UseQueryParams = {}) => {
     mutationFn: (id: string) => deleteForm(id),
     onSuccess: (data) => {
       queryClient.invalidateQueries(["form", data.data._id]);
+      queryClient.invalidateQueries(["forms"]);
+      onSuccess?.(data);
+    },
+  });
+  return mutation;
+};
+
+export const useDuplicateForm = ({ onSuccess }: UseQueryParams = {}) => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: (id: string) => duplicateForm(id),
+    onSuccess: (data) => {
       queryClient.invalidateQueries(["forms"]);
       onSuccess?.(data);
     },

@@ -3,6 +3,7 @@ import { requiresActive } from "../middlewares/login.js";
 import {
   createForm,
   deleteForm,
+  duplicateForm,
   getForm,
   getForms,
   updateForm,
@@ -11,6 +12,7 @@ import {
 const router = Router();
 
 router.post("/", requiresActive, createForm);
+router.post("/duplicate/:id", requiresActive, duplicateForm);
 
 router.get("/", requiresActive, getForms);
 router.get("/:id", getForm);
