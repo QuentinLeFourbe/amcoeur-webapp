@@ -6,7 +6,11 @@ import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import Label from "../../global/components/atoms/Label/Label";
 import Overlay from "../../global/components/atoms/Overlay/Overlay";
 import Table from "../../global/components/atoms/Table/Table";
-import { useDeleteForm, useGetForms } from "../hooks/useFormsQueries";
+import {
+  useDeleteForm,
+  useDuplicateForm,
+  useGetForms,
+} from "../hooks/useFormsQueries";
 
 function FormsManagement() {
   const {
@@ -20,6 +24,12 @@ function FormsManagement() {
     isError: isDeleteError,
     isSuccess: isDeleteSuccess,
   } = useDeleteForm();
+  const {
+    mutate: duplicateForm,
+    isError: isDuplicateError,
+    isSuccess: isDuplicateSuccess,
+  } = useDuplicateForm();
+
   const [formToDelete, setFormToDelete] = useState<FormSummary | null>(null);
   return (
     <div
@@ -43,6 +53,12 @@ function FormsManagement() {
           </ErrorLabel>
         )}
         {isDeleteSuccess && <p>Le formulaire a bien été supprimé</p>}
+        {isDuplicateError && (
+          <ErrorLabel>
+            Une erreur est survenue lors de la duplication du formulaire
+          </ErrorLabel>
+        )}
+        {isDuplicateSuccess && <p>Le formulaire a bien été dupliqué</p>}
         <Button to="/formulaires/creer">Créer</Button>
         {isError && <ErrorLabel>Erreur au chargement des questions</ErrorLabel>}
         {isLoading && <Label>Chargement en cours...</Label>}
@@ -71,7 +87,12 @@ function FormsManagement() {
                     >
                       Modifier
                     </Button>
-                    <Button color="blue">Dupliquer</Button>
+                    <Button
+                      onClick={() => duplicateForm(form._id || "")}
+                      color="blue"
+                    >
+                      Dupliquer
+                    </Button>
                     <Button onClick={() => setFormToDelete(form)} color="red">
                       Supprimer
                     </Button>

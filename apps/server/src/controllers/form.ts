@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import Form from "../models/form.js";
+import mongoose from "mongoose";
 
 export const createForm = async (req: Request, res: Response) => {
   try {
@@ -33,7 +34,8 @@ export const deleteForm = async (req: Request, res: Response) => {
       res.status(400).json({ message: error.message });
     } else {
       res.status(500).json({
-        message: "Une erreur s'est produite lors de la création du formulaire.",
+        message:
+          "Une erreur s'est produite lors de la suppression du formulaire.",
       });
     }
   }
@@ -57,6 +59,30 @@ export const updateForm = async (req: Request, res: Response) => {
       res.status(500).json({
         message:
           "Une erreur s'est produite lors de la modification du formulaire.",
+      });
+    }
+  }
+};
+
+export const duplicateForm = async (req: Request, res: Response) => {
+  try {
+    const form = await Form.findById(req.params.id);
+    if (!form) {
+      return res.status(404).json({ message: "Formulaire non trouvé" });
+    }
+    const formAsObject = form.toObject();
+    formAsObject._id = new mongoose.Types.ObjectId();
+    const duplicatedForm = new Form({ ...formAsObject });
+    await duplicatedForm.save();
+    return res.status(200).json(duplicatedForm);
+  } catch (error) {
+    res.locals.logger.error(error);
+    if (error instanceof Error) {
+      return res.status(400).json({ message: error.message });
+    } else {
+      return res.status(500).json({
+        message:
+          "Une erreur s'est produite lors de la duplication du formulaire.",
       });
     }
   }
