@@ -14,7 +14,7 @@ publish = "apps/client/dist"
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; img-src 'self' https://api.amcoeur.org; connect-src 'self' https://api.amcoeur.org; script-src 'self' https://www.google.com/recaptcha"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' https://api.amcoeur.org; connect-src 'self' https://api.amcoeur.org; script-src 'self' https://www.google.com"
 
 
 
