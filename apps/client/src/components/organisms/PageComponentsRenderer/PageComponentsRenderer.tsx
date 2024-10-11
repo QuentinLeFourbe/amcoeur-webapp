@@ -44,7 +44,7 @@ function PageComponentsRenderer({ components }: PageComponentsRendererProps) {
       case "Image":
         return <Image key={index} component={component} />;
       case "Form":
-        return <DynamicFormRenderer component={component} />;
+        return <DynamicFormRenderer key={index} component={component} />;
       default:
         return null;
     }

@@ -136,6 +136,7 @@ const DynamicForm = ({
                   maxLength: fieldMaxLength(200),
                 })}
                 errorMessage={errors?.answers?.[index]?.value?.message}
+                key={index}
               >
                 {field.content}
               </FormInput>
@@ -148,6 +149,7 @@ const DynamicForm = ({
                 })}
                 type="email"
                 errorMessage={errors?.answers?.[index]?.value?.message}
+                key={index}
               >
                 {field.content}
               </FormInput>
@@ -161,6 +163,7 @@ const DynamicForm = ({
                 type="tel"
                 numeric={true}
                 errorMessage={errors?.answers?.[index]?.value?.message}
+                key={index}
               >
                 {field.content}
               </FormInput>
@@ -173,6 +176,7 @@ const DynamicForm = ({
                   required: fieldRequired(!!field.isRequired),
                 })}
                 errorMessage={errors?.answers?.[index]?.value?.message}
+                key={index}
               >
                 {field.content}
               </FormSelect>
@@ -189,6 +193,7 @@ const DynamicForm = ({
                 })}
                 errorMessage={errors?.answers?.[index]?.value?.message}
                 type="number"
+                key={index}
               >
                 {field.content}
               </FormInput>
@@ -201,6 +206,7 @@ const DynamicForm = ({
                   maxLength: fieldMaxLength(1000),
                 })}
                 errorMessage={errors?.answers?.[index]?.value?.message}
+                key={index}
               >
                 {field.content}
               </FormTextArea>
@@ -213,6 +219,7 @@ const DynamicForm = ({
                   required: fieldRequired(!!field.isRequired),
                 })}
                 errorMessage={errors?.answers?.[index]?.value?.message}
+                key={index}
               >
                 {field.content}
               </FormSelect>
@@ -220,6 +227,7 @@ const DynamicForm = ({
           case "MULTIPLE_CHOICES":
             return (
               <Controller
+                key={index}
                 control={control}
                 rules={{ required: fieldRequired(!!field.isRequired) }}
                 render={({ field: controllerField }) => (
@@ -237,7 +245,7 @@ const DynamicForm = ({
             );
           case "DISPLAY_TEXT":
             return (
-              <TextContainer>
+              <TextContainer key={index}>
                 <Markdown>{field.content}</Markdown>
               </TextContainer>
             );
