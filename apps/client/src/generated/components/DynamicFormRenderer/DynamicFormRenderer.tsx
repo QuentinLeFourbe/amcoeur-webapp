@@ -231,6 +231,12 @@ const DynamicForm = ({
                 name={`answers.${index}.value`}
               />
             );
+          case "DISPLAY_TEXT":
+            return (
+              <TextContainer>
+                <Markdown>{field.content}</Markdown>
+              </TextContainer>
+            );
         }
       })}
 

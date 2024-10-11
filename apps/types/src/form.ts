@@ -10,6 +10,7 @@ export const FieldTypeSchema = z.enum([
   "EMAIL",
   "PHONE",
   "GENDER",
+  "DISPLAY_TEXT"
 ]);
 
 export const FieldSchema = z.object({
