@@ -24,6 +24,9 @@ import {
 import FormMultipleSelect from "../../molecules/Form/FormMultipleSelect";
 import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
 import Captcha from "../../atoms/Captcha/Captcha";
+import Markdown from "markdown-to-jsx";
+import TextPanel from "../../molecules/TextPanel/TextPanel";
+import TextContainer from "../../atoms/TextContainer/TextContainer";
 
 type DynamicFormRendererProps = {
   component: FormComponent;
@@ -230,6 +233,12 @@ const DynamicForm = ({
                 )}
                 name={`answers.${index}.value`}
               />
+            );
+          case "DISPLAY_TEXT":
+            return (
+              <TextContainer>
+                <Markdown>{field.content}</Markdown>
+              </TextContainer>
             );
         }
       })}
