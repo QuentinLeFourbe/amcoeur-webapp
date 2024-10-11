@@ -59,6 +59,23 @@ const textContainer = css({
       textDecoration: "underline",
     },
   },
+
+  display: "flex",
+  flexFlow: "column nowrap",
+  alignItems: "flex-start",
+  padding: "1rem 0",
+});
+
+const small = css({
+  maxWidth: "400px",
+});
+
+const medium = css({
+  maxWidth: "600px",
+});
+
+const large = css({
+  maxWidth: "800px",
 });
 
 export default TextContainer;

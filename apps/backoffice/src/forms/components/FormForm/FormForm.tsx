@@ -1,6 +1,6 @@
 import {
   FormClientData,
-  formClientDataSchema,
+  FormClientDataSchema,
   FormFieldType,
 } from "@amcoeur/types";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -129,14 +129,14 @@ function FormForm({ initialData, onSubmit, onCancel, update }: FormFormProps) {
           )}
           {(watchFields[index].type === "UNIQUE_CHOICE" ||
             watchFields[index].type === "MULTIPLE_CHOICES") && (
-            <Controller
-              control={control}
-              name={`fields.${index}.choices`}
-              render={({ field: renderField }) => (
-                <ListInput {...renderField} label={"Réponses possibles"} />
-              )}
-            />
-          )}
+              <Controller
+                control={control}
+                name={`fields.${index}.choices`}
+                render={({ field: renderField }) => (
+                  <ListInput {...renderField} label={"Réponses possibles"} />
+                )}
+              />
+            )}
           {watchFields[index].type !== "DISPLAY_TEXT" && (
             <FormInput
               type="checkbox"
