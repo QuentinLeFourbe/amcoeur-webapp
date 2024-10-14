@@ -1,8 +1,5 @@
 import axios from "axios";
-import {
-  AdoptionClientPublicData,
-  AdoptionsListClientPublicData,
-} from "@amcoeur/types";
+import { AdoptionClientPublicData, AdoptionsListClientPublicData } from "@amcoeur/types";
 import { AdoptionFilter } from "../types/filter";
 
 export const getAdoptions = (filter: AdoptionFilter = {}) => {
@@ -36,5 +33,4 @@ export const getAdoptions = (filter: AdoptionFilter = {}) => {
   );
 };
 
-export const getAdoption = (id: string) =>
-  axios.get<AdoptionClientPublicData>(`/api/adoptions/${id}/public`);
+export const getAdoption = (id: string) => axios.get<AdoptionClientPublicData>(`/api/adoptions/${id}/public`)
