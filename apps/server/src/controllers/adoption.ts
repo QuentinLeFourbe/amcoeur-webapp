@@ -8,8 +8,7 @@ import { addPagination } from "../utils/db.js";
 import { parseBoolean, queryToArray } from "../utils/query.js";
 import type { AdoptionFilter } from "../types/adoptions.js";
 import type {
-  AdoptionServerData,
-  AdoptionServerResponseData,
+  AdoptionServerData, AdoptionsListData,
 } from "@amcoeur/types";
 
 export const createAdoption = async (req: Request, res: Response) => {
@@ -168,7 +167,7 @@ export const getAdoptions = async (req: Request, res: Response) => {
         perPage: pageLimit,
         totalItems: totalAdoptions,
       },
-    } as Omit<AdoptionServerResponseData, "data">;
+    } as Omit<AdoptionsListData, "data">;
 
     if (isCounting) {
       const count = {
@@ -182,7 +181,7 @@ export const getAdoptions = async (req: Request, res: Response) => {
       const responseWithData = {
         ...response,
         data: results[0].paginatedAdoptions,
-      } as AdoptionServerResponseData;
+      } as AdoptionsListData;
       return res.status(200).json(responseWithData);
     } else {
       const publicData = (results[0].paginatedAdoptions as []).map((adoption) =>
