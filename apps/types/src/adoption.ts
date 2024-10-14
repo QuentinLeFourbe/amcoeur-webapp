@@ -9,6 +9,7 @@ const adoptionBaseSchema = z.object({
   species: speciesSchema,
   race: z.string().optional(),
   gender: genderSchema,
+  birthday: z.date().optional(),
   description: z.string().optional(),
   imageUrl: z.string().optional(),
 });
@@ -50,7 +51,7 @@ export type AdoptionServerData = z.infer<typeof AdoptionServerDataSchema>;
 export type AdoptionGender = z.infer<typeof genderSchema>;
 export type AdoptionSpecies = z.infer<typeof speciesSchema>;
 
-type AdoptionServerBaseResponse = {
+type AdoptionsListServerBaseResponse = {
   pagination: {
     page: number;
     perPage: number;
@@ -63,19 +64,18 @@ type AdoptionServerBaseResponse = {
   };
 };
 
-export type AdoptionServerResponsePublicData = AdoptionServerBaseResponse & {
+export type AdoptionsListPublicData = AdoptionsListServerBaseResponse & {
   data: AdoptionServerPublicData[];
 };
 
-export type AdoptionServerResponseData = AdoptionServerBaseResponse & {
+export type AdoptionsListData = AdoptionsListServerBaseResponse & {
   data: AdoptionServerData[];
 };
 
-export type AdoptionClientServerResponseData = AdoptionServerBaseResponse & {
+export type AdoptionsListClientData = AdoptionsListServerBaseResponse & {
   data: AdoptionClientData[];
 };
 
-export type AdoptionClientServerResponsePublicData =
-  AdoptionServerBaseResponse & {
-    data: AdoptionClientPublicData[];
-  };
+export type AdoptionsListClientPublicData = AdoptionsListServerBaseResponse & {
+  data: AdoptionClientPublicData[];
+};

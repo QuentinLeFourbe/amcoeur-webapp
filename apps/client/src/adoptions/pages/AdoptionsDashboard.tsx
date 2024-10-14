@@ -8,7 +8,7 @@ import { useAdoptions } from "../hooks/useAdoptions";
 import { AdoptionFilter } from "../types/filter";
 import Loader from "../../global/components/atoms/Loader/Loader";
 
-function AdoptionPage() {
+function AdoptionsDashboard() {
   const [filter, setFilter] = useState<AdoptionFilter | null>(null);
   const [debounceFilter, setDebounceFilter] = useDebounceValue(filter, 500);
   const {
@@ -60,6 +60,7 @@ function AdoptionPage() {
                 name={adoption.name}
                 gender={adoption.gender}
                 imageSrc={adoption.imageUrl}
+                href={`/adoptions/${adoption._id}`}
               />
             ))}
           </div>
@@ -69,4 +70,4 @@ function AdoptionPage() {
   );
 }
 
-export default AdoptionPage;
+export default AdoptionsDashboard;
