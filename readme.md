@@ -1,4 +1,4 @@
-# Amcoeur webapp [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=QuentinLeFourbe_amcoeur-webapp&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=QuentinLeFourbe_amcoeur-webapp)
+# Amcoeur webapp [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=QuentinLeFourbe_amcoeur-webapp&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=QuentinLeFourbe_amcoeur-webapp) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=QuentinLeFourbe_amcoeur-webapp&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=QuentinLeFourbe_amcoeur-webapp)
 
 Ce monorepo contient une application fullstack contenant le site vitrine, le backoffice ainsi qu'une api afin de permettre aux bénévoles de l'association Amcoeur de modifier le contenu du site vitrine de manière simple et intuitive. Les principaux utilisateurs du site sont des personnes âgés.
 
