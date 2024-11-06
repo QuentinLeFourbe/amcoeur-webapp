@@ -1,58 +1,110 @@
 # Projet Amcoeur Monorepo
 
-Ce monorepo contient un serveur en Express (Node.js, TypeScript) et un client en React (TypeScript, Vite) pour le projet "Amcoeur".
+Ce monorepo contient une application fullstack contenant le site vitrine, le backoffice ainsi qu'une api afin de permettre aux bénévoles de l'association Amcoeur de modifier le contenu du site vitrine de manière simple et intuitive. Les principaux utilisateurs du site sont des personnes âgés.
 
-## Configuration
+## 📂 Structure du Projet
+
+Ce monorepo contient :
+
+- **Deux applications clients** : une app représentant le site vitrine, visible au public; et une app représentant le backoffiice, visible uniquement par les membres de l'association.
+- **Une API** : Fournit des endpoints RESTful pour les fonctionnalités de gestions des pages, des formulaires et des adoptions.
+- \*_Une librairie de types_: Fournit les types liés à l'application Amcoeur aux différentes applications.
+
+## 🔧 Structure du Monorepo
+
+- `server/` : Contient le code de l'API
+- `client/` : Contient le code du site vitrine
+- `backoffice/`: Contient le code du backoffice
+- `types/`: Contient les types spécifiques à l'application, partagés entre les différentes apps
+
+## 🚀 Technologies Utilisées
+
+- **Frontend** : React.js, TypeScript, Vite
+- **Backend** : Node.js, Express, TypeScript
+- **Base de données** : MongoDB
+- **Autres** : React Query, CodeMirror, React router DOM, React Hook Form, Zod
+
+## ⚙️  Configuration
+
+Pour chaque app, veuillez configurer les variables d'environnement suivantes dans un fichier `.env` à la racine du dossier de l'app en question.
+
+Backoffice:
+
+```plaintext
+VITE_MS_CLIENT_ID=<Client ID pour l'auth PKCE Microsoft>
+```
 
 Pour le serveur, veuillez configurer les variables d'environnement suivantes dans un fichier `.env` à la racine du dossier "server":
 
 ```plaintext
-CONTACT_EMAIL=votre_email
-CONTACT_PASSWORD=votre_mot_de_passe
+CAPTCHA_SERVER_KEY=<Google ReCaptchaV2 secret key>
+CONTACT_EMAIL=<Email à qui adresser les formulaires de contact>
+ADMIN_EMAIL=<Email à qui envoyer des notifications systèmes>
+ADMIN_MS_ID=<Microsoft ID pour accès admin>
+NOREPLY_EMAIL=<Email pour envoi de mail automatiques>
+NOREPLY_EMAIL_PASSWORD=<Mot de passe de l'email d'envoi de mail automatiques>
+DB_URI=<URI de la base de donnée>
+REDIS_URL=<URL de la base Redis>
+MS_CLIENT_ID=<Client ID pour l'auth PKCE Microsoft>
+NODE_ENV=<"development" pour utiliser l'app en mode développement>
 ```
 
-## Installation
+## ⬇️Installation
 
 ```bash
 # Installation des dépendances pour le serveur et le client
 npm install
 ```
 
-## Lancement en développement
+## 🚀 Lancement en développement
 
-Pour lancer le serveur en mode développement avec rechargement automatique (via Nodemon) et builder le client en mode dev ou en watch :
+### Préparation
+
+Avant le lancement d'une application, il est nécessaire de builder les types:
+
+```bash
+npm run build-types
+```
+
+Il est aussi possible de détecter les changements dans les fichiers des types pour build automatiquement si besoin:
+
+```bash
+npm run watch-types
+```
+
+Lancer le redis et le mongoDB dans un docker:
+
+```bash
+npm run start-db
+```
+
+### Site vitrine
+
+Pour lancer le site vitrine (client) en mode développement:
+
+```bash
+# Lancement du site vitrine avec Vite.js (HMR)
+npm run dev-client
+```
+
+### Backoffice
+
+Pour lancer le backoffice en mode développement:
+
+```bash
+# Lancement du backoffice avec Vite.js (HMR)
+npm run dev-backoffice
+```
+
+### API
+
+Pour lancer l'API en mode développement avec rechargement automatique (via Nodemon):
 
 ```bash
 # Lancer le serveur en mode dev avec rechargement automatique
 npm run dev-server
-
-# Lancer le client en mode dev (dans une autre fenêtre/terminal)
-npm run dev
 ```
 
-Si vous préférez que le client se mette en mode watch pour builder en continu pendant le développement :
-
-```bash
-# Lancer le client en mode watch (dans une autre fenêtre/terminal)
-npm run watch
-```
-
-Notez que vous devez exécuter le lancement du serveur et du client dans des fenêtres/terminaux séparés.
-
-## Lancement en production
-
-Pour lancer le serveur en production :
-
-```bash
-# Lancer le serveur en prod
-npm start
-```
-
-## Structure du Monorepo
-
-- `server/` : Contient le code du serveur Express (Node.js, TypeScript).
-- `client/` : Contient le code du client React (TypeScript, Vite).
-
-## License
+## 📄 License
 
 Ce projet est sous licence [MIT](LICENSE).
