@@ -8,8 +8,10 @@ WORKDIR /app
 COPY . .
 
 # Installation des dépendances
+RUN npm install
+
 # Construction du client et du serveur
-RUN npm install && npm run build-server
+RUN npm run build-server
 
 # Exposer le port que ton serveur utilise
 EXPOSE 5000
