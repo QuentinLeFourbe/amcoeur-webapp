@@ -15,13 +15,14 @@
     "watch-types": "npm run watch -w @amcoeur/types",
     "build-types": "npm run build -w @amcoeur/types",
     "prebuild": "npm run build-types",
-    "build-client": "npm run prebuild && npm run build -w @amcoeur/client",
-    "build-backoffice": "npm run prebuild && npm run build -w @amcoeur/backoffice",
-    "build-server": "npm run prebuild && npm run build -w @amcoeur/server",
+    "build-client": "npm run build -w @amcoeur/client",
+    "build-backoffice": "npm run build -w @amcoeur/backoffice",
+    "build-server": "npm run build -w @amcoeur/server",
+    "build": "npm run build -w @amcoeur/client && npm run build -w @amcoeur/backoffice && npm run build -w @amcoeur/server",
     "test": "vitest",
     "start-db": "docker-compose up -d",
     "stop-db": "docker-compose down",
-    "lint": "eslint './apps/server/src/**'"
+    "lint": "eslint './apps/server/src/**/*.{ts,tsx}' && eslint './apps/client/src/**/*.{ts,tsx}' && eslint './apps/backoffice/src/**/*.{ts,tsx}'"
   },
   "author": "",
   "license": "ISC",
