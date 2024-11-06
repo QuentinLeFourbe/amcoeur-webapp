@@ -6,7 +6,7 @@ import PageNotFound from "../components/organisms/PageNotFound/PageNotFound";
 function GeneratedPage() {
   const { pathname } = useLocation();
   const formattedPathname = pathname.replace("/", "");
-  // get page by id or by route
+
   const {
     data: page,
     isLoading,
@@ -20,7 +20,9 @@ function GeneratedPage() {
     <>
       {isSuccess && <PageComponentsRenderer components={pageDataComponents} />}
       {isLoading && <div>Chargement de la page...</div>}
-      {(isError || (isSuccess && pageDataComponents.length === 0)) && <PageNotFound />}
+      {(isError || (isSuccess && pageDataComponents.length === 0)) && (
+        <PageNotFound />
+      )}
     </>
   );
 }
