@@ -24,7 +24,7 @@ Ce monorepo contient :
 - **Base de données** : MongoDB
 - **Autres** : React Query, CodeMirror, React router DOM, React Hook Form, Zod
 
-## ⚙️  Configuration
+## ⚙️ Configuration
 
 Pour chaque app, veuillez configurer les variables d'environnement suivantes dans un fichier `.env` à la racine du dossier de l'app en question.
 
@@ -34,7 +34,7 @@ Backoffice:
 VITE_MS_CLIENT_ID=<Client ID pour l'auth PKCE Microsoft>
 ```
 
-Pour le serveur, veuillez configurer les variables d'environnement suivantes dans un fichier `.env` à la racine du dossier "server":
+Server:
 
 ```plaintext
 CAPTCHA_SERVER_KEY=<Google ReCaptchaV2 secret key>
