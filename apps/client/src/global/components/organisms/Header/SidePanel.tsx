@@ -22,9 +22,14 @@ function SidePanel({ links, backgroundSrc, onClose }: SidePanelProps) {
       <img className={backgroundImage} src={backgroundSrc} />
       {links && (
         <div className={linksContainer}>
-          {links.map((link) => {
+          {links.map((link, index) => {
             return (
-              <Link to={link.href} variant="tertiary" onClick={closeMenu}>
+              <Link
+                key={index}
+                to={link.href}
+                variant="tertiary"
+                onClick={closeMenu}
+              >
                 {link.name}
               </Link>
             );

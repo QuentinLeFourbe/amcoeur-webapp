@@ -22,7 +22,7 @@ Ce monorepo contient :
 - **Frontend** : React.js, TypeScript, Vite
 - **Backend** : Node.js, Express, TypeScript
 - **Base de données** : MongoDB
-- **Autres** : React Query, CodeMirror, React router DOM, React Hook Form, Zod
+- **Autres** : React Query, CodeMirror, React router DOM, React Hook Form, Zod, Panda-CSS
 
 ## ⚙️ Configuration
 

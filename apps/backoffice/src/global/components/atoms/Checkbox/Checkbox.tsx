@@ -6,16 +6,18 @@ type CheckboxProps = Omit<
   "children" | "type"
 >;
 
-const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, ref) => {
-  return (
-    <input
-      {...props}
-      type="checkbox"
-      ref={ref}
-      className={cx(inputStyle, props.className)}
-    />
-  );
-});
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
+  function Checkbox(props, ref) {
+    return (
+      <input
+        {...props}
+        type="checkbox"
+        ref={ref}
+        className={cx(inputStyle, props.className)}
+      />
+    );
+  },
+);
 
 export default Checkbox;
 
