@@ -86,7 +86,7 @@ function ComponentsFieldsRenderer({
             component={component}
             onBlur={getHandleBlur(index)}
             onChange={(component) => handleChange(component, index)}
-            errors={errors && errors[index]}
+            errors={errors?.[index]}
           />
         );
       case "Form":
