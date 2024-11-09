@@ -101,6 +101,9 @@ npm run dev-backoffice
 Pour lancer l'API en mode développement avec rechargement automatique (via Nodemon):
 
 ```bash
+# Lancement de la compilation typescript avec rechargement automatique
+npm run watch-server
+
 # Lancer le serveur en mode dev avec rechargement automatique
 npm run dev-server
 ```
