@@ -6,6 +6,7 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { useEffect, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import Markdown from "markdown-to-jsx";
 import {
   useGetDynamicForm,
   useSubmitAnswers,
@@ -103,7 +104,9 @@ const DynamicForm = ({
 
   const fillFieldsValues = () => {
     data.fields.map((field, index) => {
-      setValue(`answers.${index}.field`, field.content);
+      if (field.type !== "DISPLAY_TEXT") {
+        setValue(`answers.${index}.field`, field.content);
+      }
     });
   };
 
@@ -132,6 +135,7 @@ const DynamicForm = ({
                   maxLength: fieldMaxLength(200),
                 })}
                 errorMessage={errors?.answers?.[index]?.value?.message}
+                key={index}
               >
                 {field.content}
               </FormInput>
@@ -144,6 +148,7 @@ const DynamicForm = ({
                 })}
                 type="email"
                 errorMessage={errors?.answers?.[index]?.value?.message}
+                key={index}
               >
                 {field.content}
               </FormInput>
@@ -157,6 +162,7 @@ const DynamicForm = ({
                 type="tel"
                 numeric={true}
                 errorMessage={errors?.answers?.[index]?.value?.message}
+                key={index}
               >
                 {field.content}
               </FormInput>
@@ -169,6 +175,7 @@ const DynamicForm = ({
                   required: fieldRequired(!!field.isRequired),
                 })}
                 errorMessage={errors?.answers?.[index]?.value?.message}
+                key={index}
               >
                 {field.content}
               </FormSelect>
@@ -185,6 +192,7 @@ const DynamicForm = ({
                 })}
                 errorMessage={errors?.answers?.[index]?.value?.message}
                 type="number"
+                key={index}
               >
                 {field.content}
               </FormInput>
@@ -197,6 +205,7 @@ const DynamicForm = ({
                   maxLength: fieldMaxLength(1000),
                 })}
                 errorMessage={errors?.answers?.[index]?.value?.message}
+                key={index}
               >
                 {field.content}
               </FormTextArea>
@@ -209,6 +218,7 @@ const DynamicForm = ({
                   required: fieldRequired(!!field.isRequired),
                 })}
                 errorMessage={errors?.answers?.[index]?.value?.message}
+                key={index}
               >
                 {field.content}
               </FormSelect>
@@ -216,6 +226,7 @@ const DynamicForm = ({
           case "MULTIPLE_CHOICES":
             return (
               <Controller
+                key={index}
                 control={control}
                 rules={{ required: fieldRequired(!!field.isRequired) }}
                 render={({ field: controllerField }) => (
@@ -230,6 +241,12 @@ const DynamicForm = ({
                 )}
                 name={`answers.${index}.value`}
               />
+            );
+          case "DISPLAY_TEXT":
+            return (
+              <TextContainer key={index}>
+                <Markdown>{field.content}</Markdown>
+              </TextContainer>
             );
         }
       })}

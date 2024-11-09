@@ -50,7 +50,7 @@ function PageComponentsRenderer({ components }: PageComponentsRendererProps) {
           />
         );
       case "Form":
-        return <DynamicFormRenderer component={component} />;
+        return <DynamicFormRenderer key={index} component={component} />;
       default:
         return null;
     }

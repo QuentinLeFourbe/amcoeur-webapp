@@ -55,8 +55,8 @@ function ViewAnswer() {
           <>
             {answerData?.answers?.map((answer, index) => (
               <div key={index}>
-                <Label>{answer.field}</Label>
-                <p>{answer.value as string}</p>
+                <Label>{answer?.field}</Label>
+                <p>{answer?.value as string}</p>
               </div>
             ))}
           </>

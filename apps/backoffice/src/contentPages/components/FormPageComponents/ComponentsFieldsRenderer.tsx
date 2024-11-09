@@ -25,6 +25,9 @@ type ComponentsFieldsRendererProps = {
   >;
 };
 
+/**
+ * Render the fields for a list of page components, used for page creation
+ * **/
 function ComponentsFieldsRenderer({
   value: components,
   onChange,
@@ -57,7 +60,7 @@ function ComponentsFieldsRenderer({
             component={component}
             onBlur={getHandleBlur(index)}
             onChange={(component) => handleChange(component, index)}
-            errors={errors && errors[index]}
+            errors={errors?.[index]}
           />
         );
       case "TitleBanner":
@@ -66,7 +69,7 @@ function ComponentsFieldsRenderer({
             component={component}
             onBlur={getHandleBlur(index)}
             onChange={(component) => handleChange(component, index)}
-            errors={errors && errors[index]}
+            errors={errors?.[index]}
           />
         );
       case "TextArea":
@@ -83,7 +86,7 @@ function ComponentsFieldsRenderer({
             component={component}
             onBlur={getHandleBlur(index)}
             onChange={(component) => handleChange(component, index)}
-            errors={errors && errors[index]}
+            errors={errors?.[index]}
           />
         );
       case "Form":

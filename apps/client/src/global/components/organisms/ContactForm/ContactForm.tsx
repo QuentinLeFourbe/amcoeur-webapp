@@ -45,9 +45,9 @@ export default function ContactForm() {
     register("token", { required: true });
   }, [register]);
 
-  const onSubmit = (data: ContactFormData) => {
+  const onSubmit = async (data: ContactFormData) => {
     try {
-      sendContactEmail(data);
+      await sendContactEmail(data);
     } catch (e) {
       console.error(e);
       return;

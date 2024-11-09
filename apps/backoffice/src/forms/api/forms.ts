@@ -14,3 +14,6 @@ export const deleteForm = (id: string) =>
 
 export const createForm = (formData: FormClientData) =>
   axios.post<FormClientData>("/api/forms", formData);
+
+export const duplicateForm = (id: string) =>
+  axios.post<FormClientData>(`/api/forms/duplicate/${id}`);
