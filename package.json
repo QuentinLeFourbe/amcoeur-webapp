@@ -8,6 +8,7 @@
   "description": "Web app for the Amcoeur association",
   "main": "index.js",
   "scripts": {
+    "start": "npm run start -w @amcoeur/server",
     "dev-client": "npm run dev -w @amcoeur/client",
     "dev-backoffice": "npm run dev -w @amcoeur/backoffice",
     "dev-server": "npm run dev -w @amcoeur/server",
