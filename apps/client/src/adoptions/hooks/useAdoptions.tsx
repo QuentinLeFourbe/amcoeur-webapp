@@ -3,7 +3,6 @@ import { getAdoption, getAdoptions } from "../api/adoptions";
 import { AdoptionFilter } from "../types/filter";
 
 export const useAdoptions = ({
-  count = false,
   filter,
 }: {
   count?: boolean;

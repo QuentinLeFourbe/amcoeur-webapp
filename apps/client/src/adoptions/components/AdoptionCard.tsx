@@ -10,10 +10,10 @@ type AdoptionCardProps = {
   href?: string;
 };
 
-function AdoptionCard({ imageSrc, name, gender, href}: AdoptionCardProps) {
+function AdoptionCard({ imageSrc, name, gender, href }: AdoptionCardProps) {
   return (
     <ClickablePrimitive
-      href={href}
+      to={href}
       className={css({
         display: "flex",
         flexFlow: "column nowrap",
