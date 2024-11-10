@@ -1,7 +1,7 @@
 import type mongoose from "mongoose";
 import { z } from "zod";
 
-export const QuestionTypeSchema = z.enum([
+export const questionTypeSchema = z.enum([
   "NUMERIC",
   "SHORT_TEXT",
   "TEXT_AREA",
@@ -12,24 +12,24 @@ export const QuestionTypeSchema = z.enum([
   "GENDER",
 ]);
 
-export const QuestionSchema = z.object({
+export const questionSchema = z.object({
   name: z.string(),
   content: z.string(),
-  type: QuestionTypeSchema,
+  type: questionTypeSchema,
 });
 
-export const QuestionClientDataSchema = z
+export const questionClientDataSchema = z
   .object({
     _id: z.string().optional(),
   })
-  .merge(QuestionSchema);
+  .merge(questionSchema);
 
-export const QuestionServerDataSchema = z
+export const questionServerDataSchema = z
   .object({
     _id: z.custom<mongoose.Types.ObjectId>().optional(),
   })
-  .merge(QuestionSchema);
+  .merge(questionSchema);
 
-export type QuestionType = z.infer<typeof QuestionTypeSchema>;
-export type QuestionClientData = z.infer<typeof QuestionClientDataSchema>;
-export type QuestionServerData = z.infer<typeof QuestionServerDataSchema>;
+export type QuestionType = z.infer<typeof questionTypeSchema>;
+export type QuestionClientData = z.infer<typeof questionClientDataSchema>;
+export type QuestionServerData = z.infer<typeof questionServerDataSchema>;

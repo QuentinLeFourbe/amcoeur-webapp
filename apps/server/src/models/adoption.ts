@@ -1,5 +1,13 @@
 import mongoose, { Schema } from "mongoose";
 
+const contactAnswer = new Schema({
+  name: { type: String, required: true },
+  firstname: { type: String, required: true },
+  email: { type: String, required: true },
+  phone: { type: String, required: true },
+  motivation: { type: String, required: true },
+});
+
 const adoption = new Schema(
   {
     name: { type: String, required: true },
@@ -12,6 +20,7 @@ const adoption = new Schema(
     visible: { type: Boolean, required: false },
     archived: { type: Boolean, required: false },
     commentary: { type: String, required: false },
+    responsesList: [contactAnswer],
   },
 
   { timestamps: true },
