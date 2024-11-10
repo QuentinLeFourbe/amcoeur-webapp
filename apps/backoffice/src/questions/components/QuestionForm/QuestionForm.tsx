@@ -1,4 +1,4 @@
-import { QuestionClientData, QuestionClientDataSchema } from "@amcoeur/types";
+import { QuestionClientData, questionClientDataSchema } from "@amcoeur/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import Button from "../../../global/components/atoms/Button/Button";
@@ -33,7 +33,7 @@ function QuestionForm({
   update,
 }: QuestionFormProps) {
   const { register, handleSubmit, control } = useForm<QuestionClientData>({
-    resolver: zodResolver(QuestionClientDataSchema),
+    resolver: zodResolver(questionClientDataSchema),
     defaultValues: initialData,
   });
 
