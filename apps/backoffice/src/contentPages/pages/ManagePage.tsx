@@ -13,7 +13,7 @@ function ManagePage() {
   const params = useParams();
   const navigate = useNavigate();
   const id = params.id || "";
-  const { data, isLoading, isError } = useGetPage(id);
+  const { data: { data: pageData } = {}, isLoading, isError } = useGetPage(id);
   const { mutate, isError: isErrorMutation } = useUpdatePage();
 
   const onEdit = (data: PageDataClient) => {
@@ -25,16 +25,25 @@ function ManagePage() {
     <>
       {isEditing ? (
         <div className={editContainer}>
-          <PageForm data={data?.data} onSubmit={onEdit} onCancel={() => setIsEditing(false)} />
+          <PageForm
+            data={pageData}
+            onSubmit={onEdit}
+            onCancel={() => setIsEditing(false)}
+          />
         </div>
       ) : (
         <div className={container}>
           <div className={buttonContainer}>
             <Button onClick={() => navigate("/pages")}>Retour</Button>
-            <Button href={`https://amcoeur.org/${data?.data.route}`} target="_blank" >
+            <Button
+              href={`https://amcoeur.org/${pageData?.route}`}
+              target="_blank"
+            >
               Visualiser
             </Button>
-            <Button color="blue" onClick={() => setIsEditing(true)}>Modifier</Button>
+            <Button color="blue" onClick={() => setIsEditing(true)}>
+              Modifier
+            </Button>
           </div>
           {isErrorMutation && (
             <ErrorLabel>
@@ -43,13 +52,13 @@ function ManagePage() {
           )}
           <div>
             <label className={property}>Nom de la page: </label>
-            <label>{data?.data.name}</label>
+            <label>{pageData?.name}</label>
           </div>
           <div>
             <label className={property}>Chemin d&apos;accès: </label>
-            <label>/{data?.data.route}</label>
+            <label>/{pageData?.route}</label>
           </div>
-          <PageComponentsRenderer components={data?.data.components || []} />
+          <PageComponentsRenderer components={pageData?.components || []} />
           {isLoading && <div>Chargement en cours des données...</div>}
           {isError && (
             <ErrorLabel>
