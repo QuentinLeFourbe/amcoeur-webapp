@@ -1,4 +1,4 @@
-import { AdoptionContact, AdoptionContactSchema } from "@amcoeur/types";
+import { AdoptionContact, adoptionContactSchema } from "@amcoeur/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useEffect, useRef, useState } from "react";
@@ -25,7 +25,7 @@ function AdoptionForm({ adoptionId }: AdoptionFormProps) {
     reset,
     setValue,
   } = useForm<AdoptionContact>({
-    resolver: zodResolver(AdoptionContactSchema),
+    resolver: zodResolver(adoptionContactSchema),
   });
 
   const [displayConfirmation, setDisplayConfirmation] = useState(false);

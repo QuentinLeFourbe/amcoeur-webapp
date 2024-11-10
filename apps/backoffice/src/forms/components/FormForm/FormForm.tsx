@@ -1,6 +1,6 @@
 import {
   FormClientData,
-  FormClientDataSchema,
+  formClientDataSchema,
   FormFieldType,
 } from "@amcoeur/types";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -44,7 +44,7 @@ const fieldTypeOptions = [
 
 function FormForm({ initialData, onSubmit, onCancel, update }: FormFormProps) {
   const { register, control, handleSubmit, watch } = useForm<FormClientData>({
-    resolver: zodResolver(FormClientDataSchema),
+    resolver: zodResolver(formClientDataSchema),
     defaultValues: initialData || defaultData,
   });
   const { fields, append, prepend, move, remove } = useFieldArray({
@@ -129,14 +129,14 @@ function FormForm({ initialData, onSubmit, onCancel, update }: FormFormProps) {
           )}
           {(watchFields[index].type === "UNIQUE_CHOICE" ||
             watchFields[index].type === "MULTIPLE_CHOICES") && (
-              <Controller
-                control={control}
-                name={`fields.${index}.choices`}
-                render={({ field: renderField }) => (
-                  <ListInput {...renderField} label={"Réponses possibles"} />
-                )}
-              />
-            )}
+            <Controller
+              control={control}
+              name={`fields.${index}.choices`}
+              render={({ field: renderField }) => (
+                <ListInput {...renderField} label={"Réponses possibles"} />
+              )}
+            />
+          )}
           {watchFields[index].type !== "DISPLAY_TEXT" && (
             <FormInput
               type="checkbox"

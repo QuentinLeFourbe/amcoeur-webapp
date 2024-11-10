@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { PageDataClientSchema } from "@amcoeur/types";
+import { pageDataClientSchema } from "@amcoeur/types";
 import type { PageComponent, PageDataClient } from "@amcoeur/types";
 import { useState } from "react";
 import Form from "../../../global/components/atoms/Form/Form";
@@ -52,7 +52,7 @@ function PageForm({
     setValue,
     getValues,
   } = useForm<PageDataClient>({
-    resolver: zodResolver(PageDataClientSchema),
+    resolver: zodResolver(pageDataClientSchema),
     defaultValues: data || defaultData,
   });
 
