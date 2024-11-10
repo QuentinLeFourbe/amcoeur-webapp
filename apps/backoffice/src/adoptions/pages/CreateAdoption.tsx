@@ -1,8 +1,9 @@
+import AdoptionForm from "../components/AdoptionForm";
+
 function CreateAdoption() {
   return (
     <div>
-      CreateAdoption
-      <p>quentin noob</p>
+      <AdoptionForm></AdoptionForm>
     </div>
   );
 }
