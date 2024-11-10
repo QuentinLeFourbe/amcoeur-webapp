@@ -37,5 +37,8 @@ export default function AdoptionForm() {
       </FormInput>
       <FormTextArea>Commentaire</FormTextArea>
     </form>
+    //useForm<AdoptionClientdata> => mettre les register via react hook form en m'inspirant de form form
+    // utiliser usecreate adoption dans ma page create adoptions afin de récupéré la méthode mutate que je passerais en param de mon formulaire et cette méthode doit être récolté par les donné du formulaire dès qu'il est submit.
+    // si ça marche => ça logeras en data.data mon get.
   );
 }
