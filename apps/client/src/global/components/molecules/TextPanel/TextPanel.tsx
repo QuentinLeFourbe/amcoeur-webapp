@@ -8,18 +8,21 @@ type TextPanelProps = {
 
 function TextPanel({ children }: TextPanelProps) {
   return (
-    <div className={flexContainer}>
-      <TextContainer size="large">{children}</TextContainer>
-    </div>
+    <section className={sectionStyle}>
+      <TextContainer className={textStyle}>{children}</TextContainer>
+    </section>
   );
 }
 
-const flexContainer = css({
+export default TextPanel;
+
+const sectionStyle = css({
   display: "flex",
-  flexFlow: "column nowrap",
   justifyContent: "center",
-  alignItems: "center",
-  marginBottom: "64px",
+  padding: "0 32px",
 });
 
-export default TextPanel;
+const textStyle = css({
+  flexGrow: 1,
+  maxWidth: "1000px",
+});

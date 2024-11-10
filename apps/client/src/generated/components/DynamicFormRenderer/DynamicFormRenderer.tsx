@@ -4,7 +4,7 @@ import {
   FormComponent,
 } from "@amcoeur/types";
 import { Controller, useForm } from "react-hook-form";
-import { useEffect, useRef } from "react";
+import { ComponentProps, useEffect, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import Markdown from "markdown-to-jsx";
 import {
@@ -46,24 +46,25 @@ function DynamicFormRenderer({ component }: DynamicFormRendererProps) {
   } = useSubmitAnswers();
 
   return (
-    <div>
+    <>
       {isLoading && <p>Chargement du formulaire...</p>}
       {isError && <p>Erreur lors du chargement du formulaire</p>}
       {isSuccess && formData !== undefined && (
         <DynamicForm
+          className={css({ margin: "5vh 20vw" })}
           data={formData}
           onSubmit={mutate}
           isSubmitSuccess={isMutateSuccess}
           isSubmitError={isMutateError}
         />
       )}
-    </div>
+    </>
   );
 }
 
 export default DynamicFormRenderer;
 
-type DynamicFormProps = {
+type DynamicFormProps = Omit<ComponentProps<"form">, "onSubmit"> & {
   data: FormClientData;
   onSubmit: (data: FormAnswersClient) => void;
   isSubmitSuccess: boolean;
@@ -79,6 +80,7 @@ const DynamicForm = ({
   onSubmit,
   isSubmitError,
   isSubmitSuccess,
+  ...props
 }: DynamicFormProps) => {
   const {
     register,
@@ -125,7 +127,7 @@ const DynamicForm = ({
   }, [register]);
 
   return (
-    <Form column onSubmit={handleSubmit(submitData)}>
+    <Form {...props} column onSubmit={handleSubmit(submitData)}>
       {data.fields.map((field, index) => {
         switch (field.type) {
           case "SHORT_TEXT":

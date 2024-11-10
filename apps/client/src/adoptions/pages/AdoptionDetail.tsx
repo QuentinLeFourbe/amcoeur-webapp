@@ -5,7 +5,8 @@ import Loader from "../../global/components/atoms/Loader/Loader";
 import { css } from "../../../styled-system/css";
 import ImageContainer from "../../global/components/atoms/ImageContainer/ImageContainer";
 import Label from "../../global/components/atoms/Label/Label";
-import Button from "../../global/components/atoms/Button/Button";
+import AdoptionForm from "../components/AdoptionForm";
+import TextContainer from "../../global/components/atoms/TextContainer/TextContainer";
 
 function AdoptionDetail() {
   const params = useParams();
@@ -54,30 +55,35 @@ function AdoptionDetail() {
             </h1>
             <ImageContainer size="small" src={adoptionData?.imageUrl || ""} />
           </div>
-          <div className={css({ width: "300px" })}>
-            <div className={dataStyle}>
-              <Label>Nom: </Label>
-              {adoptionData?.name}
+          <TextContainer>
+            <div className={css({ width: "300px" })}>
+              <div className={dataStyle}>
+                <Label>Nom: </Label>
+                {adoptionData?.name}
+              </div>
+              <div className={dataStyle}>
+                <Label>Sexe: </Label>
+                {adoptionData?.gender}
+              </div>
+              <div className={dataStyle}>
+                <Label>Espèce: </Label>
+                {adoptionData?.species}
+              </div>
+              <div className={dataStyle}>
+                <Label>Race: </Label>
+                {adoptionData?.race}
+              </div>
+              <div className={dataStyle}>
+                <Label>Date de naissance: </Label>
+                {adoptionData?.birthday?.toLocaleDateString()}
+              </div>
             </div>
-            <div className={dataStyle}>
-              <Label>Sexe: </Label>
-              {adoptionData?.gender}
-            </div>
-            <div className={dataStyle}>
-              <Label>Espèce: </Label>
-              {adoptionData?.species}
-            </div>
-            <div className={dataStyle}>
-              <Label>Race: </Label>
-              {adoptionData?.race}
-            </div>
-            <div className={dataStyle}>
-              <Label>Date de naissance: </Label>
-              {adoptionData?.birthday?.toLocaleDateString()}
-            </div>
-          </div>
-          <div>{adoptionData?.description}</div>
-          <Button>Nous contacter</Button>
+            <div>{adoptionData?.description}</div>
+            <h2 className={css({ textAlign: "center", paddingTop: "64px" })}>
+              Vous souhaitez l&apos;adopter ?
+            </h2>
+          </TextContainer>
+          <AdoptionForm adoptionId={id}/>
         </>
       )}
     </div>

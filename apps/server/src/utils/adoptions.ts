@@ -1,6 +1,8 @@
 import type {
   AdoptionServerPublicData,
   AdoptionServerData,
+  AdoptionSpecies,
+  AdoptionGender,
 } from "@amcoeur/types";
 import type { AdoptionFilter } from "../types/adoptions.js";
 
@@ -34,4 +36,24 @@ export const getAdoptionFilter = ({
     filter.name = { $regex: name, $options: "i" };
   }
   return filter;
+};
+
+export const getSpeciesLabel = (species: AdoptionSpecies) => {
+  switch (species) {
+    case "CAT":
+      return "chat";
+    case "DOG":
+      return "chien";
+    case "HORSE":
+      return "cheval";
+  }
+};
+
+export const getGenderLabel = (gender: AdoptionGender) => {
+  switch (gender) {
+    case "MALE":
+      return "mâle";
+    case "FEMALE":
+      return "femelle";
+  }
 };

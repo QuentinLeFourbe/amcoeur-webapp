@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 import { z } from "zod";
 
-export const BasePageComponentSchema = z.object({
+export const basePageComponentSchema = z.object({
   id: z.string().optional(),
 });
 
-export const PageComponentWithImageSchema = z
+export const pageComponentWithImageSchema = z
   .object({
     imageUrl: z.string().optional(),
     image: z
@@ -31,28 +31,28 @@ export const PageComponentWithImageSchema = z
         { message: "La taille du fichier ne doit pas dépasser 2 Mo" },
       ),
   })
-  .merge(BasePageComponentSchema);
+  .merge(basePageComponentSchema);
 
-export const EmptyComponentSchema = z
+export const emptyComponentSchema = z
   .object({ type: z.literal("Empty") })
-  .merge(BasePageComponentSchema);
+  .merge(basePageComponentSchema);
 
-export const ImageComponentSchema = z
+export const imageComponentSchema = z
   .object({
     type: z.literal("Image"),
     caption: z.string().optional(),
   })
-  .merge(PageComponentWithImageSchema);
+  .merge(pageComponentWithImageSchema);
 
-export const TitleBannerComponentSchema = z
+export const titleBannerComponentSchema = z
   .object({
     type: z.literal("TitleBanner"),
     title: z.string().optional(),
     content: z.string().optional(),
   })
-  .merge(PageComponentWithImageSchema);
+  .merge(pageComponentWithImageSchema);
 
-export const ContentPanelComponentSchema = z
+export const contentPanelComponentSchema = z
   .object({
     type: z.literal("ContentPanel"),
     title: z.string().optional(),
@@ -60,66 +60,66 @@ export const ContentPanelComponentSchema = z
     link: z.string().optional(),
     linkLabel: z.string().optional(),
   })
-  .merge(PageComponentWithImageSchema);
+  .merge(pageComponentWithImageSchema);
 
-export const TextAreaComponentSchema = z
+export const textAreaComponentSchema = z
   .object({
     type: z.literal("TextArea"),
     content: z.string().optional(),
   })
-  .merge(BasePageComponentSchema);
+  .merge(basePageComponentSchema);
 
-export const FormComponentSchema = z
+export const formComponentSchema = z
   .object({
     type: z.literal("Form"),
     formId: z.string().optional(),
   })
-  .merge(BasePageComponentSchema);
+  .merge(basePageComponentSchema);
 
-export const PageComponentSchema = z.union([
-  TitleBannerComponentSchema,
-  ContentPanelComponentSchema,
-  TextAreaComponentSchema,
-  ImageComponentSchema,
-  EmptyComponentSchema,
-  FormComponentSchema,
+export const pageComponentSchema = z.union([
+  titleBannerComponentSchema,
+  contentPanelComponentSchema,
+  textAreaComponentSchema,
+  imageComponentSchema,
+  emptyComponentSchema,
+  formComponentSchema,
 ]);
 
-export const PageDataSchema = z.object({
+export const pageDataSchema = z.object({
   name: z.string(),
   route: z.string().regex(/^[a-z0-9-]+$/, {
     message:
       "Le chemin d'accès ne doit contenir que des lettres minuscules, chiffres ou tirets.",
   }),
-  components: z.array(PageComponentSchema),
+  components: z.array(pageComponentSchema),
 });
 
-export const PageDataClientSchema = z
+export const pageDataClientSchema = z
   .object({
     _id: z.string().optional(),
   })
-  .merge(PageDataSchema);
+  .merge(pageDataSchema);
 
-export const PageDataServerSchema = z
+export const pageDataServerSchema = z
   .object({
     _id: z.custom<mongoose.Types.ObjectId>().optional(),
   })
-  .merge(PageDataSchema);
+  .merge(pageDataSchema);
 
 // General types
-export type PageComponent = z.infer<typeof PageComponentSchema>;
+export type PageComponent = z.infer<typeof pageComponentSchema>;
 export type PageComponentWithImage = z.infer<
-  typeof PageComponentWithImageSchema
+  typeof pageComponentWithImageSchema
 >;
 
 // Components types
-export type EmptyComponent = z.infer<typeof EmptyComponentSchema>;
-export type ImageComponent = z.infer<typeof ImageComponentSchema>;
-export type TitleBannerComponent = z.infer<typeof TitleBannerComponentSchema>;
-export type ContentPanelComponent = z.infer<typeof ContentPanelComponentSchema>;
-export type TextAreaComponent = z.infer<typeof TextAreaComponentSchema>;
-export type FormComponent = z.infer<typeof FormComponentSchema>;
+export type EmptyComponent = z.infer<typeof emptyComponentSchema>;
+export type ImageComponent = z.infer<typeof imageComponentSchema>;
+export type TitleBannerComponent = z.infer<typeof titleBannerComponentSchema>;
+export type ContentPanelComponent = z.infer<typeof contentPanelComponentSchema>;
+export type TextAreaComponent = z.infer<typeof textAreaComponentSchema>;
+export type FormComponent = z.infer<typeof formComponentSchema>;
 export type PageComponentType = PageComponent["type"];
 
-export type PageDataClient = z.infer<typeof PageDataClientSchema>;
-export type PageDataServer = z.infer<typeof PageDataServerSchema>;
+export type PageDataClient = z.infer<typeof pageDataClientSchema>;
+export type PageDataServer = z.infer<typeof pageDataServerSchema>;
