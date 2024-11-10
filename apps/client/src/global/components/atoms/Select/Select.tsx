@@ -27,8 +27,13 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
   ref,
 ) {
   return (
-    <select {...props} className={cx(selectStyle, className)} ref={ref}>
-      <option value="" selected disabled className={css({ display: "none" })}>
+    <select
+      {...props}
+      defaultValue=""
+      className={cx(selectStyle, className)}
+      ref={ref}
+    >
+      <option value="" disabled className={css({ display: "none" })}>
         {placeholder}
       </option>
       {options.map((option) => (

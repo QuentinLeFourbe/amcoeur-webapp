@@ -35,7 +35,7 @@ export type FontSizeToken = "2xs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "
 
 export type BreakpointToken = "sm" | "md" | "lg" | "xl" | "2xl"
 
-export type AnimationName = "spin" | "ping" | "pulse" | "bounce" | "panelFadeIn" | "panelFadeOut"
+export type AnimationName = "spin" | "ping" | "pulse" | "bounce" | "panelFadeIn" | "panelFadeOut" | "rotate" | "l12"
 
 export type Tokens = {
 		borders: BorderToken

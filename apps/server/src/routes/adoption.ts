@@ -5,17 +5,26 @@ import {
   deleteAdoption,
   getAdoption,
   getAdoptions,
+  registerAdoptionAnswer,
   updateAdoption,
 } from "../controllers/adoption.js";
+import { checkRecaptcha } from "../middlewares/captcha.js";
+import { sendAdoptionEmail } from "../middlewares/email.js";
 
 const router = Router();
 
-router.get("/public/", getAdoptions);
-router.get("/public/:id", getAdoption);
 router.get("/", requiresActive, getAdoptions);
+router.get("/public", getAdoptions);
 router.get("/:id", requiresActive, getAdoption);
+router.get("/:id/public", getAdoption);
 
 router.put("/:id", requiresActive, updateAdoption);
+router.post(
+  "/contact",
+  checkRecaptcha,
+  sendAdoptionEmail,
+  registerAdoptionAnswer,
+);
 router.post("/", requiresActive, createAdoption);
 router.delete("/:id", requiresActive, deleteAdoption);
 

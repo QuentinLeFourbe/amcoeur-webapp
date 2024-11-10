@@ -1,16 +1,19 @@
 import { AdoptionGender } from "@amcoeur/types";
 import Icon from "../../global/components/atoms/Icon/Icon";
 import { css } from "../../../styled-system/css";
+import { ClickablePrimitive } from "../../global/components/atoms/Primitives/ClickablePrimitive";
 
 type AdoptionCardProps = {
   imageSrc?: string;
   name: string;
   gender: AdoptionGender;
+  href?: string;
 };
 
-function AdoptionCard({ imageSrc, name, gender }: AdoptionCardProps) {
+function AdoptionCard({ imageSrc, name, gender, href }: AdoptionCardProps) {
   return (
-    <button
+    <ClickablePrimitive
+      to={href}
       className={css({
         display: "flex",
         flexFlow: "column nowrap",
@@ -76,7 +79,7 @@ function AdoptionCard({ imageSrc, name, gender }: AdoptionCardProps) {
           <Icon type={"female"} width="15px" height="15px" />
         )}
       </div>
-    </button>
+    </ClickablePrimitive>
   );
 }
 

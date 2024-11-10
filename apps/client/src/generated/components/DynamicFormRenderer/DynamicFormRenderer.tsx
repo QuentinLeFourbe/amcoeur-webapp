@@ -4,8 +4,9 @@ import {
   FormComponent,
 } from "@amcoeur/types";
 import { Controller, useForm } from "react-hook-form";
-import { useEffect, useRef } from "react";
+import { ComponentProps, useEffect, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import Markdown from "markdown-to-jsx";
 import {
   useGetDynamicForm,
   useSubmitAnswers,
@@ -24,6 +25,7 @@ import {
 import FormMultipleSelect from "../../../global/components/molecules/Form/FormMultipleSelect";
 import ErrorLabel from "../../../global/components/atoms/ErrorLabel/ErrorLabel";
 import Captcha from "../../../global/components/atoms/Captcha/Captcha";
+import TextContainer from "../../../global/components/atoms/TextContainer/TextContainer";
 
 type DynamicFormRendererProps = {
   component: FormComponent;
@@ -44,24 +46,25 @@ function DynamicFormRenderer({ component }: DynamicFormRendererProps) {
   } = useSubmitAnswers();
 
   return (
-    <div>
+    <>
       {isLoading && <p>Chargement du formulaire...</p>}
       {isError && <p>Erreur lors du chargement du formulaire</p>}
       {isSuccess && formData !== undefined && (
         <DynamicForm
+          className={css({ margin: "5vh 20vw" })}
           data={formData}
           onSubmit={mutate}
           isSubmitSuccess={isMutateSuccess}
           isSubmitError={isMutateError}
         />
       )}
-    </div>
+    </>
   );
 }
 
 export default DynamicFormRenderer;
 
-type DynamicFormProps = {
+type DynamicFormProps = Omit<ComponentProps<"form">, "onSubmit"> & {
   data: FormClientData;
   onSubmit: (data: FormAnswersClient) => void;
   isSubmitSuccess: boolean;
@@ -77,6 +80,7 @@ const DynamicForm = ({
   onSubmit,
   isSubmitError,
   isSubmitSuccess,
+  ...props
 }: DynamicFormProps) => {
   const {
     register,
@@ -103,7 +107,9 @@ const DynamicForm = ({
 
   const fillFieldsValues = () => {
     data.fields.map((field, index) => {
-      setValue(`answers.${index}.field`, field.content);
+      if (field.type !== "DISPLAY_TEXT") {
+        setValue(`answers.${index}.field`, field.content);
+      }
     });
   };
 
@@ -121,7 +127,7 @@ const DynamicForm = ({
   }, [register]);
 
   return (
-    <Form column onSubmit={handleSubmit(submitData)}>
+    <Form {...props} column onSubmit={handleSubmit(submitData)}>
       {data.fields.map((field, index) => {
         switch (field.type) {
           case "SHORT_TEXT":
@@ -132,6 +138,7 @@ const DynamicForm = ({
                   maxLength: fieldMaxLength(200),
                 })}
                 errorMessage={errors?.answers?.[index]?.value?.message}
+                key={index}
               >
                 {field.content}
               </FormInput>
@@ -144,6 +151,7 @@ const DynamicForm = ({
                 })}
                 type="email"
                 errorMessage={errors?.answers?.[index]?.value?.message}
+                key={index}
               >
                 {field.content}
               </FormInput>
@@ -157,6 +165,7 @@ const DynamicForm = ({
                 type="tel"
                 numeric={true}
                 errorMessage={errors?.answers?.[index]?.value?.message}
+                key={index}
               >
                 {field.content}
               </FormInput>
@@ -169,6 +178,7 @@ const DynamicForm = ({
                   required: fieldRequired(!!field.isRequired),
                 })}
                 errorMessage={errors?.answers?.[index]?.value?.message}
+                key={index}
               >
                 {field.content}
               </FormSelect>
@@ -185,6 +195,7 @@ const DynamicForm = ({
                 })}
                 errorMessage={errors?.answers?.[index]?.value?.message}
                 type="number"
+                key={index}
               >
                 {field.content}
               </FormInput>
@@ -197,6 +208,7 @@ const DynamicForm = ({
                   maxLength: fieldMaxLength(1000),
                 })}
                 errorMessage={errors?.answers?.[index]?.value?.message}
+                key={index}
               >
                 {field.content}
               </FormTextArea>
@@ -209,6 +221,7 @@ const DynamicForm = ({
                   required: fieldRequired(!!field.isRequired),
                 })}
                 errorMessage={errors?.answers?.[index]?.value?.message}
+                key={index}
               >
                 {field.content}
               </FormSelect>
@@ -216,6 +229,7 @@ const DynamicForm = ({
           case "MULTIPLE_CHOICES":
             return (
               <Controller
+                key={index}
                 control={control}
                 rules={{ required: fieldRequired(!!field.isRequired) }}
                 render={({ field: controllerField }) => (
@@ -230,6 +244,12 @@ const DynamicForm = ({
                 )}
                 name={`answers.${index}.value`}
               />
+            );
+          case "DISPLAY_TEXT":
+            return (
+              <TextContainer key={index}>
+                <Markdown>{field.content}</Markdown>
+              </TextContainer>
             );
         }
       })}

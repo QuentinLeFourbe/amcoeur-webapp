@@ -1,5 +1,8 @@
-import { AdoptionClientServerResponsePublicData } from "@amcoeur/types";
 import axios from "axios";
+import {
+  AdoptionClientPublicData,
+  AdoptionsListClientPublicData,
+} from "@amcoeur/types";
 import { AdoptionFilter } from "../types/filter";
 
 export const getAdoptions = (filter: AdoptionFilter = {}) => {
@@ -28,7 +31,10 @@ export const getAdoptions = (filter: AdoptionFilter = {}) => {
     filterQuery = `?${filterQuery}`;
   }
 
-  return axios.get<AdoptionClientServerResponsePublicData>(
+  return axios.get<AdoptionsListClientPublicData>(
     `/api/adoptions/public${filterQuery}`,
   );
 };
+
+export const getAdoption = (id: string) =>
+  axios.get<AdoptionClientPublicData>(`/api/adoptions/${id}/public`);

@@ -8,8 +8,9 @@ import { addPagination } from "../utils/db.js";
 import { parseBoolean, queryToArray } from "../utils/query.js";
 import type { AdoptionFilter } from "../types/adoptions.js";
 import type {
+  AdoptionContact,
   AdoptionServerData,
-  AdoptionServerResponseData,
+  AdoptionsListData,
 } from "@amcoeur/types";
 
 export const createAdoption = async (req: Request, res: Response) => {
@@ -126,24 +127,24 @@ export const getAdoptions = async (req: Request, res: Response) => {
 
     const countRequest = isCounting
       ? {
-        speciesCount: [
-          {
-            $group: {
-              _id: "$species", // Grouper par la species
-              count: { $sum: 1 }, // Compter le nombre pour chaque species
+          speciesCount: [
+            {
+              $group: {
+                _id: "$species", // Grouper par la species
+                count: { $sum: 1 }, // Compter le nombre pour chaque species
+              },
             },
-          },
-        ],
+          ],
 
-        genderCount: [
-          {
-            $group: {
-              _id: "$gender", // Grouper par sexe
-              count: { $sum: 1 }, // Compter le nombre pour chaque sexe
+          genderCount: [
+            {
+              $group: {
+                _id: "$gender", // Grouper par sexe
+                count: { $sum: 1 }, // Compter le nombre pour chaque sexe
+              },
             },
-          },
-        ],
-      }
+          ],
+        }
       : {};
 
     const results = await Adoption.aggregate([
@@ -168,7 +169,7 @@ export const getAdoptions = async (req: Request, res: Response) => {
         perPage: pageLimit,
         totalItems: totalAdoptions,
       },
-    } as Omit<AdoptionServerResponseData, "data">;
+    } as Omit<AdoptionsListData, "data">;
 
     if (isCounting) {
       const count = {
@@ -182,7 +183,7 @@ export const getAdoptions = async (req: Request, res: Response) => {
       const responseWithData = {
         ...response,
         data: results[0].paginatedAdoptions,
-      } as AdoptionServerResponseData;
+      } as AdoptionsListData;
       return res.status(200).json(responseWithData);
     } else {
       const publicData = (results[0].paginatedAdoptions as []).map((adoption) =>
@@ -204,5 +205,27 @@ export const getAdoptions = async (req: Request, res: Response) => {
           "Une erreur s'est produite lors de la récupération des adoptions.",
       });
     }
+  }
+};
+
+export const registerAdoptionAnswer = async (req: Request, res: Response) => {
+  try {
+    const { email, name, phone, firstname, motivation, adoptionId } =
+      req.body as AdoptionContact;
+
+    const answer = await Adoption.findByIdAndUpdate(
+      adoptionId,
+      {
+        $push: { responsesList: { name, firstname, email, phone, motivation } },
+      },
+      { new: true },
+    );
+
+    return res.status(200).json(answer);
+  } catch (e) {
+    return res.status(500).json({
+      message:
+        "Une erreur s'est produite lors de l'enregistrement de la réponse",
+    });
   }
 };

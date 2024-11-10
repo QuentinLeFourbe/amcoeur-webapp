@@ -9,6 +9,7 @@ const adoptionBaseSchema = z.object({
   species: speciesSchema,
   race: z.string().optional(),
   gender: genderSchema,
+  birthday: z.date().optional(),
   description: z.string().optional(),
   imageUrl: z.string().optional(),
 });
@@ -19,38 +20,38 @@ const adoptionPrivateSchema = z.object({
   commentary: z.string().optional(),
 });
 
-export const AdoptionClientPublicDataSchema = z
+export const adoptionClientPublicDataSchema = z
   .object({
     _id: z.string().optional(),
   })
   .merge(adoptionBaseSchema);
 
-export const AdoptionClientDataSchema = AdoptionClientPublicDataSchema.merge(
+export const adoptionClientDataSchema = adoptionClientPublicDataSchema.merge(
   adoptionPrivateSchema,
 );
 
-export const AdoptionServerPublicDataSchema = z
+export const adoptionServerPublicDataSchema = z
   .object({
     _id: z.custom<mongoose.Types.ObjectId>().optional(),
   })
   .merge(adoptionBaseSchema);
 
-export const AdoptionServerDataSchema = AdoptionServerPublicDataSchema.merge(
+export const adoptionServerDataSchema = adoptionServerPublicDataSchema.merge(
   adoptionPrivateSchema,
 );
 
 export type AdoptionClientPublicData = z.infer<
-  typeof AdoptionClientPublicDataSchema
+  typeof adoptionClientPublicDataSchema
 >;
-export type AdoptionClientData = z.infer<typeof AdoptionClientDataSchema>;
+export type AdoptionClientData = z.infer<typeof adoptionClientDataSchema>;
 export type AdoptionServerPublicData = z.infer<
-  typeof AdoptionServerPublicDataSchema
+  typeof adoptionServerPublicDataSchema
 >;
-export type AdoptionServerData = z.infer<typeof AdoptionServerDataSchema>;
+export type AdoptionServerData = z.infer<typeof adoptionServerDataSchema>;
 export type AdoptionGender = z.infer<typeof genderSchema>;
 export type AdoptionSpecies = z.infer<typeof speciesSchema>;
 
-type AdoptionServerBaseResponse = {
+type AdoptionsListServerBaseResponse = {
   pagination: {
     page: number;
     perPage: number;
@@ -63,19 +64,18 @@ type AdoptionServerBaseResponse = {
   };
 };
 
-export type AdoptionServerResponsePublicData = AdoptionServerBaseResponse & {
+export type AdoptionsListPublicData = AdoptionsListServerBaseResponse & {
   data: AdoptionServerPublicData[];
 };
 
-export type AdoptionServerResponseData = AdoptionServerBaseResponse & {
+export type AdoptionsListData = AdoptionsListServerBaseResponse & {
   data: AdoptionServerData[];
 };
 
-export type AdoptionClientServerResponseData = AdoptionServerBaseResponse & {
+export type AdoptionsListClientData = AdoptionsListServerBaseResponse & {
   data: AdoptionClientData[];
 };
 
-export type AdoptionClientServerResponsePublicData =
-  AdoptionServerBaseResponse & {
-    data: AdoptionClientPublicData[];
-  };
+export type AdoptionsListClientPublicData = AdoptionsListServerBaseResponse & {
+  data: AdoptionClientPublicData[];
+};

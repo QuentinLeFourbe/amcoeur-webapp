@@ -4,7 +4,8 @@ import { generatePagesRoutes } from "./global/utils/routes";
 import Preview from "./generated/pages/Preview";
 import GeneratedPage from "./generated/pages/GeneratedPage";
 import PageContainer from "./global/components/templates/PageContainer/PageContainer";
-import AdoptionPage from "./adoptions/pages/AdoptionPage";
+import AdoptionsDashboard from "./adoptions/pages/AdoptionsDashboard";
+import AdoptionDetail from "./adoptions/pages/AdoptionDetail";
 
 export const pagesRoutes = [
   {
@@ -20,7 +21,12 @@ export const pagesRoutes = [
   },
   {
     path: "/adoptions",
-    element: <AdoptionPage />,
+    element: <AdoptionsDashboard />,
+    nodeRef: createRef<HTMLDivElement>(),
+  },
+  {
+    path: "/adoptions/:id",
+    element: <AdoptionDetail />,
     nodeRef: createRef<HTMLDivElement>(),
   },
   {

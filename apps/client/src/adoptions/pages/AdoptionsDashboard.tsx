@@ -1,20 +1,28 @@
 import { useState } from "react";
+import { useDebounceValue } from "usehooks-ts";
 import { css } from "../../../styled-system/css";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import AdoptionCard from "../components/AdoptionCard";
 import AdoptionFilterBar from "../components/AdoptionFilterBar";
 import { useAdoptions } from "../hooks/useAdoptions";
 import { AdoptionFilter } from "../types/filter";
+import Loader from "../../global/components/atoms/Loader/Loader";
 
-function AdoptionPage() {
+function AdoptionsDashboard() {
   const [filter, setFilter] = useState<AdoptionFilter | null>(null);
+  const [debounceFilter, setDebounceFilter] = useDebounceValue(filter, 500);
   const {
     data: { data: adoptionsData } = {},
     isLoading,
     isSuccess,
     isError,
-  } = useAdoptions(filter || {});
+  } = useAdoptions({ filter: debounceFilter || {} });
   const adoptions = adoptionsData?.data;
+
+  const onFilterChange = (newFilter: AdoptionFilter | null) => {
+    setFilter(newFilter);
+    setDebounceFilter(newFilter);
+  };
 
   return (
     <>
@@ -23,14 +31,18 @@ function AdoptionPage() {
           Une erreur s&apos;est produite lors du chargement
         </ErrorLabel>
       )}
-      {isLoading && <div>Chargement en cours...</div>}
       <div
         className={css({
           display: "flex",
           flexFlow: "row nowrap",
         })}
       >
-        <AdoptionFilterBar filter={filter} setFilter={setFilter} />
+        <AdoptionFilterBar filter={filter} setFilter={onFilterChange} />
+        {isLoading && (
+          <div className={css({ margin: "auto" })}>
+            <Loader />
+          </div>
+        )}
         {isSuccess && (
           <div
             className={css({
@@ -48,6 +60,7 @@ function AdoptionPage() {
                 name={adoption.name}
                 gender={adoption.gender}
                 imageSrc={adoption.imageUrl}
+                href={`/adoptions/${adoption._id}`}
               />
             ))}
           </div>
@@ -57,4 +70,4 @@ function AdoptionPage() {
   );
 }
 
-export default AdoptionPage;
+export default AdoptionsDashboard;
