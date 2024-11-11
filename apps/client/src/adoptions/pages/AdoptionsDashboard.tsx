@@ -30,7 +30,8 @@ function AdoptionsDashboard() {
   });
 
   const adoptions = infiniteData?.pages?.map((page) => page.data.data).flat();
-  const totalAdoptions = infiniteData?.pages?.[0].data.pagination.totalItems;
+  const totalAdoptions =
+    infiniteData?.pages?.[0].data.pagination.totalItems || 0;
   const adoptionsCount = infiniteData?.pages?.[0].data.count;
 
   const observerRef = useRef<HTMLDivElement>(null);
@@ -76,11 +77,6 @@ function AdoptionsDashboard() {
         <h1>{t("adoption.title")}</h1>
       </TitlePanel>
       <div>
-        {isError && (
-          <ErrorLabel>
-            Une erreur s&apos;est produite lors du chargement
-          </ErrorLabel>
-        )}
         <div
           className={css({
             display: "flex",
@@ -97,6 +93,11 @@ function AdoptionsDashboard() {
             setFilter={onFilterChange}
             adoptionsCount={adoptionsCount || {}}
           />
+          {isError && (
+            <ErrorLabel>
+              Une erreur s&apos;est produite lors du chargement
+            </ErrorLabel>
+          )}
           {isLoading && (
             <div className={css({ margin: "auto" })}>
               <Loader />
@@ -104,7 +105,11 @@ function AdoptionsDashboard() {
           )}
           {isSuccess && (
             <div>
-              <p>{totalAdoptions} adoptions trouvés</p>
+              <p>
+                {totalAdoptions > 1
+                  ? t("adoption.items_found_plural", { count: totalAdoptions })
+                  : t("adoption.items_found", { count: totalAdoptions })}
+              </p>
               <div
                 className={css({
                   display: "flex",

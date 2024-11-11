@@ -12,6 +12,8 @@
     "motivations": "Motivations"
   },
   "adoption": {
-    "title": "Ils attendent d'être adopté"
+    "title": "Ils attendent d'être adopté",
+    "items_found": "{{count}} adoption trouvé",
+    "items_found_plural": "{{count}} adoptions trouvés"
   }
 }
