@@ -1,16 +1,28 @@
-import { AdoptionGender, AdoptionSpecies } from "@amcoeur/types";
-import { css } from "../../../styled-system/css";
+import {
+  AdoptionGender,
+  AdoptionSpecies,
+  AdoptionsListCount,
+} from "@amcoeur/types";
+import { ComponentProps } from "react";
+import { css, cx } from "../../../styled-system/css";
 import FormCheckbox from "../../global/components/molecules/Form/FormCheckbox";
 import Magnify from "../../global/assets/icons/magnify.svg?react";
 import Cross from "../../global/assets/icons/cross.svg?react";
 import { AdoptionFilter } from "../types/filter";
+import { getAttributeCount } from "../utils/adoption";
 
-type AdoptionFilterBarProps = {
+type AdoptionFilterBarProps = Omit<ComponentProps<"div">, "children"> & {
   filter: AdoptionFilter | null;
   setFilter?: (filter: AdoptionFilter | null) => void;
+  adoptionsCount: AdoptionsListCount;
 };
 
-function AdoptionFilterBar({ filter, setFilter }: AdoptionFilterBarProps) {
+function AdoptionFilterBar({
+  filter,
+  setFilter,
+  adoptionsCount,
+  ...props
+}: AdoptionFilterBarProps) {
   const onResetFilter = () => {
     setFilter?.(null);
   };
@@ -40,18 +52,21 @@ function AdoptionFilterBar({ filter, setFilter }: AdoptionFilterBarProps) {
 
   return (
     <div
-      className={css({
-        display: "flex",
-        flexFlow: "column nowrap",
-        alignItems: "flex-start",
-        justifyContent: "flex-start",
-        gap: "32px",
-        borderStyle: "solid",
-        borderWidth: "0 1px 0px 0",
-        borderColor: "pink.200",
-        padding: "16px",
-        margin: "16px",
-      })}
+      {...props}
+      className={cx(
+        props.className,
+        css({
+          display: "flex",
+          flexFlow: "column nowrap",
+          gap: "32px",
+          borderStyle: "solid",
+          borderWidth: "0 1px 0px 0",
+          borderColor: "pink.200",
+          padding: "16px",
+          margin: "16px",
+          height: "500px",
+        }),
+      )}
     >
       {filter && (
         <button
@@ -117,7 +132,7 @@ function AdoptionFilterBar({ filter, setFilter }: AdoptionFilterBarProps) {
             onUpdateFilter({ gender: e.target.value as AdoptionGender })
           }
         >
-          Mâle
+          Mâle ({getAttributeCount("MALE", adoptionsCount)})
         </FormCheckbox>
         <FormCheckbox
           type="radio"
@@ -129,7 +144,7 @@ function AdoptionFilterBar({ filter, setFilter }: AdoptionFilterBarProps) {
             onUpdateFilter({ gender: e.target.value as AdoptionGender })
           }
         >
-          Femelle
+          Femelle ({getAttributeCount("FEMALE", adoptionsCount)})
         </FormCheckbox>
       </div>
       <div className={paramContainer}>
@@ -145,7 +160,7 @@ function AdoptionFilterBar({ filter, setFilter }: AdoptionFilterBarProps) {
             })
           }
         >
-          Chien
+          Chien ({getAttributeCount("DOG", adoptionsCount)})
         </FormCheckbox>
         <FormCheckbox
           type="checkbox"
@@ -158,7 +173,7 @@ function AdoptionFilterBar({ filter, setFilter }: AdoptionFilterBarProps) {
             })
           }
         >
-          Chat
+          Chat ({getAttributeCount("CAT", adoptionsCount)})
         </FormCheckbox>
         <FormCheckbox
           type="checkbox"
@@ -171,7 +186,7 @@ function AdoptionFilterBar({ filter, setFilter }: AdoptionFilterBarProps) {
             })
           }
         >
-          Cheval
+          Cheval ({getAttributeCount("HORSE", adoptionsCount)})
         </FormCheckbox>
       </div>
     </div>

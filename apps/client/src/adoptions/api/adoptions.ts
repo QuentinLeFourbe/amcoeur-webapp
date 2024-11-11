@@ -5,13 +5,21 @@ import {
 } from "@amcoeur/types";
 import { AdoptionFilter } from "../types/filter";
 
-export const getAdoptions = (filter: AdoptionFilter = {}) => {
-  let filterQuery = "";
+export const getAdoptions = ({
+  filter = {},
+  count = false,
+  page = 1,
+}: {
+  filter?: AdoptionFilter;
+  count?: boolean;
+  page?: number;
+}) => {
+  let queryParams = "";
   if (filter.gender) {
-    filterQuery = `${filterQuery}&gender=${filter.gender}`;
+    queryParams = `${queryParams}&gender=${filter.gender}`;
   }
   if (filter.name) {
-    filterQuery = `${filterQuery}&name=${filter.name}`;
+    queryParams = `${queryParams}&name=${filter.name}`;
   }
 
   if (filter.species) {
@@ -21,18 +29,26 @@ export const getAdoptions = (filter: AdoptionFilter = {}) => {
       }
       return `${queryAcc},${species}`;
     }, "");
-    filterQuery = `${filterQuery}&species=${speciesToQueryArray}`;
+    queryParams = `${queryParams}&species=${speciesToQueryArray}`;
   }
 
-  if (filterQuery.startsWith("&")) {
-    filterQuery = filterQuery.slice(1);
+  if (count) {
+    queryParams = `${queryParams}&count=true`;
   }
-  if (filterQuery) {
-    filterQuery = `?${filterQuery}`;
+
+  if (page > 0) {
+    queryParams = `${queryParams}&page=${page}`;
+  }
+
+  if (queryParams.startsWith("&")) {
+    queryParams = queryParams.slice(1);
+  }
+  if (queryParams) {
+    queryParams = `?${queryParams}`;
   }
 
   return axios.get<AdoptionsListClientPublicData>(
-    `/api/adoptions/public${filterQuery}`,
+    `/api/adoptions/public${queryParams}`,
   );
 };
 

@@ -51,19 +51,22 @@ export type AdoptionServerData = z.infer<typeof adoptionServerDataSchema>;
 export type AdoptionGender = z.infer<typeof genderSchema>;
 export type AdoptionSpecies = z.infer<typeof speciesSchema>;
 
-type AdoptionsListServerBaseResponse = {
-  pagination: {
-    page: number;
-    perPage: number;
-    totalPages: number;
-    totalItems: number;
-  };
-  count?: {
-    species?: { _id: AdoptionSpecies; count: number }[];
-    gender?: { _id: AdoptionGender; count: number }[];
-  };
+export type AdoptionsListCount = {
+  species?: { _id: AdoptionSpecies; count: number }[];
+  gender?: { _id: AdoptionGender; count: number }[];
 };
 
+export type AdoptionListPagination = {
+  page: number;
+  perPage: number;
+  totalPages: number;
+  totalItems: number;
+};
+
+type AdoptionsListServerBaseResponse = {
+  pagination: AdoptionListPagination;
+  count?: AdoptionsListCount;
+};
 export type AdoptionsListPublicData = AdoptionsListServerBaseResponse & {
   data: AdoptionServerPublicData[];
 };
