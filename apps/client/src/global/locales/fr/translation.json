@@ -10,5 +10,8 @@
     "phone": "Téléphone",
     "email": "E-mail",
     "motivations": "Motivations"
+  },
+  "adoption": {
+    "title": "Ils attendent d'être adopté"
   }
 }
