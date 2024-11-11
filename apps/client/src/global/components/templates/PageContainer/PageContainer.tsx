@@ -48,6 +48,7 @@ const container = css({
   flexFlow: "column nowrap",
   alignItems: "stretch",
   minHeight: "100vh",
+  gap: "64px",
 
   "& .pages-enter": {
     opacity: 0,
