@@ -75,62 +75,96 @@ function AdoptionsDashboard() {
       <TitlePanel>
         <h1>{t("adoption.title")}</h1>
       </TitlePanel>
-      <div>
-        <div
+      <div
+        className={css({
+          display: "flex",
+          flexFlow: "row nowrap",
+          height: "100%",
+          margin: "10vh 0",
+        })}
+      >
+        <AdoptionFilterBar
           className={css({
-            display: "flex",
-            flexFlow: "row nowrap",
-            height: "100%",
+            position: "sticky",
+            top: "100px",
           })}
-        >
-          <AdoptionFilterBar
+          filter={filter}
+          setFilter={onFilterChange}
+          adoptionsCount={adoptionsCount || {}}
+        />
+        {isError && (
+          <ErrorLabel>
+            Une erreur s&apos;est produite lors du chargement
+          </ErrorLabel>
+        )}
+        {isLoading && (
+          <div className={css({ margin: "auto" })}>
+            <Loader />
+          </div>
+        )}
+        {isSuccess && (
+          <div
             className={css({
-              position: "sticky",
-              top: "100px",
+              display: "flex",
+              flexDirection: "column",
+              flexGrow: 1,
             })}
-            filter={filter}
-            setFilter={onFilterChange}
-            adoptionsCount={adoptionsCount || {}}
-          />
-          {isError && (
-            <ErrorLabel>
-              Une erreur s&apos;est produite lors du chargement
-            </ErrorLabel>
-          )}
-          {isLoading && (
-            <div className={css({ margin: "auto" })}>
-              <Loader />
-            </div>
-          )}
-          {isSuccess && (
-            <div>
+          >
+            {totalAdoptions > 0 && (
               <p>
                 {totalAdoptions > 1
-                  ? t("adoption.items_found_plural", { count: totalAdoptions })
+                  ? t("adoption.items_found_plural", {
+                    count: totalAdoptions,
+                  })
                   : t("adoption.items_found", { count: totalAdoptions })}
               </p>
+            )}
+            {totalAdoptions === 0 && (
               <div
                 className={css({
-                  display: "flex",
-                  flexFlow: "row wrap",
-                  gap: "64px",
-                  margin: "32px",
+                  margin: "auto",
                 })}
               >
-                {adoptions?.map((adoption) => (
-                  <AdoptionCard
-                    key={adoption._id}
-                    name={adoption.name}
-                    gender={adoption.gender}
-                    imageSrc={adoption.imageUrl}
-                    href={`/adoptions/${adoption._id}`}
-                  />
-                ))}
+                <p className={css({ fontSize: "header", fontWeight: "bold", color: "red.300" })}>
+                  {t("adoption.no_result")}
+                </p>
               </div>
-              <div ref={observerRef} className={css({ height: "1px" })} />
-            </div>
-          )}
-        </div>
+            )}
+            {adoptions && adoptions.length > 0 && (
+              <>
+                <div
+                  className={css({
+                    display: "flex",
+                    flexFlow: "row wrap",
+                    gap: "64px",
+                    margin: "32px",
+                  })}
+                >
+                  {adoptions?.map((adoption) => (
+                    <AdoptionCard
+                      key={adoption._id}
+                      name={adoption.name}
+                      gender={adoption.gender}
+                      imageSrc={adoption.imageUrl}
+                      href={`/adoptions/${adoption._id}`}
+                    />
+                  ))}
+                </div>
+                {isFetchingNextPage && (
+                  <div
+                    className={css({
+                      display: "flex",
+                      justifyContent: "center",
+                    })}
+                  >
+                    <Loader />
+                  </div>
+                )}
+                <div ref={observerRef} className={css({ height: "1px" })} />
+              </>
+            )}
+          </div>
+        )}
       </div>
     </>
   );
