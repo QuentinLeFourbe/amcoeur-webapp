@@ -5,11 +5,10 @@ import { css } from "../../../styled-system/css";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import AdoptionCard from "../components/AdoptionCard";
 import AdoptionFilterBar from "../components/AdoptionFilterBar";
-import { useAdoptions, useInfiniteAdoptions } from "../hooks/useAdoptions";
+import { useInfiniteAdoptions } from "../hooks/useAdoptions";
 import { AdoptionFilter } from "../types/filter";
 import Loader from "../../global/components/atoms/Loader/Loader";
 import TitlePanel from "../../global/components/molecules/TitlePanel/TitlePanel";
-import Button from "../../global/components/atoms/Button/Button";
 
 function AdoptionsDashboard() {
   const [filter, setFilter] = useState<AdoptionFilter | null>(null);
