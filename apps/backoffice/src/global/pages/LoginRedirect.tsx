@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { getCodeVerifier, microsoftLogin } from "../utils/auth";
+import { getCodeVerifier } from "../utils/auth";
 import { getAccessToken } from "../api/users";
 import { useUserContext } from "../hooks/useUser";
 import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
