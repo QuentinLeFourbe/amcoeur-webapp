@@ -1,6 +1,6 @@
 import {
   FormClientData,
-  FormClientDataSchema,
+  formClientDataSchema,
   FormFieldType,
 } from "@amcoeur/types";
 import { zodResolver } from "@hookform/resolvers/zod";
