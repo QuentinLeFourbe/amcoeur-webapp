@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { getCodeVerifier } from "../utils/auth";
+import { getCodeVerifier, microsoftLogin } from "../utils/auth";
 import { getAccessToken } from "../api/users";
 import { useUserContext } from "../hooks/useUser";
 import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
@@ -17,6 +17,7 @@ function LoginRedirect() {
   const [error, setError] = useState("");
   const { setAccessToken } = useUserContext() || {};
   const code = searchParams.get("code");
+  const userPreviousPage = searchParams.get("state");
   const navigate = useNavigate();
 
   if (!setAccessToken) {
@@ -31,7 +32,11 @@ function LoginRedirect() {
         const tokenResponse = data as TokenResponse;
         if (tokenResponse) {
           setAccessToken(tokenResponse.id_token);
-          navigate("/", { replace: true });
+          if (userPreviousPage && !userPreviousPage.endsWith("/login")) {
+            navigate(userPreviousPage, { replace: true });
+          } else {
+            navigate("/", { replace: true });
+          }
         } else {
           throw Error("No access token from token request");
         }
@@ -52,7 +57,11 @@ function LoginRedirect() {
       })}
     >
       <p>Redirection en cours...</p>
-      {error && <ErrorLabel>{error}</ErrorLabel>}
+      {error && (
+        <div>
+          <ErrorLabel>{error}</ErrorLabel>
+        </div>
+      )}
     </div>
   );
 }

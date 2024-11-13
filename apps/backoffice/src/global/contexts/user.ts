@@ -5,6 +5,7 @@ export type UserContextType = {
   setLoginState: (state: string) => void;
   logout: () => void;
   setAccessToken: (token: string) => void;
+  accessToken?: string;
 };
 
 export const UserContext = createContext<UserContextType | undefined>(
