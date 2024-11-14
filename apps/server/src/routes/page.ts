@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   createPage,
   getPages,
-  getPagesById,
+  getPageById,
   updatePage,
   deletePage,
   createHomePage,
@@ -18,7 +18,7 @@ router.post("/homepage", requiresActive, createHomePage);
 
 router.get("/", getPages);
 router.get("/homepage", getHomePage);
-router.get("/:id", getPagesById);
+router.get("/:id", getPageById);
 
 router.put("/:id", requiresActive, upload.any(), updatePage);
 

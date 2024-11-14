@@ -5,7 +5,7 @@ import {
   convertAdoptionToPublicData,
 } from "../utils/adoptions.js";
 import { addPagination } from "../utils/db.js";
-import { parseBoolean, queryToArray } from "../utils/query.js";
+import { parseBoolean, parseQueryArray } from "../utils/query.js";
 import type { AdoptionFilter } from "../types/adoptions.js";
 import type {
   AdoptionContact,
@@ -111,14 +111,13 @@ export const getAdoption = async (req: Request, res: Response) => {
 export const getAdoptions = async (req: Request, res: Response) => {
   try {
     const { count, limit, page, gender, species, name } = req.query;
-
     const parsedLimit = parseInt(limit as string);
     const pageLimit = !parsedLimit || parsedLimit < 1 ? 20 : parsedLimit;
     const parsedPage = parseInt(page as string);
     const pageNumber = !parsedPage || parsedPage < 1 ? 1 : parsedPage;
     const isCounting = parseBoolean(count as string);
 
-    const speciesFilterValue = queryToArray(species as string);
+    const speciesFilterValue = parseQueryArray(species as string);
     const filter = getAdoptionFilter({
       gender,
       species: speciesFilterValue,

@@ -1,4 +1,4 @@
-export const queryToArray = (queryString: string) => {
+export const parseQueryArray = (queryString: string) => {
   if (!queryString) return queryString;
 
   const array = queryString.split(",");
@@ -9,4 +9,18 @@ export const parseBoolean = (value: string) => {
   if (!value) return false;
 
   return value.toLowerCase() === "true";
+};
+
+export const parseSort = (sortParam: string | undefined) => {
+  if (!sortParam) {
+    return undefined;
+  }
+
+  const [field, order] = sortParam.split(":");
+
+  if (!field) {
+    return undefined;
+  }
+
+  return { [field]: (order === "desc" ? -1 : 1) as 1 | -1 };
 };

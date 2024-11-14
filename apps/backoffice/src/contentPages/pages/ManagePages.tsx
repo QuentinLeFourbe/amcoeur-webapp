@@ -9,12 +9,13 @@ import Table from "../../global/components/atoms/Table/Table";
 
 function ManagePages() {
   const {
-    data: { data: pagesData } = {},
+    data: { data: pagesResult } = {},
     isSuccess,
     isLoading,
     isError,
   } = useGetPages();
   const [pageToDelete, setPageToDelete] = useState<PageDataClient | null>(null);
+  const pagesData = pagesResult?.data;
 
   const {
     mutate: deletePage,
