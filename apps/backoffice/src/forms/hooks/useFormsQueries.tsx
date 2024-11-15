@@ -10,8 +10,11 @@ import {
   updateForm,
 } from "../api/forms";
 
-export const useGetForms = () => {
-  const query = useQuery({ queryFn: getForms, queryKey: ["forms"] });
+export const useGetForms = ({ limit }: { limit?: number } = {}) => {
+  const query = useQuery({
+    queryFn: () => getForms({ limit }),
+    queryKey: ["forms", limit],
+  });
   return query;
 };
 

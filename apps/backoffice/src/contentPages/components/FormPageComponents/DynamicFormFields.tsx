@@ -11,11 +11,13 @@ type DynamicFormFieldsProps = {
 
 function DynamicFormFields({ component, onChange }: DynamicFormFieldsProps) {
   const {
-    data: { data: formsData } = {},
+    data: { data: formsResult } = {},
     isSuccess,
     isError,
     isLoading,
-  } = useGetForms();
+  } = useGetForms({ limit: 100 });
+  const formsData = formsResult?.data;
+
   const options =
     formsData?.map((form) => ({
       label: form.name,

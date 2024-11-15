@@ -1,6 +1,8 @@
 import type { Request, Response } from "express";
 import Form from "../models/form.js";
 import mongoose from "mongoose";
+import { paginate } from "../services/dbService.js";
+import { parseSort } from "../utils/query.js";
 
 export const createForm = async (req: Request, res: Response) => {
   try {
@@ -109,27 +111,45 @@ export const getForm = async (req: Request, res: Response) => {
   }
 };
 
-export const getForms = async (_req: Request, res: Response) => {
+export const getForms = async (req: Request, res: Response) => {
   try {
-    const forms = await Form.aggregate([
-      {
-        $lookup: {
-          from: "formanswers",
-          localField: "_id",
-          foreignField: "formId",
-          as: "answers",
-        },
-      },
-      {
-        $project: {
-          _id: 1,
-          name: 1,
-          answerCount: { $size: "$answers" },
-        },
-      },
-    ]);
+    const { limit, page, search, sort } = req.query;
+    const parsedLimit = parseInt(limit as string);
+    const pageLimit = !parsedLimit || parsedLimit < 1 ? 20 : parsedLimit;
+    const parsedPage = parseInt(page as string);
+    const pageNumber = !parsedPage || parsedPage < 1 ? 1 : parsedPage;
+    const parsedSort = parseSort(sort as string);
 
-    res.status(200).json(forms);
+    const results = await paginate(Form, {
+      filter: { name: { $regex: search || "", $options: "i" } },
+      page: pageNumber,
+      sort: parsedSort,
+      limit: pageLimit,
+      customPipeline: [
+        {
+          $lookup: {
+            from: "formanswers",
+            localField: "_id",
+            foreignField: "formId",
+            as: "answers",
+          },
+        },
+      ],
+      dataProject: {
+        _id: 1,
+        name: 1,
+        answersCount: 1,
+      },
+      dataPipeline: [
+        {
+          $addFields: {
+            answersCount: { $size: "$answers" }, // Ajout du comptage des réponses
+          },
+        },
+      ],
+    });
+
+    res.status(200).json(results);
   } catch (error) {
     res.locals.logger.error(error);
     if (error instanceof Error) {

@@ -7,7 +7,9 @@ type WrappedFormContentPanelProps = Omit<
   "pages"
 >;
 function WrappedFormContentPanel(props: WrappedFormContentPanelProps) {
-  const { data: { data: pagesData } = {}, isSuccess } = useGetPages();
+  const { data: { data: pagesResult } = {}, isSuccess } = useGetPages();
+  const pagesData = pagesResult?.data;
+
   return isSuccess && <FormContentPanel {...props} pages={pagesData} />;
 }
 

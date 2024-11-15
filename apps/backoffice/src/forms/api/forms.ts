@@ -1,7 +1,22 @@
-import { FormClientData, FormSummary } from "@amcoeur/types";
+import { FormClientData, FormSummary, PaginatedResult } from "@amcoeur/types";
 import axios from "axios";
 
-export const getForms = () => axios.get<FormSummary[]>("/api/forms");
+export const getForms = ({ limit }: { limit?: number } = {}) => {
+  let queryParams = "";
+
+  if (limit) {
+    queryParams = `${queryParams}&limit=${limit}`;
+  }
+
+  if (queryParams.startsWith("&")) {
+    queryParams = queryParams.slice(1);
+  }
+  if (queryParams) {
+    queryParams = `?${queryParams}`;
+  }
+
+  return axios.get<PaginatedResult<FormSummary>>(`/api/forms${queryParams}`);
+};
 
 export const getForm = (id: string) =>
   axios.get<FormClientData>(`/api/forms/${id}`);

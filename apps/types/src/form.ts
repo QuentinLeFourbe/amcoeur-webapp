@@ -41,7 +41,7 @@ export const formServerDataSchema = z
 
 export const formSummarySchema = formBaseSchema
   .merge(formClientDataSchema.pick({ _id: true }))
-  .merge(z.object({ answerCount: z.number() }));
+  .merge(z.object({ answersCount: z.number() }));
 
 export type FormServerData = z.infer<typeof formServerDataSchema>;
 export type FormClientData = z.infer<typeof formClientDataSchema>;

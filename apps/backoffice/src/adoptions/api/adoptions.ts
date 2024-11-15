@@ -1,8 +1,8 @@
-import { AdoptionClientData, AdoptionsListClientData } from "@amcoeur/types";
+import { AdoptionClientData, PaginatedResult } from "@amcoeur/types";
 import axios from "axios";
 
 export const getAdoptions = () =>
-  axios.get<AdoptionsListClientData>("/api/adoptions");
+  axios.get<PaginatedResult<AdoptionClientData>>("/api/adoptions");
 
 export const getAdoption = (id: string) =>
   axios.get<AdoptionClientData>(`/api/adoptions/${id}`);

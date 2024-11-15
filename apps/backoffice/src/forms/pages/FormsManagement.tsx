@@ -14,7 +14,7 @@ import {
 
 function FormsManagement() {
   const {
-    data: { data: formsData } = {},
+    data: { data: formsResult } = {},
     isSuccess,
     isLoading,
     isError,
@@ -29,6 +29,8 @@ function FormsManagement() {
     isError: isDuplicateError,
     isSuccess: isDuplicateSuccess,
   } = useDuplicateForm();
+
+  const formsData = formsResult?.data;
 
   const [formToDelete, setFormToDelete] = useState<FormSummary | null>(null);
   return (
@@ -72,7 +74,7 @@ function FormsManagement() {
             {formsData?.map((form) => (
               <tr key={form._id}>
                 <td>{form.name}</td>
-                <td>{form.answerCount}</td>
+                <td>{form.answersCount}</td>
                 <td>
                   <div className={css({ display: "flex", gap: "16px" })}>
                     <Button
