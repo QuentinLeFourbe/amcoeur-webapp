@@ -6,10 +6,7 @@ type PaginationOptions = {
   limit?: number;
   sort?: { [key: string]: 1 | -1 } | undefined;
   filter?: { [key: string]: unknown };
-};
-
-type CountResult = {
-  [key: string]: number;
+  count?: string[] | undefined;
 };
 
 /*
@@ -24,6 +21,7 @@ export const paginate = async <T>(
     limit = 10,
     sort = { createdAt: -1 },
     filter = {},
+    count = [],
   } = options;
   const skip = (page - 1) * limit;
 
@@ -33,31 +31,62 @@ export const paginate = async <T>(
     },
   ];
 
+  const countPipeline = count.reduce((countQuery, key) => {
+    const query = { ...countQuery } as { [key: string]: unknown };
+    query[key] = [
+      {
+        $group: {
+          _id: "$" + key,
+          count: { $sum: 1 },
+        },
+      },
+    ];
+    return query;
+  }, {});
+
+  const countProject = count.reduce((project, key) => {
+    const accProject = { ...project } as { [key: string]: unknown };
+    accProject[key] = {
+      $map: {
+        input: "$" + key,
+        as: "k",
+        in: { key: "$$k._id", value: "$$k.count" },
+      },
+    };
+    return accProject;
+  }, {});
+
   const paginationPipeline = [
     { $sort: sort },
     { $skip: skip },
     { $limit: limit },
   ];
 
-  const results = await model.aggregate([
+  const results = (await model.aggregate([
     ...filterPipeline,
     {
       $facet: {
         data: paginationPipeline,
         totalItems: [{ $count: "total" }],
+        ...countPipeline,
       },
     },
-  ]);
+    {
+      $project: {
+        data: 1,
+        totalItems: { $arrayElemAt: ["$totalItems.total", 0] },
+        count: countProject,
+      },
+    },
+  ])) as Pick<PaginatedResult<T>, "data" | "totalItems" | "count">[];
 
-  console.log({ results });
-  console.log({ data: results[0].data });
-
-  const totalItems = results[0]?.totalItems[0]?.total || 0;
+  const totalItems = results[0]?.totalItems || 0;
   return {
     perPage: limit,
     page,
-    data: results[0].data,
-    totalItems: totalItems,
     totalPages: Math.ceil(totalItems / limit),
-  };
+    data: results[0]?.data || [],
+    totalItems,
+    count: results[0]?.count,
+  } as PaginatedResult<T>;
 };

@@ -29,8 +29,7 @@ function AdoptionsDashboard() {
   });
 
   const adoptions = infiniteData?.pages?.map((page) => page.data.data).flat();
-  const totalAdoptions =
-    infiniteData?.pages?.[0].data.pagination.totalItems || 0;
+  const totalAdoptions = infiniteData?.pages?.[0].data.totalItems || 0;
   const adoptionsCount = infiniteData?.pages?.[0].data.count;
 
   const observerRef = useRef<HTMLDivElement>(null);
@@ -125,7 +124,13 @@ function AdoptionsDashboard() {
                   margin: "auto",
                 })}
               >
-                <p className={css({ fontSize: "header", fontWeight: "bold", color: "red.300" })}>
+                <p
+                  className={css({
+                    fontSize: "header",
+                    fontWeight: "bold",
+                    color: "red.300",
+                  })}
+                >
                   {t("adoption.no_result")}
                 </p>
               </div>

@@ -1,7 +1,7 @@
 import {
   AdoptionGender,
   AdoptionSpecies,
-  AdoptionsListCount,
+  CountResult,
 } from "@amcoeur/types";
 import { ComponentProps } from "react";
 import { css, cx } from "../../../styled-system/css";
@@ -14,7 +14,7 @@ import { getAttributeCount } from "../utils/adoption";
 type AdoptionFilterBarProps = Omit<ComponentProps<"div">, "children"> & {
   filter: AdoptionFilter | null;
   setFilter?: (filter: AdoptionFilter | null) => void;
-  adoptionsCount: AdoptionsListCount;
+  adoptionsCount: CountResult;
 };
 
 function AdoptionFilterBar({

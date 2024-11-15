@@ -40,45 +40,15 @@ export const adoptionServerDataSchema = adoptionServerPublicDataSchema.merge(
   adoptionPrivateSchema,
 );
 
+export type AdoptionClientData = z.infer<typeof adoptionClientDataSchema>;
 export type AdoptionClientPublicData = z.infer<
   typeof adoptionClientPublicDataSchema
 >;
-export type AdoptionClientData = z.infer<typeof adoptionClientDataSchema>;
+
+export type AdoptionServerData = z.infer<typeof adoptionServerDataSchema>;
 export type AdoptionServerPublicData = z.infer<
   typeof adoptionServerPublicDataSchema
 >;
-export type AdoptionServerData = z.infer<typeof adoptionServerDataSchema>;
+
 export type AdoptionGender = z.infer<typeof genderSchema>;
 export type AdoptionSpecies = z.infer<typeof speciesSchema>;
-
-export type AdoptionsListCount = {
-  species?: { _id: AdoptionSpecies; count: number }[];
-  gender?: { _id: AdoptionGender; count: number }[];
-};
-
-export type AdoptionListPagination = {
-  page: number;
-  perPage: number;
-  totalPages: number;
-  totalItems: number;
-};
-
-type AdoptionsListServerBaseResponse = {
-  pagination: AdoptionListPagination;
-  count?: AdoptionsListCount;
-};
-export type AdoptionsListPublicData = AdoptionsListServerBaseResponse & {
-  data: AdoptionServerPublicData[];
-};
-
-export type AdoptionsListData = AdoptionsListServerBaseResponse & {
-  data: AdoptionServerData[];
-};
-
-export type AdoptionsListClientData = AdoptionsListServerBaseResponse & {
-  data: AdoptionClientData[];
-};
-
-export type AdoptionsListClientPublicData = AdoptionsListServerBaseResponse & {
-  data: AdoptionClientPublicData[];
-};

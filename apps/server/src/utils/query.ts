@@ -1,5 +1,5 @@
 export const parseQueryArray = (queryString: string) => {
-  if (!queryString) return queryString;
+  if (!queryString) return undefined;
 
   const array = queryString.split(",");
   return array;

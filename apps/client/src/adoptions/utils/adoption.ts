@@ -1,4 +1,4 @@
-import { AdoptionSpecies, AdoptionsListCount } from "@amcoeur/types";
+import { AdoptionSpecies, CountResult } from "@amcoeur/types";
 
 export const speciesToString = (species: AdoptionSpecies) => {
   switch (species) {
@@ -13,19 +13,19 @@ export const speciesToString = (species: AdoptionSpecies) => {
 
 export const getAttributeCount = (
   attribute: string,
-  countList: AdoptionsListCount,
+  countList: CountResult,
 ) => {
   const genderFound = countList?.gender?.find(
-    (gender) => gender._id === attribute,
+    (gender) => gender.key === attribute,
   );
   if (genderFound) {
-    return genderFound.count;
+    return genderFound.value;
   }
 
   const speciesFound = countList?.species?.find(
-    (spec) => spec._id === attribute,
+    (spec) => spec.key === attribute,
   );
-  if (speciesFound) return speciesFound.count;
+  if (speciesFound) return speciesFound.value;
 
   return 0;
 };

@@ -1,8 +1,5 @@
 import axios from "axios";
-import {
-  AdoptionClientPublicData,
-  AdoptionsListClientPublicData,
-} from "@amcoeur/types";
+import { AdoptionClientPublicData, PaginatedResult } from "@amcoeur/types";
 import { AdoptionFilter } from "../types/filter";
 
 export const getAdoptions = ({
@@ -47,7 +44,7 @@ export const getAdoptions = ({
     queryParams = `?${queryParams}`;
   }
 
-  return axios.get<AdoptionsListClientPublicData>(
+  return axios.get<PaginatedResult<AdoptionClientPublicData>>(
     `/api/adoptions/public${queryParams}`,
   );
 };
