@@ -100,8 +100,6 @@ export const paginate = async <T>(
     },
   ])) as Pick<PaginatedResult<T>, "data" | "totalItems" | "count">[];
 
-  console.log({ data: results[0]?.data });
-
   const totalItems = results[0]?.totalItems || 0;
   return {
     perPage: limit,
@@ -109,6 +107,6 @@ export const paginate = async <T>(
     totalPages: Math.ceil(totalItems / limit),
     data: results[0]?.data || [],
     totalItems,
-    count: results[0]?.count,
+    count: results[0]?.count || undefined,
   } as PaginatedResult<T>;
 };
