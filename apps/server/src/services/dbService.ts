@@ -7,11 +7,27 @@ type PaginationOptions = {
   sort?: { [key: string]: 1 | -1 } | undefined;
   filter?: { [key: string]: unknown };
   count?: string[] | undefined;
+  customPipeline?: PipelineStage[];
+  dataPipeline?: PipelineStage.FacetPipelineStage[];
+  dataProject?: { [key: string]: unknown };
 };
 
-/*
- * Does a MongoDB call with pagination, filter, sort and count supported
- * */
+/**
+ * Paginates a MongoDB query with support for filters, sorting, custom pipelines, and counting.
+ *
+ * @template T - The type of the documents in the collection.
+ * @param {Model<T>} model - The Mongoose model to perform the query on.
+ * @param {PaginationOptions} [options={}] - The pagination options.
+ * @param {number} [options.page=1] - The current page number.
+ * @param {number} [options.limit=10] - The number of documents per page.
+ * @param {{ [key: string]: 1 | -1 } | undefined} [options.sort={ createdAt: -1 }] - The sort order for the query.
+ * @param {{ [key: string]: unknown }} [options.filter={}] - The filter conditions for the query.
+ * @param {string[] | undefined} [options.count] - The fields for which to count distinct values.
+ * @param {PipelineStage[]} [options.customPipeline=[]] - Custom aggregation pipeline stages to include before the pagination stage.
+ * @param {PipelineStage.FacetPipelineStage[]} [options.dataPipeline=[]] - Additional pipeline stages specific to the `data` facet.
+ * @param {{ [key: string]: unknown }} [options.dataProject] - Custom projection for the `data` field.
+ * @returns {Promise<PaginatedResult<T>>} - The paginated result including data, total items, and optional count information.
+ */
 export const paginate = async <T>(
   model: Model<T>,
   options: PaginationOptions = {},
@@ -21,7 +37,10 @@ export const paginate = async <T>(
     limit = 10,
     sort = { createdAt: -1 },
     filter = {},
-    count = [],
+    count,
+    customPipeline = [],
+    dataProject,
+    dataPipeline = [],
   } = options;
   const skip = (page - 1) * limit;
 
@@ -31,7 +50,7 @@ export const paginate = async <T>(
     },
   ];
 
-  const countPipeline = count.reduce((countQuery, key) => {
+  const countPipeline = count?.reduce((countQuery, key) => {
     const query = { ...countQuery } as { [key: string]: unknown };
     query[key] = [
       {
@@ -44,7 +63,7 @@ export const paginate = async <T>(
     return query;
   }, {});
 
-  const countProject = count.reduce((project, key) => {
+  const countProject = count?.reduce((project, key) => {
     const accProject = { ...project } as { [key: string]: unknown };
     accProject[key] = {
       $map: {
@@ -64,21 +83,24 @@ export const paginate = async <T>(
 
   const results = (await model.aggregate([
     ...filterPipeline,
+    ...customPipeline,
     {
       $facet: {
-        data: paginationPipeline,
+        data: [...paginationPipeline, ...dataPipeline],
         totalItems: [{ $count: "total" }],
         ...countPipeline,
       },
     },
     {
       $project: {
-        data: 1,
+        data: dataProject || 1,
         totalItems: { $arrayElemAt: ["$totalItems.total", 0] },
         count: countProject,
       },
     },
   ])) as Pick<PaginatedResult<T>, "data" | "totalItems" | "count">[];
+
+  console.log({ data: results[0]?.data });
 
   const totalItems = results[0]?.totalItems || 0;
   return {
