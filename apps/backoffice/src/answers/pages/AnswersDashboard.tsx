@@ -11,15 +11,17 @@ import FormCheckbox from "../../global/components/molecules/Form/FormCheckbox";
 function AnswersDashboard() {
   const { formId } = useParams();
   const {
-    data: { data: answersData } = {},
+    data: { data: answersResult } = {},
     isSuccess,
     isLoading,
     isError,
   } = useGetAnswers(formId || "");
+  const answersData = answersResult?.data;
   const [showArchived, setShowArchived] = useState(false);
   const filteredData = answersData?.filter(
     (answer) => showArchived === !!answer.archived,
   );
+
   return (
     <div
       className={css({

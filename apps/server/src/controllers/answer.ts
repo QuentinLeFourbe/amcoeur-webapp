@@ -3,6 +3,8 @@ import FormAnswers from "../models/answer.js";
 import type { FormAnswersServer } from "@amcoeur/types";
 import Form from "../models/form.js";
 import { sendEmail } from "../services/mailService.js";
+import { parseSort } from "../utils/query.js";
+import { paginate } from "../services/dbService.js";
 
 export const createAnswer = async (req: Request, res: Response) => {
   try {
@@ -112,8 +114,21 @@ export const getAnswer = async (req: Request, res: Response) => {
 
 export const getAnswers = async (req: Request, res: Response) => {
   try {
-    const answer = await FormAnswers.find(req.query);
-    res.status(200).json(answer);
+    const { limit, page, sort, formId } = req.query;
+    const parsedLimit = parseInt(limit as string);
+    const pageLimit = !parsedLimit || parsedLimit < 1 ? 20 : parsedLimit;
+    const parsedPage = parseInt(page as string);
+    const pageNumber = !parsedPage || parsedPage < 1 ? 1 : parsedPage;
+    const parsedSort = parseSort(sort as string);
+
+    const results = await paginate(FormAnswers, {
+      filter: { formId },
+      page: pageNumber,
+      sort: parsedSort,
+      limit: pageLimit,
+    });
+
+    res.status(200).json(results);
   } catch (error) {
     res.locals.logger.error(error);
     if (error instanceof Error) {
