@@ -5,15 +5,16 @@ import {
 } from "@amcoeur/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
-import FormInput from "../../../global/components/molecules/Form/FormInput";
+
 import { css } from "../../../../styled-system/css";
-import Button from "../../../global/components/atoms/Button/Button";
-import { getLabelFromValue, getNewField } from "../../utils/form";
-import DynamicContainer from "../../../global/components/organisms/DynamicContainer/DynamicContainer";
 import { AddButton } from "../../../global/components/atoms/AddButton/AddButton";
+import Button from "../../../global/components/atoms/Button/Button";
+import FormCodeArea from "../../../global/components/molecules/Form/FormCodeArea";
+import FormInput from "../../../global/components/molecules/Form/FormInput";
 import FormSelect from "../../../global/components/molecules/Form/FormSelect";
 import ListInput from "../../../global/components/molecules/ListInput/ListInput";
-import FormCodeArea from "../../../global/components/molecules/Form/FormCodeArea";
+import DynamicContainer from "../../../global/components/organisms/DynamicContainer/DynamicContainer";
+import { getLabelFromValue, getNewField } from "../../utils/form";
 
 type FormFormProps = {
   initialData?: FormClientData;

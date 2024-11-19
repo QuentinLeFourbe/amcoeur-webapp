@@ -1,5 +1,6 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { UserClientData } from "@amcoeur/types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
 import { activateUser, deleteUser, getUsers } from "../api/users";
 
 export const useUsers = () => {

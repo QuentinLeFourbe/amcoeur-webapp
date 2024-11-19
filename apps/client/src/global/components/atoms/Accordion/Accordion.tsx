@@ -1,7 +1,8 @@
-import React, { useState } from "react";
 import type { ComponentProps } from "react";
-import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
+import React, { useState } from "react";
+
 import { css, cx } from "../../../../../styled-system/css";
+import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
 
 type AccordionItem = {
   title: React.ReactNode;
@@ -28,7 +29,7 @@ const Accordion = ({ items }: AccordionProps) => {
             <ItemTrigger
               onClick={() => {
                 handleItemClick(index);
-                item.onClick && item.onClick();
+                if (item.onClick) item.onClick();
               }}
             >
               {item.title}

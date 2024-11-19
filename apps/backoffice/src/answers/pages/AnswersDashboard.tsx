@@ -1,13 +1,14 @@
-import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+
 import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import Label from "../../global/components/atoms/Label/Label";
 import Table from "../../global/components/atoms/Table/Table";
-import { useGetAnswers } from "../hooks/useAnswers";
 import FormCheckbox from "../../global/components/molecules/Form/FormCheckbox";
 import Pagination from "../../global/components/molecules/Pagination/Pagination";
+import { useGetAnswers } from "../hooks/useAnswers";
 
 function AnswersDashboard() {
   const [currentPage, setCurrentPage] = useState(1);

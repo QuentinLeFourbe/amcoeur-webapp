@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useCreatePage } from "../hooks/pagesQueries";
+
+import { css } from "../../../styled-system/css";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import PageForm from "../components/PageForm/PageForm";
-import { css } from "../../../styled-system/css";
+import { useCreatePage } from "../hooks/pagesQueries";
 
 function CreatePage() {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
+import { type PageDataClient,PaginatedResult } from "@amcoeur/types";
 import axios, { AxiosRequestConfig } from "axios";
-import { PaginatedResult, type PageDataClient } from "@amcoeur/types";
 
 export const getPage = (id: string | number) => {
   return axios.get<PageDataClient>(`/api/pages/${id}`);

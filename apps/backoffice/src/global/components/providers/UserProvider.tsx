@@ -1,8 +1,9 @@
-import { useState, type ReactNode } from "react";
-import axios from "axios";
 import { useQueryClient } from "@tanstack/react-query";
-import { UserContext } from "../../contexts/user";
+import axios from "axios";
+import { type ReactNode,useState } from "react";
+
 import router from "../../../routes";
+import { UserContext } from "../../contexts/user";
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [loginState, setLoginState] = useState<string>();

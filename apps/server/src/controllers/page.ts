@@ -1,9 +1,10 @@
+import { type PageDataServer } from "@amcoeur/types";
+import type { Request, Response } from "express";
+
 import Page from "../models/page.js";
+import { paginate } from "../services/dbService.js";
 import { matchComponentsWithImageUrl } from "../services/pageService.js";
 import { deleteOldImages, deletePageImages } from "../utils/files.js";
-import type { Request, Response } from "express";
-import { type PageDataServer } from "@amcoeur/types";
-import { paginate } from "../services/dbService.js";
 import { parseSort } from "../utils/query.js";
 
 export const createPage = async (req: Request, res: Response) => {

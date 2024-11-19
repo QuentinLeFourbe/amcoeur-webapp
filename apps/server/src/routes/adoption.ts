@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { requiresActive } from "../middlewares/login.js";
+
 import {
   createAdoption,
   deleteAdoption,
@@ -10,6 +10,7 @@ import {
 } from "../controllers/adoption.js";
 import { checkRecaptcha } from "../middlewares/captcha.js";
 import { sendAdoptionEmail } from "../middlewares/email.js";
+import { requiresActive } from "../middlewares/login.js";
 
 const router = Router();
 

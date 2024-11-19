@@ -1,12 +1,13 @@
 import { useParams } from "react-router-dom";
-import { useAdoption } from "../hooks/useAdoptions";
-import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
-import Loader from "../../global/components/atoms/Loader/Loader";
+
 import { css } from "../../../styled-system/css";
+import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import ImageContainer from "../../global/components/atoms/ImageContainer/ImageContainer";
 import Label from "../../global/components/atoms/Label/Label";
-import AdoptionForm from "../components/AdoptionForm";
+import Loader from "../../global/components/atoms/Loader/Loader";
 import TextContainer from "../../global/components/atoms/TextContainer/TextContainer";
+import AdoptionForm from "../components/AdoptionForm";
+import { useAdoption } from "../hooks/useAdoptions";
 
 function AdoptionDetail() {
   const params = useParams();

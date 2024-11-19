@@ -1,5 +1,6 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+
 import frTranslation from "./global/locales/fr/translation.json";
 
 // don't want to use this?

@@ -1,4 +1,4 @@
-import mongoose, { Schema, type CallbackError } from "mongoose";
+import mongoose, { type CallbackError,Schema } from "mongoose";
 
 const answer = new Schema({
   field: { type: String, required: true },

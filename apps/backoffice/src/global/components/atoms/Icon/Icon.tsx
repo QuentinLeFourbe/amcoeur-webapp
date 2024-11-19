@@ -1,11 +1,11 @@
-import PlusIcon from "../../../assets/icons/plus.svg?react";
-import Trash from "../../../assets/icons/trash.svg?react";
-import ArrowUp from "../../../assets/icons/arrow-up.svg?react";
+import { css } from "../../../../../styled-system/css";
 import ArrowDown from "../../../assets/icons/arrow-down.svg?react";
 import ArrowLeft from "../../../assets/icons/arrow-left.svg?react";
 import ArrowRight from "../../../assets/icons/arrow-right.svg?react";
+import ArrowUp from "../../../assets/icons/arrow-up.svg?react";
+import PlusIcon from "../../../assets/icons/plus.svg?react";
+import Trash from "../../../assets/icons/trash.svg?react";
 import XMark from "../../../assets/icons/x-mark.svg?react";
-import { css } from "../../../../../styled-system/css";
 
 export type IconType =
   | "trash"

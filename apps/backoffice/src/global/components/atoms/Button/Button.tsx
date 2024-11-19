@@ -1,7 +1,8 @@
 import type { ComponentProps } from "react";
-import { RecipeVariantProps, cva, cx } from "../../../../../styled-system/css";
-import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
+
+import { cva, cx,RecipeVariantProps } from "../../../../../styled-system/css";
 import Icon, { type IconType } from "../Icon/Icon";
+import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
 
 const buttonRecipe = cva({
   base: {

@@ -1,9 +1,10 @@
 import type {
-  AdoptionServerPublicData,
-  AdoptionServerData,
-  AdoptionSpecies,
   AdoptionGender,
+  AdoptionServerData,
+  AdoptionServerPublicData,
+  AdoptionSpecies,
 } from "@amcoeur/types";
+
 import type { AdoptionFilter } from "../types/adoptions.js";
 
 export const convertAdoptionToPublicData = (adoption: AdoptionServerData) => {

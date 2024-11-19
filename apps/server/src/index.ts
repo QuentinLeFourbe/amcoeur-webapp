@@ -1,22 +1,24 @@
 import "dotenv/config";
-import express from "express";
-import path, { dirname } from "path";
-import helmet from "helmet";
-import formsRoutes from "./routes/form.js";
-import emailRoutes from "./routes/email.js";
-import answersRoutes from "./routes/answer.js";
-import userRoutes from "./routes/user.js";
-import adoptionsRoutes from "./routes/adoption.js";
-import mongoose from "mongoose";
-import pageRoutes from "./routes/page.js";
-import cors from "cors";
+
 import cookieParser from "cookie-parser";
-import { fileURLToPath } from "url";
-import { getRequestLogger } from "./middlewares/logger.js";
-import { logger } from "./utils/logger.js";
-import { redisClient } from "./services/redisService.js";
-import * as https from "https";
+import cors from "cors";
+import express from "express";
 import * as fs from "fs";
+import helmet from "helmet";
+import * as https from "https";
+import mongoose from "mongoose";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
+
+import { getRequestLogger } from "./middlewares/logger.js";
+import adoptionsRoutes from "./routes/adoption.js";
+import answersRoutes from "./routes/answer.js";
+import emailRoutes from "./routes/email.js";
+import formsRoutes from "./routes/form.js";
+import pageRoutes from "./routes/page.js";
+import userRoutes from "./routes/user.js";
+import { redisClient } from "./services/redisService.js";
+import { logger } from "./utils/logger.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

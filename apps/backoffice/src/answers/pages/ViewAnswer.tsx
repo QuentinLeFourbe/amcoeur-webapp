@@ -1,12 +1,13 @@
-import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { useGetAnswer, useUpdateAnswer } from "../hooks/useAnswers";
-import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
-import Label from "../../global/components/atoms/Label/Label";
+import { useParams } from "react-router-dom";
+
 import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
+import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
+import Label from "../../global/components/atoms/Label/Label";
 import FormCheckbox from "../../global/components/molecules/Form/FormCheckbox";
 import FormTextArea from "../../global/components/molecules/Form/FormTextArea";
+import { useGetAnswer, useUpdateAnswer } from "../hooks/useAnswers";
 
 function ViewAnswer() {
   const { answerId, formId } = useParams();

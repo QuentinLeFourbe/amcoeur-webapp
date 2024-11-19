@@ -1,16 +1,17 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm } from "react-hook-form";
-import { pageDataClientSchema } from "@amcoeur/types";
 import type { PageComponent, PageDataClient } from "@amcoeur/types";
+import { pageDataClientSchema } from "@amcoeur/types";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import Form from "../../../global/components/atoms/Form/Form";
-import FormInput from "../../../global/components/molecules/Form/FormInput";
-import Button from "../../../global/components/atoms/Button/Button";
+import { Controller, useForm } from "react-hook-form";
+
 import { css } from "../../../../styled-system/css";
+import { AddButton } from "../../../global/components/atoms/AddButton/AddButton";
+import Button from "../../../global/components/atoms/Button/Button";
+import Form from "../../../global/components/atoms/Form/Form";
+import FormCheckbox from "../../../global/components/molecules/Form/FormCheckbox";
+import FormInput from "../../../global/components/molecules/Form/FormInput";
 import { generateRouteFromName, getNewComponent } from "../../utils/page";
 import ComponentsFieldsRenderer from "../FormPageComponents/ComponentsFieldsRenderer";
-import { AddButton } from "../../../global/components/atoms/AddButton/AddButton";
-import FormCheckbox from "../../../global/components/molecules/Form/FormCheckbox";
 
 type PageFormProps = {
   data?: PageDataClient;

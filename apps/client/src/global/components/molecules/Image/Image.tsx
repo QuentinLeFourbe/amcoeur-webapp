@@ -1,5 +1,5 @@
-import ImageContainer from "../../atoms/ImageContainer/ImageContainer";
 import { css } from "../../../../../styled-system/css";
+import ImageContainer from "../../atoms/ImageContainer/ImageContainer";
 
 type ImageProps = {
   imageUrl: string;

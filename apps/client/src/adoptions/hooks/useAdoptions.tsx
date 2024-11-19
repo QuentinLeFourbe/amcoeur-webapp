@@ -1,4 +1,5 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+
 import { getAdoption, getAdoptions } from "../api/adoptions";
 import { AdoptionFilter } from "../types/filter";
 

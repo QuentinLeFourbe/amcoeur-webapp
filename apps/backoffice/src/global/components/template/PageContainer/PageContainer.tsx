@@ -1,9 +1,10 @@
 import { useOutlet } from "react-router-dom";
-import Header from "../../organisms/Header/Header";
-import Footer from "../../organisms/Footer/Footer";
+
 import { css } from "../../../../../styled-system/css";
 import { useCurrentUser, useUserContext } from "../../../hooks/useUser";
 import { checkUserPermissions } from "../../../utils/user";
+import Footer from "../../organisms/Footer/Footer";
+import Header from "../../organisms/Header/Header";
 
 function PageContainer() {
   const outlet = useOutlet();

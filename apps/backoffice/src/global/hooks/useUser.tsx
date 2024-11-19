@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { AxiosError } from "axios";
+
 import { getCurrentUser } from "../api/users";
-import { checkUserPermissions } from "../utils/user";
 import { UserContext } from "../contexts/user";
 import { microsoftLogin } from "../utils/auth";
+import { checkUserPermissions } from "../utils/user";
 
 export const useCurrentUser = () => {
   const { accessToken, setAccessToken } = useContext(UserContext) || {};

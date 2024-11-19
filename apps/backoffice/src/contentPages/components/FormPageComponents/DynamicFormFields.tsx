@@ -1,8 +1,9 @@
 import { FormComponent } from "@amcoeur/types";
+
+import { css } from "../../../../styled-system/css";
 import { useGetForms } from "../../../forms/hooks/useFormsQueries";
 import ErrorLabel from "../../../global/components/atoms/ErrorLabel/ErrorLabel";
 import Select from "../../../global/components/atoms/Select/Select";
-import { css } from "../../../../styled-system/css";
 
 type DynamicFormFieldsProps = {
   component: FormComponent;

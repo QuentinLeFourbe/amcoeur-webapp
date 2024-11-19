@@ -1,12 +1,13 @@
-import { useNavigate } from "react-router";
-import { useState } from "react";
 import { PageDataClient } from "@amcoeur/types";
-import { useGetHomePage, useUpdatePage } from "../hooks/pagesQueries";
-import PageForm from "../components/PageForm/PageForm";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+
+import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import PageComponentsRenderer from "../components/PageComponentsRenderer/PageComponentsRenderer";
-import { css } from "../../../styled-system/css";
+import PageForm from "../components/PageForm/PageForm";
+import { useGetHomePage, useUpdatePage } from "../hooks/pagesQueries";
 
 function HomePageManagement() {
   const [isEditing, setIsEditing] = useState(false);

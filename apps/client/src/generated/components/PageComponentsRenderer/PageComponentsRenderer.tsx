@@ -1,8 +1,9 @@
 import { PageComponent } from "@amcoeur/types";
 import Markdown from "markdown-to-jsx";
-import TextPanel from "../../../global/components/molecules/TextPanel/TextPanel";
+
 import ContentPanel from "../../../global/components/molecules/ContentPanel/ContentPanel";
 import Image from "../../../global/components/molecules/Image/Image";
+import TextPanel from "../../../global/components/molecules/TextPanel/TextPanel";
 import TitlePanel from "../../../global/components/molecules/TitlePanel/TitlePanel";
 import DynamicFormRenderer from "../DynamicFormRenderer/DynamicFormRenderer";
 

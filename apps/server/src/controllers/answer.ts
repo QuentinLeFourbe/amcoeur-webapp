@@ -1,10 +1,11 @@
-import type { Request, Response } from "express";
-import FormAnswers from "../models/answer.js";
 import type { FormAnswersServer } from "@amcoeur/types";
+import type { Request, Response } from "express";
+
+import FormAnswers from "../models/answer.js";
 import Form from "../models/form.js";
+import { paginate } from "../services/dbService.js";
 import { sendEmail } from "../services/mailService.js";
 import { parseBoolean, parseSort } from "../utils/query.js";
-import { paginate } from "../services/dbService.js";
 
 export const createAnswer = async (req: Request, res: Response) => {
   try {

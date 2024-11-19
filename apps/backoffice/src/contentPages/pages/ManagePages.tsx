@@ -1,12 +1,13 @@
-import { useState } from "react";
 import { PageDataClient } from "@amcoeur/types";
-import { useDeletePage, useGetPages } from "../hooks/pagesQueries";
+import { useState } from "react";
+
 import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import Overlay from "../../global/components/atoms/Overlay/Overlay";
 import Table from "../../global/components/atoms/Table/Table";
 import Pagination from "../../global/components/molecules/Pagination/Pagination";
+import { useDeletePage, useGetPages } from "../hooks/pagesQueries";
 
 function ManagePages() {
   const [currentPage, setCurrentPage] = useState(1);

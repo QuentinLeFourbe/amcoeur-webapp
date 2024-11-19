@@ -1,8 +1,8 @@
-import CodeMirror from "@uiw/react-codemirror";
-import { ComponentProps } from "react";
-import { dracula } from "@uiw/codemirror-theme-dracula";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
+import { dracula } from "@uiw/codemirror-theme-dracula";
+import CodeMirror from "@uiw/react-codemirror";
+import { ComponentProps } from "react";
 
 type CodeAreaProps = ComponentProps<typeof CodeMirror>;
 

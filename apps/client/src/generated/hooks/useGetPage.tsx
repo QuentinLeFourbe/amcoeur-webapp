@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+
 import { getHomePage, getPage, getPages } from "../api/pages";
 
 export const useGetPage = (id: number | string, enabled: boolean = true) => {

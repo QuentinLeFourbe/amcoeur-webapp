@@ -1,8 +1,9 @@
 import React, { ComponentPropsWithoutRef, forwardRef } from "react";
+
 import { css } from "../../../../../styled-system/css";
-import Label from "../../atoms/Label/Label";
 import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
 import Input from "../../atoms/Input/Input";
+import Label from "../../atoms/Label/Label";
 
 type FormInputProps = ComponentPropsWithoutRef<typeof Input> & {
   children: React.ReactNode;

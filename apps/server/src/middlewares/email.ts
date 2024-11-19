@@ -1,11 +1,12 @@
-import type { NextFunction, Request, Response } from "express";
 import type {
   AdoptionContact,
   AdoptionGender,
   AdoptionSpecies,
 } from "@amcoeur/types";
-import { sendEmail } from "../services/mailService.js";
+import type { NextFunction, Request, Response } from "express";
+
 import Adoption from "../models/adoption.js";
+import { sendEmail } from "../services/mailService.js";
 import { getGenderLabel, getSpeciesLabel } from "../utils/adoptions.js";
 
 /**

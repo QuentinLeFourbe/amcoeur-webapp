@@ -1,6 +1,7 @@
 import { AdoptionGender } from "@amcoeur/types";
-import Icon from "../../global/components/atoms/Icon/Icon";
+
 import { css } from "../../../styled-system/css";
+import Icon from "../../global/components/atoms/Icon/Icon";
 import { ClickablePrimitive } from "../../global/components/atoms/Primitives/ClickablePrimitive";
 
 type AdoptionCardProps = {

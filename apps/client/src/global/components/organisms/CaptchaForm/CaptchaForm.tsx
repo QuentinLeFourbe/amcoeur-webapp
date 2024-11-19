@@ -1,6 +1,6 @@
+import axios from "axios";
 import { createRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import axios from "axios";
 
 /**
  * Example form to use the reCaptcha, to delete once it's implemented on real usecase

@@ -1,4 +1,5 @@
-import type { UserServerData, User as UserType } from "@amcoeur/types";
+import type { User as UserType,UserServerData } from "@amcoeur/types";
+
 import User from "../models/user.js";
 import { sendEmail } from "../services/mailService.js";
 import type { MicrosoftToken } from "../types/oauth.js";

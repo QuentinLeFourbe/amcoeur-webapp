@@ -1,5 +1,5 @@
-import { useGetAdoptions } from "../hooks/useAdoptions";
 import Button from "../../global/components/atoms/Button/Button";
+import { useGetAdoptions } from "../hooks/useAdoptions";
 
 function AdoptionsDashboard() {
   const { data } = useGetAdoptions();

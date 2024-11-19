@@ -3,29 +3,30 @@ import {
   FormClientData,
   FormComponent,
 } from "@amcoeur/types";
-import { Controller, useForm } from "react-hook-form";
+import Markdown from "markdown-to-jsx";
 import { ComponentProps, useEffect, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import Markdown from "markdown-to-jsx";
-import {
-  useGetDynamicForm,
-  useSubmitAnswers,
-} from "../../hooks/useDynamicForms";
-import FormInput from "../../../global/components/molecules/Form/FormInput";
-import Form from "../../../global/components/atoms/Form/Form";
-import FormTextArea from "../../../global/components/molecules/Form/FormTextArea";
-import Button from "../../../global/components/atoms/Button/Button";
+import { Controller, useForm } from "react-hook-form";
+
 import { css } from "../../../../styled-system/css";
+import Button from "../../../global/components/atoms/Button/Button";
+import Captcha from "../../../global/components/atoms/Captcha/Captcha";
+import ErrorLabel from "../../../global/components/atoms/ErrorLabel/ErrorLabel";
+import Form from "../../../global/components/atoms/Form/Form";
+import TextContainer from "../../../global/components/atoms/TextContainer/TextContainer";
+import FormInput from "../../../global/components/molecules/Form/FormInput";
+import FormMultipleSelect from "../../../global/components/molecules/Form/FormMultipleSelect";
 import FormSelect from "../../../global/components/molecules/Form/FormSelect";
+import FormTextArea from "../../../global/components/molecules/Form/FormTextArea";
 import {
   fieldMaxLength,
   fieldRequired,
   getOptionsFromChoices,
 } from "../../../global/utils/form";
-import FormMultipleSelect from "../../../global/components/molecules/Form/FormMultipleSelect";
-import ErrorLabel from "../../../global/components/atoms/ErrorLabel/ErrorLabel";
-import Captcha from "../../../global/components/atoms/Captcha/Captcha";
-import TextContainer from "../../../global/components/atoms/TextContainer/TextContainer";
+import {
+  useGetDynamicForm,
+  useSubmitAnswers,
+} from "../../hooks/useDynamicForms";
 
 type DynamicFormRendererProps = {
   component: FormComponent;

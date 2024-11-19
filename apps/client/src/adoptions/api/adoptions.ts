@@ -1,5 +1,6 @@
-import axios from "axios";
 import { AdoptionClientPublicData, PaginatedResult } from "@amcoeur/types";
+import axios from "axios";
+
 import { AdoptionFilter } from "../types/filter";
 
 export const getAdoptions = ({

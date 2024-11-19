@@ -1,17 +1,18 @@
-import type { Request, Response } from "express";
-import Adoption from "../models/adoption.js";
-import {
-  getAdoptionFilter,
-  convertAdoptionToPublicData,
-} from "../utils/adoptions.js";
-import { parseBoolean, parseQueryArray } from "../utils/query.js";
-import type { AdoptionFilter } from "../types/adoptions.js";
 import type {
   AdoptionContact,
   AdoptionServerData,
   PaginatedResult,
 } from "@amcoeur/types";
+import type { Request, Response } from "express";
+
+import Adoption from "../models/adoption.js";
 import { paginate } from "../services/dbService.js";
+import type { AdoptionFilter } from "../types/adoptions.js";
+import {
+  convertAdoptionToPublicData,
+  getAdoptionFilter,
+} from "../utils/adoptions.js";
+import { parseBoolean, parseQueryArray } from "../utils/query.js";
 
 export const createAdoption = async (req: Request, res: Response) => {
   try {
@@ -173,7 +174,8 @@ export const registerAdoptionAnswer = async (req: Request, res: Response) => {
   } catch (e) {
     return res.status(500).json({
       message:
-        "Une erreur s'est produite lors de l'enregistrement de la réponse",
+        "Une erreur s'est produite lors de l'enregistrement de la réponse: ",
+      e,
     });
   }
 };

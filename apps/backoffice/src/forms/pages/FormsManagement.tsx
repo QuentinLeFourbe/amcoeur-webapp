@@ -1,17 +1,18 @@
 import { FormSummary } from "@amcoeur/types";
 import { useState } from "react";
+
 import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import Label from "../../global/components/atoms/Label/Label";
 import Overlay from "../../global/components/atoms/Overlay/Overlay";
 import Table from "../../global/components/atoms/Table/Table";
+import Pagination from "../../global/components/molecules/Pagination/Pagination";
 import {
   useDeleteForm,
   useDuplicateForm,
   useGetForms,
 } from "../hooks/useFormsQueries";
-import Pagination from "../../global/components/molecules/Pagination/Pagination";
 
 function FormsManagement() {
   const [currentPage, setCurrentPage] = useState(1);

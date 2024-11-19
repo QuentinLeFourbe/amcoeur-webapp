@@ -1,5 +1,5 @@
+import { type PageDataClient,PaginatedResult } from "@amcoeur/types";
 import axios from "axios";
-import { PaginatedResult, type PageDataClient } from "@amcoeur/types";
 
 export const getPages = async (
   params: { page?: number; limit?: number } = {},

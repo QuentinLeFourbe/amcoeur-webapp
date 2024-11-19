@@ -1,15 +1,16 @@
 import { Router } from "express";
+
 import {
-  createPage,
-  getPages,
-  getPageById,
-  updatePage,
-  deletePage,
   createHomePage,
+  createPage,
+  deletePage,
   getHomePage,
+  getPageById,
+  getPages,
+  updatePage,
 } from "../controllers/page.js";
-import { requiresActive } from "../middlewares/login.js";
 import upload from "../middlewares/files.js";
+import { requiresActive } from "../middlewares/login.js";
 
 const router = Router();
 

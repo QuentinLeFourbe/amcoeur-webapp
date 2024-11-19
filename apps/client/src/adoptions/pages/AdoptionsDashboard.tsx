@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import { useDebounceValue } from "usehooks-ts";
 import { useTranslation } from "react-i18next";
+import { useDebounceValue } from "usehooks-ts";
+
 import { css } from "../../../styled-system/css";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
+import Loader from "../../global/components/atoms/Loader/Loader";
+import TitlePanel from "../../global/components/molecules/TitlePanel/TitlePanel";
 import AdoptionCard from "../components/AdoptionCard";
 import AdoptionFilterBar from "../components/AdoptionFilterBar";
 import { useInfiniteAdoptions } from "../hooks/useAdoptions";
 import { AdoptionFilter } from "../types/filter";
-import Loader from "../../global/components/atoms/Loader/Loader";
-import TitlePanel from "../../global/components/molecules/TitlePanel/TitlePanel";
 
 function AdoptionsDashboard() {
   const [filter, setFilter] = useState<AdoptionFilter | null>(null);

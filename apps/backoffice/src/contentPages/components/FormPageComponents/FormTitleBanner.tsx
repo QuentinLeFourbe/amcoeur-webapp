@@ -1,10 +1,11 @@
 import { TitleBannerComponent } from "@amcoeur/types";
 import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
+
+import { css } from "../../../../styled-system/css";
 import Input from "../../../global/components/atoms/Input/Input";
 import Label from "../../../global/components/atoms/Label/Label";
-import { css } from "../../../../styled-system/css";
-import FormInput from "../../../global/components/molecules/Form/FormInput";
 import FormCodeArea from "../../../global/components/molecules/Form/FormCodeArea";
+import FormInput from "../../../global/components/molecules/Form/FormInput";
 
 type FormTitleBannerComponentProps = {
   component: TitleBannerComponent;
