@@ -7,17 +7,23 @@ import Label from "../../global/components/atoms/Label/Label";
 import Table from "../../global/components/atoms/Table/Table";
 import { useGetAnswers } from "../hooks/useAnswers";
 import FormCheckbox from "../../global/components/molecules/Form/FormCheckbox";
+import Pagination from "../../global/components/molecules/Pagination/Pagination";
 
 function AnswersDashboard() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [showArchived, setShowArchived] = useState(false);
   const { formId } = useParams();
   const {
     data: { data: answersResult } = {},
     isSuccess,
     isLoading,
     isError,
-  } = useGetAnswers(formId || "");
+  } = useGetAnswers(formId || "", {
+    archived: showArchived || undefined,
+    page: currentPage,
+  });
   const answersData = answersResult?.data;
-  const [showArchived, setShowArchived] = useState(false);
+  const totalPages = answersResult?.totalPages || 1;
   const filteredData = answersData?.filter(
     (answer) => showArchived === !!answer.archived,
   );
@@ -67,6 +73,11 @@ function AnswersDashboard() {
           ))}
         </Table>
       )}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        setPage={setCurrentPage}
+      />
     </div>
   );
 }

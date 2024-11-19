@@ -3,7 +3,7 @@ import FormAnswers from "../models/answer.js";
 import type { FormAnswersServer } from "@amcoeur/types";
 import Form from "../models/form.js";
 import { sendEmail } from "../services/mailService.js";
-import { parseSort } from "../utils/query.js";
+import { parseBoolean, parseSort } from "../utils/query.js";
 import { paginate } from "../services/dbService.js";
 
 export const createAnswer = async (req: Request, res: Response) => {
@@ -114,15 +114,16 @@ export const getAnswer = async (req: Request, res: Response) => {
 
 export const getAnswers = async (req: Request, res: Response) => {
   try {
-    const { limit, page, sort, formId } = req.query;
+    const { limit, page, sort, formId, archived } = req.query;
     const parsedLimit = parseInt(limit as string);
     const pageLimit = !parsedLimit || parsedLimit < 1 ? 20 : parsedLimit;
     const parsedPage = parseInt(page as string);
     const pageNumber = !parsedPage || parsedPage < 1 ? 1 : parsedPage;
     const parsedSort = parseSort(sort as string);
+    const parsedArchived = parseBoolean(archived as string);
 
     const results = await paginate(FormAnswers, {
-      filter: { formId },
+      filter: { formId, archived: parsedArchived || undefined },
       page: pageNumber,
       sort: parsedSort,
       limit: pageLimit,

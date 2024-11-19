@@ -1,9 +1,12 @@
 import { FormAnswersClient, PaginatedResult } from "@amcoeur/types";
 import axios from "axios";
 
-export const getAnswers = (formId: string) =>
+export const getAnswers = (
+  formId: string,
+  params: { page?: number; limit?: number; archived?: boolean } = {},
+) =>
   axios.get<PaginatedResult<FormAnswersClient>>("/api/answers", {
-    params: { formId },
+    params: { formId, ...params },
   });
 
 export const getAnswer = (id: string) =>

@@ -3,10 +3,13 @@ import { FormAnswersClient } from "@amcoeur/types";
 import { AxiosResponse } from "axios";
 import { getAnswer, getAnswers, updateAnswer } from "../api/answers";
 
-export const useGetAnswers = (formId: string) => {
+export const useGetAnswers = (
+  formId: string,
+  params: { page?: number; limit?: number; archived?: boolean } = {},
+) => {
   const query = useQuery({
-    queryFn: () => getAnswers(formId),
-    queryKey: ["answers", formId],
+    queryFn: () => getAnswers(formId, params),
+    queryKey: ["answers", formId, params],
   });
   return query;
 };
