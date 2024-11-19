@@ -27,7 +27,7 @@ export const createPage = async (req: Request, res: Response) => {
 
 export const getPages = async (req: Request, res: Response) => {
   try {
-    const { limit, page, search, sort } = req.query;
+    const { limit, page, search, sort, route } = req.query;
     const parsedLimit = parseInt(limit as string);
     const pageLimit = !parsedLimit || parsedLimit < 1 ? 20 : parsedLimit;
     const parsedPage = parseInt(page as string);
@@ -35,7 +35,7 @@ export const getPages = async (req: Request, res: Response) => {
     const parsedSort = parseSort(sort as string);
 
     const results = await paginate(Page, {
-      filter: { name: { $regex: search || "", $options: "i" } },
+      filter: { name: { $regex: search || "", $options: "i" }, route: route },
       page: pageNumber,
       sort: parsedSort,
       limit: pageLimit,
