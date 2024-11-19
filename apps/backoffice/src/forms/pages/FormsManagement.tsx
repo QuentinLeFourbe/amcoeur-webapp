@@ -11,14 +11,16 @@ import {
   useDuplicateForm,
   useGetForms,
 } from "../hooks/useFormsQueries";
+import Pagination from "../../global/components/molecules/Pagination/Pagination";
 
 function FormsManagement() {
+  const [currentPage, setCurrentPage] = useState(1);
   const {
     data: { data: formsResult } = {},
     isSuccess,
     isLoading,
     isError,
-  } = useGetForms();
+  } = useGetForms({ page: currentPage, limit: 10 });
   const {
     mutate: deleteForm,
     isError: isDeleteError,
@@ -31,6 +33,7 @@ function FormsManagement() {
   } = useDuplicateForm();
 
   const formsData = formsResult?.data;
+  const totalPages = formsResult?.totalPages || 1;
 
   const [formToDelete, setFormToDelete] = useState<FormSummary | null>(null);
   return (
@@ -46,6 +49,7 @@ function FormsManagement() {
         className={css({
           display: "flex",
           flexFlow: "column nowrap",
+          alignItems: "center",
           gap: "16px",
         })}
       >
@@ -61,7 +65,9 @@ function FormsManagement() {
           </ErrorLabel>
         )}
         {isDuplicateSuccess && <p>Le formulaire a bien été dupliqué</p>}
-        <Button to="/formulaires/creer">Créer</Button>
+        <div className={css({ alignSelf: "start" })}>
+          <Button to="/formulaires/creer">Créer</Button>
+        </div>
         {isError && <ErrorLabel>Erreur au chargement des questions</ErrorLabel>}
         {isLoading && <Label>Chargement en cours...</Label>}
         {isSuccess && (
@@ -107,6 +113,11 @@ function FormsManagement() {
             ))}
           </Table>
         )}
+        <Pagination
+          currentPage={currentPage}
+          setPage={setCurrentPage}
+          totalPages={totalPages}
+        />
       </div>
       <Overlay isVisible={!!formToDelete} onClose={() => setFormToDelete(null)}>
         <p>
