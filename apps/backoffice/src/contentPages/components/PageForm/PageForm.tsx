@@ -100,10 +100,10 @@ function PageForm({
   return (
     <Form onSubmit={handleSubmit(onSubmitData)} encType="multipart/form-data">
       <div className={css({ display: "flex", gap: "16px" })}>
-        <Button color="red" onClick={onCancel} type="button">
+        <Button variants={{ color: "danger" }} onClick={onCancel} type="button">
           Annuler
         </Button>
-        <Button color="green" type="submit">
+        <Button variants={{ color: "success" }} type="submit">
           Enregistrer
         </Button>
       </div>
@@ -174,7 +174,7 @@ function PageForm({
           ])
         }
       />
-      <Button color="green" type="submit">
+      <Button variants={{ color: "success" }} type="submit">
         Enregistrer
       </Button>
     </Form>

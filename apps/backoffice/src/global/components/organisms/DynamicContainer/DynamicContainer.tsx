@@ -22,8 +22,7 @@ function DynamicContainer({
             <Button
               type="button"
               onClick={onMoveUp}
-              className={buttonStyle}
-              color="blue"
+              variants={{color:"info"}}
               icon="arrow-up"
             />
           )}
@@ -32,8 +31,7 @@ function DynamicContainer({
             <Button
               type="button"
               onClick={onMoveDown}
-              className={buttonStyle}
-              color="blue"
+              variants={{color: "info"}}
               icon="arrow-down"
             />
           )}
@@ -41,9 +39,8 @@ function DynamicContainer({
         {onDelete && (
           <Button
             type="button"
-            color="red"
+            variants={{color: "danger"}}
             onClick={onDelete}
-            className={buttonStyle}
             icon="trash"
           />
         )}
@@ -55,9 +52,6 @@ function DynamicContainer({
 
 export default DynamicContainer;
 
-const buttonStyle = css({
-  padding: "8px",
-});
 
 const container = css({
   position: "relative",

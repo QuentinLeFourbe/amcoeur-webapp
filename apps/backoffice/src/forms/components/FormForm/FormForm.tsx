@@ -83,10 +83,10 @@ function FormForm({ initialData, onSubmit, onCancel, update }: FormFormProps) {
       onSubmit={handleSubmit(onSubmitData)}
     >
       <div className={css({ display: "flex", gap: "16px" })}>
-        <Button color="red" onClick={onCancel} type="button">
+        <Button variants={{ color: "danger" }} onClick={onCancel} type="button">
           Annuler
         </Button>
-        <Button color={update ? "blue" : "green"} type="submit">
+        <Button variants={{ color: update ? "info" : "success" }} type="submit">
           {update ? "Modifier" : "Créer"}
         </Button>
       </div>
@@ -129,14 +129,14 @@ function FormForm({ initialData, onSubmit, onCancel, update }: FormFormProps) {
           )}
           {(watchFields[index].type === "UNIQUE_CHOICE" ||
             watchFields[index].type === "MULTIPLE_CHOICES") && (
-            <Controller
-              control={control}
-              name={`fields.${index}.choices`}
-              render={({ field: renderField }) => (
-                <ListInput {...renderField} label={"Réponses possibles"} />
-              )}
-            />
-          )}
+              <Controller
+                control={control}
+                name={`fields.${index}.choices`}
+                render={({ field: renderField }) => (
+                  <ListInput {...renderField} label={"Réponses possibles"} />
+                )}
+              />
+            )}
           {watchFields[index].type !== "DISPLAY_TEXT" && (
             <FormInput
               type="checkbox"
@@ -149,7 +149,7 @@ function FormForm({ initialData, onSubmit, onCancel, update }: FormFormProps) {
       ))}
       <AddButton onClick={() => append(getNewField())} />
 
-      <Button color={update ? "blue" : "green"} type="submit">
+      <Button variants={{ color: update ? "info" : "success" }} type="submit">
         {update ? "Modifier" : "Créer"}
       </Button>
     </form>

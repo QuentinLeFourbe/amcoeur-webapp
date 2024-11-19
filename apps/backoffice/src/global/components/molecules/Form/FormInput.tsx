@@ -62,7 +62,7 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
           >
             <Input {...props} ref={ref} className={inputStyle} {...register} />
             <Button
-              color="red"
+              variants={{ color: "danger" }}
               icon="x-mark"
               type="button"
               onClick={onRemove}

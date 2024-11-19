@@ -40,7 +40,7 @@ function FormImage({ component, onChange, onBlur, errors }: FormImageProps) {
       </FormInput>
       {!showCaptionField && (
         <Button
-          color="blue"
+          variants={{ color: "info" }}
           type="button"
           className={css({ margin: "16px 0" })}
           onClick={() => setShowCaptionField(true)}

@@ -41,7 +41,10 @@ function ManagePage() {
             >
               Visualiser
             </Button>
-            <Button color="blue" onClick={() => setIsEditing(true)}>
+            <Button
+              variants={{ color: "info" }}
+              onClick={() => setIsEditing(true)}
+            >
               Modifier
             </Button>
           </div>

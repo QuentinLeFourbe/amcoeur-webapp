@@ -57,7 +57,7 @@ function AnswersDashboard() {
                 <div className={css({ display: "flex", gap: "16px" })}>
                   <Button
                     to={`/formulaires/reponses/${formId}/${answer._id}`}
-                    color="blue"
+                    variants={{ color: "info" }}
                   >
                     Détails
                   </Button>

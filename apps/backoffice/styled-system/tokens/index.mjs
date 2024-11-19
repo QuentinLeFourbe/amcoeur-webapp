@@ -1,2115 +1,2115 @@
 const tokens = {
   "borders.none": {
     "value": "none",
-    "variable": "var(--borders-none)"
+    "variable": "var(--dzOvWn)"
   },
   "easings.default": {
     "value": "cubic-bezier(0.4, 0, 0.2, 1)",
-    "variable": "var(--easings-default)"
+    "variable": "var(--drrWcF)"
   },
   "easings.linear": {
     "value": "linear",
-    "variable": "var(--easings-linear)"
+    "variable": "var(--hgfxJf)"
   },
   "easings.in": {
     "value": "cubic-bezier(0.4, 0, 1, 1)",
-    "variable": "var(--easings-in)"
+    "variable": "var(--hCLxzh)"
   },
   "easings.out": {
     "value": "cubic-bezier(0, 0, 0.2, 1)",
-    "variable": "var(--easings-out)"
+    "variable": "var(--byCBno)"
   },
   "easings.in-out": {
     "value": "cubic-bezier(0.4, 0, 0.2, 1)",
-    "variable": "var(--easings-in-out)"
+    "variable": "var(--gSAVQW)"
   },
   "durations.fastest": {
     "value": "50ms",
-    "variable": "var(--durations-fastest)"
+    "variable": "var(--fuVfvZ)"
   },
   "durations.faster": {
     "value": "100ms",
-    "variable": "var(--durations-faster)"
+    "variable": "var(--fVBMec)"
   },
   "durations.fast": {
     "value": "150ms",
-    "variable": "var(--durations-fast)"
+    "variable": "var(--mUhz)"
   },
   "durations.normal": {
     "value": "200ms",
-    "variable": "var(--durations-normal)"
+    "variable": "var(--cWTXGg)"
   },
   "durations.slow": {
     "value": "300ms",
-    "variable": "var(--durations-slow)"
+    "variable": "var(--cifMdM)"
   },
   "durations.slower": {
     "value": "400ms",
-    "variable": "var(--durations-slower)"
+    "variable": "var(--goNNlj)"
   },
   "durations.slowest": {
     "value": "500ms",
-    "variable": "var(--durations-slowest)"
+    "variable": "var(--bPXfWW)"
   },
   "radii.xs": {
     "value": "0.125rem",
-    "variable": "var(--radii-xs)"
+    "variable": "var(--ixNmpi)"
   },
   "radii.sm": {
     "value": "0.25rem",
-    "variable": "var(--radii-sm)"
+    "variable": "var(--bewZvn)"
   },
   "radii.md": {
     "value": "0.375rem",
-    "variable": "var(--radii-md)"
+    "variable": "var(--kLOfAE)"
   },
   "radii.lg": {
     "value": "0.5rem",
-    "variable": "var(--radii-lg)"
+    "variable": "var(--dxfumK)"
   },
   "radii.xl": {
     "value": "0.75rem",
-    "variable": "var(--radii-xl)"
+    "variable": "var(--UXfgJ)"
   },
   "radii.2xl": {
     "value": "1rem",
-    "variable": "var(--radii-2xl)"
+    "variable": "var(--bphCwb)"
   },
   "radii.3xl": {
     "value": "1.5rem",
-    "variable": "var(--radii-3xl)"
+    "variable": "var(--eougbK)"
   },
   "radii.full": {
     "value": "9999px",
-    "variable": "var(--radii-full)"
+    "variable": "var(--kkkBVq)"
   },
   "fontWeights.thin": {
     "value": "100",
-    "variable": "var(--font-weights-thin)"
+    "variable": "var(--dRPRGd)"
   },
   "fontWeights.extralight": {
     "value": "200",
-    "variable": "var(--font-weights-extralight)"
+    "variable": "var(--dooANa)"
   },
   "fontWeights.light": {
     "value": "300",
-    "variable": "var(--font-weights-light)"
+    "variable": "var(--fVSZDc)"
   },
   "fontWeights.normal": {
     "value": "400",
-    "variable": "var(--font-weights-normal)"
+    "variable": "var(--llFanx)"
   },
   "fontWeights.medium": {
     "value": "500",
-    "variable": "var(--font-weights-medium)"
+    "variable": "var(--leEsKL)"
   },
   "fontWeights.semibold": {
     "value": "600",
-    "variable": "var(--font-weights-semibold)"
+    "variable": "var(--hmvyHR)"
   },
   "fontWeights.bold": {
     "value": "700",
-    "variable": "var(--font-weights-bold)"
+    "variable": "var(--ghWdwL)"
   },
   "fontWeights.extrabold": {
     "value": "800",
-    "variable": "var(--font-weights-extrabold)"
+    "variable": "var(--janwPd)"
   },
   "fontWeights.black": {
     "value": "900",
-    "variable": "var(--font-weights-black)"
+    "variable": "var(--bvnjIx)"
   },
   "lineHeights.none": {
     "value": "1",
-    "variable": "var(--line-heights-none)"
+    "variable": "var(--ekeMrS)"
   },
   "lineHeights.tight": {
     "value": "1.25",
-    "variable": "var(--line-heights-tight)"
+    "variable": "var(--jyTpIu)"
   },
   "lineHeights.snug": {
     "value": "1.375",
-    "variable": "var(--line-heights-snug)"
+    "variable": "var(--ipEwfb)"
   },
   "lineHeights.normal": {
     "value": "1.5",
-    "variable": "var(--line-heights-normal)"
+    "variable": "var(--lomeBD)"
   },
   "lineHeights.relaxed": {
     "value": "1.625",
-    "variable": "var(--line-heights-relaxed)"
+    "variable": "var(--kwMYUX)"
   },
   "lineHeights.loose": {
     "value": "2",
-    "variable": "var(--line-heights-loose)"
+    "variable": "var(--dVGecO)"
   },
   "letterSpacings.tighter": {
     "value": "-0.05em",
-    "variable": "var(--letter-spacings-tighter)"
+    "variable": "var(--jrseCf)"
   },
   "letterSpacings.tight": {
     "value": "-0.025em",
-    "variable": "var(--letter-spacings-tight)"
+    "variable": "var(--glKTKc)"
   },
   "letterSpacings.normal": {
     "value": "0em",
-    "variable": "var(--letter-spacings-normal)"
+    "variable": "var(--knaPyh)"
   },
   "letterSpacings.wide": {
     "value": "0.025em",
-    "variable": "var(--letter-spacings-wide)"
+    "variable": "var(--jwdARF)"
   },
   "letterSpacings.wider": {
     "value": "0.05em",
-    "variable": "var(--letter-spacings-wider)"
+    "variable": "var(--eUSVTv)"
   },
   "letterSpacings.widest": {
     "value": "0.1em",
-    "variable": "var(--letter-spacings-widest)"
+    "variable": "var(--lhSeXO)"
   },
   "shadows.xs": {
     "value": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-    "variable": "var(--shadows-xs)"
+    "variable": "var(--bUWovs)"
   },
   "shadows.sm": {
     "value": "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
-    "variable": "var(--shadows-sm)"
+    "variable": "var(--cDhNnp)"
   },
   "shadows.md": {
     "value": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
-    "variable": "var(--shadows-md)"
+    "variable": "var(--jMKUKK)"
   },
   "shadows.lg": {
     "value": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
-    "variable": "var(--shadows-lg)"
+    "variable": "var(--kNVcRA)"
   },
   "shadows.xl": {
     "value": "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)",
-    "variable": "var(--shadows-xl)"
+    "variable": "var(--bnVgij)"
   },
   "shadows.2xl": {
     "value": "0 25px 50px -12px rgb(0 0 0 / 0.25)",
-    "variable": "var(--shadows-2xl)"
+    "variable": "var(--IghlV)"
   },
   "shadows.inner": {
     "value": "inset 0 2px 4px 0 rgb(0 0 0 / 0.05)",
-    "variable": "var(--shadows-inner)"
+    "variable": "var(--gmhFEB)"
   },
   "blurs.sm": {
     "value": "4px",
-    "variable": "var(--blurs-sm)"
+    "variable": "var(--aZLOC)"
   },
   "blurs.base": {
     "value": "8px",
-    "variable": "var(--blurs-base)"
+    "variable": "var(--jDYzax)"
   },
   "blurs.md": {
     "value": "12px",
-    "variable": "var(--blurs-md)"
+    "variable": "var(--kMMDaR)"
   },
   "blurs.lg": {
     "value": "16px",
-    "variable": "var(--blurs-lg)"
+    "variable": "var(--dyIDQb)"
   },
   "blurs.xl": {
     "value": "24px",
-    "variable": "var(--blurs-xl)"
+    "variable": "var(--TtVDs)"
   },
   "blurs.2xl": {
     "value": "40px",
-    "variable": "var(--blurs-2xl)"
+    "variable": "var(--btncja)"
   },
   "blurs.3xl": {
     "value": "64px",
-    "variable": "var(--blurs-3xl)"
+    "variable": "var(--esAhmv)"
   },
   "spacing.0": {
     "value": "0rem",
-    "variable": "var(--spacing-0)"
+    "variable": "var(--fcTUxn)"
   },
   "spacing.1": {
     "value": "0.25rem",
-    "variable": "var(--spacing-1)"
+    "variable": "var(--dacYEG)"
   },
   "spacing.2": {
     "value": "0.5rem",
-    "variable": "var(--spacing-2)"
+    "variable": "var(--ebuyxV)"
   },
   "spacing.3": {
     "value": "0.75rem",
-    "variable": "var(--spacing-3)"
+    "variable": "var(--bYDCFo)"
   },
   "spacing.4": {
     "value": "1rem",
-    "variable": "var(--spacing-4)"
+    "variable": "var(--hIimNX)"
   },
   "spacing.5": {
     "value": "1.25rem",
-    "variable": "var(--spacing-5)"
+    "variable": "var(--fFrqVq)"
   },
   "spacing.6": {
     "value": "1.5rem",
-    "variable": "var(--spacing-6)"
+    "variable": "var(--gGIQOF)"
   },
   "spacing.7": {
     "value": "1.75rem",
-    "variable": "var(--spacing-7)"
+    "variable": "var(--eDRUVY)"
   },
   "spacing.8": {
     "value": "2rem",
-    "variable": "var(--spacing-8)"
+    "variable": "var(--flZesP)"
   },
   "spacing.9": {
     "value": "2.25rem",
-    "variable": "var(--spacing-9)"
+    "variable": "var(--djiiAi)"
   },
   "spacing.10": {
     "value": "2.5rem",
-    "variable": "var(--spacing-10)"
+    "variable": "var(--ieMJEa)"
   },
   "spacing.11": {
     "value": "2.75rem",
-    "variable": "var(--spacing-11)"
+    "variable": "var(--cBFxYr)"
   },
   "spacing.12": {
     "value": "3rem",
-    "variable": "var(--spacing-12)"
+    "variable": "var(--uyqLg)"
   },
   "spacing.14": {
     "value": "3.5rem",
-    "variable": "var(--spacing-14)"
+    "variable": "var(--hXmVPi)"
   },
   "spacing.16": {
     "value": "4rem",
-    "variable": "var(--spacing-16)"
+    "variable": "var(--mYCWo)"
   },
   "spacing.20": {
     "value": "5rem",
-    "variable": "var(--spacing-20)"
+    "variable": "var(--jgejxp)"
   },
   "spacing.24": {
     "value": "6rem",
-    "variable": "var(--spacing-24)"
+    "variable": "var(--iYEvIx)"
   },
   "spacing.28": {
     "value": "7rem",
-    "variable": "var(--spacing-28)"
+    "variable": "var(--dzpWeZ)"
   },
   "spacing.32": {
     "value": "8rem",
-    "variable": "var(--spacing-32)"
+    "variable": "var(--fifqnK)"
   },
   "spacing.36": {
     "value": "9rem",
-    "variable": "var(--spacing-36)"
+    "variable": "var(--faFCyS)"
   },
   "spacing.40": {
     "value": "10rem",
-    "variable": "var(--spacing-40)"
+    "variable": "var(--bxwoov)"
   },
   "spacing.44": {
     "value": "11rem",
-    "variable": "var(--spacing-44)"
+    "variable": "var(--huPzrf)"
   },
   "spacing.48": {
     "value": "12rem",
-    "variable": "var(--spacing-48)"
+    "variable": "var(--hgdKvb)"
   },
   "spacing.52": {
     "value": "13rem",
-    "variable": "var(--spacing-52)"
+    "variable": "var(--cZMJbQ)"
   },
   "spacing.56": {
     "value": "14rem",
-    "variable": "var(--spacing-56)"
+    "variable": "var(--iXfUeA)"
   },
   "spacing.60": {
     "value": "15rem",
-    "variable": "var(--spacing-60)"
+    "variable": "var(--vWSpd)"
   },
   "spacing.64": {
     "value": "16rem",
-    "variable": "var(--spacing-64)"
+    "variable": "var(--gtqdrN)"
   },
   "spacing.72": {
     "value": "18rem",
-    "variable": "var(--spacing-72)"
+    "variable": "var(--hNtIEu)"
   },
   "spacing.80": {
     "value": "20rem",
-    "variable": "var(--spacing-80)"
+    "variable": "var(--kqIPsj)"
   },
   "spacing.96": {
     "value": "24rem",
-    "variable": "var(--spacing-96)"
+    "variable": "var(--wdMRQ)"
   },
   "spacing.0.5": {
     "value": "0.125rem",
-    "variable": "var(--spacing-0\\.5)"
+    "variable": "var(--gEfgCY)"
   },
   "spacing.1.5": {
     "value": "0.375rem",
-    "variable": "var(--spacing-1\\.5)"
+    "variable": "var(--jJIQbV)"
   },
   "spacing.2.5": {
     "value": "0.625rem",
-    "variable": "var(--spacing-2\\.5)"
+    "variable": "var(--cqwGG)"
   },
   "spacing.3.5": {
     "value": "0.875rem",
-    "variable": "var(--spacing-3\\.5)"
+    "variable": "var(--dhUgfD)"
   },
   "sizes.0": {
     "value": "0rem",
-    "variable": "var(--sizes-0)"
+    "variable": "var(--kTdGYg)"
   },
   "sizes.1": {
     "value": "0.25rem",
-    "variable": "var(--sizes-1)"
+    "variable": "var(--cCUBeV)"
   },
   "sizes.2": {
     "value": "0.5rem",
-    "variable": "var(--sizes-2)"
+    "variable": "var(--gsUKim)"
   },
   "sizes.3": {
     "value": "0.75rem",
-    "variable": "var(--sizes-3)"
+    "variable": "var(--jshnNX)"
   },
   "sizes.4": {
     "value": "1rem",
-    "variable": "var(--sizes-4)"
+    "variable": "var(--juMtMc)"
   },
   "sizes.5": {
     "value": "1.25rem",
-    "variable": "var(--sizes-5)"
+    "variable": "var(--beDnSR)"
   },
   "sizes.6": {
     "value": "1.5rem",
-    "variable": "var(--sizes-6)"
+    "variable": "var(--eUDwWi)"
   },
   "sizes.7": {
     "value": "1.75rem",
-    "variable": "var(--sizes-7)"
+    "variable": "var(--hTQaBT)"
   },
   "sizes.8": {
     "value": "2rem",
-    "variable": "var(--sizes-8)"
+    "variable": "var(--cAmzCM)"
   },
   "sizes.9": {
     "value": "2.25rem",
-    "variable": "var(--sizes-9)"
+    "variable": "var(--fzzdix)"
   },
   "sizes.10": {
     "value": "2.5rem",
-    "variable": "var(--sizes-10)"
+    "variable": "var(--dDnfaV)"
   },
   "sizes.11": {
     "value": "2.75rem",
-    "variable": "var(--sizes-11)"
+    "variable": "var(--cpjPHA)"
   },
   "sizes.12": {
     "value": "3rem",
-    "variable": "var(--sizes-12)"
+    "variable": "var(--ckODEv)"
   },
   "sizes.14": {
     "value": "3.5rem",
-    "variable": "var(--sizes-14)"
+    "variable": "var(--hTmzdp)"
   },
   "sizes.16": {
     "value": "4rem",
-    "variable": "var(--sizes-16)"
+    "variable": "var(--gANXGP)"
   },
   "sizes.20": {
     "value": "5rem",
-    "variable": "var(--sizes-20)"
+    "variable": "var(--htnoem)"
   },
   "sizes.24": {
     "value": "6rem",
-    "variable": "var(--sizes-24)"
+    "variable": "var(--tQYHK)"
   },
   "sizes.28": {
     "value": "7rem",
-    "variable": "var(--sizes-28)"
+    "variable": "var(--kcGldO)"
   },
   "sizes.32": {
     "value": "8rem",
-    "variable": "var(--sizes-32)"
+    "variable": "var(--gMkTEx)"
   },
   "sizes.36": {
     "value": "9rem",
-    "variable": "var(--sizes-36)"
+    "variable": "var(--lcknGR)"
   },
   "sizes.40": {
     "value": "10rem",
-    "variable": "var(--sizes-40)"
+    "variable": "var(--kveXIc)"
   },
   "sizes.44": {
     "value": "11rem",
-    "variable": "var(--sizes-44)"
+    "variable": "var(--gsriJI)"
   },
   "sizes.48": {
     "value": "12rem",
-    "variable": "var(--sizes-48)"
+    "variable": "var(--bPcliI)"
   },
   "sizes.52": {
     "value": "13rem",
-    "variable": "var(--sizes-52)"
+    "variable": "var(--Mxqsr)"
   },
   "sizes.56": {
     "value": "14rem",
-    "variable": "var(--sizes-56)"
+    "variable": "var(--hZfkST)"
   },
   "sizes.60": {
     "value": "15rem",
-    "variable": "var(--sizes-60)"
+    "variable": "var(--fUWaSi)"
   },
   "sizes.64": {
     "value": "16rem",
-    "variable": "var(--sizes-64)"
+    "variable": "var(--bSilTO)"
   },
   "sizes.72": {
     "value": "18rem",
-    "variable": "var(--sizes-72)"
+    "variable": "var(--fnTGst)"
   },
   "sizes.80": {
     "value": "20rem",
-    "variable": "var(--sizes-80)"
+    "variable": "var(--dAFdyM)"
   },
   "sizes.96": {
     "value": "24rem",
-    "variable": "var(--sizes-96)"
+    "variable": "var(--jxszKr)"
   },
   "sizes.0.5": {
     "value": "0.125rem",
-    "variable": "var(--sizes-0\\.5)"
+    "variable": "var(--hghuKL)"
   },
   "sizes.1.5": {
     "value": "0.375rem",
-    "variable": "var(--sizes-1\\.5)"
+    "variable": "var(--drtIxO)"
   },
   "sizes.2.5": {
     "value": "0.625rem",
-    "variable": "var(--sizes-2\\.5)"
+    "variable": "var(--siblR)"
   },
   "sizes.3.5": {
     "value": "0.875rem",
-    "variable": "var(--sizes-3\\.5)"
+    "variable": "var(--hSPYxQ)"
   },
   "sizes.xs": {
     "value": "20rem",
-    "variable": "var(--sizes-xs)"
+    "variable": "var(--izvCpj)"
   },
   "sizes.sm": {
     "value": "24rem",
-    "variable": "var(--sizes-sm)"
+    "variable": "var(--aTIGG)"
   },
   "sizes.md": {
     "value": "28rem",
-    "variable": "var(--sizes-md)"
+    "variable": "var(--kMQJUV)"
   },
   "sizes.lg": {
     "value": "32rem",
-    "variable": "var(--sizes-lg)"
+    "variable": "var(--dyNKmL)"
   },
   "sizes.xl": {
     "value": "36rem",
-    "variable": "var(--sizes-xl)"
+    "variable": "var(--ToPgI)"
   },
   "sizes.2xl": {
     "value": "42rem",
-    "variable": "var(--sizes-2xl)"
+    "variable": "var(--btoFLe)"
   },
   "sizes.3xl": {
     "value": "48rem",
-    "variable": "var(--sizes-3xl)"
+    "variable": "var(--esBjqP)"
   },
   "sizes.4xl": {
     "value": "56rem",
-    "variable": "var(--sizes-4xl)"
+    "variable": "var(--hrOPNc)"
   },
   "sizes.5xl": {
     "value": "64rem",
-    "variable": "var(--sizes-5xl)"
+    "variable": "var(--krbtsN)"
   },
   "sizes.6xl": {
     "value": "72rem",
-    "variable": "var(--sizes-6xl)"
+    "variable": "var(--cRFSXi)"
   },
   "sizes.7xl": {
     "value": "80rem",
-    "variable": "var(--sizes-7xl)"
+    "variable": "var(--fQSwCT)"
   },
   "sizes.8xl": {
     "value": "90rem",
-    "variable": "var(--sizes-8xl)"
+    "variable": "var(--iQceEA)"
   },
   "sizes.prose": {
     "value": "65ch",
-    "variable": "var(--sizes-prose)"
+    "variable": "var(--jAesVz)"
   },
   "sizes.full": {
     "value": "100%",
-    "variable": "var(--sizes-full)"
+    "variable": "var(--khWApH)"
   },
   "sizes.min": {
     "value": "min-content",
-    "variable": "var(--sizes-min)"
+    "variable": "var(--eOXrSu)"
   },
   "sizes.max": {
     "value": "max-content",
-    "variable": "var(--sizes-max)"
+    "variable": "var(--jNBRbM)"
   },
   "sizes.fit": {
     "value": "fit-content",
-    "variable": "var(--sizes-fit)"
+    "variable": "var(--UhpHH)"
   },
   "sizes.breakpoint-sm": {
     "value": "640px",
-    "variable": "var(--sizes-breakpoint-sm)"
+    "variable": "var(--eomHOU)"
   },
   "sizes.breakpoint-md": {
     "value": "768px",
-    "variable": "var(--sizes-breakpoint-md)"
+    "variable": "var(--iujnmj)"
   },
   "sizes.breakpoint-lg": {
     "value": "1024px",
-    "variable": "var(--sizes-breakpoint-lg)"
+    "variable": "var(--gThSgZ)"
   },
   "sizes.breakpoint-xl": {
     "value": "1280px",
-    "variable": "var(--sizes-breakpoint-xl)"
+    "variable": "var(--cssArG)"
   },
   "sizes.breakpoint-2xl": {
     "value": "1536px",
-    "variable": "var(--sizes-breakpoint-2xl)"
+    "variable": "var(--jESPPc)"
   },
   "animations.spin": {
     "value": "spin 1s linear infinite",
-    "variable": "var(--animations-spin)"
+    "variable": "var(--bJeTGz)"
   },
   "animations.ping": {
     "value": "ping 1s cubic-bezier(0, 0, 0.2, 1) infinite",
-    "variable": "var(--animations-ping)"
+    "variable": "var(--cxTetH)"
   },
   "animations.pulse": {
     "value": "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-    "variable": "var(--animations-pulse)"
+    "variable": "var(--jjLJjo)"
   },
   "animations.bounce": {
     "value": "bounce 1s infinite",
-    "variable": "var(--animations-bounce)"
+    "variable": "var(--eUTuJH)"
   },
   "colors.current": {
     "value": "currentColor",
-    "variable": "var(--colors-current)"
+    "variable": "var(--bLinLB)"
   },
   "colors.black": {
     "value": "#000",
-    "variable": "var(--colors-black)"
+    "variable": "var(--qLIrn)"
   },
   "colors.transparent": {
     "value": "rgb(0 0 0 / 0)",
-    "variable": "var(--colors-transparent)"
+    "variable": "var(--edNtiq)"
   },
   "colors.rose.50": {
     "value": "#fff1f2",
-    "variable": "var(--colors-rose-50)"
+    "variable": "var(--cQacUT)"
   },
   "colors.rose.100": {
     "value": "#ffe4e6",
-    "variable": "var(--colors-rose-100)"
+    "variable": "var(--fFtaKH)"
   },
   "colors.rose.200": {
     "value": "#fecdd3",
-    "variable": "var(--colors-rose-200)"
+    "variable": "var(--eUoFZM)"
   },
   "colors.rose.300": {
     "value": "#fda4af",
-    "variable": "var(--colors-rose-300)"
+    "variable": "var(--bPMUxN)"
   },
   "colors.rose.400": {
     "value": "#fb7185",
-    "variable": "var(--colors-rose-400)"
+    "variable": "var(--bvZVli)"
   },
   "colors.rose.500": {
     "value": "#f43f5e",
-    "variable": "var(--colors-rose-500)"
+    "variable": "var(--jGTTif)"
   },
   "colors.rose.600": {
     "value": "#e11d48",
-    "variable": "var(--colors-rose-600)"
+    "variable": "var(--iVPyxk)"
   },
   "colors.rose.700": {
     "value": "#be123c",
-    "variable": "var(--colors-rose-700)"
+    "variable": "var(--fRnMVl)"
   },
   "colors.rose.800": {
     "value": "#9f1239",
-    "variable": "var(--colors-rose-800)"
+    "variable": "var(--hxzBoW)"
   },
   "colors.rose.900": {
     "value": "#881337",
-    "variable": "var(--colors-rose-900)"
+    "variable": "var(--esXPMX)"
   },
   "colors.rose.950": {
     "value": "#4c0519",
-    "variable": "var(--colors-rose-950)"
+    "variable": "var(--epiLsK)"
   },
   "colors.pink.50": {
     "value": "#fdf2f8",
-    "variable": "var(--colors-pink-50)"
+    "variable": "var(--hPYfGc)"
   },
   "colors.pink.100": {
     "value": "#fce7f3",
-    "variable": "var(--colors-pink-100)"
+    "variable": "var(--ioAkJk)"
   },
   "colors.pink.200": {
     "value": "#fbcfe8",
-    "variable": "var(--colors-pink-200)"
+    "variable": "var(--eyVWNz)"
   },
   "colors.pink.300": {
     "value": "#f9a8d4",
-    "variable": "var(--colors-pink-300)"
+    "variable": "var(--nXIqK)"
   },
   "colors.pink.400": {
     "value": "#f472b6",
-    "variable": "var(--colors-pink-400)"
+    "variable": "var(--hGgStN)"
   },
   "colors.pink.500": {
     "value": "#ec4899",
-    "variable": "var(--colors-pink-500)"
+    "variable": "var(--dviDWY)"
   },
   "colors.pink.600": {
     "value": "#db2777",
-    "variable": "var(--colors-pink-600)"
+    "variable": "var(--kUZZAj)"
   },
   "colors.pink.700": {
     "value": "#be185d",
-    "variable": "var(--colors-pink-700)"
+    "variable": "var(--gKbLdu)"
   },
   "colors.pink.800": {
     "value": "#9d174d",
-    "variable": "var(--colors-pink-800)"
+    "variable": "var(--UhnuV)"
   },
   "colors.pink.900": {
     "value": "#831843",
-    "variable": "var(--colors-pink-900)"
+    "variable": "var(--hYEIxc)"
   },
   "colors.pink.950": {
     "value": "#500724",
-    "variable": "var(--colors-pink-950)"
+    "variable": "var(--dPgAHx)"
   },
   "colors.fuchsia.50": {
     "value": "#fdf4ff",
-    "variable": "var(--colors-fuchsia-50)"
+    "variable": "var(--kpTESD)"
   },
   "colors.fuchsia.100": {
     "value": "#fae8ff",
-    "variable": "var(--colors-fuchsia-100)"
+    "variable": "var(--jfJgr)"
   },
   "colors.fuchsia.200": {
     "value": "#f5d0fe",
-    "variable": "var(--colors-fuchsia-200)"
+    "variable": "var(--gZeVto)"
   },
   "colors.fuchsia.300": {
     "value": "#f0abfc",
-    "variable": "var(--colors-fuchsia-300)"
+    "variable": "var(--gfHpEZ)"
   },
   "colors.fuchsia.400": {
     "value": "#e879f9",
-    "variable": "var(--colors-fuchsia-400)"
+    "variable": "var(--dSTUoK)"
   },
   "colors.fuchsia.500": {
     "value": "#d946ef",
-    "variable": "var(--colors-fuchsia-500)"
+    "variable": "var(--cZwoAv)"
   },
   "colors.fuchsia.600": {
     "value": "#c026d3",
-    "variable": "var(--colors-fuchsia-600)"
+    "variable": "var(--jPvANs)"
   },
   "colors.fuchsia.700": {
     "value": "#a21caf",
-    "variable": "var(--colors-fuchsia-700)"
+    "variable": "var(--iVXUZd)"
   },
   "colors.fuchsia.800": {
     "value": "#86198f",
-    "variable": "var(--colors-fuchsia-800)"
+    "variable": "var(--hYKnEO)"
   },
   "colors.fuchsia.900": {
     "value": "#701a75",
-    "variable": "var(--colors-fuchsia-900)"
+    "variable": "var(--hfmHQz)"
   },
   "colors.fuchsia.950": {
     "value": "#4a044e",
-    "variable": "var(--colors-fuchsia-950)"
+    "variable": "var(--cYPdae)"
   },
   "colors.purple.50": {
     "value": "#faf5ff",
-    "variable": "var(--colors-purple-50)"
+    "variable": "var(--ksTgfC)"
   },
   "colors.purple.100": {
     "value": "#f3e8ff",
-    "variable": "var(--colors-purple-100)"
+    "variable": "var(--iCdJRO)"
   },
   "colors.purple.200": {
     "value": "#e9d5ff",
-    "variable": "var(--colors-purple-200)"
+    "variable": "var(--dWAXWh)"
   },
   "colors.purple.300": {
     "value": "#d8b4fe",
-    "variable": "var(--colors-purple-300)"
+    "variable": "var(--jcWlLI)"
   },
   "colors.purple.400": {
     "value": "#c084fc",
-    "variable": "var(--colors-purple-400)"
+    "variable": "var(--eLlnzT)"
   },
   "colors.purple.500": {
     "value": "#a855f7",
-    "variable": "var(--colors-purple-500)"
+    "variable": "var(--jRGBpu)"
   },
   "colors.purple.600": {
     "value": "#9333ea",
-    "variable": "var(--colors-purple-600)"
+    "variable": "var(--fmdPtN)"
   },
   "colors.purple.700": {
     "value": "#7e22ce",
-    "variable": "var(--colors-purple-700)"
+    "variable": "var(--kszdjo)"
   },
   "colors.purple.800": {
     "value": "#6b21a8",
-    "variable": "var(--colors-purple-800)"
+    "variable": "var(--kMigIv)"
   },
   "colors.purple.900": {
     "value": "#581c87",
-    "variable": "var(--colors-purple-900)"
+    "variable": "var(--eDhKZa)"
   },
   "colors.purple.950": {
     "value": "#3b0764",
-    "variable": "var(--colors-purple-950)"
+    "variable": "var(--eadxYH)"
   },
   "colors.violet.50": {
     "value": "#f5f3ff",
-    "variable": "var(--colors-violet-50)"
+    "variable": "var(--elZfLV)"
   },
   "colors.violet.100": {
     "value": "#ede9fe",
-    "variable": "var(--colors-violet-100)"
+    "variable": "var(--jcWAkV)"
   },
   "colors.violet.200": {
     "value": "#ddd6fe",
-    "variable": "var(--colors-violet-200)"
+    "variable": "var(--gHfMHa)"
   },
   "colors.violet.300": {
     "value": "#c4b5fd",
-    "variable": "var(--colors-violet-300)"
+    "variable": "var(--jSzuYT)"
   },
   "colors.violet.400": {
     "value": "#a78bfa",
-    "variable": "var(--colors-violet-400)"
+    "variable": "var(--jDVPUQ)"
   },
   "colors.violet.500": {
     "value": "#8b5cf6",
-    "variable": "var(--colors-violet-500)"
+    "variable": "var(--bzTONN)"
   },
   "colors.violet.600": {
     "value": "#7c3aed",
-    "variable": "var(--colors-violet-600)"
+    "variable": "var(--ktyKIO)"
   },
   "colors.violet.700": {
     "value": "#6d28d9",
-    "variable": "var(--colors-violet-700)"
+    "variable": "var(--cpwJBL)"
   },
   "colors.violet.800": {
     "value": "#5b21b6",
-    "variable": "var(--colors-violet-800)"
+    "variable": "var(--foWeJc)"
   },
   "colors.violet.900": {
     "value": "#4c1d95",
-    "variable": "var(--colors-violet-900)"
+    "variable": "var(--iApNaV)"
   },
   "colors.violet.950": {
     "value": "#2e1065",
-    "variable": "var(--colors-violet-950)"
+    "variable": "var(--cfTfyk)"
   },
   "colors.indigo.50": {
     "value": "#eef2ff",
-    "variable": "var(--colors-indigo-50)"
+    "variable": "var(--kbclAu)"
   },
   "colors.indigo.100": {
     "value": "#e0e7ff",
-    "variable": "var(--colors-indigo-100)"
+    "variable": "var(--gAzkHe)"
   },
   "colors.indigo.200": {
     "value": "#c7d2fe",
-    "variable": "var(--colors-indigo-200)"
+    "variable": "var(--gRHwoJ)"
   },
   "colors.indigo.300": {
     "value": "#a5b4fc",
-    "variable": "var(--colors-indigo-300)"
+    "variable": "var(--iYtjYI)"
   },
   "colors.indigo.400": {
     "value": "#818cf8",
-    "variable": "var(--colors-indigo-400)"
+    "variable": "var(--jCTsMf)"
   },
   "colors.indigo.500": {
     "value": "#6366f1",
-    "variable": "var(--colors-indigo-500)"
+    "variable": "var(--ujwXi)"
   },
   "colors.indigo.600": {
     "value": "#4f46e5",
-    "variable": "var(--colors-indigo-600)"
+    "variable": "var(--LrIEN)"
   },
   "colors.indigo.700": {
     "value": "#4338ca",
-    "variable": "var(--colors-indigo-700)"
+    "variable": "var(--cSdwoM)"
   },
   "colors.indigo.800": {
     "value": "#3730a3",
-    "variable": "var(--colors-indigo-800)"
+    "variable": "var(--irwviH)"
   },
   "colors.indigo.900": {
     "value": "#312e81",
-    "variable": "var(--colors-indigo-900)"
+    "variable": "var(--kyiiSG)"
   },
   "colors.indigo.950": {
     "value": "#1e1b4b",
-    "variable": "var(--colors-indigo-950)"
+    "variable": "var(--hgSANP)"
   },
   "colors.blue.50": {
     "value": "#eff6ff",
-    "variable": "var(--colors-blue-50)"
+    "variable": "var(--glmLoi)"
   },
   "colors.blue.100": {
     "value": "#dbeafe",
-    "variable": "var(--colors-blue-100)"
+    "variable": "var(--bYrJpO)"
   },
   "colors.blue.200": {
     "value": "#bfdbfe",
-    "variable": "var(--colors-blue-200)"
+    "variable": "var(--hoTvPd)"
   },
   "colors.blue.300": {
     "value": "#93c5fd",
-    "variable": "var(--colors-blue-300)"
+    "variable": "var(--bMEoOM)"
   },
   "colors.blue.400": {
     "value": "#60a5fa",
-    "variable": "var(--colors-blue-400)"
+    "variable": "var(--hIEEwj)"
   },
   "colors.blue.500": {
     "value": "#3b82f6",
-    "variable": "var(--colors-blue-500)"
+    "variable": "var(--cgpxvS)"
   },
   "colors.blue.600": {
     "value": "#2563eb",
-    "variable": "var(--colors-blue-600)"
+    "variable": "var(--hwRjVh)"
   },
   "colors.blue.700": {
     "value": "#1d4ed8",
-    "variable": "var(--colors-blue-700)"
+    "variable": "var(--bUCcUQ)"
   },
   "colors.blue.800": {
     "value": "#1e40af",
-    "variable": "var(--colors-blue-800)"
+    "variable": "var(--golFsv)"
   },
   "colors.blue.900": {
     "value": "#1e3a8a",
-    "variable": "var(--colors-blue-900)"
+    "variable": "var(--LWyse)"
   },
   "colors.blue.950": {
     "value": "#172554",
-    "variable": "var(--colors-blue-950)"
+    "variable": "var(--eJQij)"
   },
   "colors.sky.50": {
     "value": "#f0f9ff",
-    "variable": "var(--colors-sky-50)"
+    "variable": "var(--dosFxZ)"
   },
   "colors.sky.100": {
     "value": "#e0f2fe",
-    "variable": "var(--colors-sky-100)"
+    "variable": "var(--bMxFwZ)"
   },
   "colors.sky.200": {
     "value": "#bae6fd",
-    "variable": "var(--colors-sky-200)"
+    "variable": "var(--vPNZS)"
   },
   "colors.sky.300": {
     "value": "#7dd3fc",
-    "variable": "var(--colors-sky-300)"
+    "variable": "var(--bdmqGz)"
   },
   "colors.sky.400": {
     "value": "#38bdf8",
-    "variable": "var(--colors-sky-400)"
+    "variable": "var(--bduzvQ)"
   },
   "colors.sky.500": {
     "value": "#0ea5e9",
-    "variable": "var(--colors-sky-500)"
+    "variable": "var(--bKRccx)"
   },
   "colors.sky.600": {
     "value": "#0284c7",
-    "variable": "var(--colors-sky-600)"
+    "variable": "var(--ujkFq)"
   },
   "colors.sky.700": {
     "value": "#0369a1",
-    "variable": "var(--colors-sky-700)"
+    "variable": "var(--bbFNlX)"
   },
   "colors.sky.800": {
     "value": "#075985",
-    "variable": "var(--colors-sky-800)"
+    "variable": "var(--RWYCI)"
   },
   "colors.sky.900": {
     "value": "#0c4a6e",
-    "variable": "var(--colors-sky-900)"
+    "variable": "var(--bztBjp)"
   },
   "colors.sky.950": {
     "value": "#082f49",
-    "variable": "var(--colors-sky-950)"
+    "variable": "var(--iNVpnc)"
   },
   "colors.cyan.50": {
     "value": "#ecfeff",
-    "variable": "var(--colors-cyan-50)"
+    "variable": "var(--dyXAhp)"
   },
   "colors.cyan.100": {
     "value": "#cffafe",
-    "variable": "var(--colors-cyan-100)"
+    "variable": "var(--eeWoox)"
   },
   "colors.cyan.200": {
     "value": "#a5f3fc",
-    "variable": "var(--colors-cyan-200)"
+    "variable": "var(--fnHbwe)"
   },
   "colors.cyan.300": {
     "value": "#67e8f9",
-    "variable": "var(--colors-cyan-300)"
+    "variable": "var(--cLmYYf)"
   },
   "colors.cyan.400": {
     "value": "#22d3ee",
-    "variable": "var(--colors-cyan-400)"
+    "variable": "var(--bpLSHw)"
   },
   "colors.cyan.500": {
     "value": "#06b6d4",
-    "variable": "var(--colors-cyan-500)"
+    "variable": "var(--kcNzIt)"
   },
   "colors.cyan.600": {
     "value": "#0891b2",
-    "variable": "var(--colors-cyan-600)"
+    "variable": "var(--llymQa)"
   },
   "colors.cyan.700": {
     "value": "#0e7490",
-    "variable": "var(--colors-cyan-700)"
+    "variable": "var(--iJeksb)"
   },
   "colors.cyan.800": {
     "value": "#155e75",
-    "variable": "var(--colors-cyan-800)"
+    "variable": "var(--jTKpqw)"
   },
   "colors.cyan.900": {
     "value": "#164e63",
-    "variable": "var(--colors-cyan-900)"
+    "variable": "var(--hrqmSx)"
   },
   "colors.cyan.950": {
     "value": "#083344",
-    "variable": "var(--colors-cyan-950)"
+    "variable": "var(--bcqAnE)"
   },
   "colors.teal.50": {
     "value": "#f0fdfa",
-    "variable": "var(--colors-teal-50)"
+    "variable": "var(--jqQOis)"
   },
   "colors.teal.100": {
     "value": "#ccfbf1",
-    "variable": "var(--colors-teal-100)"
+    "variable": "var(--hsCMHs)"
   },
   "colors.teal.200": {
     "value": "#99f6e4",
-    "variable": "var(--colors-teal-200)"
+    "variable": "var(--jcJhxj)"
   },
   "colors.teal.300": {
     "value": "#5eead4",
-    "variable": "var(--colors-teal-300)"
+    "variable": "var(--czjDVi)"
   },
   "colors.teal.400": {
     "value": "#2dd4bf",
-    "variable": "var(--colors-teal-400)"
+    "variable": "var(--kfgCt)"
   },
   "colors.teal.500": {
     "value": "#14b8a6",
-    "variable": "var(--colors-teal-500)"
+    "variable": "var(--eWbmzo)"
   },
   "colors.teal.600": {
     "value": "#0d9488",
-    "variable": "var(--colors-teal-600)"
+    "variable": "var(--gGhHpf)"
   },
   "colors.teal.700": {
     "value": "#0f766e",
-    "variable": "var(--colors-teal-700)"
+    "variable": "var(--cIdNe)"
   },
   "colors.teal.800": {
     "value": "#115e59",
-    "variable": "var(--colors-teal-800)"
+    "variable": "var(--catTvB)"
   },
   "colors.teal.900": {
     "value": "#134e4a",
-    "variable": "var(--colors-teal-900)"
+    "variable": "var(--gMpZsw)"
   },
   "colors.teal.950": {
     "value": "#042f2e",
-    "variable": "var(--colors-teal-950)"
+    "variable": "var(--bnTNlF)"
   },
   "colors.emerald.50": {
     "value": "#ecfdf5",
-    "variable": "var(--colors-emerald-50)"
+    "variable": "var(--jVPfey)"
   },
   "colors.emerald.100": {
     "value": "#d1fae5",
-    "variable": "var(--colors-emerald-100)"
+    "variable": "var(--gSyYHy)"
   },
   "colors.emerald.200": {
     "value": "#a7f3d0",
-    "variable": "var(--colors-emerald-200)"
+    "variable": "var(--dOyJRJ)"
   },
   "colors.emerald.300": {
     "value": "#6ee7b7",
-    "variable": "var(--colors-emerald-300)"
+    "variable": "var(--jOMcLk)"
   },
   "colors.emerald.400": {
     "value": "#34d399",
-    "variable": "var(--colors-emerald-400)"
+    "variable": "var(--bLsBkr)"
   },
   "colors.emerald.500": {
     "value": "#10b981",
-    "variable": "var(--colors-emerald-500)"
+    "variable": "var(--hLFUdS)"
   },
   "colors.emerald.600": {
     "value": "#059669",
-    "variable": "var(--colors-emerald-600)"
+    "variable": "var(--eHFFod)"
   },
   "colors.emerald.700": {
     "value": "#047857",
-    "variable": "var(--colors-emerald-700)"
+    "variable": "var(--kHSYhE)"
   },
   "colors.emerald.800": {
     "value": "#065f46",
-    "variable": "var(--colors-emerald-800)"
+    "variable": "var(--iuBcgT)"
   },
   "colors.emerald.900": {
     "value": "#064e3b",
-    "variable": "var(--colors-emerald-900)"
+    "variable": "var(--dfsLBy)"
   },
   "colors.emerald.950": {
     "value": "#022c22",
-    "variable": "var(--colors-emerald-950)"
+    "variable": "var(--jJEloz)"
   },
   "colors.green.50": {
     "value": "#f0fdf4",
-    "variable": "var(--colors-green-50)"
+    "variable": "var(--hXozqf)"
   },
   "colors.green.100": {
     "value": "#dcfce7",
-    "variable": "var(--colors-green-100)"
+    "variable": "var(--iDDIAz)"
   },
   "colors.green.200": {
     "value": "#bbf7d0",
-    "variable": "var(--colors-green-200)"
+    "variable": "var(--khfuXU)"
   },
   "colors.green.300": {
     "value": "#86efac",
-    "variable": "var(--colors-green-300)"
+    "variable": "var(--hypAVx)"
   },
   "colors.green.400": {
     "value": "#4ade80",
-    "variable": "var(--colors-green-400)"
+    "variable": "var(--wGfza)"
   },
   "colors.green.500": {
     "value": "#22c55e",
-    "variable": "var(--colors-green-500)"
+    "variable": "var(--jdlUVz)"
   },
   "colors.green.600": {
     "value": "#16a34a",
-    "variable": "var(--colors-green-600)"
+    "variable": "var(--kGNHsU)"
   },
   "colors.green.700": {
     "value": "#15803d",
-    "variable": "var(--colors-green-700)"
+    "variable": "var(--hXXNqx)"
   },
   "colors.green.800": {
     "value": "#166534",
-    "variable": "var(--colors-green-800)"
+    "variable": "var(--bAQeLK)"
   },
   "colors.green.900": {
     "value": "#14532d",
-    "variable": "var(--colors-green-900)"
+    "variable": "var(--khvUij)"
   },
   "colors.green.950": {
     "value": "#052e16",
-    "variable": "var(--colors-green-950)"
+    "variable": "var(--cbdKOS)"
   },
   "colors.lime.50": {
     "value": "#f7fee7",
-    "variable": "var(--colors-lime-50)"
+    "variable": "var(--dhEleJ)"
   },
   "colors.lime.100": {
     "value": "#ecfccb",
-    "variable": "var(--colors-lime-100)"
+    "variable": "var(--gFFbyh)"
   },
   "colors.lime.200": {
     "value": "#d9f99d",
-    "variable": "var(--colors-lime-200)"
+    "variable": "var(--fjFsBy)"
   },
   "colors.lime.300": {
     "value": "#bef264",
-    "variable": "var(--colors-lime-300)"
+    "variable": "var(--cfdGZz)"
   },
   "colors.lime.400": {
     "value": "#a3e635",
-    "variable": "var(--colors-lime-400)"
+    "variable": "var(--bxLPEk)"
   },
   "colors.lime.500": {
     "value": "#84cc16",
-    "variable": "var(--colors-lime-500)"
+    "variable": "var(--jIFNBh)"
   },
   "colors.lime.600": {
     "value": "#65a30d",
-    "variable": "var(--colors-lime-600)"
+    "variable": "var(--imGeEy)"
   },
   "colors.lime.700": {
     "value": "#4d7c0f",
-    "variable": "var(--colors-lime-700)"
+    "variable": "var(--fietcz)"
   },
   "colors.lime.800": {
     "value": "#3f6212",
-    "variable": "var(--colors-lime-800)"
+    "variable": "var(--crovfQ)"
   },
   "colors.lime.900": {
     "value": "#365314",
-    "variable": "var(--colors-lime-900)"
+    "variable": "var(--kCitcN)"
   },
   "colors.lime.950": {
     "value": "#1a2e05",
-    "variable": "var(--colors-lime-950)"
+    "variable": "var(--gEQkrg)"
   },
   "colors.yellow.50": {
     "value": "#fefce8",
-    "variable": "var(--colors-yellow-50)"
+    "variable": "var(--cLFWMs)"
   },
   "colors.yellow.100": {
     "value": "#fef9c3",
-    "variable": "var(--colors-yellow-100)"
+    "variable": "var(--kxGpio)"
   },
   "colors.yellow.200": {
     "value": "#fef08a",
-    "variable": "var(--colors-yellow-200)"
+    "variable": "var(--cbZZGT)"
   },
   "colors.yellow.300": {
     "value": "#fde047",
-    "variable": "var(--colors-yellow-300)"
+    "variable": "var(--fwcFBW)"
   },
   "colors.yellow.400": {
     "value": "#facc15",
-    "variable": "var(--colors-yellow-400)"
+    "variable": "var(--hUTJsd)"
   },
   "colors.yellow.500": {
     "value": "#eab308",
-    "variable": "var(--colors-yellow-500)"
+    "variable": "var(--loWpng)"
   },
   "colors.yellow.600": {
     "value": "#ca8a04",
-    "variable": "var(--colors-yellow-600)"
+    "variable": "var(--cTpZLL)"
   },
   "colors.yellow.700": {
     "value": "#a16207",
-    "variable": "var(--colors-yellow-700)"
+    "variable": "var(--gnsFGO)"
   },
   "colors.yellow.800": {
     "value": "#854d0e",
-    "variable": "var(--colors-yellow-800)"
+    "variable": "var(--ByZWN)"
   },
   "colors.yellow.900": {
     "value": "#713f12",
-    "variable": "var(--colors-yellow-900)"
+    "variable": "var(--dVBFRQ)"
   },
   "colors.yellow.950": {
     "value": "#422006",
-    "variable": "var(--colors-yellow-950)"
+    "variable": "var(--iLqZUR)"
   },
   "colors.amber.50": {
     "value": "#fffbeb",
-    "variable": "var(--colors-amber-50)"
+    "variable": "var(--kVxzTd)"
   },
   "colors.amber.100": {
     "value": "#fef3c7",
-    "variable": "var(--colors-amber-100)"
+    "variable": "var(--jZPQXp)"
   },
   "colors.amber.200": {
     "value": "#fde68a",
-    "variable": "var(--colors-amber-200)"
+    "variable": "var(--hCWpXC)"
   },
   "colors.amber.300": {
     "value": "#fcd34d",
-    "variable": "var(--colors-amber-300)"
+    "variable": "var(--bCKrrD)"
   },
   "colors.amber.400": {
     "value": "#fbbf24",
-    "variable": "var(--colors-amber-400)"
+    "variable": "var(--wuHbc)"
   },
   "colors.amber.500": {
     "value": "#f59e0b",
-    "variable": "var(--colors-amber-500)"
+    "variable": "var(--fLErTZ)"
   },
   "colors.amber.600": {
     "value": "#d97706",
-    "variable": "var(--colors-amber-600)"
+    "variable": "var(--doKQUm)"
   },
   "colors.amber.700": {
     "value": "#b45309",
-    "variable": "var(--colors-amber-700)"
+    "variable": "var(--iDUBNj)"
   },
   "colors.amber.800": {
     "value": "#92400e",
-    "variable": "var(--colors-amber-800)"
+    "variable": "var(--iOnUJo)"
   },
   "colors.amber.900": {
     "value": "#78350f",
-    "variable": "var(--colors-amber-900)"
+    "variable": "var(--cObWdp)"
   },
   "colors.amber.950": {
     "value": "#451a03",
-    "variable": "var(--colors-amber-950)"
+    "variable": "var(--frxesg)"
   },
   "colors.orange.50": {
     "value": "#fff7ed",
-    "variable": "var(--colors-orange-50)"
+    "variable": "var(--NQTLQ)"
   },
   "colors.orange.100": {
     "value": "#ffedd5",
-    "variable": "var(--colors-orange-100)"
+    "variable": "var(--JsfmQ)"
   },
   "colors.orange.200": {
     "value": "#fed7aa",
-    "variable": "var(--colors-orange-200)"
+    "variable": "var(--gBjjlD)"
   },
   "colors.orange.300": {
     "value": "#fdba74",
-    "variable": "var(--colors-orange-300)"
+    "variable": "var(--QMCLK)"
   },
   "colors.orange.400": {
     "value": "#fb923c",
-    "variable": "var(--colors-orange-400)"
+    "variable": "var(--ijESlZ)"
   },
   "colors.orange.500": {
     "value": "#f97316",
-    "variable": "var(--colors-orange-500)"
+    "variable": "var(--czilMg)"
   },
   "colors.orange.600": {
     "value": "#ea580c",
-    "variable": "var(--colors-orange-600)"
+    "variable": "var(--iqZpKT)"
   },
   "colors.orange.700": {
     "value": "#c2410c",
-    "variable": "var(--colors-orange-700)"
+    "variable": "var(--cGCJla)"
   },
   "colors.orange.800": {
     "value": "#9a3412",
-    "variable": "var(--colors-orange-800)"
+    "variable": "var(--dUhLNN)"
   },
   "colors.orange.900": {
     "value": "#7c2d12",
-    "variable": "var(--colors-orange-900)"
+    "variable": "var(--jzgOMQ)"
   },
   "colors.orange.950": {
     "value": "#431407",
-    "variable": "var(--colors-orange-950)"
+    "variable": "var(--igBpVl)"
   },
   "colors.red.50": {
     "value": "#fef2f2",
-    "variable": "var(--colors-red-50)"
+    "variable": "var(--bINrJX)"
   },
   "colors.red.100": {
     "value": "#fee2e2",
-    "variable": "var(--colors-red-100)"
+    "variable": "var(--fKgVwH)"
   },
   "colors.red.200": {
     "value": "#fecaca",
-    "variable": "var(--colors-red-200)"
+    "variable": "var(--bLdQLg)"
   },
   "colors.red.300": {
     "value": "#fca5a5",
-    "variable": "var(--colors-red-300)"
+    "variable": "var(--fMUQaR)"
   },
   "colors.red.400": {
     "value": "#f87171",
-    "variable": "var(--colors-red-400)"
+    "variable": "var(--hwCQam)"
   },
   "colors.red.500": {
     "value": "#ef4444",
-    "variable": "var(--colors-red-500)"
+    "variable": "var(--iYfRb)"
   },
   "colors.red.600": {
     "value": "#dc2626",
-    "variable": "var(--colors-red-600)"
+    "variable": "var(--hzqKEw)"
   },
   "colors.red.700": {
     "value": "#b91c1c",
-    "variable": "var(--colors-red-700)"
+    "variable": "var(--lMavl)"
   },
   "colors.red.800": {
     "value": "#991b1b",
-    "variable": "var(--colors-red-800)"
+    "variable": "var(--bLDcWa)"
   },
   "colors.red.900": {
     "value": "#7f1d1d",
-    "variable": "var(--colors-red-900)"
+    "variable": "var(--fNuclL)"
   },
   "colors.red.950": {
     "value": "#450a0a",
-    "variable": "var(--colors-red-950)"
+    "variable": "var(--jHDsLG)"
   },
   "colors.neutral.50": {
     "value": "#fafafa",
-    "variable": "var(--colors-neutral-50)"
+    "variable": "var(--kltIHN)"
   },
   "colors.neutral.100": {
     "value": "#f5f5f5",
-    "variable": "var(--colors-neutral-100)"
+    "variable": "var(--hzpwrB)"
   },
   "colors.neutral.200": {
     "value": "#e5e5e5",
-    "variable": "var(--colors-neutral-200)"
+    "variable": "var(--lbfZji)"
   },
   "colors.neutral.300": {
     "value": "#d4d4d4",
-    "variable": "var(--colors-neutral-300)"
+    "variable": "var(--fcfsVb)"
   },
   "colors.neutral.400": {
     "value": "#a3a3a3",
-    "variable": "var(--colors-neutral-400)"
+    "variable": "var(--kPKNfw)"
   },
   "colors.neutral.500": {
     "value": "#737373",
-    "variable": "var(--colors-neutral-500)"
+    "variable": "var(--eQKgRp)"
   },
   "colors.neutral.600": {
     "value": "#525252",
-    "variable": "var(--colors-neutral-600)"
+    "variable": "var(--isAJIW)"
   },
   "colors.neutral.700": {
     "value": "#404040",
-    "variable": "var(--colors-neutral-700)"
+    "variable": "var(--ctAduP)"
   },
   "colors.neutral.800": {
     "value": "#262626",
-    "variable": "var(--colors-neutral-800)"
+    "variable": "var(--bqFRBA)"
   },
   "colors.neutral.900": {
     "value": "#171717",
-    "variable": "var(--colors-neutral-900)"
+    "variable": "var(--gHaUMp)"
   },
   "colors.neutral.950": {
     "value": "#0a0a0a",
-    "variable": "var(--colors-neutral-950)"
+    "variable": "var(--fhFoEQ)"
   },
   "colors.stone.50": {
     "value": "#fafaf9",
-    "variable": "var(--colors-stone-50)"
+    "variable": "var(--NNaBX)"
   },
   "colors.stone.100": {
     "value": "#f5f5f4",
-    "variable": "var(--colors-stone-100)"
+    "variable": "var(--juQpUX)"
   },
   "colors.stone.200": {
     "value": "#e7e5e4",
-    "variable": "var(--colors-stone-200)"
+    "variable": "var(--jjsRgY)"
   },
   "colors.stone.300": {
     "value": "#d6d3d1",
-    "variable": "var(--colors-stone-300)"
+    "variable": "var(--hxarzx)"
   },
   "colors.stone.400": {
     "value": "#a8a29e",
-    "variable": "var(--colors-stone-400)"
+    "variable": "var(--dmyqvy)"
   },
   "colors.stone.500": {
     "value": "#78716c",
-    "variable": "var(--colors-stone-500)"
+    "variable": "var(--bAfQNX)"
   },
   "colors.stone.600": {
     "value": "#57534e",
-    "variable": "var(--colors-stone-600)"
+    "variable": "var(--boIrZY)"
   },
   "colors.stone.700": {
     "value": "#44403c",
-    "variable": "var(--colors-stone-700)"
+    "variable": "var(--kRLBRt)"
   },
   "colors.stone.800": {
     "value": "#292524",
-    "variable": "var(--colors-stone-800)"
+    "variable": "var(--iKBpmW)"
   },
   "colors.stone.900": {
     "value": "#1c1917",
-    "variable": "var(--colors-stone-900)"
+    "variable": "var(--gYiPFv)"
   },
   "colors.stone.950": {
     "value": "#0c0a09",
-    "variable": "var(--colors-stone-950)"
+    "variable": "var(--kshUcS)"
   },
   "colors.zinc.50": {
     "value": "#fafafa",
-    "variable": "var(--colors-zinc-50)"
+    "variable": "var(--dhFdXS)"
   },
   "colors.zinc.100": {
     "value": "#f4f4f5",
-    "variable": "var(--colors-zinc-100)"
+    "variable": "var(--dGhjba)"
   },
   "colors.zinc.200": {
     "value": "#e4e4e7",
-    "variable": "var(--colors-zinc-200)"
+    "variable": "var(--efoVXJ)"
   },
   "colors.zinc.300": {
     "value": "#d4d4d8",
-    "variable": "var(--colors-zinc-300)"
+    "variable": "var(--ljOqfc)"
   },
   "colors.zinc.400": {
     "value": "#a1a1aa",
-    "variable": "var(--colors-zinc-400)"
+    "variable": "var(--cXLRGr)"
   },
   "colors.zinc.500": {
     "value": "#71717a",
-    "variable": "var(--colors-zinc-500)"
+    "variable": "var(--kcllNK)"
   },
   "colors.zinc.600": {
     "value": "#52525b",
-    "variable": "var(--colors-zinc-600)"
+    "variable": "var(--kBsYKt)"
   },
   "colors.zinc.700": {
     "value": "#3f3f46",
-    "variable": "var(--colors-zinc-700)"
+    "variable": "var(--gqwJsQ)"
   },
   "colors.zinc.800": {
     "value": "#27272a",
-    "variable": "var(--colors-zinc-800)"
+    "variable": "var(--ylgyn)"
   },
   "colors.zinc.900": {
     "value": "#18181b",
-    "variable": "var(--colors-zinc-900)"
+    "variable": "var(--hCKAFG)"
   },
   "colors.zinc.950": {
     "value": "#09090b",
-    "variable": "var(--colors-zinc-950)"
+    "variable": "var(--dtmsQb)"
   },
   "colors.gray.50": {
     "value": "#f9fafb",
-    "variable": "var(--colors-gray-50)"
+    "variable": "var(--dcmCJN)"
   },
   "colors.gray.100": {
     "value": "#f3f4f6",
-    "variable": "var(--colors-gray-100)"
+    "variable": "var(--ePJGsV)"
   },
   "colors.gray.200": {
     "value": "#e5e7eb",
-    "variable": "var(--colors-gray-200)"
+    "variable": "var(--dnVpUm)"
   },
   "colors.gray.300": {
     "value": "#d1d5db",
-    "variable": "var(--colors-gray-300)"
+    "variable": "var(--bMJKSL)"
   },
   "colors.gray.400": {
     "value": "#9ca3af",
-    "variable": "var(--colors-gray-400)"
+    "variable": "var(--jSiOQk)"
   },
   "colors.gray.500": {
     "value": "#6b7280",
-    "variable": "var(--colors-gray-500)"
+    "variable": "var(--iqXjOJ)"
   },
   "colors.gray.600": {
     "value": "#4b5563",
-    "variable": "var(--colors-gray-600)"
+    "variable": "var(--gPiTqa)"
   },
   "colors.gray.700": {
     "value": "#374151",
-    "variable": "var(--colors-gray-700)"
+    "variable": "var(--fnXooz)"
   },
   "colors.gray.800": {
     "value": "#1f2937",
-    "variable": "var(--colors-gray-800)"
+    "variable": "var(--fKIyfA)"
   },
   "colors.gray.900": {
     "value": "#111827",
-    "variable": "var(--colors-gray-900)"
+    "variable": "var(--ejwTdZ)"
   },
   "colors.gray.950": {
     "value": "#030712",
-    "variable": "var(--colors-gray-950)"
+    "variable": "var(--jympbw)"
   },
   "colors.slate.50": {
     "value": "#f8fafc",
-    "variable": "var(--colors-slate-50)"
+    "variable": "var(--kcXOlL)"
   },
   "colors.slate.100": {
     "value": "#f1f5f9",
-    "variable": "var(--colors-slate-100)"
+    "variable": "var(--kbRDfH)"
   },
   "colors.slate.200": {
     "value": "#e2e8f0",
-    "variable": "var(--colors-slate-200)"
+    "variable": "var(--ivwbEU)"
   },
   "colors.slate.300": {
     "value": "#cbd5e1",
-    "variable": "var(--colors-slate-300)"
+    "variable": "var(--dpNMHJ)"
   },
   "colors.slate.400": {
     "value": "#94a3b8",
-    "variable": "var(--colors-slate-400)"
+    "variable": "var(--dtmoEy)"
   },
   "colors.slate.500": {
     "value": "#64748b",
-    "variable": "var(--colors-slate-500)"
+    "variable": "var(--jCZJgj)"
   },
   "colors.slate.600": {
     "value": "#475569",
-    "variable": "var(--colors-slate-600)"
+    "variable": "var(--hWEhFw)"
   },
   "colors.slate.700": {
     "value": "#334155",
-    "variable": "var(--colors-slate-700)"
+    "variable": "var(--cQVSIl)"
   },
   "colors.slate.800": {
     "value": "#1e293b",
-    "variable": "var(--colors-slate-800)"
+    "variable": "var(--hVLXiS)"
   },
   "colors.slate.900": {
     "value": "#0f172a",
-    "variable": "var(--colors-slate-900)"
+    "variable": "var(--cQdIlH)"
   },
   "colors.slate.950": {
     "value": "#020617",
-    "variable": "var(--colors-slate-950)"
+    "variable": "var(--iFDdka)"
   },
   "colors.textSecondary": {
     "value": "#333333",
-    "variable": "var(--colors-text-secondary)"
+    "variable": "var(--huSwGH)"
   },
   "colors.textPrimary": {
     "value": "#FFFFF0",
-    "variable": "var(--colors-text-primary)"
+    "variable": "var(--geoZwp)"
   },
   "colors.pinkExtraLight": {
     "value": "#FFF0F5",
-    "variable": "var(--colors-pink-extra-light)"
+    "variable": "var(--eXcswg)"
   },
   "colors.pinkLight": {
     "value": "#FFC0CB",
-    "variable": "var(--colors-pink-light)"
+    "variable": "var(--hqfiti)"
   },
   "colors.pinkMedium": {
     "value": "#FF69B4",
-    "variable": "var(--colors-pink-medium)"
+    "variable": "var(--hmQRLt)"
   },
   "colors.pinkBright": {
     "value": "#FF1493",
-    "variable": "var(--colors-pink-bright)"
+    "variable": "var(--hJIqYq)"
   },
   "colors.white": {
     "value": "#FFFFFF",
-    "variable": "var(--colors-white)"
+    "variable": "var(--RiClf)"
   },
   "colors.whiteIcy": {
     "value": "#F5FFFA",
-    "variable": "var(--colors-white-icy)"
+    "variable": "var(--dnFGNM)"
   },
   "colors.paleGrey": {
     "value": "#F0F0F0",
-    "variable": "var(--colors-pale-grey)"
+    "variable": "var(--bhsoKN)"
   },
   "colors.veryPaleGrey": {
     "value": "#F5F5F5",
-    "variable": "var(--colors-very-pale-grey)"
+    "variable": "var(--cngykN)"
   },
   "colors.creamWhite": {
     "value": "#FFFFF0",
-    "variable": "var(--colors-cream-white)"
+    "variable": "var(--ePKDcb)"
   },
   "colors.greenish": {
     "value": "#004040 ",
-    "variable": "var(--colors-greenish)"
+    "variable": "var(--fuAChJ)"
   },
   "colors.palePurple": {
     "value": "#E6E6FA ",
-    "variable": "var(--colors-pale-purple)"
+    "variable": "var(--bobqIO)"
   },
   "colors.pinkGold": {
     "value": "#FFD700  ",
-    "variable": "var(--colors-pink-gold)"
+    "variable": "var(--isISoI)"
   },
   "colors.skyBlue": {
     "value": "#87CEFA  ",
-    "variable": "var(--colors-sky-blue)"
+    "variable": "var(--hSpycr)"
   },
   "fonts.sans": {
     "value": "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
-    "variable": "var(--fonts-sans)"
+    "variable": "var(--dywXPJ)"
   },
   "fonts.serif": {
     "value": "ui-serif, Georgia, Cambria, \"Times New Roman\", Times, serif",
-    "variable": "var(--fonts-serif)"
+    "variable": "var(--guQdxN)"
   },
   "fonts.mono": {
     "value": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace",
-    "variable": "var(--fonts-mono)"
+    "variable": "var(--gxQaAd)"
   },
   "fonts.body": {
     "value": "var(--font-roboto), sans-serif",
-    "variable": "var(--fonts-body)"
+    "variable": "var(--EkLlm)"
   },
   "fonts.heading": {
     "value": "var(--font-playfair), serif",
-    "variable": "var(--fonts-heading)"
+    "variable": "var(--bTZOq)"
   },
   "fonts.dancing": {
     "value": "var(--font-dancing)",
-    "variable": "var(--fonts-dancing)"
+    "variable": "var(--jWUuRe)"
   },
   "fontSizes.2xs": {
     "value": "0.5rem",
-    "variable": "var(--font-sizes-2xs)"
+    "variable": "var(--kWjDjq)"
   },
   "fontSizes.xs": {
     "value": "0.75rem",
-    "variable": "var(--font-sizes-xs)"
+    "variable": "var(--loLyxA)"
   },
   "fontSizes.sm": {
     "value": "0.875rem",
-    "variable": "var(--font-sizes-sm)"
+    "variable": "var(--eRgJXV)"
   },
   "fontSizes.md": {
     "value": "1rem",
-    "variable": "var(--font-sizes-md)"
+    "variable": "var(--daFrau)"
   },
   "fontSizes.lg": {
     "value": "1.125rem",
-    "variable": "var(--font-sizes-lg)"
+    "variable": "var(--gKFLFQ)"
   },
   "fontSizes.xl": {
     "value": "1.25rem",
-    "variable": "var(--font-sizes-xl)"
+    "variable": "var(--gFqSQX)"
   },
   "fontSizes.2xl": {
     "value": "1.5rem",
-    "variable": "var(--font-sizes-2xl)"
+    "variable": "var(--dllMvh)"
   },
   "fontSizes.3xl": {
     "value": "1.875rem",
-    "variable": "var(--font-sizes-3xl)"
+    "variable": "var(--jaXqkI)"
   },
   "fontSizes.4xl": {
     "value": "2.25rem",
-    "variable": "var(--font-sizes-4xl)"
+    "variable": "var(--cLogVb)"
   },
   "fontSizes.5xl": {
     "value": "3rem",
-    "variable": "var(--font-sizes-5xl)"
+    "variable": "var(--izMrAu)"
   },
   "fontSizes.6xl": {
     "value": "3.75rem",
-    "variable": "var(--font-sizes-6xl)"
+    "variable": "var(--hdlyfR)"
   },
   "fontSizes.7xl": {
     "value": "4.5rem",
-    "variable": "var(--font-sizes-7xl)"
+    "variable": "var(--bDBsww)"
   },
   "fontSizes.8xl": {
     "value": "6rem",
-    "variable": "var(--font-sizes-8xl)"
+    "variable": "var(--fwhTbD)"
   },
   "fontSizes.9xl": {
     "value": "8rem",
-    "variable": "var(--font-sizes-9xl)"
+    "variable": "var(--lkGdGW)"
   },
   "fontSizes.header": {
     "value": "24px",
-    "variable": "var(--font-sizes-header)"
+    "variable": "var(--dumPwk)"
   },
   "fontSizes.subHeader": {
     "value": "24px",
-    "variable": "var(--font-sizes-sub-header)"
+    "variable": "var(--kDumAU)"
   },
   "fontSizes.body": {
     "value": "16px",
-    "variable": "var(--font-sizes-body)"
+    "variable": "var(--jbcuDz)"
   },
   "breakpoints.sm": {
     "value": "640px",
-    "variable": "var(--breakpoints-sm)"
+    "variable": "var(--ikokJA)"
   },
   "breakpoints.md": {
     "value": "768px",
-    "variable": "var(--breakpoints-md)"
+    "variable": "var(--kSvAmr)"
   },
   "breakpoints.lg": {
     "value": "1024px",
-    "variable": "var(--breakpoints-lg)"
+    "variable": "var(--uwdhN)"
   },
   "breakpoints.xl": {
     "value": "1280px",
-    "variable": "var(--breakpoints-xl)"
+    "variable": "var(--eyfDzy)"
   },
   "breakpoints.2xl": {
     "value": "1536px",
-    "variable": "var(--breakpoints-2xl)"
+    "variable": "var(--dgHGKE)"
   },
   "colors.buttons.primary.background": {
-    "value": "var(--colors-buttons-primary-background)",
-    "variable": "var(--colors-buttons-primary-background)"
+    "value": "var(--kseGpv)",
+    "variable": "var(--kseGpv)"
   },
   "colors.buttons.primary.text": {
-    "value": "var(--colors-buttons-primary-text)",
-    "variable": "var(--colors-buttons-primary-text)"
+    "value": "var(--ehjaBw)",
+    "variable": "var(--ehjaBw)"
   },
   "colors.buttons.primary.backgroundHover": {
-    "value": "var(--colors-buttons-primary-background-hover)",
-    "variable": "var(--colors-buttons-primary-background-hover)"
+    "value": "var(--hJIbsp)",
+    "variable": "var(--hJIbsp)"
   },
   "colors.buttons.primary.textHover": {
-    "value": "var(--colors-buttons-primary-text-hover)",
-    "variable": "var(--colors-buttons-primary-text-hover)"
+    "value": "var(--cUbTMS)",
+    "variable": "var(--cUbTMS)"
   },
   "colors.buttons.widget.background": {
-    "value": "var(--colors-buttons-widget-background)",
-    "variable": "var(--colors-buttons-widget-background)"
+    "value": "var(--jKueHT)",
+    "variable": "var(--jKueHT)"
   },
   "colors.buttons.widget.backgroundHover": {
-    "value": "var(--colors-buttons-widget-background-hover)",
-    "variable": "var(--colors-buttons-widget-background-hover)"
+    "value": "var(--eClmzZ)",
+    "variable": "var(--eClmzZ)"
   },
   "colors.buttons.widget.text": {
-    "value": "var(--colors-buttons-widget-text)",
-    "variable": "var(--colors-buttons-widget-text)"
+    "value": "var(--hUiJiI)",
+    "variable": "var(--hUiJiI)"
   },
   "colors.input.secondary.text": {
-    "value": "var(--colors-input-secondary-text)",
-    "variable": "var(--colors-input-secondary-text)"
+    "value": "var(--ivEoF)",
+    "variable": "var(--ivEoF)"
   },
   "colors.input.secondary.textHover": {
-    "value": "var(--colors-input-secondary-text-hover)",
-    "variable": "var(--colors-input-secondary-text-hover)"
+    "value": "var(--cnEsGr)",
+    "variable": "var(--cnEsGr)"
   },
   "colors.backgrounds.primary.extraLight": {
-    "value": "var(--colors-backgrounds-primary-extra-light)",
-    "variable": "var(--colors-backgrounds-primary-extra-light)"
+    "value": "var(--cgHDJN)",
+    "variable": "var(--cgHDJN)"
   },
   "colors.backgrounds.primary.light": {
-    "value": "var(--colors-backgrounds-primary-light)",
-    "variable": "var(--colors-backgrounds-primary-light)"
+    "value": "var(--dDMEEX)",
+    "variable": "var(--dDMEEX)"
   },
   "colors.backgrounds.primary.medium": {
-    "value": "var(--colors-backgrounds-primary-medium)",
-    "variable": "var(--colors-backgrounds-primary-medium)"
+    "value": "var(--iXKARU)",
+    "variable": "var(--iXKARU)"
   },
   "colors.backgrounds.primary.intense": {
-    "value": "var(--colors-backgrounds-primary-intense)",
-    "variable": "var(--colors-backgrounds-primary-intense)"
+    "value": "var(--hRPiqz)",
+    "variable": "var(--hRPiqz)"
   },
   "colors.backgrounds.secondary.light": {
-    "value": "var(--colors-backgrounds-secondary-light)",
-    "variable": "var(--colors-backgrounds-secondary-light)"
+    "value": "var(--dWgReF)",
+    "variable": "var(--dWgReF)"
   },
   "colors.backgrounds.secondary.medium": {
-    "value": "var(--colors-backgrounds-secondary-medium)",
-    "variable": "var(--colors-backgrounds-secondary-medium)"
+    "value": "var(--dUnSny)",
+    "variable": "var(--dUnSny)"
   },
   "colors.backgrounds.secondary.intense": {
-    "value": "var(--colors-backgrounds-secondary-intense)",
-    "variable": "var(--colors-backgrounds-secondary-intense)"
+    "value": "var(--iaUAnR)",
+    "variable": "var(--iaUAnR)"
   },
   "colors.backgrounds.tertiary.light": {
-    "value": "var(--colors-backgrounds-tertiary-light)",
-    "variable": "var(--colors-backgrounds-tertiary-light)"
+    "value": "var(--hDsjWb)",
+    "variable": "var(--hDsjWb)"
   },
   "colors.backgrounds.tertiary.medium": {
-    "value": "var(--colors-backgrounds-tertiary-medium)",
-    "variable": "var(--colors-backgrounds-tertiary-medium)"
+    "value": "var(--mWDnE)",
+    "variable": "var(--mWDnE)"
   },
   "colors.backgrounds.tertiary.intense": {
-    "value": "var(--colors-backgrounds-tertiary-intense)",
-    "variable": "var(--colors-backgrounds-tertiary-intense)"
+    "value": "var(--bBKznT)",
+    "variable": "var(--bBKznT)"
   },
   "spacing.-1": {
-    "value": "calc(var(--spacing-1) * -1)",
-    "variable": "var(--spacing-1)"
+    "value": "calc(var(--dacYEG) * -1)",
+    "variable": "var(--dacYEG)"
   },
   "spacing.-2": {
-    "value": "calc(var(--spacing-2) * -1)",
-    "variable": "var(--spacing-2)"
+    "value": "calc(var(--ebuyxV) * -1)",
+    "variable": "var(--ebuyxV)"
   },
   "spacing.-3": {
-    "value": "calc(var(--spacing-3) * -1)",
-    "variable": "var(--spacing-3)"
+    "value": "calc(var(--bYDCFo) * -1)",
+    "variable": "var(--bYDCFo)"
   },
   "spacing.-4": {
-    "value": "calc(var(--spacing-4) * -1)",
-    "variable": "var(--spacing-4)"
+    "value": "calc(var(--hIimNX) * -1)",
+    "variable": "var(--hIimNX)"
   },
   "spacing.-5": {
-    "value": "calc(var(--spacing-5) * -1)",
-    "variable": "var(--spacing-5)"
+    "value": "calc(var(--fFrqVq) * -1)",
+    "variable": "var(--fFrqVq)"
   },
   "spacing.-6": {
-    "value": "calc(var(--spacing-6) * -1)",
-    "variable": "var(--spacing-6)"
+    "value": "calc(var(--gGIQOF) * -1)",
+    "variable": "var(--gGIQOF)"
   },
   "spacing.-7": {
-    "value": "calc(var(--spacing-7) * -1)",
-    "variable": "var(--spacing-7)"
+    "value": "calc(var(--eDRUVY) * -1)",
+    "variable": "var(--eDRUVY)"
   },
   "spacing.-8": {
-    "value": "calc(var(--spacing-8) * -1)",
-    "variable": "var(--spacing-8)"
+    "value": "calc(var(--flZesP) * -1)",
+    "variable": "var(--flZesP)"
   },
   "spacing.-9": {
-    "value": "calc(var(--spacing-9) * -1)",
-    "variable": "var(--spacing-9)"
+    "value": "calc(var(--djiiAi) * -1)",
+    "variable": "var(--djiiAi)"
   },
   "spacing.-10": {
-    "value": "calc(var(--spacing-10) * -1)",
-    "variable": "var(--spacing-10)"
+    "value": "calc(var(--ieMJEa) * -1)",
+    "variable": "var(--ieMJEa)"
   },
   "spacing.-11": {
-    "value": "calc(var(--spacing-11) * -1)",
-    "variable": "var(--spacing-11)"
+    "value": "calc(var(--cBFxYr) * -1)",
+    "variable": "var(--cBFxYr)"
   },
   "spacing.-12": {
-    "value": "calc(var(--spacing-12) * -1)",
-    "variable": "var(--spacing-12)"
+    "value": "calc(var(--uyqLg) * -1)",
+    "variable": "var(--uyqLg)"
   },
   "spacing.-14": {
-    "value": "calc(var(--spacing-14) * -1)",
-    "variable": "var(--spacing-14)"
+    "value": "calc(var(--hXmVPi) * -1)",
+    "variable": "var(--hXmVPi)"
   },
   "spacing.-16": {
-    "value": "calc(var(--spacing-16) * -1)",
-    "variable": "var(--spacing-16)"
+    "value": "calc(var(--mYCWo) * -1)",
+    "variable": "var(--mYCWo)"
   },
   "spacing.-20": {
-    "value": "calc(var(--spacing-20) * -1)",
-    "variable": "var(--spacing-20)"
+    "value": "calc(var(--jgejxp) * -1)",
+    "variable": "var(--jgejxp)"
   },
   "spacing.-24": {
-    "value": "calc(var(--spacing-24) * -1)",
-    "variable": "var(--spacing-24)"
+    "value": "calc(var(--iYEvIx) * -1)",
+    "variable": "var(--iYEvIx)"
   },
   "spacing.-28": {
-    "value": "calc(var(--spacing-28) * -1)",
-    "variable": "var(--spacing-28)"
+    "value": "calc(var(--dzpWeZ) * -1)",
+    "variable": "var(--dzpWeZ)"
   },
   "spacing.-32": {
-    "value": "calc(var(--spacing-32) * -1)",
-    "variable": "var(--spacing-32)"
+    "value": "calc(var(--fifqnK) * -1)",
+    "variable": "var(--fifqnK)"
   },
   "spacing.-36": {
-    "value": "calc(var(--spacing-36) * -1)",
-    "variable": "var(--spacing-36)"
+    "value": "calc(var(--faFCyS) * -1)",
+    "variable": "var(--faFCyS)"
   },
   "spacing.-40": {
-    "value": "calc(var(--spacing-40) * -1)",
-    "variable": "var(--spacing-40)"
+    "value": "calc(var(--bxwoov) * -1)",
+    "variable": "var(--bxwoov)"
   },
   "spacing.-44": {
-    "value": "calc(var(--spacing-44) * -1)",
-    "variable": "var(--spacing-44)"
+    "value": "calc(var(--huPzrf) * -1)",
+    "variable": "var(--huPzrf)"
   },
   "spacing.-48": {
-    "value": "calc(var(--spacing-48) * -1)",
-    "variable": "var(--spacing-48)"
+    "value": "calc(var(--hgdKvb) * -1)",
+    "variable": "var(--hgdKvb)"
   },
   "spacing.-52": {
-    "value": "calc(var(--spacing-52) * -1)",
-    "variable": "var(--spacing-52)"
+    "value": "calc(var(--cZMJbQ) * -1)",
+    "variable": "var(--cZMJbQ)"
   },
   "spacing.-56": {
-    "value": "calc(var(--spacing-56) * -1)",
-    "variable": "var(--spacing-56)"
+    "value": "calc(var(--iXfUeA) * -1)",
+    "variable": "var(--iXfUeA)"
   },
   "spacing.-60": {
-    "value": "calc(var(--spacing-60) * -1)",
-    "variable": "var(--spacing-60)"
+    "value": "calc(var(--vWSpd) * -1)",
+    "variable": "var(--vWSpd)"
   },
   "spacing.-64": {
-    "value": "calc(var(--spacing-64) * -1)",
-    "variable": "var(--spacing-64)"
+    "value": "calc(var(--gtqdrN) * -1)",
+    "variable": "var(--gtqdrN)"
   },
   "spacing.-72": {
-    "value": "calc(var(--spacing-72) * -1)",
-    "variable": "var(--spacing-72)"
+    "value": "calc(var(--hNtIEu) * -1)",
+    "variable": "var(--hNtIEu)"
   },
   "spacing.-80": {
-    "value": "calc(var(--spacing-80) * -1)",
-    "variable": "var(--spacing-80)"
+    "value": "calc(var(--kqIPsj) * -1)",
+    "variable": "var(--kqIPsj)"
   },
   "spacing.-96": {
-    "value": "calc(var(--spacing-96) * -1)",
-    "variable": "var(--spacing-96)"
+    "value": "calc(var(--wdMRQ) * -1)",
+    "variable": "var(--wdMRQ)"
   },
   "spacing.-0.5": {
-    "value": "calc(var(--spacing-0\\.5) * -1)",
-    "variable": "var(--spacing-0\\.5)"
+    "value": "calc(var(--gEfgCY) * -1)",
+    "variable": "var(--gEfgCY)"
   },
   "spacing.-1.5": {
-    "value": "calc(var(--spacing-1\\.5) * -1)",
-    "variable": "var(--spacing-1\\.5)"
+    "value": "calc(var(--jJIQbV) * -1)",
+    "variable": "var(--jJIQbV)"
   },
   "spacing.-2.5": {
-    "value": "calc(var(--spacing-2\\.5) * -1)",
-    "variable": "var(--spacing-2\\.5)"
+    "value": "calc(var(--cqwGG) * -1)",
+    "variable": "var(--cqwGG)"
   },
   "spacing.-3.5": {
-    "value": "calc(var(--spacing-3\\.5) * -1)",
-    "variable": "var(--spacing-3\\.5)"
+    "value": "calc(var(--dhUgfD) * -1)",
+    "variable": "var(--dhUgfD)"
   },
   "colors.colorPalette.50": {
-    "value": "var(--colors-color-palette-50)",
-    "variable": "var(--colors-color-palette-50)"
+    "value": "var(--bgowFI)",
+    "variable": "var(--bgowFI)"
   },
   "colors.colorPalette.100": {
-    "value": "var(--colors-color-palette-100)",
-    "variable": "var(--colors-color-palette-100)"
+    "value": "var(--iSScQY)",
+    "variable": "var(--iSScQY)"
   },
   "colors.colorPalette.200": {
-    "value": "var(--colors-color-palette-200)",
-    "variable": "var(--colors-color-palette-200)"
+    "value": "var(--bdPmBD)",
+    "variable": "var(--bdPmBD)"
   },
   "colors.colorPalette.300": {
-    "value": "var(--colors-color-palette-300)",
-    "variable": "var(--colors-color-palette-300)"
+    "value": "var(--EuecW)",
+    "variable": "var(--EuecW)"
   },
   "colors.colorPalette.400": {
-    "value": "var(--colors-color-palette-400)",
-    "variable": "var(--colors-color-palette-400)"
+    "value": "var(--dIdJaV)",
+    "variable": "var(--dIdJaV)"
   },
   "colors.colorPalette.500": {
-    "value": "var(--colors-color-palette-500)",
-    "variable": "var(--colors-color-palette-500)"
+    "value": "var(--iOGEjQ)",
+    "variable": "var(--iOGEjQ)"
   },
   "colors.colorPalette.600": {
-    "value": "var(--colors-color-palette-600)",
-    "variable": "var(--colors-color-palette-600)"
+    "value": "var(--ZDNUv)",
+    "variable": "var(--ZDNUv)"
   },
   "colors.colorPalette.700": {
-    "value": "var(--colors-color-palette-700)",
-    "variable": "var(--colors-color-palette-700)"
+    "value": "var(--AiFvO)",
+    "variable": "var(--AiFvO)"
   },
   "colors.colorPalette.800": {
-    "value": "var(--colors-color-palette-800)",
-    "variable": "var(--colors-color-palette-800)"
+    "value": "var(--iCIPjV)",
+    "variable": "var(--iCIPjV)"
   },
   "colors.colorPalette.900": {
-    "value": "var(--colors-color-palette-900)",
-    "variable": "var(--colors-color-palette-900)"
+    "value": "var(--ctQaTU)",
+    "variable": "var(--ctQaTU)"
   },
   "colors.colorPalette.950": {
-    "value": "var(--colors-color-palette-950)",
-    "variable": "var(--colors-color-palette-950)"
+    "value": "var(--eHAyIp)",
+    "variable": "var(--eHAyIp)"
   },
   "colors.colorPalette.primary.background": {
-    "value": "var(--colors-color-palette-primary-background)",
-    "variable": "var(--colors-color-palette-primary-background)"
+    "value": "var(--dwuuKu)",
+    "variable": "var(--dwuuKu)"
   },
   "colors.colorPalette.background": {
-    "value": "var(--colors-color-palette-background)",
-    "variable": "var(--colors-color-palette-background)"
+    "value": "var(--ccMjBz)",
+    "variable": "var(--ccMjBz)"
   },
   "colors.colorPalette.primary.text": {
-    "value": "var(--colors-color-palette-primary-text)",
-    "variable": "var(--colors-color-palette-primary-text)"
+    "value": "var(--fPPajJ)",
+    "variable": "var(--fPPajJ)"
   },
   "colors.colorPalette.text": {
-    "value": "var(--colors-color-palette-text)",
-    "variable": "var(--colors-color-palette-text)"
+    "value": "var(--yVRWg)",
+    "variable": "var(--yVRWg)"
   },
   "colors.colorPalette.primary.backgroundHover": {
-    "value": "var(--colors-color-palette-primary-background-hover)",
-    "variable": "var(--colors-color-palette-primary-background-hover)"
+    "value": "var(--joptyY)",
+    "variable": "var(--joptyY)"
   },
   "colors.colorPalette.backgroundHover": {
-    "value": "var(--colors-color-palette-background-hover)",
-    "variable": "var(--colors-color-palette-background-hover)"
+    "value": "var(--gzoACZ)",
+    "variable": "var(--gzoACZ)"
   },
   "colors.colorPalette.primary.textHover": {
-    "value": "var(--colors-color-palette-primary-text-hover)",
-    "variable": "var(--colors-color-palette-primary-text-hover)"
+    "value": "var(--kJKUfT)",
+    "variable": "var(--kJKUfT)"
   },
   "colors.colorPalette.textHover": {
-    "value": "var(--colors-color-palette-text-hover)",
-    "variable": "var(--colors-color-palette-text-hover)"
+    "value": "var(--gBffSq)",
+    "variable": "var(--gBffSq)"
   },
   "colors.colorPalette.widget.background": {
-    "value": "var(--colors-color-palette-widget-background)",
-    "variable": "var(--colors-color-palette-widget-background)"
+    "value": "var(--gCdgcC)",
+    "variable": "var(--gCdgcC)"
   },
   "colors.colorPalette.widget.backgroundHover": {
-    "value": "var(--colors-color-palette-widget-background-hover)",
-    "variable": "var(--colors-color-palette-widget-background-hover)"
+    "value": "var(--qPqY)",
+    "variable": "var(--qPqY)"
   },
   "colors.colorPalette.widget.text": {
-    "value": "var(--colors-color-palette-widget-text)",
-    "variable": "var(--colors-color-palette-widget-text)"
+    "value": "var(--hQZbGh)",
+    "variable": "var(--hQZbGh)"
   },
   "colors.colorPalette.secondary.text": {
-    "value": "var(--colors-color-palette-secondary-text)",
-    "variable": "var(--colors-color-palette-secondary-text)"
+    "value": "var(--FGIMP)",
+    "variable": "var(--FGIMP)"
   },
   "colors.colorPalette.secondary.textHover": {
-    "value": "var(--colors-color-palette-secondary-text-hover)",
-    "variable": "var(--colors-color-palette-secondary-text-hover)"
+    "value": "var(--iHetdB)",
+    "variable": "var(--iHetdB)"
   },
   "colors.colorPalette.primary.extraLight": {
-    "value": "var(--colors-color-palette-primary-extra-light)",
-    "variable": "var(--colors-color-palette-primary-extra-light)"
+    "value": "var(--iyKJEg)",
+    "variable": "var(--iyKJEg)"
   },
   "colors.colorPalette.extraLight": {
-    "value": "var(--colors-color-palette-extra-light)",
-    "variable": "var(--colors-color-palette-extra-light)"
+    "value": "var(--hQxAlZ)",
+    "variable": "var(--hQxAlZ)"
   },
   "colors.colorPalette.primary.light": {
-    "value": "var(--colors-color-palette-primary-light)",
-    "variable": "var(--colors-color-palette-primary-light)"
+    "value": "var(--kZQeVO)",
+    "variable": "var(--kZQeVO)"
   },
   "colors.colorPalette.light": {
-    "value": "var(--colors-color-palette-light)",
-    "variable": "var(--colors-color-palette-light)"
+    "value": "var(--eQrkVj)",
+    "variable": "var(--eQrkVj)"
   },
   "colors.colorPalette.primary.medium": {
-    "value": "var(--colors-color-palette-primary-medium)",
-    "variable": "var(--colors-color-palette-primary-medium)"
+    "value": "var(--gYAdIF)",
+    "variable": "var(--gYAdIF)"
   },
   "colors.colorPalette.medium": {
-    "value": "var(--colors-color-palette-medium)",
-    "variable": "var(--colors-color-palette-medium)"
+    "value": "var(--kRqngU)",
+    "variable": "var(--kRqngU)"
   },
   "colors.colorPalette.primary.intense": {
-    "value": "var(--colors-color-palette-primary-intense)",
-    "variable": "var(--colors-color-palette-primary-intense)"
+    "value": "var(--gqgdmK)",
+    "variable": "var(--gqgdmK)"
   },
   "colors.colorPalette.intense": {
-    "value": "var(--colors-color-palette-intense)",
-    "variable": "var(--colors-color-palette-intense)"
+    "value": "var(--kCzRnX)",
+    "variable": "var(--kCzRnX)"
   },
   "colors.colorPalette.secondary.light": {
-    "value": "var(--colors-color-palette-secondary-light)",
-    "variable": "var(--colors-color-palette-secondary-light)"
+    "value": "var(--disYjo)",
+    "variable": "var(--disYjo)"
   },
   "colors.colorPalette.secondary.medium": {
-    "value": "var(--colors-color-palette-secondary-medium)",
-    "variable": "var(--colors-color-palette-secondary-medium)"
+    "value": "var(--gTkgaH)",
+    "variable": "var(--gTkgaH)"
   },
   "colors.colorPalette.secondary.intense": {
-    "value": "var(--colors-color-palette-secondary-intense)",
-    "variable": "var(--colors-color-palette-secondary-intense)"
+    "value": "var(--hasHgQ)",
+    "variable": "var(--hasHgQ)"
   },
   "colors.colorPalette.tertiary.light": {
-    "value": "var(--colors-color-palette-tertiary-light)",
-    "variable": "var(--colors-color-palette-tertiary-light)"
+    "value": "var(--cwkrri)",
+    "variable": "var(--cwkrri)"
   },
   "colors.colorPalette.tertiary.medium": {
-    "value": "var(--colors-color-palette-tertiary-medium)",
-    "variable": "var(--colors-color-palette-tertiary-medium)"
+    "value": "var(--hhGqVJ)",
+    "variable": "var(--hhGqVJ)"
   },
   "colors.colorPalette.tertiary.intense": {
-    "value": "var(--colors-color-palette-tertiary-intense)",
-    "variable": "var(--colors-color-palette-tertiary-intense)"
+    "value": "var(--bylsbO)",
+    "variable": "var(--bylsbO)"
   }
 }
 

@@ -1,8 +1,10 @@
 import axios from "axios";
 import { PaginatedResult, type PageDataClient } from "@amcoeur/types";
 
-export const getPages = async () => {
-  return axios.get<PaginatedResult<PageDataClient>>("/api/pages");
+export const getPages = async (
+  params: { page?: number; limit?: number } = {},
+) => {
+  return axios.get<PaginatedResult<PageDataClient>>("/api/pages", { params });
 };
 
 export const getPage = async (id: string | number) => {

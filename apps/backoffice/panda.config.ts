@@ -25,6 +25,9 @@ export default defineConfig({
   // Files to exclude
   exclude: [],
 
+  //Hash the class names and css variables
+  hash: true,
+
   // Useful for theme customization
   theme,
 

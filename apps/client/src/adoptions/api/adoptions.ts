@@ -11,12 +11,13 @@ export const getAdoptions = ({
   count?: boolean;
   page?: number;
 }) => {
-  let queryParams = "";
+  const params: { [key: string]: string } = {};
+
   if (filter.gender) {
-    queryParams = `${queryParams}&gender=${filter.gender}`;
+    params.gender = filter.gender;
   }
   if (filter.name) {
-    queryParams = `${queryParams}&name=${filter.name}`;
+    params.name = filter.name;
   }
 
   if (filter.species) {
@@ -26,26 +27,20 @@ export const getAdoptions = ({
       }
       return `${queryAcc},${species}`;
     }, "");
-    queryParams = `${queryParams}&species=${speciesToQueryArray}`;
+    params.species = speciesToQueryArray;
   }
 
   if (count) {
-    queryParams = `${queryParams}&count=true`;
+    params.count = "true";
   }
 
   if (page > 0) {
-    queryParams = `${queryParams}&page=${page}`;
-  }
-
-  if (queryParams.startsWith("&")) {
-    queryParams = queryParams.slice(1);
-  }
-  if (queryParams) {
-    queryParams = `?${queryParams}`;
+    params.page = page.toString();
   }
 
   return axios.get<PaginatedResult<AdoptionClientPublicData>>(
-    `/api/adoptions/public${queryParams}`,
+    `/api/adoptions/public`,
+    { params },
   );
 };
 

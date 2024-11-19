@@ -6,14 +6,16 @@ import Button from "../../global/components/atoms/Button/Button";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import Overlay from "../../global/components/atoms/Overlay/Overlay";
 import Table from "../../global/components/atoms/Table/Table";
+import Pagination from "../../global/components/molecules/Pagination/Pagination";
 
 function ManagePages() {
+  const [currentPage, setCurrentPage] = useState(1);
   const {
     data: { data: pagesResult } = {},
     isSuccess,
     isLoading,
     isError,
-  } = useGetPages();
+  } = useGetPages({ page: currentPage, limit: 10 });
   const [pageToDelete, setPageToDelete] = useState<PageDataClient | null>(null);
   const pagesData = pagesResult?.data;
 
@@ -22,6 +24,8 @@ function ManagePages() {
     isError: isDeleteError,
     isSuccess: isDeleteSuccess,
   } = useDeletePage();
+
+  const totalPages = pagesResult?.totalPages || 1;
 
   return (
     <div className={container}>
@@ -59,7 +63,10 @@ function ManagePages() {
                     <Button to={`/pages/${page._id}`}>Afficher</Button>
                   </td>
                   <td>
-                    <Button onClick={() => setPageToDelete(page)} color="red">
+                    <Button
+                      onClick={() => setPageToDelete(page)}
+                      variants={{ color: "danger" }}
+                    >
                       Supprimer
                     </Button>
                   </td>
@@ -74,6 +81,12 @@ function ManagePages() {
           Une erreur est survenue lors du chargement des données
         </ErrorLabel>
       )}
+      <Pagination
+        setPage={setCurrentPage}
+        currentPage={currentPage}
+        totalPages={totalPages}
+      />
+
       <Overlay isVisible={!!pageToDelete} onClose={() => setPageToDelete(null)}>
         <p>
           Vous êtes sur le point de supprimer la page {pageToDelete?.name}, êtes
@@ -81,12 +94,15 @@ function ManagePages() {
         </p>
         <div className={css({ display: "flex", gap: "1rem" })}>
           <Button
-            color="red"
+            variants={{ color: "danger" }}
             onClick={() => pageToDelete?._id && deletePage(pageToDelete._id)}
           >
             Supprimer
           </Button>
-          <Button color="secondary" onClick={() => setPageToDelete(null)}>
+          <Button
+            variants={{ color: "secondary" }}
+            onClick={() => setPageToDelete(null)}
+          >
             Annuler
           </Button>
         </div>
