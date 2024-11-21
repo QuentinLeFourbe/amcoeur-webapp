@@ -8,6 +8,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "watch": "tsc && vite build --watch --mode=development",
+    "test": "vitest",
+    "test-ui": "vitest --ui",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
@@ -22,10 +24,10 @@
     "@storybook/addon-interactions": "^8.4.4",
     "@storybook/addon-onboarding": "^8.4.4",
     "@storybook/blocks": "^8.4.4",
+    "@storybook/builder-vite": "^8.4.4",
     "@storybook/react": "^8.4.4",
     "@storybook/react-vite": "^8.4.4",
     "@storybook/test": "^8.4.4",
-    "eslint-plugin-storybook": "^0.11.1",
     "prop-types": "^15.8.1",
     "storybook": "^8.4.4"
   }
