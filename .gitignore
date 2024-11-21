@@ -4,6 +4,8 @@ dist
 build
 .env
 
+styled-system/
+
 apps/server/uploads/*
 !uploads/.gitkeep
 
