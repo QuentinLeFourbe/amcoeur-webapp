@@ -9,6 +9,7 @@ import pluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import storybookLint from "eslint-plugin-storybook";
 import globals from "globals";
 import tsLint from "typescript-eslint";
+import testingLibrary from "eslint-plugin-testing-library";
 
 export default [
   jsLint.configs.recommended,
@@ -23,7 +24,13 @@ export default [
     },
   },
   {
-    ignores: ["**/build", "**/dist", "**/node_modules", "**/styled-system"],
+    ignores: [
+      "**/build",
+      "**/dist",
+      "**/node_modules",
+      "**/styled-system",
+      "**/*.config.*",
+    ],
   },
   {
     plugins: {
@@ -71,5 +78,9 @@ export default [
     plugins: {
       storybook: storybookLint,
     },
+  },
+  {
+    files: ["**/*.{test.tsx}"],
+    ...testingLibrary.configs["flat/react"],
   },
 ];
