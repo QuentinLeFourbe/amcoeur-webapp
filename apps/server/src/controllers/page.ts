@@ -36,11 +36,15 @@ export const getPages = async (req: Request, res: Response) => {
     const parsedSort = parseSort(sort as string);
 
     const results = await paginate(Page, {
-      filter: { name: { $regex: search || "", $options: "i" }, route: route },
+      filter: {
+        name: { $regex: search || "", $options: "i" },
+        route: { $regex: route || "", $options: "i" },
+      },
       page: pageNumber,
       sort: parsedSort,
       limit: pageLimit,
     });
+    console.log({ results });
 
     res.status(200).json(results);
   } catch (err) {
