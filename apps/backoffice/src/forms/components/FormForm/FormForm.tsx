@@ -118,12 +118,14 @@ function FormForm({ initialData, onSubmit, onCancel, update }: FormFormProps) {
               )}
             />
           )}
-          <FormInput
-            type="checkbox"
-            register={register(`fields.${index}.isRequired`)}
-          >
-            Requis
-          </FormInput>
+          {watchFields[index].type !== "DISPLAY_TEXT" && (
+            <FormInput
+              type="checkbox"
+              register={register(`fields.${index}.isRequired`)}
+            >
+              Requis
+            </FormInput>
+          )}
         </DynamicContainer>
       ))}
       <AddButton onClick={() => append(getNewField())} />

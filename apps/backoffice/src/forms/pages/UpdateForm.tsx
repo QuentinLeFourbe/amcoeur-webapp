@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { FormClientData } from "@amcoeur/types";
-import {  useGetForm, useUpdateForm } from "../hooks/useFormsQueries";
+import { useGetForm, useUpdateForm } from "../hooks/useFormsQueries";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import { css } from "../../../styled-system/css";
 import FormForm from "../components/FormForm/FormForm";
@@ -15,7 +14,7 @@ function UpdateForm() {
     isSuccess,
     isError,
   } = useGetForm(id);
-  const { mutate, isError: isUpdateError } = useUpdateForm({
+  const { mutate: updateForm, isError: isUpdateError } = useUpdateForm({
     onSuccess: () => {
       navigate(`/formulaires`);
     },
@@ -25,10 +24,6 @@ function UpdateForm() {
     navigate("/formulaires");
   };
 
-  const onSubmit = (data: FormClientData) => {
-    mutate(data);
-  };
-
   return (
     <div className={container}>
       {isUpdateError && (
@@ -36,9 +31,7 @@ function UpdateForm() {
           Une erreur est survenue lors de la modification de la page
         </ErrorLabel>
       )}
-      {(isLoading) && (
-        <Label>Chargement des données...</Label>
-      )}
+      {isLoading && <Label>Chargement des données...</Label>}
       {isError && (
         <ErrorLabel>Erreur lors du chargement du formulaire.</ErrorLabel>
       )}
@@ -47,7 +40,7 @@ function UpdateForm() {
           update
           initialData={formData}
           onCancel={handleCancel}
-          onSubmit={onSubmit}
+          onSubmit={updateForm}
         />
       )}
     </div>

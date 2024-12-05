@@ -99,6 +99,7 @@ const DynamicForm = ({
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const submitData = (data: FormAnswersClient) => {
+    console.log({ data });
     onSubmit(data);
     reset();
     recaptchaRef?.current?.reset();

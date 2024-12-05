@@ -1,7 +1,6 @@
 import { css } from "../../../../../styled-system/css";
 
 function Loader() {
-  console.log("rendering loeader");
   return <div className={loader} />;
 }
 

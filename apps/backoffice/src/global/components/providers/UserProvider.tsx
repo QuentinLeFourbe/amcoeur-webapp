@@ -2,12 +2,14 @@ import { useState, type ReactNode } from "react";
 import axios from "axios";
 import { useQueryClient } from "@tanstack/react-query";
 import { UserContext } from "../../contexts/user";
+import router from "../../../routes";
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [loginState, setLoginState] = useState<string>();
   const [accessTokenInterceptor, setAccessTokenInterceptor] = useState<
     number | undefined
   >();
+  const [accessToken, setRawAccessToken] = useState("");
   const queryClient = useQueryClient();
 
   const setAccessToken = (token: string) => {
@@ -23,7 +25,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       },
     );
     setAccessTokenInterceptor(interceptor);
+    setRawAccessToken(token);
     queryClient.invalidateQueries(["currentUser"]);
+    localStorage.setItem("isLoggedIn", "true");
   };
 
   const logout = () => {
@@ -32,6 +36,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
     queryClient.invalidateQueries(["currentUser"]);
     queryClient.removeQueries({ queryKey: ["currentUser"], exact: true });
+    setRawAccessToken("");
+    localStorage.removeItem("isLoggedIn");
+    router.navigate("/login", { replace: true });
   };
 
   return (
@@ -41,6 +48,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         setLoginState,
         logout,
         setAccessToken,
+        accessToken,
       }}
     >
       {children}

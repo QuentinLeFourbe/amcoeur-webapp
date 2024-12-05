@@ -25,6 +25,7 @@ export const theme = {
       },
       fontSizes: {
         header: { value: "24px" },
+        medium: { value: "20px" },
         body: { value: "16px" },
       },
     },

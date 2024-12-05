@@ -1723,6 +1723,10 @@ const tokens = {
     "value": "24px",
     "variable": "var(--font-sizes-header)"
   },
+  "fontSizes.medium": {
+    "value": "20px",
+    "variable": "var(--font-sizes-medium)"
+  },
   "fontSizes.body": {
     "value": "16px",
     "variable": "var(--font-sizes-body)"

@@ -5,9 +5,15 @@ import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import Overlay from "../../global/components/atoms/Overlay/Overlay";
+import Table from "../../global/components/atoms/Table/Table";
 
 function ManagePages() {
-  const { data, isLoading, isError } = useGetPages();
+  const {
+    data: { data: pagesData } = {},
+    isSuccess,
+    isLoading,
+    isError,
+  } = useGetPages();
   const [pageToDelete, setPageToDelete] = useState<PageDataClient | null>(null);
 
   const {
@@ -30,7 +36,7 @@ function ManagePages() {
         </ErrorLabel>
       )}
       {isDeleteSuccess && <p>La page a bien été supprimée</p>}
-      <table className={pageTable}>
+      <Table>
         <thead>
           <tr>
             <th>Titre</th>
@@ -39,27 +45,28 @@ function ManagePages() {
           </tr>
         </thead>
         <tbody>
-          {data?.data.map((page) => {
-            if (page.route === "accueil") {
-              return null;
-            }
-            return (
-              <tr key={page._id?.toString()}>
-                <td>{page.name}</td>
-                <td>/{page.route}</td>
-                <td>
-                  <Button to={`/pages/${page._id}`}>Afficher</Button>
-                </td>
-                <td>
-                  <Button onClick={() => setPageToDelete(page)} color="red">
-                    Supprimer
-                  </Button>
-                </td>
-              </tr>
-            );
-          })}
+          {isSuccess &&
+            pagesData?.map((page) => {
+              if (page.route === "accueil") {
+                return null;
+              }
+              return (
+                <tr key={page._id?.toString()}>
+                  <td>{page.name}</td>
+                  <td>/{page.route}</td>
+                  <td>
+                    <Button to={`/pages/${page._id}`}>Afficher</Button>
+                  </td>
+                  <td>
+                    <Button onClick={() => setPageToDelete(page)} color="red">
+                      Supprimer
+                    </Button>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
-      </table>
+      </Table>
       {isLoading && <div>Chargement en cours des données...</div>}
       {isError && (
         <ErrorLabel>
@@ -95,23 +102,4 @@ const container = css({
   alignItems: "center",
   justifyContent: "center",
   gap: "2rem",
-});
-
-const pageTable = css({
-  "& th": {
-    padding: "1rem",
-    textAlign: "left",
-    backgroundColor: "backgrounds.primary.intense",
-  },
-
-  "& td": {
-    padding: "1rem 1rem",
-    textAlign: "left",
-    borderBottom: "1px solid #ddd",
-  },
-
-  "& tr:hover": {
-    backgroundColor: "#444",
-  },
-  marginBottom: "2rem",
 });

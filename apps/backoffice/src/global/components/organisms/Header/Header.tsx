@@ -1,5 +1,5 @@
+import { ComponentProps } from "react";
 import { css, cx } from "../../../../../styled-system/css";
-// import BurgerIcon from "../../../assets/icons/burger.svg?react";
 import AmcoeurLogo from "../../../assets/icons/amcoeur_logo_light.webp";
 import Link from "../../atoms/Link/Link";
 
@@ -37,17 +37,21 @@ function Header({
   if (isUserAdmin) {
     headerLinks.push({ name: "Utilisateurs", href: "/users" });
   }
+
+  let homeLinkPath = "";
+  if (!isUserLoggedIn) {
+    homeLinkPath = "/login";
+  } else if (isUserInactive) {
+    homeLinkPath = "#";
+  } else {
+    homeLinkPath = "/";
+  }
+
   return (
     <header className={header}>
-      {isUserInactive ? (
-        <div className={cx(logoContainer)}>
-          <LogoLink src={AmcoeurLogo} href="#" />
-        </div>
-      ) : (
-        <div className={cx(logoContainer)}>
-          <LogoLink src={AmcoeurLogo} href="/" />
-        </div>
-      )}
+      <div className={cx(logoContainer)}>
+        <LogoLink src={AmcoeurLogo} to={homeLinkPath} />
+      </div>
       <div className={primaryLinksContainer}>
         {headerLinks.map((link, index) => (
           <Link key={index} to={link.href} variant="primary">
@@ -66,12 +70,11 @@ function Header({
   );
 }
 
-type LogoLinkProps = {
+type LogoLinkProps = ComponentProps<typeof Link> & {
   src: string;
-  href: string;
 };
-const LogoLink = ({ src, href }: LogoLinkProps) => (
-  <Link to={href}>
+const LogoLink = ({ src, ...props }: LogoLinkProps) => (
+  <Link {...props}>
     <img src={src} alt="logo" />
   </Link>
 );
