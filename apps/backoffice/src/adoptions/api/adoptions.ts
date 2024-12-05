@@ -1,8 +1,11 @@
-import { AdoptionClientData, AdoptionsListClientData } from "@amcoeur/types";
+import {
+  AdoptionClientData,
+  AdoptionClientServerResponseData,
+} from "@amcoeur/types";
 import axios from "axios";
 
 export const getAdoptions = () =>
-  axios.get<AdoptionsListClientData>("/api/adoptions");
+  axios.get<AdoptionClientServerResponseData[]>("/api/adoptions");
 
 export const getAdoption = (id: string) =>
   axios.get<AdoptionClientData>(`/api/adoptions/${id}`);

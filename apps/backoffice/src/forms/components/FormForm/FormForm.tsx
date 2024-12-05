@@ -1,8 +1,4 @@
-import {
-  FormClientData,
-  formClientDataSchema,
-  FormFieldType,
-} from "@amcoeur/types";
+import { FormClientData, formClientDataSchema } from "@amcoeur/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import FormInput from "../../../global/components/molecules/Form/FormInput";
@@ -13,7 +9,6 @@ import DynamicContainer from "../../../global/components/organisms/DynamicContai
 import { AddButton } from "../../../global/components/atoms/AddButton/AddButton";
 import FormSelect from "../../../global/components/molecules/Form/FormSelect";
 import ListInput from "../../../global/components/molecules/ListInput/ListInput";
-import FormCodeArea from "../../../global/components/molecules/Form/FormCodeArea";
 
 type FormFormProps = {
   initialData?: FormClientData;
@@ -36,11 +31,7 @@ const fieldTypeOptions = [
   { value: "UNIQUE_CHOICE", label: getLabelFromValue("UNIQUE_CHOICE") },
   { value: "PHONE", label: getLabelFromValue("PHONE") },
   { value: "GENDER", label: getLabelFromValue("GENDER") },
-  { value: "DISPLAY_TEXT", label: getLabelFromValue("DISPLAY_TEXT") },
-].sort((a, b) => a.label.localeCompare(b.label)) as {
-  value: FormFieldType;
-  label: string;
-}[];
+].sort((a, b) => a.label.localeCompare(b.label));
 
 function FormForm({ initialData, onSubmit, onCancel, update }: FormFormProps) {
   const { register, control, handleSubmit, watch } = useForm<FormClientData>({
@@ -107,6 +98,9 @@ function FormForm({ initialData, onSubmit, onCancel, update }: FormFormProps) {
               : undefined
           }
         >
+          <FormInput register={register(`fields.${index}.content`)}>
+            Champ
+          </FormInput>
           <FormSelect
             {...register(`fields.${index}.type`)}
             options={fieldTypeOptions}
@@ -114,19 +108,6 @@ function FormForm({ initialData, onSubmit, onCancel, update }: FormFormProps) {
           >
             Type
           </FormSelect>
-          {watchFields[index].type === "DISPLAY_TEXT" ? (
-            <Controller
-              control={control}
-              name={`fields.${index}.content`}
-              render={({ field: renderField }) => (
-                <FormCodeArea {...renderField}>Texte à afficher</FormCodeArea>
-              )}
-            />
-          ) : (
-            <FormInput register={register(`fields.${index}.content`)}>
-              Champ
-            </FormInput>
-          )}
           {(watchFields[index].type === "UNIQUE_CHOICE" ||
             watchFields[index].type === "MULTIPLE_CHOICES") && (
             <Controller
@@ -137,14 +118,12 @@ function FormForm({ initialData, onSubmit, onCancel, update }: FormFormProps) {
               )}
             />
           )}
-          {watchFields[index].type !== "DISPLAY_TEXT" && (
-            <FormInput
-              type="checkbox"
-              register={register(`fields.${index}.isRequired`)}
-            >
-              Requis
-            </FormInput>
-          )}
+          <FormInput
+            type="checkbox"
+            register={register(`fields.${index}.isRequired`)}
+          >
+            Requis
+          </FormInput>
         </DynamicContainer>
       ))}
       <AddButton onClick={() => append(getNewField())} />
