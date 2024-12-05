@@ -31,9 +31,7 @@ export default function AdoptionForm({
   });
 
   const submitData = (data: AdoptionClientData) => {
-    console.log({ data });
-
-    // onSubmitData(data)
+    onSubmit(data);
   };
 
   return (
