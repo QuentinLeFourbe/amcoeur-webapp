@@ -43,7 +43,7 @@ function AdoptionsDashboard() {
 
               <th>Sexe</th>
               <th>Visible</th>
-              <th></th>
+              <th colSpan={2}></th>
             </tr>
           </thead>
           <tbody>
@@ -54,6 +54,9 @@ function AdoptionsDashboard() {
                 <td>{adoption.race}</td>
                 <td>{adoption.gender}</td>
                 <td>{adoption.visible ? "Oui" : "Non"}</td>
+                <td>
+                  <Button to={`/adoptions/${adoption._id}`}>Afficher</Button>
+                </td>
                 <td>
                   <Button
                     onClick={() => setAdoptionToDelete(adoption)}
