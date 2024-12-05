@@ -77,7 +77,7 @@ function ListInput({
             />
             {index !== listValues.length - 1 && (
               <Button
-                color="red"
+                variants={{ color: "danger" }}
                 icon="trash"
                 onClick={() => handleDeleteValue(index)}
                 type="button"

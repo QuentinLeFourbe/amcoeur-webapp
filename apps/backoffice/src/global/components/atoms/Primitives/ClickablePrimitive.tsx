@@ -1,5 +1,4 @@
 import type { ComponentProps } from "react";
-
 import { Link } from "react-router-dom";
 
 type AnchorProps = ComponentProps<"a"> & {

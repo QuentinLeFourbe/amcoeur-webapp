@@ -1,9 +1,10 @@
-import { type Request, type Response } from "express";
-import { deleteDbUser, updateDbUser } from "../services/userService.js";
 import type { UserClientData, UserServerData } from "@amcoeur/types";
-import { addUserToBlacklist } from "../services/redisService.js";
 import { createHash } from "crypto";
+import { type Request, type Response } from "express";
+
 import User from "../models/user.js";
+import { addUserToBlacklist } from "../services/redisService.js";
+import { deleteDbUser, updateDbUser } from "../services/userService.js";
 
 export const getAllUsers = async (_req: Request, res: Response) => {
   try {

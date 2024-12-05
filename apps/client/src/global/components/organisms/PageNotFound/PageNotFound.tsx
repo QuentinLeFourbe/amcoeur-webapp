@@ -1,6 +1,6 @@
-import TitlePanel from "../../molecules/TitlePanel/TitlePanel";
 import ChatOmbre from "../../../assets/images/chat-ombre.webp";
 import Button from "../../atoms/Button/Button";
+import TitlePanel from "../../molecules/TitlePanel/TitlePanel";
 
 const PageNotFound = () => {
   return (

@@ -1,4 +1,5 @@
 import { ComponentProps, } from "react"
+
 import { css, cx } from "../../../../../styled-system/css"
 
 type TableProps = ComponentProps<"table">

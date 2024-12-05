@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
+
 import { css } from "../../../styled-system/css";
 import Button from "../components/atoms/Button/Button";
 import { useCurrentUser } from "../hooks/useUser";
-import { checkUserPermissions } from "../utils/user";
 import { microsoftLogin } from "../utils/auth";
+import { checkUserPermissions } from "../utils/user";
 
 function Login() {
   const { currentUser, isSuccess } = useCurrentUser();

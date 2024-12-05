@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import { useDebounceValue } from "usehooks-ts";
 import { useTranslation } from "react-i18next";
+import { useDebounceValue } from "usehooks-ts";
+
 import { css } from "../../../styled-system/css";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
+import Loader from "../../global/components/atoms/Loader/Loader";
+import TitlePanel from "../../global/components/molecules/TitlePanel/TitlePanel";
 import AdoptionCard from "../components/AdoptionCard";
 import AdoptionFilterBar from "../components/AdoptionFilterBar";
 import { useInfiniteAdoptions } from "../hooks/useAdoptions";
 import { AdoptionFilter } from "../types/filter";
-import Loader from "../../global/components/atoms/Loader/Loader";
-import TitlePanel from "../../global/components/molecules/TitlePanel/TitlePanel";
 
 function AdoptionsDashboard() {
   const [filter, setFilter] = useState<AdoptionFilter | null>(null);
@@ -29,8 +30,7 @@ function AdoptionsDashboard() {
   });
 
   const adoptions = infiniteData?.pages?.map((page) => page.data.data).flat();
-  const totalAdoptions =
-    infiniteData?.pages?.[0].data.pagination.totalItems || 0;
+  const totalAdoptions = infiniteData?.pages?.[0].data.totalItems || 0;
   const adoptionsCount = infiniteData?.pages?.[0].data.count;
 
   const observerRef = useRef<HTMLDivElement>(null);
@@ -125,7 +125,13 @@ function AdoptionsDashboard() {
                   margin: "auto",
                 })}
               >
-                <p className={css({ fontSize: "header", fontWeight: "bold", color: "red.300" })}>
+                <p
+                  className={css({
+                    fontSize: "header",
+                    fontWeight: "bold",
+                    color: "red.300",
+                  })}
+                >
                   {t("adoption.no_result")}
                 </p>
               </div>

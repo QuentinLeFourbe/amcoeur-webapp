@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
-import { useGetPage } from "../hooks/useGetPage";
-import PageComponentsRenderer from "../components/PageComponentsRenderer/PageComponentsRenderer";
+
 import PageNotFound from "../../global/components/organisms/PageNotFound/PageNotFound";
+import PageComponentsRenderer from "../components/PageComponentsRenderer/PageComponentsRenderer";
+import { useGetPage } from "../hooks/useGetPage";
 
 function Preview() {
   const params = useParams();

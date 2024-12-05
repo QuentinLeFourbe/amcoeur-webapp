@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { getCodeVerifier } from "../utils/auth";
-import { getAccessToken } from "../api/users";
-import { useUserContext } from "../hooks/useUser";
-import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
+
 import { css } from "../../../styled-system/css";
+import { getAccessToken } from "../api/users";
+import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
+import { useUserContext } from "../hooks/useUser";
+import { getCodeVerifier } from "../utils/auth";
 
 type TokenResponse = {
   access_token: string;

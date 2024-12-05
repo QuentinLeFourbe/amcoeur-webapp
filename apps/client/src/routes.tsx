@@ -1,11 +1,12 @@
 import { createRef } from "react";
+
+import AdoptionDetail from "./adoptions/pages/AdoptionDetail";
+import AdoptionsDashboard from "./adoptions/pages/AdoptionsDashboard";
+import GeneratedPage from "./generated/pages/GeneratedPage";
+import Preview from "./generated/pages/Preview";
+import PageContainer from "./global/components/templates/PageContainer/PageContainer";
 import IndexPage from "./global/pages";
 import { generatePagesRoutes } from "./global/utils/routes";
-import Preview from "./generated/pages/Preview";
-import GeneratedPage from "./generated/pages/GeneratedPage";
-import PageContainer from "./global/components/templates/PageContainer/PageContainer";
-import AdoptionsDashboard from "./adoptions/pages/AdoptionsDashboard";
-import AdoptionDetail from "./adoptions/pages/AdoptionDetail";
 
 export const pagesRoutes = [
   {

@@ -1,8 +1,9 @@
 import React, { ComponentPropsWithoutRef, forwardRef } from "react";
+
 import { css } from "../../../../../styled-system/css";
-import Label from "../../atoms/Label/Label";
-import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
 import Checkbox from "../../atoms/Checkbox/Checkbox";
+import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
+import Label from "../../atoms/Label/Label";
 
 type FormCheckboxProps = Omit<ComponentPropsWithoutRef<"input">, "type"> & {
   children: React.ReactNode;

@@ -1,8 +1,11 @@
+import { type PageDataServer } from "@amcoeur/types";
+import type { Request, Response } from "express";
+
 import Page from "../models/page.js";
+import { paginate } from "../services/dbService.js";
 import { matchComponentsWithImageUrl } from "../services/pageService.js";
 import { deleteOldImages, deletePageImages } from "../utils/files.js";
-import type { Request, Response } from "express";
-import { type PageDataServer } from "@amcoeur/types";
+import { parseSort } from "../utils/query.js";
 
 export const createPage = async (req: Request, res: Response) => {
   try {
@@ -25,8 +28,21 @@ export const createPage = async (req: Request, res: Response) => {
 
 export const getPages = async (req: Request, res: Response) => {
   try {
-    const pages = await Page.find(req.query);
-    res.status(200).json(pages);
+    const { limit, page, search, sort, route } = req.query;
+    const parsedLimit = parseInt(limit as string);
+    const pageLimit = !parsedLimit || parsedLimit < 1 ? 20 : parsedLimit;
+    const parsedPage = parseInt(page as string);
+    const pageNumber = !parsedPage || parsedPage < 1 ? 1 : parsedPage;
+    const parsedSort = parseSort(sort as string);
+
+    const results = await paginate(Page, {
+      filter: { name: { $regex: search || "", $options: "i" }, route: route },
+      page: pageNumber,
+      sort: parsedSort,
+      limit: pageLimit,
+    });
+
+    res.status(200).json(results);
   } catch (err) {
     res.locals.logger.error(err);
     res.status(500).json({
@@ -35,7 +51,7 @@ export const getPages = async (req: Request, res: Response) => {
   }
 };
 
-export const getPagesById = async (req: Request, res: Response) => {
+export const getPageById = async (req: Request, res: Response) => {
   try {
     const page = await Page.findById(req.params.id);
     if (!page) {

@@ -1,14 +1,15 @@
-import type { Request, Response, NextFunction } from "express";
-import { extractToken } from "../utils/login.js";
-import type { MicrosoftToken } from "../types/oauth.js";
-import { getOrCreateMsUser } from "../services/userService.js";
+import type { UserServerData } from "@amcoeur/types";
+import type { NextFunction,Request, Response } from "express";
+
+import User from "../models/user.js";
 import {
   addMsUserToRedis,
   getMsUserFromRedis,
 } from "../services/redisService.js";
-import type { UserServerData } from "@amcoeur/types";
+import { getOrCreateMsUser } from "../services/userService.js";
+import type { MicrosoftToken } from "../types/oauth.js";
+import { extractToken } from "../utils/login.js";
 import { checkUserPermissions } from "../utils/user.js";
-import User from "../models/user.js";
 
 const extractUser = async (req: Request, res: Response) => {
   const token = (await extractToken(req)) as MicrosoftToken;

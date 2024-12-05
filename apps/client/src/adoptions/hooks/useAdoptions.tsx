@@ -1,4 +1,5 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+
 import { getAdoption, getAdoptions } from "../api/adoptions";
 import { AdoptionFilter } from "../types/filter";
 
@@ -28,8 +29,8 @@ export const useInfiniteAdoptions = ({
       getAdoptions({ filter, count, page: pageParam }),
     queryKey: ["adoptions", filter, count],
     getNextPageParam: (lastPage) => {
-      const currentPage = lastPage.data.pagination.page;
-      const totalPages = lastPage.data.pagination.totalPages;
+      const currentPage = lastPage.data.page;
+      const totalPages = lastPage.data.totalPages;
       return currentPage !== totalPages ? currentPage + 1 : undefined;
     },
   });

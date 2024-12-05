@@ -1,12 +1,12 @@
-import { CSSTransition, SwitchTransition } from "react-transition-group";
-import { useLocation, useOutlet } from "react-router-dom";
 import { useEffect } from "react";
-import Header from "../../organisms/Header/Header";
-import Footer from "../../organisms/Footer/Footer";
-import { css } from "../../../../../styled-system/css";
+import { useLocation, useOutlet } from "react-router-dom";
+import { CSSTransition, SwitchTransition } from "react-transition-group";
 
-import Widget from "../../atoms/Widget/Widget";
+import { css } from "../../../../../styled-system/css";
 import { pagesRoutes } from "../../../../routes";
+import Widget from "../../atoms/Widget/Widget";
+import Footer from "../../organisms/Footer/Footer";
+import Header from "../../organisms/Header/Header";
 
 function PageContainer() {
   const { pathname } = useLocation();

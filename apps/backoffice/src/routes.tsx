@@ -1,26 +1,27 @@
 import { createBrowserRouter } from "react-router-dom";
-import PageContainer from "./global/components/template/PageContainer/PageContainer";
-import ManagePages from "./contentPages/pages/ManagePages";
-import CreatePage from "./contentPages/pages/CreatePage";
-import HomePageManagement from "./contentPages/pages/HomePageManagement";
-import ManagePage from "./contentPages/pages/ManagePage";
-import Index from "./global/pages/Index";
-import Login from "./global/pages/Login";
-import NotFound from "./global/pages/NotFound";
-import FormsDashboard from "./forms/pages/FormsDashboard";
-import FormsManagement from "./forms/pages/FormsManagement";
-import CreateForm from "./forms/pages/CreateForm";
-import UpdateForm from "./forms/pages/UpdateForm";
-import AnswersDashboard from "./answers/pages/AnswersDashboard";
-import ViewAnswer from "./answers/pages/ViewAnswer";
-import InactiveAccount from "./global/pages/InactiveAccount";
-import ManageUsers from "./users/pages/ManageUsers";
-import LoginRedirect from "./global/pages/LoginRedirect";
-import StaticPageContainer from "./global/components/template/StaticPageContainer/StaticPageContainer";
+
+import AdoptionDetails from "./adoptions/pages/AdoptionDetails";
 import AdoptionsDashboard from "./adoptions/pages/AdoptionsDashboard";
 import CreateAdoption from "./adoptions/pages/CreateAdoption";
 import UpdateAdoption from "./adoptions/pages/UpdateAdoption";
-import AdoptionDetails from "./adoptions/pages/AdoptionDetails";
+import AnswersDashboard from "./answers/pages/AnswersDashboard";
+import ViewAnswer from "./answers/pages/ViewAnswer";
+import CreatePage from "./contentPages/pages/CreatePage";
+import HomePageManagement from "./contentPages/pages/HomePageManagement";
+import ManagePage from "./contentPages/pages/ManagePage";
+import ManagePages from "./contentPages/pages/ManagePages";
+import CreateForm from "./forms/pages/CreateForm";
+import FormsDashboard from "./forms/pages/FormsDashboard";
+import FormsManagement from "./forms/pages/FormsManagement";
+import UpdateForm from "./forms/pages/UpdateForm";
+import PageContainer from "./global/components/template/PageContainer/PageContainer";
+import StaticPageContainer from "./global/components/template/StaticPageContainer/StaticPageContainer";
+import InactiveAccount from "./global/pages/InactiveAccount";
+import Index from "./global/pages/Index";
+import Login from "./global/pages/Login";
+import LoginRedirect from "./global/pages/LoginRedirect";
+import NotFound from "./global/pages/NotFound";
+import ManageUsers from "./users/pages/ManageUsers";
 
 const commonRoutes = [
   {

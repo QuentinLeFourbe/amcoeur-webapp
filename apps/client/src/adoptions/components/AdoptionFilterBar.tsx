@@ -1,20 +1,21 @@
 import {
   AdoptionGender,
   AdoptionSpecies,
-  AdoptionsListCount,
+  CountResult,
 } from "@amcoeur/types";
 import { ComponentProps } from "react";
+
 import { css, cx } from "../../../styled-system/css";
-import FormCheckbox from "../../global/components/molecules/Form/FormCheckbox";
-import Magnify from "../../global/assets/icons/magnify.svg?react";
 import Cross from "../../global/assets/icons/cross.svg?react";
+import Magnify from "../../global/assets/icons/magnify.svg?react";
+import FormCheckbox from "../../global/components/molecules/Form/FormCheckbox";
 import { AdoptionFilter } from "../types/filter";
 import { getAttributeCount } from "../utils/adoption";
 
 type AdoptionFilterBarProps = Omit<ComponentProps<"div">, "children"> & {
   filter: AdoptionFilter | null;
   setFilter?: (filter: AdoptionFilter | null) => void;
-  adoptionsCount: AdoptionsListCount;
+  adoptionsCount: CountResult;
 };
 
 function AdoptionFilterBar({

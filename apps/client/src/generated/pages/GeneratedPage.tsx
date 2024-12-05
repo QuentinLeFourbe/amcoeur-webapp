@@ -1,9 +1,10 @@
 import { useLocation } from "react-router-dom";
-import { useGetPageByRoute } from "../hooks/useGetPage";
+
+import { css } from "../../../styled-system/css";
+import Loader from "../../global/components/atoms/Loader/Loader";
 import PageNotFound from "../../global/components/organisms/PageNotFound/PageNotFound";
 import PageComponentsRenderer from "../components/PageComponentsRenderer/PageComponentsRenderer";
-import Loader from "../../global/components/atoms/Loader/Loader";
-import { css } from "../../../styled-system/css";
+import { useGetPageByRoute } from "../hooks/useGetPage";
 
 function GeneratedPage() {
   const { pathname } = useLocation();

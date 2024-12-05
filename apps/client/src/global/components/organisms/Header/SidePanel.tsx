@@ -4,17 +4,17 @@ import Link from "../../atoms/Link/Link";
 type SidePanelProps = {
   backgroundSrc: string;
   links:
-    | {
-        name: string;
-        href: string;
-      }[]
-    | undefined;
+  | {
+    name: string;
+    href: string;
+  }[]
+  | undefined;
   onClose?: () => void;
 };
 
 function SidePanel({ links, backgroundSrc, onClose }: SidePanelProps) {
   const closeMenu = () => {
-    onClose && onClose();
+    if (onClose) onClose();
   };
 
   return (

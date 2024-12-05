@@ -1,6 +1,7 @@
 import React from "react";
-import TextContainer from "../../atoms/TextContainer/TextContainer";
+
 import { css } from "../../../../../styled-system/css";
+import TextContainer from "../../atoms/TextContainer/TextContainer";
 
 type TextPanelProps = {
   children: React.ReactNode;

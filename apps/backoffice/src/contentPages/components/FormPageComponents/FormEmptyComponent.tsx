@@ -1,6 +1,7 @@
 import { PageComponentType } from "@amcoeur/types";
-import Select from "../../../global/components/atoms/Select/Select";
+
 import { css } from "../../../../styled-system/css";
+import Select from "../../../global/components/atoms/Select/Select";
 
 type FormEmptyComponentProps = {
   onChange: (type: PageComponentType) => void;

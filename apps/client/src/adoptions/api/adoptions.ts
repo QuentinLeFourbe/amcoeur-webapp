@@ -1,8 +1,6 @@
+import { AdoptionClientPublicData, PaginatedResult } from "@amcoeur/types";
 import axios from "axios";
-import {
-  AdoptionClientPublicData,
-  AdoptionsListClientPublicData,
-} from "@amcoeur/types";
+
 import { AdoptionFilter } from "../types/filter";
 
 export const getAdoptions = ({
@@ -14,12 +12,13 @@ export const getAdoptions = ({
   count?: boolean;
   page?: number;
 }) => {
-  let queryParams = "";
+  const params: { [key: string]: string } = {};
+
   if (filter.gender) {
-    queryParams = `${queryParams}&gender=${filter.gender}`;
+    params.gender = filter.gender;
   }
   if (filter.name) {
-    queryParams = `${queryParams}&name=${filter.name}`;
+    params.name = filter.name;
   }
 
   if (filter.species) {
@@ -29,26 +28,20 @@ export const getAdoptions = ({
       }
       return `${queryAcc},${species}`;
     }, "");
-    queryParams = `${queryParams}&species=${speciesToQueryArray}`;
+    params.species = speciesToQueryArray;
   }
 
   if (count) {
-    queryParams = `${queryParams}&count=true`;
+    params.count = "true";
   }
 
   if (page > 0) {
-    queryParams = `${queryParams}&page=${page}`;
+    params.page = page.toString();
   }
 
-  if (queryParams.startsWith("&")) {
-    queryParams = queryParams.slice(1);
-  }
-  if (queryParams) {
-    queryParams = `?${queryParams}`;
-  }
-
-  return axios.get<AdoptionsListClientPublicData>(
-    `/api/adoptions/public${queryParams}`,
+  return axios.get<PaginatedResult<AdoptionClientPublicData>>(
+    `/api/adoptions/public`,
+    { params },
   );
 };
 

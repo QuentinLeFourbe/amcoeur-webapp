@@ -1,7 +1,9 @@
-import { FormClientData, FormSummary } from "@amcoeur/types";
+import { FormClientData, FormSummary, PaginatedResult } from "@amcoeur/types";
 import axios from "axios";
 
-export const getForms = () => axios.get<FormSummary[]>("/api/forms");
+export const getForms = (params: { page?: number; limit?: number } = {}) => {
+  return axios.get<PaginatedResult<FormSummary>>(`/api/forms`, { params });
+};
 
 export const getForm = (id: string) =>
   axios.get<FormClientData>(`/api/forms/${id}`);

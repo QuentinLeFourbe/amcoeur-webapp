@@ -1,8 +1,9 @@
 import React, { ComponentProps } from "react";
-import Label from "../../atoms/Label/Label";
-import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
-import MultipleSelect from "../MultipleSelect/MultipleSelect";
+
 import { css } from "../../../../../styled-system/css";
+import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
+import Label from "../../atoms/Label/Label";
+import MultipleSelect from "../MultipleSelect/MultipleSelect";
 
 type FormMultipleSelectProps = ComponentProps<typeof MultipleSelect> & {
   children: React.ReactNode;

@@ -1,17 +1,18 @@
 import { AdoptionContact, adoptionContactSchema } from "@amcoeur/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import Form from "../../global/components/atoms/Form/Form";
-import FormInput from "../../global/components/molecules/Form/FormInput";
-import FormRow from "../../global/components/atoms/Form/FormRow";
-import Captcha from "../../global/components/atoms/Captcha/Captcha";
-import { sendAdoptionEmail } from "../api/emails";
-import Button from "../../global/components/atoms/Button/Button";
-import FormTextArea from "../../global/components/molecules/Form/FormTextArea";
+
 import { css } from "../../../styled-system/css";
+import Button from "../../global/components/atoms/Button/Button";
+import Captcha from "../../global/components/atoms/Captcha/Captcha";
+import Form from "../../global/components/atoms/Form/Form";
+import FormRow from "../../global/components/atoms/Form/FormRow";
+import FormInput from "../../global/components/molecules/Form/FormInput";
+import FormTextArea from "../../global/components/molecules/Form/FormTextArea";
+import { sendAdoptionEmail } from "../api/emails";
 
 type AdoptionFormProps = {
   adoptionId: string;

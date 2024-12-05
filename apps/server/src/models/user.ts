@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
 import type { User as UserType } from "@amcoeur/types";
+import mongoose from "mongoose";
 
 type UserModel = mongoose.Model<UserType, NonNullable<unknown>>;
 

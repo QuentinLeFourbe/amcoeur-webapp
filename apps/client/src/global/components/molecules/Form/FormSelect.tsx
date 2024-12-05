@@ -1,9 +1,9 @@
 import React, { ComponentProps, forwardRef } from "react";
 
-import Select from "../../atoms/Select/Select";
-import Label from "../../atoms/Label/Label";
 import { css } from "../../../../../styled-system/css";
 import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
+import Label from "../../atoms/Label/Label";
+import Select from "../../atoms/Select/Select";
 
 type FormSelectProps = ComponentProps<typeof Select> & {
   children: React.ReactNode;

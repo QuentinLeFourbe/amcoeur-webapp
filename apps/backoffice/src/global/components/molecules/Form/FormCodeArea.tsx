@@ -1,9 +1,10 @@
 import React from "react";
-import Label from "../../atoms/Label/Label";
-import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
-import CodeArea from "../../atoms/CodeArea/CodeArea";
-import MarkdownHelp from "../../atoms/MarkdownHelp/MarkdownHelp";
+
 import { css, cx } from "../../../../../styled-system/css";
+import CodeArea from "../../atoms/CodeArea/CodeArea";
+import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
+import Label from "../../atoms/Label/Label";
+import MarkdownHelp from "../../atoms/MarkdownHelp/MarkdownHelp";
 
 type FormCodeAreaProps = React.ComponentProps<typeof CodeArea> & {
   children: React.ReactNode;

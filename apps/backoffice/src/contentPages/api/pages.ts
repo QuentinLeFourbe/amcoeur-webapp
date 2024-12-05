@@ -1,8 +1,10 @@
+import { type PageDataClient,PaginatedResult } from "@amcoeur/types";
 import axios from "axios";
-import type { PageDataClient } from "@amcoeur/types";
 
-export const getPages = async () => {
-  return axios.get<PageDataClient[]>("/api/pages");
+export const getPages = async (
+  params: { page?: number; limit?: number } = {},
+) => {
+  return axios.get<PaginatedResult<PageDataClient>>("/api/pages", { params });
 };
 
 export const getPage = async (id: string | number) => {
@@ -18,15 +20,11 @@ export const createPage = async (page: PageDataClient) => {
 };
 
 export const updatePage = async (page: PageDataClient) => {
-  return axios.put<PageDataClient>(
-    `/api/pages/${page._id}`,
-    page,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+  return axios.put<PageDataClient>(`/api/pages/${page._id}`, page, {
+    headers: {
+      "Content-Type": "multipart/form-data",
     },
-  );
+  });
 };
 
 export const deletePage = async (id: string) => {

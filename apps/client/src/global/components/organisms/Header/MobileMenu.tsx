@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+
 import { css, cx } from "../../../../../styled-system/css";
+import { Link as HeaderLink, LinkGroup } from "../../../types/link";
 import Accordion from "../../atoms/Accordion/Accordion";
 import Link from "../../atoms/Link/Link";
-import { Link as HeaderLink, LinkGroup } from "../../../types/link";
 
 type MobileMenuProps = {
   links: HeaderLink[];
@@ -32,7 +33,7 @@ function MobileMenu({ isOpen, links, groupLinks, onClose }: MobileMenuProps) {
   }, [isOpen, hasBeenOpened]);
 
   const closeMenu = () => {
-    onClose && onClose();
+    if (onClose) onClose();
   };
 
   let hideOpenClassName = "";

@@ -1,8 +1,9 @@
 import React from "react";
+
 import { css, cx } from "../../../../../styled-system/css";
-import TextContainer from "../../atoms/TextContainer/TextContainer";
-import ImageContainer from "../../atoms/ImageContainer/ImageContainer";
 import Button from "../../atoms/Button/Button";
+import ImageContainer from "../../atoms/ImageContainer/ImageContainer";
+import TextContainer from "../../atoms/TextContainer/TextContainer";
 
 type ContentPanelProps = {
   imageUrl?: string;

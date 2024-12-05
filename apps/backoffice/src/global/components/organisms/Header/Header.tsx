@@ -1,4 +1,5 @@
 import { ComponentProps } from "react";
+
 import { css, cx } from "../../../../../styled-system/css";
 import AmcoeurLogo from "../../../assets/icons/amcoeur_logo_light.webp";
 import Link from "../../atoms/Link/Link";

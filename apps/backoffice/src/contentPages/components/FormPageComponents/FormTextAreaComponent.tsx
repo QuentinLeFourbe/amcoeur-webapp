@@ -1,4 +1,5 @@
 import { TextAreaComponent } from "@amcoeur/types";
+
 import FormCodeArea from "../../../global/components/molecules/Form/FormCodeArea";
 
 type FormTextAreaComponentProps = {

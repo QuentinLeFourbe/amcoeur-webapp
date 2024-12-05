@@ -1,6 +1,7 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FormClientData } from "@amcoeur/types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
+
 import {
   createForm,
   deleteForm,
@@ -10,8 +11,11 @@ import {
   updateForm,
 } from "../api/forms";
 
-export const useGetForms = () => {
-  const query = useQuery({ queryFn: getForms, queryKey: ["forms"] });
+export const useGetForms = (params: { page?: number; limit?: number } = {}) => {
+  const query = useQuery({
+    queryFn: () => getForms(params),
+    queryKey: ["forms", params],
+  });
   return query;
 };
 

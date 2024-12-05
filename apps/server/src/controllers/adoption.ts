@@ -1,17 +1,18 @@
-import type { Request, Response } from "express";
-import Adoption from "../models/adoption.js";
-import {
-  getAdoptionFilter,
-  convertAdoptionToPublicData,
-} from "../utils/adoptions.js";
-import { addPagination } from "../utils/db.js";
-import { parseBoolean, queryToArray } from "../utils/query.js";
-import type { AdoptionFilter } from "../types/adoptions.js";
 import type {
   AdoptionContact,
   AdoptionServerData,
-  AdoptionsListData,
+  PaginatedResult,
 } from "@amcoeur/types";
+import type { Request, Response } from "express";
+
+import Adoption from "../models/adoption.js";
+import { paginate } from "../services/dbService.js";
+import type { AdoptionFilter } from "../types/adoptions.js";
+import {
+  convertAdoptionToPublicData,
+  getAdoptionFilter,
+} from "../utils/adoptions.js";
+import { parseBoolean, parseQueryArray } from "../utils/query.js";
 
 export const createAdoption = async (req: Request, res: Response) => {
   try {
@@ -111,89 +112,37 @@ export const getAdoption = async (req: Request, res: Response) => {
 export const getAdoptions = async (req: Request, res: Response) => {
   try {
     const { count, limit, page, gender, species, name } = req.query;
-
     const parsedLimit = parseInt(limit as string);
     const pageLimit = !parsedLimit || parsedLimit < 1 ? 20 : parsedLimit;
     const parsedPage = parseInt(page as string);
     const pageNumber = !parsedPage || parsedPage < 1 ? 1 : parsedPage;
     const isCounting = parseBoolean(count as string);
 
-    const speciesFilterValue = queryToArray(species as string);
+    const speciesFilterValue = parseQueryArray(species as string);
     const filter = getAdoptionFilter({
       gender,
       species: speciesFilterValue,
       name,
     } as AdoptionFilter);
 
-    const countRequest = isCounting
-      ? {
-          speciesCount: [
-            {
-              $group: {
-                _id: "$species", // Grouper par la species
-                count: { $sum: 1 }, // Compter le nombre pour chaque species
-              },
-            },
-          ],
-
-          genderCount: [
-            {
-              $group: {
-                _id: "$gender", // Grouper par sexe
-                count: { $sum: 1 }, // Compter le nombre pour chaque sexe
-              },
-            },
-          ],
-        }
-      : {};
-
-    const results = await Adoption.aggregate([
-      {
-        $match: filter,
-      },
-      {
-        $facet: {
-          paginatedAdoptions: addPagination(pageNumber, pageLimit),
-          totalAdoptions: [{ $count: "total" }], // Compte le nombre total d'adoptions
-          ...countRequest,
-        },
-      },
-    ]);
-    const totalAdoptions = results[0]?.totalAdoptions[0]?.total || 0;
-    const totalPages = Math.ceil(totalAdoptions / pageLimit);
-    const currentPage = pageNumber > totalPages ? totalPages : pageNumber;
-    const response = {
-      pagination: {
-        page: currentPage,
-        totalPages,
-        perPage: pageLimit,
-        totalItems: totalAdoptions,
-      },
-    } as Omit<AdoptionsListData, "data">;
-
-    if (isCounting) {
-      const count = {
-        species: results[0].speciesCount,
-        gender: results[0].genderCount,
-      };
-      response.count = count;
-    }
+    const results = (await paginate(Adoption, {
+      page: pageNumber,
+      limit: pageLimit,
+      filter,
+      count: isCounting ? ["species", "gender"] : undefined,
+    })) as PaginatedResult<AdoptionServerData>;
 
     if (res.locals.user) {
-      const responseWithData = {
-        ...response,
-        data: results[0].paginatedAdoptions,
-      } as AdoptionsListData;
-      return res.status(200).json(responseWithData);
+      return res.status(200).json(results);
     } else {
-      const publicData = (results[0].paginatedAdoptions as []).map((adoption) =>
+      const publicData = results.data.map((adoption) =>
         convertAdoptionToPublicData(adoption as AdoptionServerData),
       );
-      const responseWithData = {
-        ...response,
+      const resultsWithPublicData = {
+        ...results,
         data: publicData,
       };
-      return res.status(200).json(responseWithData);
+      return res.status(200).json(resultsWithPublicData);
     }
   } catch (error) {
     res.locals.logger.error(error);
@@ -225,7 +174,8 @@ export const registerAdoptionAnswer = async (req: Request, res: Response) => {
   } catch (e) {
     return res.status(500).json({
       message:
-        "Une erreur s'est produite lors de l'enregistrement de la réponse",
+        "Une erreur s'est produite lors de l'enregistrement de la réponse: ",
+      e,
     });
   }
 };

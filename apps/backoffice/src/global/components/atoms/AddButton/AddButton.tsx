@@ -14,7 +14,7 @@ export const AddButton = ({ onClick }: { onClick: () => void }) => {
       <Button
         type="button"
         onClick={onClick}
-        borderRadius="circle"
+        variants={{ borderRadius: "circle" }}
         className={css({
           alignSelf: "center",
           width: "100px",

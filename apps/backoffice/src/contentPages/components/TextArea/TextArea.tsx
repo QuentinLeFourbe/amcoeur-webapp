@@ -1,7 +1,8 @@
 import { TextAreaComponent } from "@amcoeur/types";
+
 import { css } from "../../../../styled-system/css";
-import Label from "../../../global/components/atoms/Label/Label";
 import CodeArea from "../../../global/components/atoms/CodeArea/CodeArea";
+import Label from "../../../global/components/atoms/Label/Label";
 
 type TextAreaProps = {
   component: TextAreaComponent;
