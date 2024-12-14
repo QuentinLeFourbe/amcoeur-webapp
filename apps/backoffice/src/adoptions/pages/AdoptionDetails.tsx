@@ -74,5 +74,6 @@ const editContainer = css({
   gap: "2rem",
   margin: "0 15vw 100px 15vw",
 });
+// quentin est un gros noob
 
 export default AdoptionDetails;
