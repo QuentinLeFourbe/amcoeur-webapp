@@ -26,6 +26,10 @@ function AdoptionsDashboard() {
     useState<AdoptionClientData | null>(null);
 
   console.log("data", adoptionsData);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = adoptionsData?.totalPages || 1;
+
   return (
     <div className={container}>
       <Button to="/adoptions/creer">Crée une adoption</Button>
@@ -70,6 +74,11 @@ function AdoptionsDashboard() {
           </tbody>
         </Table>
       )}
+      <Pagination
+        setPage={setCurrentPage}
+        currentPage={currentPage}
+        totalPages={totalPages}
+      />
       <Overlay
         isVisible={!!adoptionToDelete}
         onClose={() => setAdoptionToDelete(null)}
