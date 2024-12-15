@@ -10,10 +10,12 @@ import {
 import { AxiosResponse } from "axios";
 import { AdoptionClientData } from "@amcoeur/types";
 
-export const useGetAdoptions = () => {
+export const useGetAdoptions = (
+  params: { page?: number; limit?: number } = {},
+) => {
   const query = useQuery({
-    queryKey: ["adoptions"],
-    queryFn: getAdoptions,
+    queryKey: ["adoptions", params],
+    queryFn: () => getAdoptions(params),
   });
   return query;
 };
