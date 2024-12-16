@@ -9,6 +9,7 @@ import Overlay from "../../global/components/atoms/Overlay/Overlay";
 import Pagination from "../../global/components/molecules/Pagination/Pagination";
 
 function AdoptionsDashboard() {
+  const [currentPage, setCurrentPage] = useState(1);
   const {
     data: { data: adoptionsData } = {},
     isSuccess,
@@ -20,14 +21,12 @@ function AdoptionsDashboard() {
     mutate: deleteAdoption,
     isError: isDeleteError,
     isSuccess: isDeleteSuccess,
-  } = useDeleteAdoption();
+  } = useDeleteAdoption({});
 
   const [adoptionToDelete, setAdoptionToDelete] =
     useState<AdoptionClientData | null>(null);
 
   console.log("data", adoptionsData);
-
-  const [currentPage, setCurrentPage] = useState(1);
   const totalPages = adoptionsData?.totalPages || 1;
 
   return (
