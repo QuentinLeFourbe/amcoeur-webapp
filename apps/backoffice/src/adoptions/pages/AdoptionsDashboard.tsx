@@ -15,7 +15,7 @@ function AdoptionsDashboard() {
     isSuccess,
     isLoading,
     isError,
-  } = useGetAdoptions();
+  } = useGetAdoptions({ page: currentPage, limit: 10 });
 
   const {
     mutate: deleteAdoption,
@@ -27,6 +27,7 @@ function AdoptionsDashboard() {
     useState<AdoptionClientData | null>(null);
 
   console.log("data", adoptionsData);
+
   const totalPages = adoptionsData?.totalPages || 1;
 
   return (
