@@ -1,8 +1,8 @@
 import { AdoptionClientData, PaginatedResult } from "@amcoeur/types";
 import axios from "axios";
 
-export const getAdoptions = () =>
-  axios.get<PaginatedResult<AdoptionClientData>>("/api/adoptions");
+export const getAdoptions = (params: { page?: number; limit?: number } = {}) =>
+  axios.get<PaginatedResult<AdoptionClientData>>("/api/adoptions", { params });
 
 export const getAdoption = (id: string) =>
   axios.get<AdoptionClientData>(`/api/adoptions/${id}`);

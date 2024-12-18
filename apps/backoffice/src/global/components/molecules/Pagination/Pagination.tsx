@@ -37,7 +37,7 @@ function Pagination({ currentPage, totalPages, setPage }: PaginationProps) {
       {currentPage !== 1 && <Button icon="arrow-left" onClick={previousPage} />}
       {pages.map((page) => (
         <Button
-          borderRadius="circle"
+          variants={{ borderRadius: "circle" }}
           active={page === currentPage}
           key={page}
           onClick={() => setPage(page)}
