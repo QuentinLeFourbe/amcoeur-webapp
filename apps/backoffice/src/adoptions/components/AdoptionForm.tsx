@@ -23,7 +23,7 @@ export default function AdoptionForm({
     resolver: zodResolver(adoptionClientDataSchema),
     defaultValues: initialData || {
       name: "",
-      species: "CAT", // valeur par défaut pour species
+      species: "CAT",
       gender: "MALE", // valeur par défaut pour gender
       visible: true,
       archived: false,

@@ -17,16 +17,10 @@ function AdoptionsDashboard() {
     isError,
   } = useGetAdoptions({ page: currentPage, limit: 10 });
 
-  const {
-    mutate: deleteAdoption,
-    isError: isDeleteError,
-    isSuccess: isDeleteSuccess,
-  } = useDeleteAdoption({});
+  const { mutate: deleteAdoption } = useDeleteAdoption({});
 
   const [adoptionToDelete, setAdoptionToDelete] =
     useState<AdoptionClientData | null>(null);
-
-  console.log("data", adoptionsData);
 
   const totalPages = adoptionsData?.totalPages || 1;
 
