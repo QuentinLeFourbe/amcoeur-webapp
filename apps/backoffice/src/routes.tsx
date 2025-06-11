@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { RouteObject, createBrowserRouter } from "react-router-dom";
 import PageContainer from "./global/components/template/PageContainer/PageContainer";
 import ManagePages from "./contentPages/pages/ManagePages";
 import CreatePage from "./contentPages/pages/CreatePage";
@@ -17,15 +17,23 @@ import InactiveAccount from "./global/pages/InactiveAccount";
 import ManageUsers from "./users/pages/ManageUsers";
 import LoginRedirect from "./global/pages/LoginRedirect";
 import StaticPageContainer from "./global/components/template/StaticPageContainer/StaticPageContainer";
+import { userAuthedLoader, userNotAuthedLoader } from "./global/utils/auth";
+
+const authRoutes: RouteObject[] = [
+  {
+    path: "login",
+    element: <Login />,
+  },
+  {
+    path: "login/redirect",
+    element: <LoginRedirect />,
+  },
+];
 
 const commonRoutes = [
   {
     path: "",
     element: <Index />,
-  },
-  {
-    path: "login",
-    element: <Login />,
   },
   { path: "inactive", element: <InactiveAccount /> },
   {
@@ -75,18 +83,15 @@ const usersRoutes = {
   element: <ManageUsers />,
 };
 
-const appRoutes = [
+const appRoutes: RouteObject[] = [
   {
     element: <StaticPageContainer />,
-    children: [
-      {
-        path: "login/redirect",
-        element: <LoginRedirect />,
-      },
-    ],
+    loader: userAuthedLoader,
+    children: authRoutes,
   },
   {
     element: <PageContainer />,
+    loader: userNotAuthedLoader,
     children: [pagesRoutes, formsRoutes, usersRoutes, ...commonRoutes],
   },
 ];

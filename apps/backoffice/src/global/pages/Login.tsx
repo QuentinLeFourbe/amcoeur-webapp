@@ -3,35 +3,16 @@ import { css } from "../../../styled-system/css";
 import Button from "../components/atoms/Button/Button";
 import { useCurrentUser } from "../hooks/useUser";
 import { checkUserPermissions } from "../utils/user";
-import { storeCodeVerifier } from "../utils/auth";
-import { generateCodeChallenge } from "../utils/crypto";
+import { getMicrosoftLoginUrl } from "../utils/auth";
 
 function Login() {
-  const { currentUser, isSuccess } = useCurrentUser();
-  const navigate = useNavigate();
-
-  if (currentUser && isSuccess) {
-    navigate(
-      checkUserPermissions(currentUser, ["inactive"]) ? "/inactive" : "/",
-      { replace: true },
-    );
-  }
-
   const microsoftLogin = async () => {
     try {
-      const codeVerifier = storeCodeVerifier();
-      const codeChallenge = await generateCodeChallenge(codeVerifier);
-
-      const loginUrl =
-        "//login.microsoftonline.com/consumers/oauth2/v2.0/authorize?" +
-        `client_id=${import.meta.env.VITE_MS_CLIENT_ID}` +
-        "&scope=openid" +
-        "&response_type=code" +
-        `&redirect_uri=${window.location.origin}/login/redirect
-` +
-        `&code_challenge=${codeChallenge}` +
-        "&code_challenge_method=S256";
-      window.location.href = loginUrl;
+      const loginUrl = await getMicrosoftLoginUrl({
+        clientId: import.meta.env.VITE_MS_CLIENT_ID,
+        redirectUri: `${window.location.origin}/login/redirect`,
+      });
+      window.location.href = loginUrl.toString();
     } catch (e) {
       console.error(e);
     }

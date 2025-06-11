@@ -2,13 +2,14 @@ import { useOutlet } from "react-router-dom";
 import Header from "../../organisms/Header/Header";
 import Footer from "../../organisms/Footer/Footer";
 import { css } from "../../../../../styled-system/css";
-import { useCurrentUser, useUserContext } from "../../../hooks/useUser";
+import { useCurrentUser } from "../../../hooks/useUser";
 import { checkUserPermissions } from "../../../utils/user";
+import { logout } from "../../../api/axios";
 
 function PageContainer() {
   const outlet = useOutlet();
-  const { logout } = useUserContext() || {};
   const { data: { data: currentUser } = {} } = useCurrentUser();
+  console.log({ currentUser });
 
   return (
     <div className={container}>
@@ -18,7 +19,7 @@ function PageContainer() {
           !currentUser || checkUserPermissions(currentUser, ["inactive"])
         }
         isUserAdmin={checkUserPermissions(currentUser, ["admin"]) || false}
-        logout={() => logout?.()}
+        logout={() => logout()}
       />
       {outlet}
       <Footer />
