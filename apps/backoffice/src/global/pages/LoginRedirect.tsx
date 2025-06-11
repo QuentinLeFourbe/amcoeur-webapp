@@ -1,46 +1,33 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { getCodeVerifier } from "../utils/auth";
-import { getAccessToken } from "../api/users";
-import { useUserContext } from "../hooks/useUser";
+import { useNavigate } from "react-router-dom";
+import { getAndStoreMicrosoftToken } from "../utils/auth";
 import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
 import { css } from "../../../styled-system/css";
-
-type TokenResponse = {
-  access_token: string;
-  refresh_token: string;
-  id_token: string;
-};
+import useCurrentUrl from "../hooks/useCurrentUrl";
+import { applyAuthToken } from "../api/axios";
 
 function LoginRedirect() {
-  const [searchParams] = useSearchParams();
   const [error, setError] = useState("");
-  const { setAccessToken } = useUserContext() || {};
-  const code = searchParams.get("code");
   const navigate = useNavigate();
-
-  if (!setAccessToken) {
-    throw Error("No user context available");
-  }
+  const currentUrl = useCurrentUrl();
 
   useEffect(() => {
-    const getAuthToken = async () => {
+    const getToken = async () => {
       try {
-        const codeVerifier = getCodeVerifier();
-        const { data } = await getAccessToken(code || "", codeVerifier || "");
-        const tokenResponse = data as TokenResponse;
-        if (tokenResponse) {
-          setAccessToken(tokenResponse.id_token);
+        const token = await getAndStoreMicrosoftToken({
+          clientId: import.meta.env.VITE_MS_CLIENT_ID,
+          currentUrl,
+        });
+        applyAuthToken();
+        if (token) {
           navigate("/", { replace: true });
-        } else {
-          throw Error("No access token from token request");
         }
       } catch (err) {
         setError("Erreur lors de la récupation du jeton.");
         console.error(err);
       }
     };
-    getAuthToken();
+    getToken();
   }, []);
 
   return (
