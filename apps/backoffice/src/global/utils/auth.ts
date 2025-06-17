@@ -2,6 +2,7 @@ import * as client from "openid-client";
 import { redirect } from "react-router-dom";
 
 const microsoftEndpoint = "https://login.microsoftonline.com/common/v2.0";
+const googleEndpoint = "https://accounts.google.com";
 
 /**
  * Récupère la configuration OpenID Connect pour une URL de service et un client ID donnés.
@@ -35,6 +36,12 @@ const getCodeVerifier = () => {
   return codeVerifier;
 };
 
+const getProvider = () => {
+  const provider = sessionStorage.getItem("provider");
+  sessionStorage.removeItem("provider");
+  return provider as "google" | "microsoft" | null;
+};
+
 /**
  * Génère les paramètres PKCE, y compris un code vérificateur et un code challenge.
  * Stocke le code vérificateur dans le stockage de session pour une utilisation ultérieure.
@@ -42,8 +49,12 @@ const getCodeVerifier = () => {
  * @param redirectUri - L'URI de redirection de l'application.
  * @returns Une promesse qui résout un objet contenant les paramètres PKCE nécessaires.
  */
-const generateParameters = async (redirectUri: string) => {
+const generateParameters = async (
+  redirectUri: string,
+  provider: "google" | "microsoft",
+) => {
   const codeVerifier = client.randomPKCECodeVerifier();
+  sessionStorage.setItem("provider", provider);
   sessionStorage.setItem("pkce_code_verifier", codeVerifier);
   const codeChallenge = await client.calculatePKCECodeChallenge(codeVerifier);
   return {
@@ -55,7 +66,33 @@ const generateParameters = async (redirectUri: string) => {
 };
 
 /**
- * Construit l'URL de connexion Google avec les paramètres OpenID Connect et PKCE nécessaires.
+
+ * Construit l'URL de connexion Google avec les param├¿tres OpenID Connect et PKCE n├⌐cessaires.
+ *
+ * @param params - Les param├¿tres de la fonction.
+ * @param params.redirectUri - L'URI de redirection de l'application.
+ * @param params.clientId - L'identifiant client de l'application.
+
+ * @returns Une promesse qui r├⌐sout l'URL de connexion Google.
+ */
+
+export const getGoogleLoginUrl = async ({
+  redirectUri,
+  clientId,
+}: {
+  redirectUri: string;
+  clientId: string;
+}) => {
+  const parameters = await generateParameters(redirectUri, "google");
+  const config = await getConfig({
+    servUrl: new URL(googleEndpoint),
+    clientId,
+  });
+  return client.buildAuthorizationUrl(config, parameters);
+};
+
+/**
+ * Construit l'URL de connexion Microsoft avec les paramètres OpenID Connect et PKCE nécessaires.
  *
  * @param params - Les paramètres de la fonction.
  * @param params.redirectUri - L'URI de redirection de l'application.
@@ -69,7 +106,7 @@ export const getMicrosoftLoginUrl = async ({
   redirectUri: string;
   clientId: string;
 }) => {
-  const parameters = await generateParameters(redirectUri);
+  const parameters = await generateParameters(redirectUri, "microsoft");
   const config = await getConfig({
     servUrl: new URL(microsoftEndpoint),
     clientId,
@@ -89,19 +126,37 @@ export const getMicrosoftLoginUrl = async ({
  * @param params.clientSecret - Le secret client associé (obligatoire pour les clients non publics).
  * @returns Une promesse résolvant le jeton d'identité (idToken).
  */
-export const getAndStoreMicrosoftToken = async ({
+export const getAndStoreToken = async ({
   currentUrl,
-  clientId,
+  microsoftClientId,
+  googleClientId,
+  googleClientSecret,
 }: {
   currentUrl: string;
-  clientId: string;
+  microsoftClientId: string;
+  googleClientId: string;
+  googleClientSecret: string;
 }) => {
   const codeVerifier = getCodeVerifier() || "";
+  const provider = getProvider();
 
-  const config = await getConfig({
-    servUrl: new URL(microsoftEndpoint),
-    clientId,
-  });
+  let config;
+  if (provider === "microsoft") {
+    config = await getConfig({
+      servUrl: new URL(microsoftEndpoint),
+      clientId: microsoftClientId,
+    });
+  } else if (provider === "google") {
+    config = await getConfig({
+      servUrl: new URL(googleEndpoint),
+      clientId: googleClientId,
+      clientSecret: googleClientSecret,
+    });
+  }
+
+  if (!config) {
+    throw new Error("No config found in session cookies");
+  }
 
   const tokenResponse = await client.authorizationCodeGrant(
     config,

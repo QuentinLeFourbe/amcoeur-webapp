@@ -1,12 +1,24 @@
 import { css } from "../../../styled-system/css";
-import Button from "../components/atoms/Button/Button";
-import { getMicrosoftLoginUrl } from "../utils/auth";
+import AuthButton from "../components/atoms/AuthButton/AuthButton";
+import { getGoogleLoginUrl, getMicrosoftLoginUrl } from "../utils/auth";
 
 function Login() {
   const microsoftLogin = async () => {
     try {
       const loginUrl = await getMicrosoftLoginUrl({
         clientId: import.meta.env.VITE_MS_CLIENT_ID,
+        redirectUri: `${window.location.origin}/login/redirect`,
+      });
+      window.location.href = loginUrl.toString();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const googleLogin = async () => {
+    try {
+      const loginUrl = await getGoogleLoginUrl({
+        clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,
         redirectUri: `${window.location.origin}/login/redirect`,
       });
       window.location.href = loginUrl.toString();
@@ -23,9 +35,16 @@ function Login() {
         responsable afin de valider votre compte. Merci de vous rapprocher de
         Roger ou de Quentin.
       </p>
-      <Button type="button" onClick={microsoftLogin}>
-        Se connecter avec Outlook
-      </Button>
+      <AuthButton
+        variants={{ provider: "microsoft" }}
+        onClick={microsoftLogin}
+        label="Se connecter avec Microsoft"
+      />
+      <AuthButton
+        variants={{ provider: "google" }}
+        onClick={googleLogin}
+        label="Se connecter avec Google"
+      ></AuthButton>
     </div>
   );
 }

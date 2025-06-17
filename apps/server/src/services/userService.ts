@@ -1,9 +1,12 @@
 import type { UserServerData, User as UserType } from "@amcoeur/types";
 import User from "../models/user.js";
 import { sendEmail } from "../services/mailService.js";
-import type { MicrosoftToken } from "../types/oauth.js";
+import type { JWTToken } from "../types/oauth.js";
 import { checkUserPermissions } from "../utils/user.js";
-import { removeMsUserFromRedis } from "./redisService.js";
+import {
+  removeGoogleUserFromRedis,
+  removeMsUserFromRedis,
+} from "./redisService.js";
 
 export const sendAccountNotificationEmail = async (
   user: Pick<UserType, "fullname" | "email">,
@@ -18,11 +21,9 @@ export const sendAccountNotificationEmail = async (
   await sendEmail(mailOptions);
 };
 
-export const getOrCreateMsUser = async (msToken: MicrosoftToken) => {
+export const getOrCreateMsUser = async (msToken: JWTToken) => {
   const { oid } = msToken;
-
   let user = await User.findOne({ microsoftId: oid });
-
   if (
     user?.microsoftId === process.env.ADMIN_MS_ID &&
     !checkUserPermissions(user as UserServerData, ["admin"])
@@ -43,7 +44,20 @@ export const getOrCreateMsUser = async (msToken: MicrosoftToken) => {
       fullname: msToken.name,
     });
   }
+  return user;
+};
 
+export const getOrCreateGoogleUser = async (token: JWTToken) => {
+  const { sub } = token;
+  let user = await User.findOne({ googleId: sub });
+
+  if (!user) {
+    user = await createUser({
+      googleId: sub,
+      email: token.email,
+      fullname: token.name,
+    });
+  }
   return user;
 };
 
@@ -54,16 +68,23 @@ export const updateDbUser = async (userId: string, user: UserServerData) => {
   if (updatedUser?.microsoftId) {
     removeMsUserFromRedis(updatedUser.microsoftId);
   }
+  if (updatedUser?.googleId) {
+    removeGoogleUserFromRedis(updatedUser.googleId);
+  }
   return updatedUser;
 };
 
 export const createUser = async (
-  user: Pick<UserType, "microsoftId" | "facebookId" | "fullname" | "email">,
+  user: Pick<
+    UserType,
+    "microsoftId" | "googleId" | "facebookId" | "fullname" | "email"
+  >,
 ) => {
   const dbUser = new User();
   dbUser.fullname = user.fullname || "";
   dbUser.facebookId = user.facebookId || "";
   dbUser.microsoftId = user.microsoftId || "";
+  dbUser.googleId = user.googleId || "";
   dbUser.email = user.email || "";
   if (user.microsoftId === process.env.ADMIN_MS_ID) {
     dbUser.permissions = ["admin"];
@@ -85,6 +106,9 @@ export const deleteDbUser = async (id: string) => {
   const deletedUser = await User.findOneAndDelete({ _id: id });
   if (deletedUser?.microsoftId) {
     removeMsUserFromRedis(deletedUser.microsoftId);
+  }
+  if (deletedUser?.googleId) {
+    removeGoogleUserFromRedis(deletedUser.googleId);
   }
   return deletedUser;
 };
