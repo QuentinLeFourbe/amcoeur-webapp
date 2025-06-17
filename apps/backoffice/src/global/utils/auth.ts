@@ -186,7 +186,7 @@ export const getTokenFromSessionStorage = () =>
 export const removeTokenFromSessionStorage = () =>
   sessionStorage.removeItem("access_token");
 
-export const userNotAuthedLoader = async () => {
+export const userMustBeAuthedLoader = async () => {
   const token = getTokenFromSessionStorage();
   if (!token) {
     return redirect("/login");
@@ -194,7 +194,7 @@ export const userNotAuthedLoader = async () => {
   return null;
 };
 
-export const userAuthedLoader = async () => {
+export const userMustNotBeAuthedLoader = async () => {
   const token = getTokenFromSessionStorage();
   if (token) {
     return redirect("/");

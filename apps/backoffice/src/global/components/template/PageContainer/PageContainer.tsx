@@ -5,11 +5,17 @@ import { css } from "../../../../../styled-system/css";
 import { useCurrentUser } from "../../../hooks/useUser";
 import { checkUserPermissions } from "../../../utils/user";
 import { logout } from "../../../api/axios";
+import Spinner from "../../atoms/Spinner/Spinner";
+import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
 
 function PageContainer() {
   const outlet = useOutlet();
-  const { data: { data: currentUser } = {} } = useCurrentUser();
-  console.log({ currentUser });
+  const {
+    data: { data: currentUser } = {},
+    isLoading,
+    isSuccess,
+    isError,
+  } = useCurrentUser();
 
   return (
     <div className={container}>
@@ -21,7 +27,19 @@ function PageContainer() {
         isUserAdmin={checkUserPermissions(currentUser, ["admin"]) || false}
         logout={() => logout()}
       />
-      {outlet}
+      {isLoading && (
+        <div className={css({ margin: "auto" })}>
+          <Spinner />
+        </div>
+      )}
+      {isError && (
+        <div className={css({ margin: "auto" })}>
+          <ErrorLabel>
+            Erreur lors de la récupération des informations utilisateurs
+          </ErrorLabel>
+        </div>
+      )}
+      {isSuccess && outlet}
       <Footer />
     </div>
   );

@@ -17,7 +17,10 @@ import InactiveAccount from "./global/pages/InactiveAccount";
 import ManageUsers from "./users/pages/ManageUsers";
 import LoginRedirect from "./global/pages/LoginRedirect";
 import StaticPageContainer from "./global/components/template/StaticPageContainer/StaticPageContainer";
-import { userAuthedLoader, userNotAuthedLoader } from "./global/utils/auth";
+import {
+  userMustNotBeAuthedLoader,
+  userMustBeAuthedLoader,
+} from "./global/utils/auth";
 
 const authRoutes: RouteObject[] = [
   {
@@ -86,12 +89,12 @@ const usersRoutes = {
 const appRoutes: RouteObject[] = [
   {
     element: <StaticPageContainer />,
-    loader: userAuthedLoader,
+    loader: userMustNotBeAuthedLoader,
     children: authRoutes,
   },
   {
     element: <PageContainer />,
-    loader: userNotAuthedLoader,
+    loader: userMustBeAuthedLoader,
     children: [pagesRoutes, formsRoutes, usersRoutes, ...commonRoutes],
   },
 ];
