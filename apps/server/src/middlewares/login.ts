@@ -1,22 +1,45 @@
 import type { Request, Response, NextFunction } from "express";
 import { extractToken } from "../utils/login.js";
-import type { MicrosoftToken } from "../types/oauth.js";
-import { getOrCreateMsUser } from "../services/userService.js";
+import type { JWTToken } from "../types/oauth.js";
 import {
+  getOrCreateGoogleUser,
+  getOrCreateMsUser,
+} from "../services/userService.js";
+import {
+  addGoogleUserToRedis,
   addMsUserToRedis,
+  getGoogleUserFromRedis,
   getMsUserFromRedis,
 } from "../services/redisService.js";
 import type { UserServerData } from "@amcoeur/types";
 import { checkUserPermissions } from "../utils/user.js";
 
 const extractUser = async (req: Request, res: Response) => {
-  const token = (await extractToken(req)) as MicrosoftToken;
+  const token = (await extractToken(req)) as JWTToken;
+
+  let provider: "microsoft" | "google" | undefined;
+
+  if (token.iss.includes("microsoft")) {
+    provider = "microsoft";
+  } else if (token.iss.includes("google")) {
+    provider = "google";
+  }
+
   let user;
   try {
-    user = await getMsUserFromRedis(token.oid);
+    if (provider === "microsoft") {
+      user = await getMsUserFromRedis(token.oid);
+    } else if (provider === "google") {
+      user = await getGoogleUserFromRedis(token.sub); //l'ID est le sub pour l'auth Google
+    }
   } catch {
-    user = await getOrCreateMsUser(token);
-    addMsUserToRedis(user, token.exp);
+    if (provider === "microsoft") {
+      user = await getOrCreateMsUser(token);
+      addMsUserToRedis(user, token.exp);
+    } else if (provider === "google") {
+      user = await getOrCreateGoogleUser(token);
+      addGoogleUserToRedis(user, token.exp);
+    }
   }
   res.locals.user = user;
 };

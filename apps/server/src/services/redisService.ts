@@ -32,6 +32,16 @@ export const addMsUserToRedis = async (
   });
 };
 
+export const addGoogleUserToRedis = async (
+  user: UserServerData,
+  tokenExp: number,
+) => {
+  const expiresIn = tokenExp - Math.floor(Date.now() / 1000);
+  await redisClient.set(`google_${user.googleId}`, JSON.stringify(user), {
+    EX: expiresIn,
+  });
+};
+
 export const getMsUserFromRedis = async (msObjectId: string) => {
   try {
     const stringifiedUser = await redisClient.get(`ms_${msObjectId}`);
@@ -45,8 +55,28 @@ export const getMsUserFromRedis = async (msObjectId: string) => {
   }
 };
 
+export const getGoogleUserFromRedis = async (googleObjectId: string) => {
+  try {
+    const stringifiedUser = await redisClient.get(`google_${googleObjectId}`);
+    if (!stringifiedUser) {
+      throw Error("No Google user found for googleObjectId: " + googleObjectId);
+    }
+    const parsedUser = JSON.parse(stringifiedUser);
+    return parsedUser;
+  } catch (error) {
+    throw Error(`Cannot find Google user in redis db: ${error} `);
+  }
+};
+
 export const removeMsUserFromRedis = async (msObjectId: string) => {
   const result = await redisClient.del(`ms_${msObjectId}`);
+  if (result === 0) {
+    logger.warn("Cannot delete user from Redis: user not found");
+  }
+};
+
+export const removeGoogleUserFromRedis = async (googleObjectId: string) => {
+  const result = await redisClient.del(`google_${googleObjectId}`);
   if (result === 0) {
     logger.warn("Cannot delete user from Redis: user not found");
   }

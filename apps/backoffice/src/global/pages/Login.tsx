@@ -1,12 +1,24 @@
 import { css } from "../../../styled-system/css";
 import AuthButton from "../components/atoms/AuthButton/AuthButton";
-import { getMicrosoftLoginUrl } from "../utils/auth";
+import { getGoogleLoginUrl, getMicrosoftLoginUrl } from "../utils/auth";
 
 function Login() {
   const microsoftLogin = async () => {
     try {
       const loginUrl = await getMicrosoftLoginUrl({
         clientId: import.meta.env.VITE_MS_CLIENT_ID,
+        redirectUri: `${window.location.origin}/login/redirect`,
+      });
+      window.location.href = loginUrl.toString();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const googleLogin = async () => {
+    try {
+      const loginUrl = await getGoogleLoginUrl({
+        clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,
         redirectUri: `${window.location.origin}/login/redirect`,
       });
       window.location.href = loginUrl.toString();
@@ -30,6 +42,7 @@ function Login() {
       />
       <AuthButton
         variants={{ provider: "google" }}
+        onClick={googleLogin}
         label="Se connecter avec Google"
       ></AuthButton>
     </div>
