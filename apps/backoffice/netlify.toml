@@ -14,5 +14,5 @@ publish = "apps/backoffice/dist"
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; img-src 'self' https://api.amcoeur.org; connect-src 'self' https://api.amcoeur.org https://login.microsoftonline.com https://accounts.google.com; style-src 'self' 'unsafe-inline'"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' https://api.amcoeur.org; connect-src 'self' https://api.amcoeur.org https://login.microsoftonline.com https://accounts.google.com https://oauth2.googleapis.com; style-src 'self' 'unsafe-inline'"
 
