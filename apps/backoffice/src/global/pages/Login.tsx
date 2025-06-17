@@ -1,5 +1,5 @@
 import { css } from "../../../styled-system/css";
-import Button from "../components/atoms/Button/Button";
+import AuthButton from "../components/atoms/AuthButton/AuthButton";
 import { getMicrosoftLoginUrl } from "../utils/auth";
 
 function Login() {
@@ -23,9 +23,15 @@ function Login() {
         responsable afin de valider votre compte. Merci de vous rapprocher de
         Roger ou de Quentin.
       </p>
-      <Button type="button" onClick={microsoftLogin}>
-        Se connecter avec Outlook
-      </Button>
+      <AuthButton
+        variants={{ provider: "microsoft" }}
+        onClick={microsoftLogin}
+        label="Se connecter avec Microsoft"
+      />
+      <AuthButton
+        variants={{ provider: "google" }}
+        label="Se connecter avec Google"
+      ></AuthButton>
     </div>
   );
 }
