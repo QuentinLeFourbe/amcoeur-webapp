@@ -1,4 +1,5 @@
 import type { Request } from "express";
+
 import { validateToken } from "../services/oauthService.js";
 
 const blockedUsers = new Map();

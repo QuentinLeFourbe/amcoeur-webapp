@@ -1,20 +1,32 @@
-import { useState } from "react";
 import { PageDataClient } from "@amcoeur/types";
-import { useDeletePage, useGetPages } from "../hooks/pagesQueries";
+import { useState } from "react";
+
 import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import Overlay from "../../global/components/atoms/Overlay/Overlay";
+import Table from "../../global/components/atoms/Table/Table";
+import Pagination from "../../global/components/molecules/Pagination/Pagination";
+import { useDeletePage, useGetPages } from "../hooks/pagesQueries";
 
 function ManagePages() {
-  const { data, isLoading, isError } = useGetPages();
+  const [currentPage, setCurrentPage] = useState(1);
+  const {
+    data: { data: pagesResult } = {},
+    isSuccess,
+    isLoading,
+    isError,
+  } = useGetPages({ page: currentPage, limit: 10 });
   const [pageToDelete, setPageToDelete] = useState<PageDataClient | null>(null);
+  const pagesData = pagesResult?.data;
 
   const {
     mutate: deletePage,
     isError: isDeleteError,
     isSuccess: isDeleteSuccess,
   } = useDeletePage();
+
+  const totalPages = pagesResult?.totalPages || 1;
 
   return (
     <div className={container}>
@@ -30,7 +42,7 @@ function ManagePages() {
         </ErrorLabel>
       )}
       {isDeleteSuccess && <p>La page a bien été supprimée</p>}
-      <table className={pageTable}>
+      <Table>
         <thead>
           <tr>
             <th>Titre</th>
@@ -39,33 +51,43 @@ function ManagePages() {
           </tr>
         </thead>
         <tbody>
-          {data?.data.map((page) => {
-            if (page.route === "accueil") {
-              return null;
-            }
-            return (
-              <tr key={page._id?.toString()}>
-                <td>{page.name}</td>
-                <td>/{page.route}</td>
-                <td>
-                  <Button to={`/pages/${page._id}`}>Afficher</Button>
-                </td>
-                <td>
-                  <Button onClick={() => setPageToDelete(page)} color="red">
-                    Supprimer
-                  </Button>
-                </td>
-              </tr>
-            );
-          })}
+          {isSuccess &&
+            pagesData?.map((page) => {
+              if (page.route === "accueil") {
+                return null;
+              }
+              return (
+                <tr key={page._id?.toString()}>
+                  <td>{page.name}</td>
+                  <td>/{page.route}</td>
+                  <td>
+                    <Button to={`/pages/${page._id}`}>Afficher</Button>
+                  </td>
+                  <td>
+                    <Button
+                      onClick={() => setPageToDelete(page)}
+                      variants={{ color: "danger" }}
+                    >
+                      Supprimer
+                    </Button>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
-      </table>
+      </Table>
       {isLoading && <div>Chargement en cours des données...</div>}
       {isError && (
         <ErrorLabel>
           Une erreur est survenue lors du chargement des données
         </ErrorLabel>
       )}
+      <Pagination
+        setPage={setCurrentPage}
+        currentPage={currentPage}
+        totalPages={totalPages}
+      />
+
       <Overlay isVisible={!!pageToDelete} onClose={() => setPageToDelete(null)}>
         <p>
           Vous êtes sur le point de supprimer la page {pageToDelete?.name}, êtes
@@ -73,12 +95,15 @@ function ManagePages() {
         </p>
         <div className={css({ display: "flex", gap: "1rem" })}>
           <Button
-            color="red"
+            variants={{ color: "danger" }}
             onClick={() => pageToDelete?._id && deletePage(pageToDelete._id)}
           >
             Supprimer
           </Button>
-          <Button color="secondary" onClick={() => setPageToDelete(null)}>
+          <Button
+            variants={{ color: "secondary" }}
+            onClick={() => setPageToDelete(null)}
+          >
             Annuler
           </Button>
         </div>
@@ -95,23 +120,4 @@ const container = css({
   alignItems: "center",
   justifyContent: "center",
   gap: "2rem",
-});
-
-const pageTable = css({
-  "& th": {
-    padding: "1rem",
-    textAlign: "left",
-    backgroundColor: "backgrounds.primary.intense",
-  },
-
-  "& td": {
-    padding: "1rem 1rem",
-    textAlign: "left",
-    borderBottom: "1px solid #ddd",
-  },
-
-  "& tr:hover": {
-    backgroundColor: "#444",
-  },
-  marginBottom: "2rem",
 });

@@ -1,12 +1,13 @@
 import { useOutlet } from "react-router-dom";
-import Header from "../../organisms/Header/Header";
-import Footer from "../../organisms/Footer/Footer";
+
 import { css } from "../../../../../styled-system/css";
 import { useCurrentUser } from "../../../hooks/useUser";
 import { checkUserPermissions } from "../../../utils/user";
 import { logout } from "../../../api/axios";
 import Spinner from "../../atoms/Spinner/Spinner";
 import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
+import Footer from "../../organisms/Footer/Footer";
+import Header from "../../organisms/Header/Header";
 
 function PageContainer() {
   const outlet = useOutlet();

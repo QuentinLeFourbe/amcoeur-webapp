@@ -1,15 +1,16 @@
 import { Router } from "express";
+
 import {
-  createPage,
-  getPages,
-  getPagesById,
-  updatePage,
-  deletePage,
   createHomePage,
+  createPage,
+  deletePage,
   getHomePage,
+  getPageById,
+  getPages,
+  updatePage,
 } from "../controllers/page.js";
-import { requiresActive } from "../middlewares/login.js";
 import upload from "../middlewares/files.js";
+import { requiresActive } from "../middlewares/login.js";
 
 const router = Router();
 
@@ -18,7 +19,7 @@ router.post("/homepage", requiresActive, createHomePage);
 
 router.get("/", getPages);
 router.get("/homepage", getHomePage);
-router.get("/:id", getPagesById);
+router.get("/:id", getPageById);
 
 router.put("/:id", requiresActive, upload.any(), updatePage);
 

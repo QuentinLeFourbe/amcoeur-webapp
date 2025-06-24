@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
-import { logger } from "../utils/logger.js";
 import type { MailOptions } from "nodemailer/lib/smtp-transport/index.js";
+
+import { logger } from "../utils/logger.js";
 
 const transporter = nodemailer.createTransport({
   host: "ssl0.ovh.net",

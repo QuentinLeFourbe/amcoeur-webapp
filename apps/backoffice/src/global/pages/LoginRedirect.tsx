@@ -41,7 +41,11 @@ function LoginRedirect() {
       })}
     >
       <p>Redirection en cours...</p>
-      {error && <ErrorLabel>{error}</ErrorLabel>}
+      {error && (
+        <div>
+          <ErrorLabel>{error}</ErrorLabel>
+        </div>
+      )}
     </div>
   );
 }

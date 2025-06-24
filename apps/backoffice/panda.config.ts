@@ -1,4 +1,5 @@
 import { defineConfig, defineGlobalStyles } from "@pandacss/dev";
+
 import { theme } from "./src/global/theme/theme";
 
 const globalCss = defineGlobalStyles({
@@ -24,6 +25,9 @@ export default defineConfig({
 
   // Files to exclude
   exclude: [],
+
+  //Hash the class names and css variables
+  hash: true,
 
   // Useful for theme customization
   theme,

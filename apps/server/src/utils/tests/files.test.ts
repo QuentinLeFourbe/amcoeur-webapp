@@ -1,11 +1,12 @@
-import { it, describe, expect, beforeEach, vi } from "vitest";
+import type { PageDataServer } from "@amcoeur/types";
+import fs from "fs";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+
 import {
   deleteOldImages,
   deletePageImages,
   deleteUploadedImage,
 } from "../files.js";
-import fs from "fs";
-import type { PageDataServer } from "@amcoeur/types";
 
 vi.mock("fs", async (importOriginal) => {
   const mod = await importOriginal<typeof import("fs")>();

@@ -1,8 +1,9 @@
 import { FormComponent } from "@amcoeur/types";
+
+import { css } from "../../../../styled-system/css";
 import { useGetForms } from "../../../forms/hooks/useFormsQueries";
 import ErrorLabel from "../../../global/components/atoms/ErrorLabel/ErrorLabel";
 import Select from "../../../global/components/atoms/Select/Select";
-import { css } from "../../../../styled-system/css";
 
 type DynamicFormFieldsProps = {
   component: FormComponent;
@@ -11,11 +12,13 @@ type DynamicFormFieldsProps = {
 
 function DynamicFormFields({ component, onChange }: DynamicFormFieldsProps) {
   const {
-    data: { data: formsData } = {},
+    data: { data: formsResult } = {},
     isSuccess,
     isError,
     isLoading,
-  } = useGetForms();
+  } = useGetForms({ limit: 100 });
+  const formsData = formsResult?.data;
+
   const options =
     formsData?.map((form) => ({
       label: form.name,

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { requiresActive } from "../middlewares/login.js";
+
 import {
   createAnswer,
   deleteAnswer,
@@ -8,6 +8,7 @@ import {
   updateAnswer,
 } from "../controllers/answer.js";
 import { checkRecaptcha } from "../middlewares/captcha.js";
+import { requiresActive } from "../middlewares/login.js";
 
 const router = Router();
 

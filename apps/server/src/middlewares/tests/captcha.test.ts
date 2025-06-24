@@ -1,7 +1,8 @@
-import { it, describe, expect, beforeEach, vi } from "vitest";
-import type { NextFunction, Request, Response } from "express";
-import { checkRecaptcha } from "../captcha.js";
 import axios from "axios";
+import type { NextFunction, Request, Response } from "express";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+
+import { checkRecaptcha } from "../captcha.js";
 
 vi.mock("axios");
 

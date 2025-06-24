@@ -1,25 +1,34 @@
-import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+
 import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import Label from "../../global/components/atoms/Label/Label";
 import Table from "../../global/components/atoms/Table/Table";
-import { useGetAnswers } from "../hooks/useAnswers";
 import FormCheckbox from "../../global/components/molecules/Form/FormCheckbox";
+import Pagination from "../../global/components/molecules/Pagination/Pagination";
+import { useGetAnswers } from "../hooks/useAnswers";
 
 function AnswersDashboard() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [showArchived, setShowArchived] = useState(false);
   const { formId } = useParams();
   const {
-    data: { data: answersData } = {},
+    data: { data: answersResult } = {},
     isSuccess,
     isLoading,
     isError,
-  } = useGetAnswers(formId || "");
-  const [showArchived, setShowArchived] = useState(false);
+  } = useGetAnswers(formId || "", {
+    archived: showArchived || undefined,
+    page: currentPage,
+  });
+  const answersData = answersResult?.data;
+  const totalPages = answersResult?.totalPages || 1;
   const filteredData = answersData?.filter(
     (answer) => showArchived === !!answer.archived,
   );
+
   return (
     <div
       className={css({
@@ -55,7 +64,7 @@ function AnswersDashboard() {
                 <div className={css({ display: "flex", gap: "16px" })}>
                   <Button
                     to={`/formulaires/reponses/${formId}/${answer._id}`}
-                    color="blue"
+                    variants={{ color: "info" }}
                   >
                     Détails
                   </Button>
@@ -65,6 +74,11 @@ function AnswersDashboard() {
           ))}
         </Table>
       )}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        setPage={setCurrentPage}
+      />
     </div>
   );
 }

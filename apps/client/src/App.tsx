@@ -1,6 +1,10 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./i18n";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import { appRoutes } from "./routes";
+import "./i18n";
 
 const router = createBrowserRouter(appRoutes);
 

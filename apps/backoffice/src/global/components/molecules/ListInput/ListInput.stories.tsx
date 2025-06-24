@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
-
 import { useState } from "react";
+
 import ListInput from "./ListInput";
 
 const meta: Meta<typeof ListInput> = {

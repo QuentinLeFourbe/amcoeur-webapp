@@ -1,6 +1,7 @@
-import { createClient } from "redis";
-import { logger } from "../utils/logger.js";
 import type { UserServerData } from "@amcoeur/types";
+import { createClient } from "redis";
+
+import { logger } from "../utils/logger.js";
 
 export const redisClient = createClient({ url: process.env.REDIS_URL || "" });
 

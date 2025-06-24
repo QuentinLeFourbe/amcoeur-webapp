@@ -1,9 +1,12 @@
 import { createRef } from "react";
-import IndexPage from "./pages";
-import PageContainer from "./components/templates/PageContainer/PageContainer";
-import { generatePagesRoutes } from "./utils/routes";
-import GeneratedPage from "./pages/GeneratedPage";
-import Preview from "./pages/Preview";
+
+import AdoptionDetail from "./adoptions/pages/AdoptionDetail";
+import AdoptionsDashboard from "./adoptions/pages/AdoptionsDashboard";
+import GeneratedPage from "./generated/pages/GeneratedPage";
+import Preview from "./generated/pages/Preview";
+import PageContainer from "./global/components/templates/PageContainer/PageContainer";
+import IndexPage from "./global/pages";
+import { generatePagesRoutes } from "./global/utils/routes";
 
 export const pagesRoutes = [
   {
@@ -15,6 +18,16 @@ export const pagesRoutes = [
   {
     path: "/preview/:id",
     element: <Preview />,
+    nodeRef: createRef<HTMLDivElement>(),
+  },
+  {
+    path: "/adoptions",
+    element: <AdoptionsDashboard />,
+    nodeRef: createRef<HTMLDivElement>(),
+  },
+  {
+    path: "/adoptions/:id",
+    element: <AdoptionDetail />,
     nodeRef: createRef<HTMLDivElement>(),
   },
   {

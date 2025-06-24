@@ -1,5 +1,6 @@
 import type { ContactFormData } from "@amcoeur/types";
 import type { Request, Response } from "express";
+
 import { sendEmail } from "../services/mailService.js";
 
 /**
@@ -9,15 +10,15 @@ import { sendEmail } from "../services/mailService.js";
  */
 export const sendContactEmail = async (req: Request, res: Response) => {
   try {
-    const { name, firstname, mail, phone, message } =
+    const { name, firstname, email, phone, message } =
       req.body as ContactFormData;
     const mailOptions = {
       to: process.env.CONTACT_EMAIL,
       subject: `Demande de contact: ${name} ${firstname}`,
-      text: `Nom: ${name}\nPrénom: ${firstname}\nEmail: ${mail}\nTéléphone: ${phone}\nMessage: ${message}`,
+      text: `Nom: ${name}\nPrénom: ${firstname}\nEmail: ${email}\nTéléphone: ${phone}\nMessage: ${message}`,
     };
     const mailOptionsToSender = {
-      to: mail,
+      to: email,
       subject: `Votre demande de contact a bien été prise en compte`,
       text: `Bonjour,\nVotre demande de contact a bien été prise en compte. Nous vous contacterons dans les plus bref délais.\nVotre message: ${message}`,
     };

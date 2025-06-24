@@ -1,82 +1,164 @@
 import type { ComponentProps } from "react";
-import { css, cx } from "../../../../../styled-system/css";
-import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
+
+import { cva, cx,RecipeVariantProps } from "../../../../../styled-system/css";
 import Icon, { type IconType } from "../Icon/Icon";
+import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
+
+const buttonRecipe = cva({
+  base: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "fit-content",
+    cursor: "pointer",
+    "&:active:not([data-active], [data-disabled])": {
+      opacity: "0.8",
+    },
+    transition: "background-color 0.3s ease",
+    padding: "0.5rem 1rem",
+    borderRadius: "4px",
+    "&is([data-disabled])": {
+      opacity: "0.5",
+      cursor: "auto",
+    },
+  },
+  variants: {
+    color: {
+      primary: {
+        color: "pink.50",
+        backgroundColor: "pink.500",
+        "&:hover:not([data-active],[data-disabled])": {
+          backgroundColor: "pink.100",
+          color: "pink.500",
+        },
+        _active: {
+          backgroundColor: "pink.100",
+          color: "pink.500",
+          cursor: "auto",
+        },
+        borderColor: "pink.500",
+        borderStyle: "solid",
+        borderWidth: "2px",
+      },
+      secondary: {
+        color: "pink.400",
+        backgroundColor: "pink.50",
+        "&:hover:not([data-active],[data-disabled])": {
+          backgroundColor: "pink.100",
+          color: "pink.700",
+        },
+        "&is([data-disabled],[data-active])": {
+          cursor: "auto",
+          backgroundColor: "pink.200",
+          color: "pink.800",
+        },
+        borderColor: "pink.300",
+        borderStyle: "solid",
+        borderWidth: "2px",
+      },
+      danger: {
+        color: "white",
+        backgroundColor: "red.500",
+        "&:hover:not([data-active],[data-disabled])": {
+          backgroundColor: "red.100",
+          color: "red.400",
+        },
+        borderColor: "red.500",
+        borderStyle: "solid",
+        borderWidth: "2px",
+      },
+      info: {
+        color: "blue.50",
+        backgroundColor: "blue.500",
+        "&:hover:not([data-active]):not(.[data-disabled])": {
+          backgroundColor: "blue.100",
+          color: "blue.500",
+        },
+        borderColor: "blue.500",
+        borderStyle: "solid",
+        borderWidth: "2px",
+      },
+      success: {
+        color: "white",
+        backgroundColor: "green.700",
+        "&:hover:not([data-active],[data-disabled])": {
+          backgroundColor: "green.100",
+          color: "green.700",
+        },
+        "&is([data-disabled], [data-active])": {
+          cursor: "default",
+          backgroundColor: "green.200",
+          color: "green.800",
+        },
+        borderColor: "green.700",
+        borderStyle: "solid",
+        borderWidth: "2px",
+      },
+    },
+    bold: {
+      true: {
+        fontWeight: "bold",
+      },
+    },
+    borderRadius: {
+      circle: {
+        borderRadius: "50%",
+      },
+      roundedBorders: {
+        borderRadius: "32px",
+      },
+    },
+    icon: {
+      true: {
+        padding: "8px",
+      },
+    },
+    disabledAnchor: {
+      true: {
+        pointerEvents: "none",
+      },
+    },
+  },
+  defaultVariants: {
+    color: "primary",
+  },
+});
+
+export type ButtonVariants = RecipeVariantProps<typeof buttonRecipe>;
 
 type ButtonProps = ComponentProps<typeof ClickablePrimitive> & {
-  borderRadius?: "rounded" | "square" | "circle";
-  bold?: boolean;
-  color?: "green" | "blue" | "red" | "secondary" | "lightGray";
+  variants?: ButtonVariants;
   icon?: IconType;
-  isActive?: boolean;
-  isDisabled?: boolean;
+  active?: boolean;
+  disabled?: boolean;
 };
 
 function Button({
-  borderRadius,
-  bold,
-  color,
+  variants,
   children,
   icon,
-  isActive,
-  isDisabled,
+  active,
+  disabled,
   ...props
 }: ButtonProps) {
   const isAnchor = "href" in props || "to" in props;
   const isButton = !isAnchor;
 
-  let borderRadiusStyle = "";
-  switch (borderRadius) {
-    case "rounded":
-      borderRadiusStyle = roundedBorders;
-      break;
-    case "circle":
-      borderRadiusStyle = circleBorders;
-      break;
-    case "square":
-    default:
-      borderRadiusStyle = squaredBorders;
-      break;
-  }
+  const disabledProps = isButton ? { disabled: disabled || active } : {};
 
-  let colorStyle = "";
-  switch (color) {
-    case "red":
-      colorStyle = redColors;
-      break;
-    case "blue":
-      colorStyle = blueColors;
-      break;
-    case "green":
-      colorStyle = greenColors;
-      break;
-    case "secondary":
-      colorStyle = secondaryColors;
-      break;
-    case "lightGray":
-      colorStyle = lightGray;
-      break;
-    default:
-      colorStyle = primaryColors;
-      break;
-  }
-  const disabledProps = isButton ? { disabled: isDisabled || isActive } : {};
   return (
     <ClickablePrimitive
       {...props}
       className={cx(
-        baseButton,
-        colorStyle,
-        borderRadiusStyle,
-        fitContent,
-        (isDisabled || isActive) && isAnchor && disabledAnchor,
-        !isActive && isDisabledStyle,
-        isDisabled && "button-disabled",
-        isActive && "button-active",
-        bold ? boldText : null,
-        icon ? iconPadding : basePadding,
+        buttonRecipe({
+          ...variants,
+          icon: !!icon,
+          disabledAnchor: (disabled || active) && isAnchor,
+        }),
         props.className,
       )}
+      data-active={active ? "true" : undefined}
+      data-disabled={disabled ? "true" : undefined}
       {...disabledProps}
     >
       {icon ? <Icon type={icon} /> : children}
@@ -85,139 +167,3 @@ function Button({
 }
 
 export default Button;
-
-const basePadding = css({
-  padding: "0.5rem 1rem",
-});
-const iconPadding = css({
-  padding: "8px",
-});
-
-const baseButton = css({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  cursor: "pointer",
-  "&:active:not(.button-active):not(.button-disabled)": {
-    opacity: "0.8",
-  },
-  transition: "background-color 0.3s ease",
-});
-
-const isDisabledStyle = css({
-  "&:disabled": {
-    opacity: "0.5",
-    cursor: "auto",
-  },
-});
-
-const greenColors = css({
-  color: "white",
-  backgroundColor: "green.700",
-  "&:hover:not(.button-active):not(.button-disabled)": {
-    backgroundColor: "green.100",
-    color: "green.700",
-  },
-  "&:disabled .button-active": {
-    cursor: "default",
-    backgroundColor: "green.200",
-    color: "green.800",
-  },
-  borderColor: "green.700",
-  borderStyle: "solid",
-  borderWidth: "2px",
-});
-
-const redColors = css({
-  color: "white",
-  backgroundColor: "red.400",
-  "&:hover:not(.button-active):not(.button-disabled)": {
-    backgroundColor: "red.100",
-    color: "red.400",
-  },
-  borderColor: "red.400",
-  borderStyle: "solid",
-  borderWidth: "2px",
-});
-
-const blueColors = css({
-  color: "blue.50",
-  backgroundColor: "blue.500",
-  "&:hover:not(.button-active):not(.button-disabled)": {
-    backgroundColor: "blue.100",
-    color: "blue.500",
-  },
-  borderColor: "blue.500",
-  borderStyle: "solid",
-  borderWidth: "2px",
-});
-
-const primaryColors = css({
-  color: "pink.50",
-  backgroundColor: "pink.500",
-  "&:hover:not(.button-active):not(.button-disabled)": {
-    backgroundColor: "pink.100",
-    color: "pink.500",
-  },
-  borderColor: "pink.500",
-  borderStyle: "solid",
-  borderWidth: "2px",
-});
-
-const secondaryColors = css({
-  color: "pink.400",
-  backgroundColor: "pink.50",
-  "&:hover:not(.button-active):not(.button-disabled)": {
-    backgroundColor: "pink.100",
-    color: "pink.700",
-  },
-  "&:disabled.button-active": {
-    cursor: "auto",
-    backgroundColor: "pink.200",
-    color: "pink.800",
-  },
-  borderColor: "pink.300",
-  borderStyle: "solid",
-  borderWidth: "2px",
-});
-
-const lightGray = css({
-  color: "gray.700",
-  backgroundColor: "gray.300",
-  "&:hover:not(.button-active):not(.button-disabled)": {
-    backgroundColor: "gray.400",
-    color: "gray.800",
-  },
-  "&:disabled.button-active": {
-    cursor: "default",
-    backgroundColor: "gray.500",
-    color: "gray.200",
-  },
-  borderColor: "transparent",
-  borderStyle: "solid",
-  borderWidth: "1px",
-});
-
-const boldText = css({
-  fontWeight: "bold",
-});
-
-const roundedBorders = css({
-  borderRadius: "32px",
-});
-
-const squaredBorders = css({
-  borderRadius: "4px",
-});
-
-const circleBorders = css({
-  borderRadius: "50%",
-});
-
-const fitContent = css({
-  width: "fit-content",
-});
-
-const disabledAnchor = css({
-  pointerEvents: "none",
-});

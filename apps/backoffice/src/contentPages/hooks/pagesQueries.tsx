@@ -1,6 +1,7 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { PageDataClient } from "@amcoeur/types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
+
 import {
   createHomePage,
   createPage,
@@ -12,10 +13,10 @@ import {
 } from "../api/pages";
 import { addIdToComponents } from "../utils/page";
 
-export const useGetPages = () => {
+export const useGetPages = (params: { page?: number; limit?: number } = {}) => {
   const query = useQuery({
-    queryKey: ["pages"],
-    queryFn: getPages,
+    queryKey: ["pages", params],
+    queryFn: () => getPages(params),
   });
   return query;
 };

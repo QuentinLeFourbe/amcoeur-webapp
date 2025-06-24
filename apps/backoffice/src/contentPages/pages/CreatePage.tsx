@@ -1,24 +1,20 @@
-import { PageDataClient } from "@amcoeur/types";
 import { useNavigate } from "react-router-dom";
-import { useCreatePage } from "../hooks/pagesQueries";
+
+import { css } from "../../../styled-system/css";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import PageForm from "../components/PageForm/PageForm";
-import { css } from "../../../styled-system/css";
+import { useCreatePage } from "../hooks/pagesQueries";
 
 function CreatePage() {
   const navigate = useNavigate();
-  const { mutate, isError } = useCreatePage({
+  const { mutate: createPage, isError } = useCreatePage({
     onSuccess: (data) => {
       navigate(`/pages/${data.data._id}`);
     },
   });
 
   const handleCancel = () => {
-    navigate("/pages")
-  }
-
-  const onSubmit = (data: PageDataClient) => {
-    mutate(data);
+    navigate("/pages");
   };
 
   return (
@@ -28,7 +24,7 @@ function CreatePage() {
           Une erreur est survenue lors de la création de la page
         </ErrorLabel>
       )}
-      <PageForm onSubmit={onSubmit} onCancel={handleCancel} />
+      <PageForm onSubmit={createPage} onCancel={handleCancel} />
     </div>
   );
 }
