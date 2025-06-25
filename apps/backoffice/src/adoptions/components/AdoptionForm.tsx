@@ -1,12 +1,12 @@
-import FormInput from "../../global/components/molecules/Form/FormInput";
-import FormTextArea from "../../global/components/molecules/Form/FormTextArea";
-import FormSelect from "../../global/components/molecules/Form/FormSelect";
 import { AdoptionClientData, adoptionClientDataSchema } from "@amcoeur/types";
-import { css } from "../../../styled-system/css";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
+import FormInput from "../../global/components/molecules/Form/FormInput";
+import FormSelect from "../../global/components/molecules/Form/FormSelect";
+import FormTextArea from "../../global/components/molecules/Form/FormTextArea";
 
 type AdoptionFormProps = {
   initialData?: AdoptionClientData;
@@ -87,8 +87,5 @@ export default function AdoptionForm({
         </Button>
       </div>
     </form>
-    //useForm<AdoptionClientdata> => mettre les register via react hook form en m'inspirant de form form
-    // utiliser usecreate adoption dans ma page create adoptions afin de récupéré la méthode mutate que je passerais en param de mon formulaire et cette méthode doit être récolté par les donné du formulaire dès qu'il est submit.
-    // si ça marche => ça logeras en data.data mon get.
   );
 }

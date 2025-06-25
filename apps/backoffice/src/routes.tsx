@@ -1,7 +1,4 @@
-import { RouteObject, createBrowserRouter } from "react-router-dom";
-import PageContainer from "./global/components/template/PageContainer/PageContainer";
-import ManagePages from "./contentPages/pages/ManagePages";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, RouteObject } from "react-router-dom";
 
 import AdoptionDetails from "./adoptions/pages/AdoptionDetails";
 import AdoptionsDashboard from "./adoptions/pages/AdoptionsDashboard";
@@ -19,10 +16,16 @@ import FormsManagement from "./forms/pages/FormsManagement";
 import UpdateForm from "./forms/pages/UpdateForm";
 import PageContainer from "./global/components/template/PageContainer/PageContainer";
 import StaticPageContainer from "./global/components/template/StaticPageContainer/StaticPageContainer";
+import InactiveAccount from "./global/pages/InactiveAccount";
+import Index from "./global/pages/Index";
+import Login from "./global/pages/Login";
+import LoginRedirect from "./global/pages/LoginRedirect";
+import NotFound from "./global/pages/NotFound";
 import {
-  userMustNotBeAuthedLoader,
   userMustBeAuthedLoader,
+  userMustNotBeAuthedLoader,
 } from "./global/utils/auth";
+import ManageUsers from "./users/pages/ManageUsers";
 
 const authRoutes: RouteObject[] = [
   {
@@ -110,7 +113,6 @@ const appRoutes: RouteObject[] = [
   {
     element: <PageContainer />,
     loader: userMustBeAuthedLoader,
-    children: [pagesRoutes, formsRoutes, usersRoutes, ...commonRoutes],
     children: [
       adoptionsRoutes,
       pagesRoutes,

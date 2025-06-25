@@ -1,7 +1,7 @@
 import { AdoptionGender } from "@amcoeur/types";
+import { Mars, Venus } from "lucide-react";
 
 import { css } from "../../../styled-system/css";
-import Icon from "../../global/components/atoms/Icon/Icon";
 import { ClickablePrimitive } from "../../global/components/atoms/Primitives/ClickablePrimitive";
 
 type AdoptionCardProps = {
@@ -75,10 +75,8 @@ function AdoptionCard({ imageSrc, name, gender, href }: AdoptionCardProps) {
         >
           {name}
         </p>
-        {gender === "MALE" && <Icon type={"male"} width="15px" height="15px" />}
-        {gender === "FEMALE" && (
-          <Icon type={"female"} width="15px" height="15px" />
-        )}
+        {gender === "MALE" && <Mars />}
+        {gender === "FEMALE" && <Venus />}
       </div>
     </ClickablePrimitive>
   );
