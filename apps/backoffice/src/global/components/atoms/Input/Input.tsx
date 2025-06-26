@@ -47,6 +47,18 @@ const inputStyle = css({
   backgroundColor: "backgrounds.primary.extraLight",
   borderRadius: "4px",
   padding: "1rem",
+  color: "black",
+
+  "&::file-selector-button": {
+    backgroundColor: "pink.100",
+    borderWidth: "1px",
+    borderStyle: "solide",
+    borderColor: "pink.400",
+    borderRadius: "8px",
+    padding: "4px 8px",
+    marginRight: "8px",
+    cursor: "pointer",
+  },
 });
 
 const pathInput = css({
