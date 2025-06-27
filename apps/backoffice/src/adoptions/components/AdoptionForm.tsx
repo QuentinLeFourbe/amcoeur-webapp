@@ -7,7 +7,6 @@ import Button from "../../global/components/atoms/Button/Button";
 import FormCodeArea from "../../global/components/molecules/Form/FormCodeArea";
 import FormInput from "../../global/components/molecules/Form/FormInput";
 import FormSelect from "../../global/components/molecules/Form/FormSelect";
-import FormTextArea from "../../global/components/molecules/Form/FormTextArea";
 
 type AdoptionFormProps = {
   initialData?: AdoptionClientData;
@@ -19,8 +18,12 @@ export default function AdoptionForm({
   onSubmit,
   onCancel,
 }: AdoptionFormProps) {
-  // Utilisation de useForm avec la validation par Zod
-  const { register, handleSubmit, control } = useForm<AdoptionClientData>({
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<AdoptionClientData>({
     resolver: zodResolver(adoptionClientDataSchema),
     defaultValues: initialData || {
       name: "",
@@ -34,6 +37,8 @@ export default function AdoptionForm({
   const submitData = (data: AdoptionClientData) => {
     onSubmit(data);
   };
+
+  console.log({ errors });
 
   return (
     <form
@@ -69,9 +74,22 @@ export default function AdoptionForm({
         Genre
       </FormSelect>
 
-      <FormInput {...register("imageUrl")} type="file">
-        Photo
-      </FormInput>
+      <Controller
+        name="image"
+        control={control}
+        render={({ field: { onChange, ...fields } }) => (
+          <FormInput
+            {...fields}
+            onChange={(e) => {
+              onChange(e.target.files && e.target.files[0]);
+            }}
+            type="file"
+            value={undefined}
+          >
+            Photo
+          </FormInput>
+        )}
+      />
 
       <FormInput type="checkbox" {...register("visible")}>
         Visible à l'adoption

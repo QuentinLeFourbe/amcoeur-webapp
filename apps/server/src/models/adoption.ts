@@ -23,7 +23,6 @@ const adoption = new Schema(
     commentary: { type: String, required: false },
     responsesList: [contactAnswer],
   },
-
   { timestamps: true },
 );
 
