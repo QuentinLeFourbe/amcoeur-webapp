@@ -1,3 +1,5 @@
+import { Trash } from "lucide-react";
+
 import { css } from "../../../../../styled-system/css";
 import Button from "../../atoms/Button/Button";
 import Input from "../../atoms/Input/Input";
@@ -77,11 +79,12 @@ function ListInput({
             />
             {index !== listValues.length - 1 && (
               <Button
-                variants={{ color: "danger" }}
-                icon="trash"
+                color="danger"
                 onClick={() => handleDeleteValue(index)}
                 type="button"
-              />
+              >
+                <Trash />
+              </Button>
             )}
           </div>
         ))}

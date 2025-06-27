@@ -1,7 +1,6 @@
 import type { ComponentProps } from "react";
-
-import { cva, cx,RecipeVariantProps } from "../../../../../styled-system/css";
-import Icon, { type IconType } from "../Icon/Icon";
+import { cva } from "../../../../../styled-system/css";
+import { styled } from "../../../../../styled-system/jsx";
 import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
 
 const buttonRecipe = cva({
@@ -100,7 +99,7 @@ const buttonRecipe = cva({
         fontWeight: "bold",
       },
     },
-    borderRadius: {
+    borders: {
       circle: {
         borderRadius: "50%",
       },
@@ -124,45 +123,27 @@ const buttonRecipe = cva({
   },
 });
 
-export type ButtonVariants = RecipeVariantProps<typeof buttonRecipe>;
+const StyledButton = styled(ClickablePrimitive, buttonRecipe);
 
-type ButtonProps = ComponentProps<typeof ClickablePrimitive> & {
-  variants?: ButtonVariants;
-  icon?: IconType;
+type ButtonProps = ComponentProps<typeof StyledButton> & {
   active?: boolean;
   disabled?: boolean;
 };
 
-function Button({
-  variants,
-  children,
-  icon,
-  active,
-  disabled,
-  ...props
-}: ButtonProps) {
+function Button({ active, disabled, ...props }: ButtonProps) {
   const isAnchor = "href" in props || "to" in props;
   const isButton = !isAnchor;
 
   const disabledProps = isButton ? { disabled: disabled || active } : {};
 
   return (
-    <ClickablePrimitive
+    <StyledButton
       {...props}
-      className={cx(
-        buttonRecipe({
-          ...variants,
-          icon: !!icon,
-          disabledAnchor: (disabled || active) && isAnchor,
-        }),
-        props.className,
-      )}
       data-active={active ? "true" : undefined}
       data-disabled={disabled ? "true" : undefined}
+      disabledAnchor={(disabled || active) && isAnchor}
       {...disabledProps}
-    >
-      {icon ? <Icon type={icon} /> : children}
-    </ClickablePrimitive>
+    />
   );
 }
 

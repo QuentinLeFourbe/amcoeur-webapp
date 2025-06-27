@@ -1,5 +1,6 @@
+import { Plus } from "lucide-react";
+
 import { css } from "../../../../../styled-system/css";
-import PlusIcon from "../../../assets/icons/plus.svg?react";
 import Button from "../Button/Button";
 
 export const AddButton = ({ onClick }: { onClick: () => void }) => {
@@ -14,17 +15,15 @@ export const AddButton = ({ onClick }: { onClick: () => void }) => {
       <Button
         type="button"
         onClick={onClick}
-        variants={{ borderRadius: "circle" }}
+        borders="circle"
         className={css({
           alignSelf: "center",
-          width: "100px",
-          height: "100px",
           "&:hover": { "& svg": { color: "pink.400" } },
         })}
+        width={"100px"}
+        height={"100px"}
       >
-        <PlusIcon
-          className={css({ width: "50px", height: "50px", color: "white" })}
-        />
+        <Plus strokeWidth={"1px"} width={"80px"} height={"80px"} />
       </Button>
     </div>
   );

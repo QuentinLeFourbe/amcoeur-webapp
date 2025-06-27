@@ -1,3 +1,4 @@
+import { X } from "lucide-react";
 import React, { ComponentPropsWithoutRef, forwardRef } from "react";
 import type { UseFormRegisterReturn } from "react-hook-form";
 
@@ -62,12 +63,9 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
             })}
           >
             <Input {...props} ref={ref} className={inputStyle} {...register} />
-            <Button
-              variants={{ color: "danger" }}
-              icon="x-mark"
-              type="button"
-              onClick={onRemove}
-            />
+            <Button color="danger" type="button" onClick={onRemove}>
+              <X />
+            </Button>
           </div>
         ) : (
           <Input {...props} ref={ref} className={inputStyle} {...register} />
