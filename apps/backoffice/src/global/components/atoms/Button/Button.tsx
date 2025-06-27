@@ -1,10 +1,5 @@
 import type { ComponentProps } from "react";
-import {
-  css,
-  cva,
-  cx,
-  type RecipeVariantProps,
-} from "../../../../../styled-system/css";
+import { css, cva, cx } from "../../../../../styled-system/css";
 import { styled } from "../../../../../styled-system/jsx";
 import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
 
