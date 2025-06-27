@@ -1,6 +1,6 @@
 import { PageDataClient } from "@amcoeur/types";
 import { useState } from "react";
-import { useNavigate,useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
@@ -42,10 +42,7 @@ function ManagePage() {
             >
               Visualiser
             </Button>
-            <Button
-              variants={{ color: "info" }}
-              onClick={() => setIsEditing(true)}
-            >
+            <Button color="info" onClick={() => setIsEditing(true)}>
               Modifier
             </Button>
           </div>

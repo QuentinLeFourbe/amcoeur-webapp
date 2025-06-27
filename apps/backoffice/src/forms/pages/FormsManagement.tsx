@@ -86,25 +86,25 @@ function FormsManagement() {
                   <div className={css({ display: "flex", gap: "16px" })}>
                     <Button
                       to={`/formulaires/reponses/${form._id}`}
-                      variants={{ color: "success" }}
+                      color="success"
                     >
                       Réponses
                     </Button>
                     <Button
                       to={`/formulaires/modifier/${form._id}`}
-                      variants={{ color: "info" }}
+                      color="info"
                     >
                       Modifier
                     </Button>
                     <Button
                       onClick={() => duplicateForm(form._id || "")}
-                      variants={{ color: "info" }}
+                      color="info"
                     >
                       Dupliquer
                     </Button>
                     <Button
                       onClick={() => setFormToDelete(form)}
-                      variants={{ color: "danger" }}
+                      color="danger"
                     >
                       Supprimer
                     </Button>
@@ -127,15 +127,12 @@ function FormsManagement() {
         </p>
         <div className={css({ display: "flex", gap: "1rem" })}>
           <Button
-            variants={{ color: "danger" }}
+            color="danger"
             onClick={() => formToDelete?._id && deleteForm(formToDelete._id)}
           >
             Supprimer
           </Button>
-          <Button
-            variants={{ color: "secondary" }}
-            onClick={() => setFormToDelete(null)}
-          >
+          <Button color="danger" onClick={() => setFormToDelete(null)}>
             Annuler
           </Button>
         </div>

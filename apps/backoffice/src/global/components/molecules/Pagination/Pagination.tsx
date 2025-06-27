@@ -1,3 +1,5 @@
+import { ArrowLeft, ArrowRight } from "lucide-react";
+
 import { css } from "../../../../../styled-system/css";
 import Button from "../../atoms/Button/Button";
 
@@ -34,10 +36,14 @@ function Pagination({ currentPage, totalPages, setPage }: PaginationProps) {
     <div
       className={css({ display: "flex", flexFlow: "row nowrap", gap: "16px" })}
     >
-      {currentPage !== 1 && <Button icon="arrow-left" onClick={previousPage} />}
+      {currentPage !== 1 && (
+        <Button onClick={previousPage}>
+          <ArrowLeft />
+        </Button>
+      )}
       {pages.map((page) => (
         <Button
-          variants={{ borderRadius: "circle" }}
+          borders="circle"
           active={page === currentPage}
           key={page}
           onClick={() => setPage(page)}
@@ -46,7 +52,9 @@ function Pagination({ currentPage, totalPages, setPage }: PaginationProps) {
         </Button>
       ))}
       {currentPage !== totalPages && (
-        <Button icon="arrow-right" onClick={nextPage} />
+        <Button onClick={nextPage}>
+          <ArrowRight />
+        </Button>
       )}
     </div>
   );

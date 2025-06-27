@@ -18,6 +18,7 @@ const adoption = new Schema(
     description: { type: String, required: false },
     imageUrl: { type: String, required: false },
     visible: { type: Boolean, required: false },
+    emergency: { type: Boolean, required: false },
     archived: { type: Boolean, required: false },
     commentary: { type: String, required: false },
     responsesList: [contactAnswer],

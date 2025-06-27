@@ -1,9 +1,10 @@
 import { AdoptionClientData, adoptionClientDataSchema } from "@amcoeur/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
+import FormCodeArea from "../../global/components/molecules/Form/FormCodeArea";
 import FormInput from "../../global/components/molecules/Form/FormInput";
 import FormSelect from "../../global/components/molecules/Form/FormSelect";
 import FormTextArea from "../../global/components/molecules/Form/FormTextArea";
@@ -19,12 +20,12 @@ export default function AdoptionForm({
   onCancel,
 }: AdoptionFormProps) {
   // Utilisation de useForm avec la validation par Zod
-  const { register, handleSubmit } = useForm<AdoptionClientData>({
+  const { register, handleSubmit, control } = useForm<AdoptionClientData>({
     resolver: zodResolver(adoptionClientDataSchema),
     defaultValues: initialData || {
       name: "",
       species: "CAT",
-      gender: "MALE", // valeur par défaut pour gender
+      gender: "MALE",
       visible: true,
       archived: false,
     },
@@ -39,7 +40,7 @@ export default function AdoptionForm({
       onSubmit={handleSubmit(submitData)}
       className={css({
         display: "flex",
-        gap: "10px",
+        gap: "32px",
         flexDirection: "column",
       })}
     >
@@ -68,21 +69,32 @@ export default function AdoptionForm({
         Genre
       </FormSelect>
 
-      <FormTextArea {...register("description")}>Description</FormTextArea>
-
-      <FormInput {...register("imageUrl")}>URL de l'image</FormInput>
+      <FormInput {...register("imageUrl")} type="file">
+        Photo
+      </FormInput>
 
       <FormInput type="checkbox" {...register("visible")}>
         Visible à l'adoption
       </FormInput>
 
-      <FormTextArea {...register("commentary")}>Commentaire</FormTextArea>
+      <FormInput type="checkbox" {...register("emergency")}>
+        Adoption urgente
+      </FormInput>
 
+      <Controller
+        control={control}
+        name={`commentary`}
+        render={({ field: renderField }) => (
+          <FormCodeArea {...renderField}>
+            Description de l'adoption
+          </FormCodeArea>
+        )}
+      />
       <div className={css({ display: "flex", gap: "16px" })}>
-        <Button color="red" onClick={onCancel} type="button">
+        <Button color="danger" onClick={onCancel} type="button">
           Annuler
         </Button>
-        <Button color="green" type="submit">
+        <Button color="success" type="submit">
           Enregistrer
         </Button>
       </div>

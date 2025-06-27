@@ -1,12 +1,13 @@
-import { useGetAdoptions } from "../hooks/useAdoptions";
-import Button from "../../global/components/atoms/Button/Button";
-import Table from "../../global/components/atoms/Table/Table";
-import { css } from "../../../styled-system/css";
-import { useDeleteAdoption } from "../hooks/useAdoptions";
-import { useState } from "react";
 import { AdoptionClientData } from "@amcoeur/types";
+import { useState } from "react";
+
+import { css } from "../../../styled-system/css";
+import Button from "../../global/components/atoms/Button/Button";
 import Overlay from "../../global/components/atoms/Overlay/Overlay";
+import Table from "../../global/components/atoms/Table/Table";
 import Pagination from "../../global/components/molecules/Pagination/Pagination";
+import { useGetAdoptions } from "../hooks/useAdoptions";
+import { useDeleteAdoption } from "../hooks/useAdoptions";
 
 function AdoptionsDashboard() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -58,7 +59,7 @@ function AdoptionsDashboard() {
                 <td>
                   <Button
                     onClick={() => setAdoptionToDelete(adoption)}
-                    variants={{ color: "danger" }}
+                    color="danger"
                   >
                     Supprimer
                   </Button>
@@ -83,17 +84,14 @@ function AdoptionsDashboard() {
         </p>
         <div className={css({ display: "flex", gap: "1rem" })}>
           <Button
-            variants={{ color: "danger" }}
+            color="danger"
             onClick={() =>
               adoptionToDelete?._id && deleteAdoption(adoptionToDelete._id)
             }
           >
             Supprimer
           </Button>
-          <Button
-            variants={{ color: "secondary" }}
-            onClick={() => setAdoptionToDelete(null)}
-          >
+          <Button color="secondary" onClick={() => setAdoptionToDelete(null)}>
             Annuler
           </Button>
         </div>

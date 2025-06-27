@@ -68,7 +68,7 @@ function ManagePages() {
                   <td>
                     <Button
                       onClick={() => setPageToDelete(page)}
-                      variants={{ color: "danger" }}
+                      color="danger"
                     >
                       Supprimer
                     </Button>
@@ -97,15 +97,12 @@ function ManagePages() {
         </p>
         <div className={css({ display: "flex", gap: "1rem" })}>
           <Button
-            variants={{ color: "danger" }}
+            color="danger"
             onClick={() => pageToDelete?._id && deletePage(pageToDelete._id)}
           >
             Supprimer
           </Button>
-          <Button
-            variants={{ color: "secondary" }}
-            onClick={() => setPageToDelete(null)}
-          >
+          <Button color="secondary" onClick={() => setPageToDelete(null)}>
             Annuler
           </Button>
         </div>

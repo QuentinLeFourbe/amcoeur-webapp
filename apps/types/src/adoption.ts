@@ -12,6 +12,7 @@ const adoptionBaseSchema = z.object({
   birthday: z.date().optional(),
   description: z.string().optional(),
   imageUrl: z.string().optional(),
+  emergency: z.boolean(),
 });
 
 const adoptionPrivateSchema = z.object({
