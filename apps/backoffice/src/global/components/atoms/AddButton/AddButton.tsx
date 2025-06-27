@@ -14,11 +14,13 @@ export const AddButton = ({ onClick }: { onClick: () => void }) => {
       <Button
         type="button"
         onClick={onClick}
-        borderRadius="circle"
+        borders="circle"
         className={css({
           alignSelf: "center",
           "&:hover": { "& svg": { color: "pink.400" } },
         })}
+        width={"100px"}
+        height={"100px"}
       >
         <Plus strokeWidth={"1px"} width={"80px"} height={"80px"} />
       </Button>

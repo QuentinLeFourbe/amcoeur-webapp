@@ -1,3 +1,4 @@
+import { ArrowDown, ArrowUp, Trash } from "lucide-react";
 import { css } from "../../../../../styled-system/css";
 import Button from "../../atoms/Button/Button";
 
@@ -24,8 +25,9 @@ function DynamicContainer({
               onClick={onMoveUp}
               className={buttonStyle}
               color="blue"
-              icon="arrow-up"
-            />
+            >
+              <ArrowUp />
+            </Button>
           )}
 
           {onMoveDown && (
@@ -34,8 +36,9 @@ function DynamicContainer({
               onClick={onMoveDown}
               className={buttonStyle}
               color="blue"
-              icon="arrow-down"
-            />
+            >
+              <ArrowDown />
+            </Button>
           )}
         </>
         {onDelete && (
@@ -44,8 +47,9 @@ function DynamicContainer({
             color="red"
             onClick={onDelete}
             className={buttonStyle}
-            icon="trash"
-          />
+          >
+            <Trash />
+          </Button>
         )}
       </div>
       {children}

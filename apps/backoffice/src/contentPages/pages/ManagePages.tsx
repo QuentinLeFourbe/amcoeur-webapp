@@ -19,7 +19,9 @@ function ManagePages() {
   return (
     <div className={container}>
       <div className={css({ display: "flex", gap: "12px" })}>
-        <Button to="/pages/creer">Créer une page</Button>
+        <Button color="primary" to="/pages/creer">
+          Créer une page
+        </Button>
         <Button to="/pages/page-accueil">
           Modifier la page d&apos;accueil
         </Button>

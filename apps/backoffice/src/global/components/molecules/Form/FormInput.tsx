@@ -1,5 +1,6 @@
 import React, { ComponentPropsWithoutRef, forwardRef } from "react";
 import type { UseFormRegisterReturn } from "react-hook-form";
+import { X } from "lucide-react";
 import { css } from "../../../../../styled-system/css";
 import Label from "../../atoms/Label/Label";
 import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
@@ -61,12 +62,9 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
             })}
           >
             <Input {...props} ref={ref} className={inputStyle} {...register} />
-            <Button
-              color="red"
-              icon="x-mark"
-              type="button"
-              onClick={onRemove}
-            />
+            <Button color="red" type="button" onClick={onRemove}>
+              <X />
+            </Button>
           </div>
         ) : (
           <Input {...props} ref={ref} className={inputStyle} {...register} />
