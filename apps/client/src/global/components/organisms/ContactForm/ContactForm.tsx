@@ -1,9 +1,9 @@
 import { type ContactFormData, contactFormSchema } from "@amcoeur/types";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import { sendContactEmail } from "../../../api/emails";
 import Button from "../../atoms/Button/Button";
 import Captcha from "../../atoms/Captcha/Captcha";
