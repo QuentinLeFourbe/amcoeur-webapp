@@ -6,35 +6,43 @@ export const personalDataSchema = z.object({
 });
 
 export const contactDataSchema = z.object({
-  email: z.string().email("Veuillez renseigner un e-mail valide"),
+  email: z
+    .string()
+    .min(1, "Veuillez renseigner votre adresse email")
+    .email("Adresse email invalid"),
   phone: z
     .string()
-    .min(1, "Veuillez renseigner votre numéro de téléphone")
-    .regex(
-      /^\d+$/,
-      "Le numéro de téléphone doit contenir uniquement des chiffres",
-    ),
+    .regex(/^\d*$/, { message: "Veuillez renseigner uniquement des chiffres" })
+    .refine((val) => val === "" || val.length >= 10, {
+      message: "Le numéro de téléphone doit faire au minimum 10 caractères",
+    })
+    .optional()
+    .transform((val) => (val === "" ? undefined : val)),
 });
 
-export const adressDataSchema = z.object({
-  street: z.string().min(1, "Veuillez renseigner la rue"),
-  postalCode: z
+export const locationDataSchema = z.object({
+  zipCode: z
     .string()
-    .min(1, "Veuillez renseigner le code postal")
-    .regex(/^\d+$/, "Le code postal doit contenir uniquement des chiffres"),
-  city: z.string().min(1, "Veuillez renseigner la ville"),
+    .min(1, { message: "Veuillez renseigner le code postal" })
+    .regex(/^\d+$/),
+  city: z.string().min(1, { message: "Veuillez renseigner la ville" }),
 });
 
 export const captchaTokenSchema = z.object({
-  token: z.string().min(1, "Vous devez cocher cette case pour continuer"),
+  token: z
+    .string()
+    .min(1, { message: "Vous devez cocher cette case pour continuer" }),
 });
 
 export const contactFormSchema = z
   .object({
-    message: z.string().min(1, "Vous devez renseigner ce champs"),
+    message: z
+      .string()
+      .min(1, { message: "Vous devez renseigner un message à envoyer" }),
   })
   .merge(personalDataSchema)
   .merge(contactDataSchema)
+  .merge(locationDataSchema)
   .merge(captchaTokenSchema);
 
 export const adoptionContactSchema = z
@@ -49,8 +57,13 @@ export const adoptionContactSchema = z
   .merge(captchaTokenSchema);
 
 export type PersonalData = z.infer<typeof personalDataSchema>;
-export type AddressData = z.infer<typeof adressDataSchema>;
+
+export type LocationData = z.infer<typeof locationDataSchema>;
+
 export type ContactData = z.infer<typeof contactDataSchema>;
+
 export type CaptchaToken = z.infer<typeof captchaTokenSchema>;
+
 export type ContactFormData = z.infer<typeof contactFormSchema>;
+
 export type AdoptionContact = z.infer<typeof adoptionContactSchema>;

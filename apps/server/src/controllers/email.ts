@@ -10,17 +10,26 @@ import { sendEmail } from "../services/mailService.js";
  */
 export const sendContactEmail = async (req: Request, res: Response) => {
   try {
-    const { name, firstname, email, phone, message } =
+    const { name, firstname, email, phone, city, zipCode, message } =
       req.body as ContactFormData;
     const mailOptions = {
       to: process.env.CONTACT_EMAIL,
       subject: `Demande de contact: ${name} ${firstname}`,
-      text: `Nom: ${name}\nPrénom: ${firstname}\nEmail: ${email}\nTéléphone: ${phone}\nMessage: ${message}`,
+      text:
+        `Nom: ${name}\n` +
+        `Prénom: ${firstname}\n` +
+        `Email: ${email}\n` +
+        `Téléphone: ${phone}\n` +
+        `Ville: ${city}\n` +
+        `Code Postal: ${zipCode}\n\n` +
+        `Message: \n${message}`,
     };
     const mailOptionsToSender = {
       to: email,
       subject: `Votre demande de contact a bien été prise en compte`,
-      text: `Bonjour,\nVotre demande de contact a bien été prise en compte. Nous vous contacterons dans les plus bref délais.\nVotre message: ${message}`,
+      text:
+        `Bonjour,\nVotre demande de contact a bien été prise en compte. Nous vous contacterons dans les plus bref délais.\n\n` +
+        `Votre message: \n${message}`,
     };
     await sendEmail(mailOptions);
     await sendEmail(mailOptionsToSender);

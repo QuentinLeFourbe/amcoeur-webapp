@@ -1,9 +1,9 @@
-import { type ContactFormData,contactFormSchema } from "@amcoeur/types";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { type ContactFormData, contactFormSchema } from "@amcoeur/types";
 import { useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import { useForm } from "react-hook-form";
 
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { sendContactEmail } from "../../../api/emails";
 import Button from "../../atoms/Button/Button";
 import Captcha from "../../atoms/Captcha/Captcha";
@@ -11,7 +11,6 @@ import Form from "../../atoms/Form/Form";
 import FormRow from "../../atoms/Form/FormRow";
 import FormInput from "../../molecules/Form/FormInput";
 import FormTextArea from "../../molecules/Form/FormTextArea";
-
 
 export default function ContactForm() {
   const {
@@ -66,6 +65,20 @@ export default function ContactForm() {
         pattern="\d+"
       >
         Téléphone
+      </FormInput>
+
+      <FormInput
+        {...register("city")}
+        errorMessage={errors?.city?.message?.toString()}
+      >
+        Ville*
+      </FormInput>
+      <FormInput
+        {...register("zipCode")}
+        errorMessage={errors?.zipCode?.message?.toString()}
+        pattern="\d+"
+      >
+        Code postal*
       </FormInput>
       <FormRow>
         <FormTextArea
