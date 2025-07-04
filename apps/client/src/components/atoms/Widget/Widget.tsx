@@ -55,7 +55,7 @@ const widgetButtonStyle = css({
 
   padding: { md: "30px 50px", base: "20px 20px" },
   borderRadius: "50px",
-  fontSize: "1.2",
+  fontSize: "18px",
   color: "buttons.widget.text",
   backgroundColor: "buttons.widget.background",
 
