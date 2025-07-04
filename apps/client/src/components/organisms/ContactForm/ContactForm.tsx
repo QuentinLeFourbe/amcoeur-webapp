@@ -1,9 +1,8 @@
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import type { ContactFormData } from "@amcoeur/types";
+import { contactFormSchema, type ContactFormData } from "@amcoeur/types";
 import { sendContactEmail } from "../../../api/emails";
 import FormInput from "../../molecules/Form/FormInput";
 import FormTextArea from "../../molecules/Form/FormTextArea";
@@ -11,23 +10,6 @@ import Form from "../../atoms/Form/Form";
 import Button from "../../atoms/Button/Button";
 import FormRow from "../../atoms/Form/FormRow";
 import Captcha from "../../atoms/Captcha/Captcha";
-import {
-  captchaTokenSchema,
-  contactDataSchema,
-  personalDataSchema,
-} from "../../../schema/form";
-import { merge } from "../../../utils/schema";
-
-const contactFormSchema = yup.object().shape({
-  message: yup.string().required("Message est requis"),
-});
-
-const contactFormMergedSchema: yup.ObjectSchema<ContactFormData> = merge(
-  personalDataSchema,
-  contactDataSchema,
-  captchaTokenSchema,
-  contactFormSchema,
-) as yup.ObjectSchema<ContactFormData>;
 
 export default function ContactForm() {
   const {
@@ -37,7 +19,7 @@ export default function ContactForm() {
     setValue,
     reset,
   } = useForm<ContactFormData>({
-    resolver: yupResolver(contactFormMergedSchema),
+    resolver: zodResolver(contactFormSchema),
   });
   const [displayConfirmation, setDisplayConfirmation] = useState(false);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
@@ -73,8 +55,8 @@ export default function ContactForm() {
         Prénom*
       </FormInput>
       <FormInput
-        {...register("mail")}
-        errorMessage={errors?.mail?.message?.toString()}
+        {...register("email")}
+        errorMessage={errors?.email?.message?.toString()}
       >
         Email*
       </FormInput>
@@ -84,6 +66,20 @@ export default function ContactForm() {
         pattern="\d+"
       >
         Téléphone
+      </FormInput>
+
+      <FormInput
+        {...register("city")}
+        errorMessage={errors?.city?.message?.toString()}
+      >
+        Ville*
+      </FormInput>
+      <FormInput
+        {...register("zipCode")}
+        errorMessage={errors?.zipCode?.message?.toString()}
+        pattern="\d+"
+      >
+        Code postal*
       </FormInput>
       <FormRow>
         <FormTextArea
