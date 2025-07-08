@@ -54,9 +54,6 @@ function AdoptionDetails() {
             <Button color="info" onClick={() => setIsEditing(true)}>
               Modifier
             </Button>
-            <Button onClick={() => setIsDeleting(true)} color="danger">
-              Supprimer
-            </Button>
             <Button
               color={isAdopted ? "danger" : "success"}
               disabled={isUpdateLoading}
@@ -70,7 +67,7 @@ function AdoptionDetails() {
               Marquer comme {isAdopted ? "non" : ""} adopté
             </Button>
             <Button
-              color={"info"}
+              color={isVisible ? "info" : "danger"}
               disabled={isUpdateLoading}
               onClick={() =>
                 updateAdoption({
@@ -151,6 +148,9 @@ function AdoptionDetails() {
               </div>
             </div>
           )}
+          <Button onClick={() => setIsDeleting(true)} color="danger">
+            Supprimer
+          </Button>
         </div>
       )}
 
