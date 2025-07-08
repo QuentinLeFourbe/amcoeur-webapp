@@ -6,24 +6,36 @@ import { useNavigate, useParams } from "react-router-dom";
 import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
+import Overlay from "../../global/components/atoms/Overlay/Overlay";
 import AdoptionForm from "../components/AdoptionForm";
-import { useGetAdoption } from "../hooks/useAdoptions";
+import { useDeleteAdoption, useGetAdoption } from "../hooks/useAdoptions";
 import { useUpdateAdoption } from "../hooks/useAdoptions";
 
 function AdoptionDetails() {
   const params = useParams(); // Récupère l'ID dans l'URL
-  const { t } = useTranslation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const id = params.id || "";
   const { data: adoptionData, isLoading, isError } = useGetAdoption(id);
   const [isEditing, setIsEditing] = useState(false);
-  const { mutate: updateAdoption, isError: isUpdateError } =
-    useUpdateAdoption();
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const { mutate: deleteAdoption } = useDeleteAdoption({
+    onSuccess: () => navigate("/adoptions"),
+  });
+  const {
+    mutate: updateAdoption,
+    isLoading: isUpdateLoading,
+    isError: isUpdateError,
+  } = useUpdateAdoption();
 
   const handleEdit = (updatedData: AdoptionClientData) => {
     updateAdoption(updatedData);
     setIsEditing(false);
   };
+
+  const isAdopted = !!adoptionData?.data.adopted;
+  const isVisible = !!adoptionData?.data.visible;
 
   return (
     <>
@@ -42,11 +54,32 @@ function AdoptionDetails() {
             <Button color="info" onClick={() => setIsEditing(true)}>
               Modifier
             </Button>
-            <Button
-              onClick={() => setAdoptionToDelete(adoption)}
-              color="danger"
-            >
+            <Button onClick={() => setIsDeleting(true)} color="danger">
               Supprimer
+            </Button>
+            <Button
+              color={isAdopted ? "danger" : "success"}
+              disabled={isUpdateLoading}
+              onClick={() =>
+                updateAdoption({
+                  ...adoptionData?.data,
+                  adopted: !adoptionData?.data.adopted,
+                } as AdoptionClientData)
+              }
+            >
+              Marquer comme {isAdopted ? "non" : ""} adopté
+            </Button>
+            <Button
+              color={"info"}
+              disabled={isUpdateLoading}
+              onClick={() =>
+                updateAdoption({
+                  ...adoptionData?.data,
+                  visible: !adoptionData?.data.visible,
+                } as AdoptionClientData)
+              }
+            >
+              Rendre {isVisible ? "non" : ""} visible à l'adoption
             </Button>
           </div>
 
@@ -94,6 +127,15 @@ function AdoptionDetails() {
                 <span>{adoptionData.data.visible ? "Oui" : "Non"}</span>
               </div>
               <div>
+                <label className={property}>Adopté :</label>
+                <span>{adoptionData.data.adopted ? "Oui" : "Non"}</span>
+              </div>
+              <div>
+                <label className={property}>Urgence :</label>
+                <span>{adoptionData.data.emergency ? "Oui" : "Non"}</span>
+              </div>
+
+              <div>
                 <label className={property}>Description :</label>
                 <p>
                   {adoptionData.data.description ||
@@ -111,6 +153,26 @@ function AdoptionDetails() {
           )}
         </div>
       )}
+
+      <Overlay isVisible={isDeleting} onClose={() => setIsDeleting(false)}>
+        <p>
+          Vous êtes sur le point de supprimer l'adoption de{" "}
+          {adoptionData?.data.name}, êtes vous sûr ?
+        </p>
+        <div className={css({ display: "flex", gap: "1rem" })}>
+          <Button
+            color="danger"
+            onClick={() =>
+              adoptionData?.data._id && deleteAdoption(adoptionData?.data._id)
+            }
+          >
+            Supprimer
+          </Button>
+          <Button color="secondary" onClick={() => setIsDeleting(false)}>
+            Annuler
+          </Button>
+        </div>
+      </Overlay>
     </>
   );
 }

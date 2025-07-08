@@ -17,9 +17,9 @@ const buttonRecipe = cva({
     transition: "background-color 0.3s ease",
     padding: "0.5rem 1rem",
     borderRadius: "4px",
-    "&is([data-disabled])": {
+    "&:is([data-disabled])": {
       opacity: "0.5",
-      cursor: "auto",
+      cursor: "not-allowed",
     },
   },
   variants: {
@@ -70,7 +70,7 @@ const buttonRecipe = cva({
       info: {
         color: "blue.50",
         backgroundColor: "blue.500",
-        "&:hover:not([data-active]):not(.[data-disabled])": {
+        "&:hover:not([data-active],[data-disabled])": {
           backgroundColor: "blue.100",
           color: "blue.500",
         },

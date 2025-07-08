@@ -1,4 +1,4 @@
-import { AdoptionCount, AdoptionSpecies, CountResult } from "@amcoeur/types";
+import { AdoptionCount, AdoptionSpecies } from "@amcoeur/types";
 
 export const speciesToString = (species: AdoptionSpecies) => {
   switch (species) {

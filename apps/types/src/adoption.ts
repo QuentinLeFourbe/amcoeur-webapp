@@ -39,7 +39,7 @@ const adoptionBaseSchema = z.object({
 
 const adoptionPrivateSchema = z.object({
   visible: z.boolean(),
-  archived: z.boolean(),
+  adopted: z.boolean(),
   commentary: z.string().optional(),
 });
 

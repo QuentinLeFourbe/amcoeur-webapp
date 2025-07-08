@@ -19,7 +19,7 @@ const adoption = new Schema(
     imageUrl: { type: String, required: false },
     visible: { type: Boolean, required: false },
     emergency: { type: Boolean, required: false },
-    archived: { type: Boolean, required: false },
+    adopted: { type: Boolean, required: false },
     commentary: { type: String, required: false },
     responsesList: [contactAnswer],
   },
