@@ -47,6 +47,8 @@ export const getSpeciesLabel = (species: AdoptionSpecies) => {
       return "chien";
     case "HORSE":
       return "cheval";
+    case "OTHER":
+      return "autre";
   }
 };
 

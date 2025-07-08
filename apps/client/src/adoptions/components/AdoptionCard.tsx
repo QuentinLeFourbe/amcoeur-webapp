@@ -21,8 +21,11 @@ function AdoptionCard({ imageSrc, name, gender, href }: AdoptionCardProps) {
         alignItems: "center",
         position: "relative",
         marginBottom: "50px",
+        backgroundColor: "gray.200",
+        transition: "all 0.3s ease",
         "&:hover": {
           cursor: "pointer",
+          backgroundColor: "gray.100",
           "& img": {
             transform: "scale(1.1)",
           },
@@ -34,20 +37,21 @@ function AdoptionCard({ imageSrc, name, gender, href }: AdoptionCardProps) {
           width: "275px",
           height: "225px",
           borderRadius: "4px",
-          backgroundColor: "pink.200",
           boxShadow: "-2px 4px 4px rgba(0, 0, 0, 0.1)",
           overflow: "hidden",
         })}
       >
-        <img
-          src={imageSrc}
-          className={css({
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            transition: "transform 0.3s ease",
-          })}
-        />
+        {imageSrc && (
+          <img
+            src={imageSrc}
+            className={css({
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              transition: "transform 0.3s ease",
+            })}
+          />
+        )}
       </div>
       <div
         className={css({

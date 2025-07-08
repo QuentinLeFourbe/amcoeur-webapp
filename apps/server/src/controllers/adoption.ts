@@ -12,11 +12,21 @@ import {
   convertAdoptionToPublicData,
   getAdoptionFilter,
 } from "../utils/adoptions.js";
+import { deleteUploadedImage } from "../utils/files.js";
 import { parseBoolean, parseQueryArray } from "../utils/query.js";
 
 export const createAdoption = async (req: Request, res: Response) => {
   try {
-    const newAdoption = new Adoption({ ...req.body });
+    const files = req.files as Express.Multer.File[];
+    let imageUrl = "";
+    if (files && files.length && files[0]?.filename) {
+      imageUrl = `/api/images/${files?.[0]?.filename}`;
+    }
+
+    const newAdoption = new Adoption({
+      ...req.body,
+      imageUrl,
+    } as AdoptionServerData);
     await newAdoption.save();
 
     res.status(201).json(newAdoption);
@@ -38,6 +48,10 @@ export const deleteAdoption = async (req: Request, res: Response) => {
       _id: req.params.id,
     });
     if (deletedAnswer) {
+      if (deletedAnswer.imageUrl) {
+        deleteUploadedImage(deletedAnswer.imageUrl);
+      }
+
       res.status(200).json({ message: "Réponse supprimé avec succès" });
     } else {
       res.status(404).json({ message: "Réponse non trouvée" });
@@ -57,9 +71,19 @@ export const deleteAdoption = async (req: Request, res: Response) => {
 export const updateAdoption = async (req: Request, res: Response) => {
   try {
     const updatedAdoptionData = req.body as AdoptionServerData;
+
+    const files = req.files as Express.Multer.File[];
+    let imageUrl = updatedAdoptionData.imageUrl || "";
+    if (files && files.length && files[0]?.filename) {
+      imageUrl = `/api/images/${files?.[0]?.filename}`;
+      if (updatedAdoptionData.imageUrl) {
+        deleteUploadedImage(updatedAdoptionData.imageUrl);
+      }
+    }
+
     const updatedAnswer = await Adoption.findByIdAndUpdate(
       req.params.id,
-      updatedAdoptionData,
+      { ...updatedAdoptionData, imageUrl },
       {
         new: true,
       },

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { z } from "zod";
 
-const speciesSchema = z.enum(["CAT", "DOG", "HORSE"]);
+const speciesSchema = z.enum(["CAT", "DOG", "HORSE", "OTHER"]);
 const genderSchema = z.enum(["MALE", "FEMALE"]);
 
 const adoptionBaseSchema = z.object({
@@ -75,3 +75,8 @@ export type AdoptionServerPublicData = z.infer<
 
 export type AdoptionGender = z.infer<typeof genderSchema>;
 export type AdoptionSpecies = z.infer<typeof speciesSchema>;
+
+export type AdoptionCount = {
+  species?: { key: "CAT" | "DOG" | "HORSE" | "OTHER"; value: number }[];
+  gender?: { key: "MALE" | "FEMALE"; value: number }[];
+};

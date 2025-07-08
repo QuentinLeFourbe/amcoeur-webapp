@@ -1,3 +1,4 @@
+import { AdoptionCount } from "@amcoeur/types";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDebounceValue } from "usehooks-ts";
@@ -31,7 +32,7 @@ function AdoptionsDashboard() {
 
   const adoptions = infiniteData?.pages?.map((page) => page.data.data).flat();
   const totalAdoptions = infiniteData?.pages?.[0].data.totalItems || 0;
-  const adoptionsCount = infiniteData?.pages?.[0].data.count;
+  const adoptionsCount = infiniteData?.pages?.[0].data.count as AdoptionCount;
 
   const observerRef = useRef<HTMLDivElement>(null);
 
@@ -114,8 +115,8 @@ function AdoptionsDashboard() {
               <p>
                 {totalAdoptions > 1
                   ? t("adoption.items_found_plural", {
-                    count: totalAdoptions,
-                  })
+                      count: totalAdoptions,
+                    })
                   : t("adoption.items_found", { count: totalAdoptions })}
               </p>
             )}

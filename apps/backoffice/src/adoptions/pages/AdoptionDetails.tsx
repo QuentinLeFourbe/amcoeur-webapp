@@ -1,14 +1,18 @@
-import { useGetAdoption } from "../hooks/useAdoptions";
+import { AdoptionClientData } from "@amcoeur/types";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate, useParams } from "react-router-dom";
+
 import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
-import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
 import AdoptionForm from "../components/AdoptionForm";
+import { useGetAdoption } from "../hooks/useAdoptions";
 import { useUpdateAdoption } from "../hooks/useAdoptions";
 
 function AdoptionDetails() {
   const params = useParams(); // Récupère l'ID dans l'URL
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const id = params.id || "";
   const { data: adoptionData, isLoading, isError } = useGetAdoption(id);
@@ -16,7 +20,7 @@ function AdoptionDetails() {
   const { mutate: updateAdoption, isError: isUpdateError } =
     useUpdateAdoption();
 
-  const handleEdit = (updatedData: any) => {
+  const handleEdit = (updatedData: AdoptionClientData) => {
     updateAdoption(updatedData);
     setIsEditing(false);
   };
@@ -35,7 +39,15 @@ function AdoptionDetails() {
         <div className={container}>
           <div className={buttonContainer}>
             <Button onClick={() => navigate("/adoptions")}>Retour</Button>
-            <Button onClick={() => setIsEditing(true)}>Modifier</Button>
+            <Button color="info" onClick={() => setIsEditing(true)}>
+              Modifier
+            </Button>
+            <Button
+              onClick={() => setAdoptionToDelete(adoption)}
+              color="danger"
+            >
+              Supprimer
+            </Button>
           </div>
 
           {isUpdateError && (
@@ -60,7 +72,7 @@ function AdoptionDetails() {
               </div>
               <div>
                 <label className={property}>Espèce :</label>
-                <span>{adoptionData.data.species}</span>
+                <span>{t(`adoptions.${adoptionData.data.species}`)}</span>
               </div>
               <div>
                 <label className={property}>Race :</label>
@@ -68,13 +80,14 @@ function AdoptionDetails() {
               </div>
               <div>
                 <label className={property}>Genre :</label>
-                <span>
-                  {adoptionData.data.gender === "MALE" ? "Mâle" : "Femelle"}
-                </span>
+                <span>{t(`adoptions.${adoptionData.data.gender}`)}</span>
               </div>
               <div>
-                <label className={property}>Lien de l'image :</label>
-                <span>{adoptionData.data.imageUrl || "Non renseigné"}</span>
+                <label className={property}>Photo :</label>
+                <img
+                  src={adoptionData.data.imageUrl}
+                  className={css({ maxWidth: "200px", maxHeight: "200px" })}
+                />
               </div>
               <div>
                 <label className={property}>Visible :</label>

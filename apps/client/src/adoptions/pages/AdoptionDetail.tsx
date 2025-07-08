@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { css } from "../../../styled-system/css";
@@ -11,6 +12,7 @@ import { useAdoption } from "../hooks/useAdoptions";
 
 function AdoptionDetail() {
   const params = useParams();
+  const { t } = useTranslation();
   const id = params.id || "";
   const {
     data: { data: adoptionData } = {},
@@ -64,19 +66,20 @@ function AdoptionDetail() {
               </div>
               <div className={dataStyle}>
                 <Label>Sexe: </Label>
-                {adoptionData?.gender}
+                {t(`adoption.${adoptionData?.gender}`)}
               </div>
               <div className={dataStyle}>
                 <Label>Espèce: </Label>
-                {adoptionData?.species}
+                {t(`adoption.${adoptionData?.species}`)}
               </div>
               <div className={dataStyle}>
                 <Label>Race: </Label>
-                {adoptionData?.race}
+                {adoptionData?.race || "Non renseignée"}
               </div>
               <div className={dataStyle}>
                 <Label>Date de naissance: </Label>
-                {adoptionData?.birthday?.toLocaleDateString()}
+                {adoptionData?.birthday?.toLocaleDateString() ||
+                  "Non renseignée"}
               </div>
             </div>
             <div>{adoptionData?.description}</div>
@@ -84,7 +87,7 @@ function AdoptionDetail() {
               Vous souhaitez l&apos;adopter ?
             </h2>
           </TextContainer>
-          <AdoptionForm adoptionId={id}/>
+          <AdoptionForm adoptionId={id} />
         </>
       )}
     </div>

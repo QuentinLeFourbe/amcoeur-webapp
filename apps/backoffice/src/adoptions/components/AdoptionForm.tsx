@@ -18,12 +18,7 @@ export default function AdoptionForm({
   onSubmit,
   onCancel,
 }: AdoptionFormProps) {
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<AdoptionClientData>({
+  const { register, handleSubmit, control } = useForm<AdoptionClientData>({
     resolver: zodResolver(adoptionClientDataSchema),
     defaultValues: initialData || {
       name: "",
@@ -38,11 +33,10 @@ export default function AdoptionForm({
     onSubmit(data);
   };
 
-  console.log({ errors });
-
   return (
     <form
       onSubmit={handleSubmit(submitData)}
+      encType="multipart/form-data"
       className={css({
         display: "flex",
         gap: "32px",
@@ -57,6 +51,7 @@ export default function AdoptionForm({
           { value: "CAT", label: "Chat" },
           { value: "DOG", label: "Chien" },
           { value: "HORSE", label: "Cheval" },
+          { value: "OTHER", label: "Autre" },
         ]}
       >
         Espèce

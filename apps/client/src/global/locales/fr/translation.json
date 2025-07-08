@@ -15,6 +15,12 @@
     "title": "Ils attendent d'être adopté",
     "items_found": "{{count}} adoption trouvé",
     "items_found_plural": "{{count}} adoptions trouvés",
-    "no_result": "Aucun animal trouvé"
+    "no_result": "Aucun animal trouvé",
+    "MALE": "Mâle",
+    "FEMALE": "Femelle",
+    "CAT": "Chat",
+    "DOG": "Chien",
+    "HORSE": "Cheval",
+    "OTHER": "Autre"
   }
 }

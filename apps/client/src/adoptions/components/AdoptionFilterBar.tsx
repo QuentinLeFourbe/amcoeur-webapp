@@ -1,9 +1,6 @@
-import {
-  AdoptionGender,
-  AdoptionSpecies,
-  CountResult,
-} from "@amcoeur/types";
+import { AdoptionCount, AdoptionGender, AdoptionSpecies } from "@amcoeur/types";
 import { ComponentProps } from "react";
+import { useTranslation } from "react-i18next";
 
 import { css, cx } from "../../../styled-system/css";
 import Cross from "../../global/assets/icons/cross.svg?react";
@@ -15,7 +12,7 @@ import { getAttributeCount } from "../utils/adoption";
 type AdoptionFilterBarProps = Omit<ComponentProps<"div">, "children"> & {
   filter: AdoptionFilter | null;
   setFilter?: (filter: AdoptionFilter | null) => void;
-  adoptionsCount: CountResult;
+  adoptionsCount: AdoptionCount;
 };
 
 function AdoptionFilterBar({
@@ -24,6 +21,8 @@ function AdoptionFilterBar({
   adoptionsCount,
   ...props
 }: AdoptionFilterBarProps) {
+  const { t } = useTranslation();
+
   const onResetFilter = () => {
     setFilter?.(null);
   };
@@ -150,45 +149,30 @@ function AdoptionFilterBar({
       </div>
       <div className={paramContainer}>
         <p>Espèce</p>
-        <FormCheckbox
-          type="checkbox"
-          labelClassName={leanText}
-          checked={!!filter?.species?.find((species) => species === "DOG")}
-          value={"DOG"}
-          onChange={(e) =>
-            onUpdateFilter({
-              species: e.currentTarget.value as AdoptionSpecies,
-            })
-          }
-        >
-          Chien ({getAttributeCount("DOG", adoptionsCount)})
-        </FormCheckbox>
-        <FormCheckbox
-          type="checkbox"
-          labelClassName={leanText}
-          checked={!!filter?.species?.find((species) => species === "CAT")}
-          value={"CAT"}
-          onChange={(e) =>
-            onUpdateFilter({
-              species: e.currentTarget.value as AdoptionSpecies,
-            })
-          }
-        >
-          Chat ({getAttributeCount("CAT", adoptionsCount)})
-        </FormCheckbox>
-        <FormCheckbox
-          type="checkbox"
-          labelClassName={leanText}
-          checked={!!filter?.species?.find((species) => species === "HORSE")}
-          value={"HORSE"}
-          onChange={(e) =>
-            onUpdateFilter({
-              species: e.currentTarget.value as AdoptionSpecies,
-            })
-          }
-        >
-          Cheval ({getAttributeCount("HORSE", adoptionsCount)})
-        </FormCheckbox>
+
+        {adoptionsCount.species
+          ?.sort((itemA, itemB) =>
+            t(`adoption.${itemA.key}`)
+              .toUpperCase()
+              .localeCompare(t(`adoption.${itemB.key}`).toUpperCase()),
+          )
+          .map((specieItem) => (
+            <FormCheckbox
+              type="checkbox"
+              labelClassName={leanText}
+              checked={
+                !!filter?.species?.find((species) => species === specieItem.key)
+              }
+              value={"DOG"}
+              onChange={(e) =>
+                onUpdateFilter({
+                  species: e.currentTarget.value as AdoptionSpecies,
+                })
+              }
+            >
+              {t(`adoption.${specieItem.key}`)} ({specieItem.value})
+            </FormCheckbox>
+          ))}
       </div>
     </div>
   );
