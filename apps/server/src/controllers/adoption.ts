@@ -160,12 +160,14 @@ export const getAdoptions = async (req: Request, res: Response) => {
       emergency,
     } as AdoptionFilter);
 
+    const defaultSort = { createdAt: -1 } as { createdAt: -1 };
+
     const results = (await paginate(Adoption, {
       page: pageNumber,
       limit: pageLimit,
       filter,
       count: isCounting ? ["species", "gender"] : undefined,
-      sort: { [`${sortBy}`]: orderValue },
+      sort: sortBy ? { [`${sortBy}`]: orderValue } : defaultSort,
     })) as PaginatedResult<AdoptionServerData>;
 
     if (res.locals.user) {
