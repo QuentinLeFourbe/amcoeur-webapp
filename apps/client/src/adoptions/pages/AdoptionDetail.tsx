@@ -1,3 +1,4 @@
+import { CircleAlert } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -58,6 +59,13 @@ function AdoptionDetail() {
             </h1>
             <ImageContainer size="small" src={adoptionData?.imageUrl || ""} />
           </div>
+
+          {adoptionData?.emergency && (
+            <div className={css({ display: "flex", gap: "8px", color: "red" })}>
+              <CircleAlert />
+              <p>Cet animal a besoin d'être adopté en urgence !</p>
+            </div>
+          )}
           <TextContainer>
             <div className={css({ width: "300px" })}>
               <div className={dataStyle}>

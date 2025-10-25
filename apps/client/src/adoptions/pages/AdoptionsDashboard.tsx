@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useDebounceValue } from "usehooks-ts";
 
 import { css } from "../../../styled-system/css";
+import FacebookIcon from "../../global/assets/icons/facebook.svg?react";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import Loader from "../../global/components/atoms/Loader/Loader";
 import TitlePanel from "../../global/components/molecules/TitlePanel/TitlePanel";
@@ -124,17 +125,26 @@ function AdoptionsDashboard() {
               <div
                 className={css({
                   margin: "auto",
+                  fontSize: "header",
+                  fontWeight: "bold",
+                  color: "red.300",
+                  display: "flex",
+                  flexDir: "column",
+                  alignItems: "center",
+                  gap: "15px",
                 })}
               >
-                <p
-                  className={css({
-                    fontSize: "header",
-                    fontWeight: "bold",
-                    color: "red.300",
-                  })}
+                <p>{t("adoption.no_result")}</p>
+                <p>{t("adoption.no_result_facebook")}</p>
+
+                <a
+                  className={facebookLogo}
+                  href="https://www.facebook.com/amcoeur.protection.animaux"
+                  target="_blank"
+                  rel="noreferrer"
                 >
-                  {t("adoption.no_result")}
-                </p>
+                  <FacebookIcon />
+                </a>
               </div>
             )}
             {adoptions && adoptions.length > 0 && (
@@ -154,6 +164,7 @@ function AdoptionsDashboard() {
                       gender={adoption.gender}
                       imageSrc={adoption.imageUrl}
                       href={`/adoptions/${adoption._id}`}
+                      emergency={adoption.emergency}
                     />
                   ))}
                 </div>
@@ -178,3 +189,14 @@ function AdoptionsDashboard() {
 }
 
 export default AdoptionsDashboard;
+
+const facebookLogo = css({
+  display: "inline-block",
+  width: "50px",
+  height: "50px",
+  color: "textPrimary",
+  transition: "color 0.2s ease-in-out",
+  "&:hover": {
+    color: "red.300",
+  },
+});

@@ -42,6 +42,7 @@ const textAreaStyle = css({
   display: "flex",
   justifyContent: "flex-start",
   backgroundColor: "backgrounds.primary.extraLight",
+  color: "black",
   borderRadius: "4px",
   padding: "1rem",
 });

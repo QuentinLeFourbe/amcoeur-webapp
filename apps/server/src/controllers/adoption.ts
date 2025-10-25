@@ -8,7 +8,6 @@ import type { Request, Response } from "express";
 
 import Adoption from "../models/adoption.js";
 import { paginate } from "../services/dbService.js";
-import { updateDbUser } from "../services/userService.js";
 import {
   convertAdoptionToPublicData,
   getAdoptionFilter,
@@ -171,7 +170,9 @@ export const getAdoptions = async (req: Request, res: Response) => {
       emergency,
     } as AdoptionFilter);
 
-    const defaultSort = { createdAt: -1 } as { createdAt: -1 };
+    const defaultSort: { [key: string]: 1 | -1 } = isPublic
+      ? { emergency: -1, createdAt: 1 }
+      : { createdAt: -1 };
 
     const results = (await paginate(Adoption, {
       page: pageNumber,
@@ -181,9 +182,7 @@ export const getAdoptions = async (req: Request, res: Response) => {
       sort: sortBy ? { [`${sortBy}`]: orderValue } : defaultSort,
     })) as PaginatedResult<AdoptionServerData>;
 
-    if (res.locals.user) {
-      return res.status(200).json(results);
-    } else {
+    if (isPublic) {
       const publicData = results.data.map((adoption) =>
         convertAdoptionToPublicData(adoption as AdoptionServerData),
       );
@@ -192,6 +191,8 @@ export const getAdoptions = async (req: Request, res: Response) => {
         data: publicData,
       };
       return res.status(200).json(resultsWithPublicData);
+    } else {
+      return res.status(200).json(results);
     }
   } catch (error) {
     res.locals.logger.error(error);

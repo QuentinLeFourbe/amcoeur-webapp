@@ -7,6 +7,7 @@ import Button from "../../global/components/atoms/Button/Button";
 import FormCodeArea from "../../global/components/molecules/Form/FormCodeArea";
 import FormInput from "../../global/components/molecules/Form/FormInput";
 import FormSelect from "../../global/components/molecules/Form/FormSelect";
+import FormTextArea from "../../global/components/molecules/Form/FormTextArea";
 
 type AdoptionFormProps = {
   initialData?: AdoptionClientData;
@@ -18,19 +19,30 @@ export default function AdoptionForm({
   onSubmit,
   onCancel,
 }: AdoptionFormProps) {
-  const { register, handleSubmit, control } = useForm<AdoptionClientData>({
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<AdoptionClientData>({
     resolver: zodResolver(adoptionClientDataSchema),
-    defaultValues: initialData || {
-      name: "",
-      species: "CAT",
-      gender: "MALE",
-      visible: true,
+    defaultValues: {
+      ...initialData,
+      name: initialData?.name ?? "",
+      species: initialData?.species ?? "CAT",
+      gender: initialData?.gender ?? "MALE",
+      adopted: initialData?.adopted ?? false,
+      visible: initialData?.visible ?? false,
+      emergency: initialData?.visible ?? false,
     },
   });
 
   const submitData = (data: AdoptionClientData) => {
     onSubmit(data);
   };
+
+  if (errors && Object.getOwnPropertyNames(errors).length)
+    console.error({ errors });
 
   return (
     <form
@@ -95,11 +107,24 @@ export default function AdoptionForm({
 
       <Controller
         control={control}
-        name={`commentary`}
+        name={`description`}
         render={({ field: renderField }) => (
           <FormCodeArea {...renderField}>
             Description de l'adoption
           </FormCodeArea>
+        )}
+      />
+
+      <Controller
+        control={control}
+        name={`commentary`}
+        render={({ field: renderField }) => (
+          <FormTextArea
+            {...renderField}
+            className={css({ width: "70vw", height: "300px" })}
+          >
+            Commentaire
+          </FormTextArea>
         )}
       />
       <div className={css({ display: "flex", gap: "16px" })}>

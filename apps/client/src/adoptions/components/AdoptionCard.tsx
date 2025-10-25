@@ -9,9 +9,16 @@ type AdoptionCardProps = {
   name: string;
   gender: AdoptionGender;
   href?: string;
+  emergency?: boolean;
 };
 
-function AdoptionCard({ imageSrc, name, gender, href }: AdoptionCardProps) {
+function AdoptionCard({
+  imageSrc,
+  name,
+  gender,
+  href,
+  emergency,
+}: AdoptionCardProps) {
   return (
     <ClickablePrimitive
       to={href}
@@ -51,6 +58,24 @@ function AdoptionCard({ imageSrc, name, gender, href }: AdoptionCardProps) {
               transition: "transform 0.3s ease",
             })}
           />
+        )}
+        {emergency && (
+          <div
+            className={css({
+              position: "absolute",
+              top: "8px",
+              left: "8px",
+              backgroundColor: "red",
+              color: "white",
+              padding: "4px 8px",
+              borderRadius: "2px",
+              fontSize: "12px",
+              fontWeight: "bold",
+              zIndex: 10,
+            })}
+          >
+            Urgent
+          </div>
         )}
       </div>
       <div
