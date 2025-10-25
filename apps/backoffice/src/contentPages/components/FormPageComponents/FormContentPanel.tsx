@@ -1,14 +1,15 @@
 import { ContentPanelComponent, PageDataClient } from "@amcoeur/types";
-import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
 import { useState } from "react";
+import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
+
 import { css } from "../../../../styled-system/css";
-import Label from "../../../global/components/atoms/Label/Label";
 import Input from "../../../global/components/atoms/Input/Input";
-import FormInput from "../../../global/components/molecules/Form/FormInput";
-import FormCodeArea from "../../../global/components/molecules/Form/FormCodeArea";
-import NavButtonHelper from "../../../global/components/molecules/ButtonHelper/ButtonHelper";
+import Label from "../../../global/components/atoms/Label/Label";
 import Select from "../../../global/components/atoms/Select/SelectAlt";
+import NavButtonHelper from "../../../global/components/molecules/ButtonHelper/ButtonHelper";
 import FormCheckbox from "../../../global/components/molecules/Form/FormCheckbox";
+import FormCodeArea from "../../../global/components/molecules/Form/FormCodeArea";
+import FormInput from "../../../global/components/molecules/Form/FormInput";
 
 type FormContentPanelProps = {
   component: ContentPanelComponent;

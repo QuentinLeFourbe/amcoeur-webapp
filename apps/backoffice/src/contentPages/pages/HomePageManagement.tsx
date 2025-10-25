@@ -1,18 +1,23 @@
-import { useNavigate } from "react-router";
-import { useState } from "react";
 import { PageDataClient } from "@amcoeur/types";
-import { useGetHomePage, useUpdatePage } from "../hooks/pagesQueries";
-import PageForm from "../components/PageForm/PageForm";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+
+import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import PageComponentsRenderer from "../components/PageComponentsRenderer/PageComponentsRenderer";
-import { css } from "../../../styled-system/css";
+import PageForm from "../components/PageForm/PageForm";
+import { useGetHomePage, useUpdatePage } from "../hooks/pagesQueries";
 
-  function HomePageManagement() {
-    const [isEditing, setIsEditing] = useState(false);
-    const navigate = useNavigate();
-    const { data, isLoading, isError } = useGetHomePage();
-    const { mutate, isError: isErrorMutation } = useUpdatePage();
+function HomePageManagement() {
+  const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate();
+  const {
+    data: { data: homepageData } = {},
+    isLoading,
+    isError,
+  } = useGetHomePage();
+  const { mutate, isError: isErrorMutation } = useUpdatePage();
   const onEdit = (data: PageDataClient) => {
     mutate(data);
     setIsEditing(false);
@@ -24,7 +29,7 @@ import { css } from "../../../styled-system/css";
         <div className={editContainer}>
           <PageForm
             homePage
-            data={data?.data}
+            data={homepageData}
             onSubmit={onEdit}
             onCancel={() => setIsEditing(false)}
           />
@@ -33,7 +38,7 @@ import { css } from "../../../styled-system/css";
         <div className={container}>
           <div className={buttonContainer}>
             <Button onClick={() => navigate("/pages")}>Retour</Button>
-            <Button href={`/preview/${data?.data._id}`} target="_blank">
+            <Button href={`/preview/${homepageData?._id}`} target="_blank">
               Visualiser
             </Button>
             <Button onClick={() => setIsEditing(true)}>Modifier</Button>
@@ -45,13 +50,13 @@ import { css } from "../../../styled-system/css";
           )}
           <div>
             <label className={property}>Nom de la page: </label>
-            <label>{data?.data.name}</label>
+            <label>{homepageData?.name}</label>
           </div>
           <div>
             <label className={property}>Chemin d&apos;accès: </label>
-            <label>/{data?.data.route}</label>
+            <label>/{homepageData?.route}</label>
           </div>
-          <PageComponentsRenderer components={data?.data.components || []} />
+          <PageComponentsRenderer components={homepageData?.components || []} />
           {isLoading && <div>Chargement en cours des données...</div>}
           {isError && (
             <ErrorLabel>

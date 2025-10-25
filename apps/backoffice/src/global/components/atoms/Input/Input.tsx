@@ -1,4 +1,5 @@
-import { forwardRef, ComponentPropsWithoutRef } from "react";
+import { ComponentPropsWithoutRef, forwardRef } from "react";
+
 import { css, cx } from "../../../../../styled-system/css";
 
 type InputProps = Omit<ComponentPropsWithoutRef<"input">, "children"> & {
@@ -40,7 +41,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   );
 });
 
-Input.displayName = "Input";
 export default Input;
 
 const inputStyle = css({

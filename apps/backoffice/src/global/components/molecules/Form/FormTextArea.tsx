@@ -1,8 +1,9 @@
 import React from "react";
 import type { UseFormRegisterReturn } from "react-hook-form";
-import Label from "../../atoms/Label/Label";
-import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
+
 import { css, cx } from "../../../../../styled-system/css";
+import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
+import Label from "../../atoms/Label/Label";
 
 type FormTextAreaProps = React.InputHTMLAttributes<HTMLTextAreaElement> & {
   children: React.ReactNode;
@@ -41,6 +42,7 @@ const textAreaStyle = css({
   display: "flex",
   justifyContent: "flex-start",
   backgroundColor: "backgrounds.primary.extraLight",
+  color: "black",
   borderRadius: "4px",
   padding: "1rem",
 });

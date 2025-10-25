@@ -1,5 +1,6 @@
 import { defineConfig, defineGlobalStyles } from "@pandacss/dev";
-import { theme } from "./src/theme/theme";
+
+import { theme } from "./src/global/theme/theme";
 
 const globalCss = defineGlobalStyles({
   "html, body": {
@@ -12,7 +13,11 @@ export default defineConfig({
   preflight: true,
 
   // Where to look for your css declarations
-  include: ["./src/**/*.{js,jsx,ts,tsx}", "./pages/**/*.{js,jsx,ts,tsx}"],
+  include: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./pages/**/*.{js,jsx,ts,tsx}",
+    "./stories/**/*.{js,jsx,ts,tsx}",
+  ],
 
   // Files to exclude
   exclude: [],

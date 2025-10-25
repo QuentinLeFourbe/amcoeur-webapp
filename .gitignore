@@ -6,7 +6,6 @@ build
 
 **/styled-system/
 
-
 apps/server/uploads/*
 !uploads/.gitkeep
 

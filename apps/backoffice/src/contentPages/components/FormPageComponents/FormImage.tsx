@@ -1,8 +1,9 @@
 import { ImageComponent } from "@amcoeur/types";
-import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
 import { useState } from "react";
-import Button from "../../../global/components/atoms/Button/Button";
+import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
+
 import { css } from "../../../../styled-system/css";
+import Button from "../../../global/components/atoms/Button/Button";
 import FormInput from "../../../global/components/molecules/Form/FormInput";
 
 type FormImageProps = {
@@ -40,7 +41,7 @@ function FormImage({ component, onChange, onBlur, errors }: FormImageProps) {
       </FormInput>
       {!showCaptionField && (
         <Button
-          color="blue"
+          color="info"
           type="button"
           className={css({ margin: "16px 0" })}
           onClick={() => setShowCaptionField(true)}

@@ -1,5 +1,6 @@
 import type { ContactFormData } from "@amcoeur/types";
 import type { Request, Response } from "express";
+
 import { sendEmail } from "../services/mailService.js";
 
 /**

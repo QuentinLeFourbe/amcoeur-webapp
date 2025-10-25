@@ -1,0 +1,10 @@
+{
+  "adoptions": {
+    "CAT": "Chat",
+    "DOG": "Chien",
+    "HORSE": "Cheval",
+    "OTHER": "Autre",
+    "MALE": "Mâle",
+    "FEMALE": "Femelle"
+  }
+}

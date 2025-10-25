@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { getCurrentUser } from "../api/users";
+
 import router from "../../routes";
+import { getCurrentUser } from "../api/users";
 import { checkUserPermissions } from "../utils/user";
 
 export const useCurrentUser = () => {

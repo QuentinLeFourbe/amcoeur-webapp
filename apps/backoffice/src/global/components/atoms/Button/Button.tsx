@@ -1,5 +1,6 @@
 import type { ComponentProps } from "react";
-import { css, cva, cx } from "../../../../../styled-system/css";
+
+import { cva } from "../../../../../styled-system/css";
 import { styled } from "../../../../../styled-system/jsx";
 import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
 
@@ -8,60 +9,32 @@ const buttonRecipe = cva({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    width: "fit-content",
     cursor: "pointer",
-    "&:active:not(.button-active):not(.button-disabled)": {
+    "&:active:not([data-active], [data-disabled])": {
       opacity: "0.8",
     },
     transition: "background-color 0.3s ease",
     padding: "0.5rem 1rem",
-    width: "fit-content",
+    borderRadius: "4px",
+    "&:is([data-disabled])": {
+      opacity: "0.5",
+      cursor: "not-allowed",
+    },
   },
   variants: {
     color: {
-      green: {
-        color: "white",
-        backgroundColor: "green.700",
-        "&:hover:not(.button-active):not(.button-disabled)": {
-          backgroundColor: "green.100",
-          color: "green.700",
-        },
-        "&:disabled .button-active": {
-          cursor: "default",
-          backgroundColor: "green.200",
-          color: "green.800",
-        },
-        borderColor: "green.700",
-        borderStyle: "solid",
-        borderWidth: "2px",
-      },
-      red: {
-        color: "white",
-        backgroundColor: "red.400",
-        "&:hover:not(.button-active):not(.button-disabled)": {
-          backgroundColor: "red.100",
-          color: "red.400",
-        },
-        borderColor: "red.400",
-        borderStyle: "solid",
-        borderWidth: "2px",
-      },
-      blue: {
-        color: "blue.50",
-        backgroundColor: "blue.500",
-        "&:hover:not(.button-active):not(.button-disabled)": {
-          backgroundColor: "blue.100",
-          color: "blue.500",
-        },
-        borderColor: "blue.500",
-        borderStyle: "solid",
-        borderWidth: "2px",
-      },
       primary: {
         color: "pink.50",
         backgroundColor: "pink.500",
-        "&:hover:not(.button-active):not(.button-disabled)": {
+        "&:hover:not([data-active],[data-disabled])": {
           backgroundColor: "pink.100",
           color: "pink.500",
+        },
+        _active: {
+          backgroundColor: "pink.100",
+          color: "pink.500",
+          cursor: "auto",
         },
         borderColor: "pink.500",
         borderStyle: "solid",
@@ -70,11 +43,11 @@ const buttonRecipe = cva({
       secondary: {
         color: "pink.400",
         backgroundColor: "pink.50",
-        "&:hover:not(.button-active):not(.button-disabled)": {
+        "&:hover:not([data-active],[data-disabled])": {
           backgroundColor: "pink.100",
           color: "pink.700",
         },
-        "&:disabled.button-active": {
+        "&is([data-disabled],[data-active])": {
           cursor: "auto",
           backgroundColor: "pink.200",
           color: "pink.800",
@@ -83,44 +56,70 @@ const buttonRecipe = cva({
         borderStyle: "solid",
         borderWidth: "2px",
       },
-      lightgray: {
-        color: "gray.700",
-        backgroundColor: "gray.300",
-        "&:hover:not(.button-active):not(.button-disabled)": {
-          backgroundColor: "gray.400",
-          color: "gray.800",
+      danger: {
+        color: "white",
+        backgroundColor: "red.500",
+        "&:hover:not([data-active],[data-disabled])": {
+          backgroundColor: "red.100",
+          color: "red.400",
         },
-        "&:disabled.button-active": {
-          cursor: "default",
-          backgroundColor: "gray.500",
-          color: "gray.200",
-        },
-        borderColor: "transparent",
+        borderColor: "red.500",
         borderStyle: "solid",
-        borderWidth: "1px",
+        borderWidth: "2px",
+      },
+      info: {
+        color: "blue.50",
+        backgroundColor: "blue.500",
+        "&:hover:not([data-active],[data-disabled])": {
+          backgroundColor: "blue.100",
+          color: "blue.500",
+        },
+        borderColor: "blue.500",
+        borderStyle: "solid",
+        borderWidth: "2px",
+      },
+      success: {
+        color: "white",
+        backgroundColor: "green.700",
+        "&:hover:not([data-active],[data-disabled])": {
+          backgroundColor: "green.100",
+          color: "green.700",
+        },
+        "&is([data-disabled], [data-active])": {
+          cursor: "default",
+          backgroundColor: "green.200",
+          color: "green.800",
+        },
+        borderColor: "green.700",
+        borderStyle: "solid",
+        borderWidth: "2px",
+      },
+    },
+    bold: {
+      true: {
+        fontWeight: "bold",
       },
     },
     borders: {
-      rounded: {
-        borderRadius: "32px",
-      },
-
-      squared: {
-        borderRadius: "4px",
-      },
-
       circle: {
         borderRadius: "50%",
       },
+      roundedBorders: {
+        borderRadius: "32px",
+      },
     },
-    isIcon: {
+    icon: {
       true: {
         padding: "8px",
       },
     },
+    disabledAnchor: {
+      true: {
+        pointerEvents: "none",
+      },
+    },
   },
   defaultVariants: {
-    borders: "squared",
     color: "primary",
   },
 });
@@ -128,39 +127,25 @@ const buttonRecipe = cva({
 const StyledButton = styled(ClickablePrimitive, buttonRecipe);
 
 type ButtonProps = ComponentProps<typeof StyledButton> & {
-  isActive?: boolean;
-  isDisabled?: boolean;
+  active?: boolean;
+  disabled?: boolean;
 };
 
-function Button({ isActive, isDisabled, ...props }: ButtonProps) {
+function Button({ active, disabled, ...props }: ButtonProps) {
   const isAnchor = "href" in props || "to" in props;
   const isButton = !isAnchor;
 
-  const disabledProps = isButton ? { disabled: isDisabled || isActive } : {};
+  const disabledProps = isButton ? { disabled: disabled || active } : {};
+
   return (
     <StyledButton
       {...props}
-      className={cx(
-        (isDisabled || isActive) && isAnchor && disabledAnchor,
-        !isActive && isDisabledStyle,
-        isDisabled && "button-disabled",
-        isActive && "button-active",
-        props.className,
-      )}
+      data-active={active ? "true" : undefined}
+      data-disabled={disabled ? "true" : undefined}
+      disabledAnchor={(disabled || active) && isAnchor}
       {...disabledProps}
     />
   );
 }
 
 export default Button;
-
-const isDisabledStyle = css({
-  "&:disabled": {
-    opacity: "0.5",
-    cursor: "auto",
-  },
-});
-
-const disabledAnchor = css({
-  pointerEvents: "none",
-});

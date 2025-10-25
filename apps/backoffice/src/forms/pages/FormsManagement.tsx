@@ -1,11 +1,13 @@
 import { FormSummary } from "@amcoeur/types";
 import { useState } from "react";
+
 import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import Label from "../../global/components/atoms/Label/Label";
 import Overlay from "../../global/components/atoms/Overlay/Overlay";
 import Table from "../../global/components/atoms/Table/Table";
+import Pagination from "../../global/components/molecules/Pagination/Pagination";
 import {
   useDeleteForm,
   useDuplicateForm,
@@ -13,12 +15,13 @@ import {
 } from "../hooks/useFormsQueries";
 
 function FormsManagement() {
+  const [currentPage, setCurrentPage] = useState(1);
   const {
-    data: { data: formsData } = {},
+    data: { data: formsResult } = {},
     isSuccess,
     isLoading,
     isError,
-  } = useGetForms();
+  } = useGetForms({ page: currentPage, limit: 10 });
   const {
     mutate: deleteForm,
     isError: isDeleteError,
@@ -29,6 +32,9 @@ function FormsManagement() {
     isError: isDuplicateError,
     isSuccess: isDuplicateSuccess,
   } = useDuplicateForm();
+
+  const formsData = formsResult?.data;
+  const totalPages = formsResult?.totalPages || 1;
 
   const [formToDelete, setFormToDelete] = useState<FormSummary | null>(null);
   return (
@@ -44,6 +50,7 @@ function FormsManagement() {
         className={css({
           display: "flex",
           flexFlow: "column nowrap",
+          alignItems: "center",
           gap: "16px",
         })}
       >
@@ -59,7 +66,9 @@ function FormsManagement() {
           </ErrorLabel>
         )}
         {isDuplicateSuccess && <p>Le formulaire a bien été dupliqué</p>}
-        <Button to="/formulaires/creer">Créer</Button>
+        <div className={css({ alignSelf: "start" })}>
+          <Button to="/formulaires/creer">Créer</Button>
+        </div>
         {isError && <ErrorLabel>Erreur au chargement des questions</ErrorLabel>}
         {isLoading && <Label>Chargement en cours...</Label>}
         {isSuccess && (
@@ -72,28 +81,31 @@ function FormsManagement() {
             {formsData?.map((form) => (
               <tr key={form._id}>
                 <td>{form.name}</td>
-                <td>{form.answerCount}</td>
+                <td>{form.answersCount}</td>
                 <td>
                   <div className={css({ display: "flex", gap: "16px" })}>
                     <Button
                       to={`/formulaires/reponses/${form._id}`}
-                      color="green"
+                      color="success"
                     >
                       Réponses
                     </Button>
                     <Button
                       to={`/formulaires/modifier/${form._id}`}
-                      color="blue"
+                      color="info"
                     >
                       Modifier
                     </Button>
                     <Button
                       onClick={() => duplicateForm(form._id || "")}
-                      color="blue"
+                      color="info"
                     >
                       Dupliquer
                     </Button>
-                    <Button onClick={() => setFormToDelete(form)} color="red">
+                    <Button
+                      onClick={() => setFormToDelete(form)}
+                      color="danger"
+                    >
                       Supprimer
                     </Button>
                   </div>
@@ -102,6 +114,11 @@ function FormsManagement() {
             ))}
           </Table>
         )}
+        <Pagination
+          currentPage={currentPage}
+          setPage={setCurrentPage}
+          totalPages={totalPages}
+        />
       </div>
       <Overlay isVisible={!!formToDelete} onClose={() => setFormToDelete(null)}>
         <p>
@@ -110,12 +127,12 @@ function FormsManagement() {
         </p>
         <div className={css({ display: "flex", gap: "1rem" })}>
           <Button
-            color="red"
+            color="danger"
             onClick={() => formToDelete?._id && deleteForm(formToDelete._id)}
           >
             Supprimer
           </Button>
-          <Button color="secondary" onClick={() => setFormToDelete(null)}>
+          <Button color="danger" onClick={() => setFormToDelete(null)}>
             Annuler
           </Button>
         </div>

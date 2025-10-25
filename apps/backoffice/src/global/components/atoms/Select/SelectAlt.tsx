@@ -1,4 +1,5 @@
-import { forwardRef, ComponentPropsWithRef } from "react";
+import { ComponentPropsWithRef, forwardRef } from "react";
+
 import { css, cx } from "../../../../../styled-system/css";
 
 type Option = {
@@ -43,6 +44,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
 export default Select;
 
 const selectStyle = css({
+  color: "black",
   padding: "8px 12px",
   border: "1px solid #ccc",
   borderRadius: "4px",

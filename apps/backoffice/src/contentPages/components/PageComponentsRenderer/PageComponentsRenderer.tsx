@@ -1,9 +1,10 @@
 import { PageComponent } from "@amcoeur/types";
+
+import Image from "../../../global/components/molecules/Image/Image";
+import ContentPanel from "../ContentPanel/ContentPanel";
+import PageFormRenderer from "../PageFormRenderer/PageFormRenderer";
 import TextArea from "../TextArea/TextArea";
 import TitleBanner from "../TitleBanner/TitleBanner";
-import ContentPanel from "../ContentPanel/ContentPanel";
-import Image from "../../../global/components/molecules/Image/Image";
-import PageFormRenderer from "../PageFormRenderer/PageFormRenderer";
 
 type PageComponentsRendererProps = {
   components: PageComponent[];

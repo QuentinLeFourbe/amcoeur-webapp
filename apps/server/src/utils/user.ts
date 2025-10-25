@@ -1,4 +1,4 @@
-import type { UserServerData, UserPermission } from "@amcoeur/types";
+import type { UserPermission, UserServerData } from "@amcoeur/types";
 
 export const checkUserPermissions = (
   user: UserServerData | undefined,

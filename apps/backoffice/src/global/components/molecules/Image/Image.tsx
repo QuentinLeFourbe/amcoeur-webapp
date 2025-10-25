@@ -1,6 +1,7 @@
 import { ImageComponent } from "@amcoeur/types";
-import Label from "../../atoms/Label/Label";
+
 import { css } from "../../../../../styled-system/css";
+import Label from "../../atoms/Label/Label";
 
 type ImageProps = {
   component: ImageComponent;

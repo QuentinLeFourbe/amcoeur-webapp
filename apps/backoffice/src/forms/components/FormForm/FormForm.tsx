@@ -1,19 +1,20 @@
 import {
   FormClientData,
-  FormClientDataSchema,
+  formClientDataSchema,
   FormFieldType,
 } from "@amcoeur/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
-import FormInput from "../../../global/components/molecules/Form/FormInput";
+
 import { css } from "../../../../styled-system/css";
-import Button from "../../../global/components/atoms/Button/Button";
-import { getLabelFromValue, getNewField } from "../../utils/form";
-import DynamicContainer from "../../../global/components/organisms/DynamicContainer/DynamicContainer";
 import { AddButton } from "../../../global/components/atoms/AddButton/AddButton";
+import Button from "../../../global/components/atoms/Button/Button";
+import FormCodeArea from "../../../global/components/molecules/Form/FormCodeArea";
+import FormInput from "../../../global/components/molecules/Form/FormInput";
 import FormSelect from "../../../global/components/molecules/Form/FormSelect";
 import ListInput from "../../../global/components/molecules/ListInput/ListInput";
-import FormCodeArea from "../../../global/components/molecules/Form/FormCodeArea";
+import DynamicContainer from "../../../global/components/organisms/DynamicContainer/DynamicContainer";
+import { getLabelFromValue, getNewField } from "../../utils/form";
 
 type FormFormProps = {
   initialData?: FormClientData;
@@ -44,7 +45,7 @@ const fieldTypeOptions = [
 
 function FormForm({ initialData, onSubmit, onCancel, update }: FormFormProps) {
   const { register, control, handleSubmit, watch } = useForm<FormClientData>({
-    resolver: zodResolver(FormClientDataSchema),
+    resolver: zodResolver(formClientDataSchema),
     defaultValues: initialData || defaultData,
   });
   const { fields, append, prepend, move, remove } = useFieldArray({
@@ -83,10 +84,10 @@ function FormForm({ initialData, onSubmit, onCancel, update }: FormFormProps) {
       onSubmit={handleSubmit(onSubmitData)}
     >
       <div className={css({ display: "flex", gap: "16px" })}>
-        <Button color="red" onClick={onCancel} type="button">
+        <Button color="danger" onClick={onCancel} type="button">
           Annuler
         </Button>
-        <Button color={update ? "blue" : "green"} type="submit">
+        <Button color={update ? "info" : "success"} type="submit">
           {update ? "Modifier" : "Créer"}
         </Button>
       </div>
@@ -129,14 +130,14 @@ function FormForm({ initialData, onSubmit, onCancel, update }: FormFormProps) {
           )}
           {(watchFields[index].type === "UNIQUE_CHOICE" ||
             watchFields[index].type === "MULTIPLE_CHOICES") && (
-              <Controller
-                control={control}
-                name={`fields.${index}.choices`}
-                render={({ field: renderField }) => (
-                  <ListInput {...renderField} label={"Réponses possibles"} />
-                )}
-              />
-            )}
+            <Controller
+              control={control}
+              name={`fields.${index}.choices`}
+              render={({ field: renderField }) => (
+                <ListInput {...renderField} label={"Réponses possibles"} />
+              )}
+            />
+          )}
           {watchFields[index].type !== "DISPLAY_TEXT" && (
             <FormInput
               type="checkbox"
@@ -149,7 +150,7 @@ function FormForm({ initialData, onSubmit, onCancel, update }: FormFormProps) {
       ))}
       <AddButton onClick={() => append(getNewField())} />
 
-      <Button color={update ? "blue" : "green"} type="submit">
+      <Button color={update ? "info" : "success"} type="submit">
         {update ? "Modifier" : "Créer"}
       </Button>
     </form>

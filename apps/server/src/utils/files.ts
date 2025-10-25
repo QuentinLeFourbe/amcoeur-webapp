@@ -10,7 +10,7 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 /**
  * Deletes the uploaded image from the server.
- * @param imageUrl - The URL of the image to be deleted. It should be of the form XXX/filename 
+ * @param imageUrl - The URL of the image to be deleted. It should be of the form XXX/filename
  * @throws Error if the image cannot be found.
  */
 export const deleteUploadedImage = async (imageUrl: string) => {
@@ -21,19 +21,16 @@ export const deleteUploadedImage = async (imageUrl: string) => {
   const uploadFolder = path.join(__dirname, "..", "..", "uploads");
   if (fs.existsSync(path.join(uploadFolder, image))) {
     fs.unlinkSync(path.join(uploadFolder, image));
-  } else {
-    throw new Error("Image to delete does not exist");
   }
 };
 
 export const deletePageImages = async (page: PageDataServer) => {
-    page?.components.forEach((component: PageComponent) => {
-      if ("imageUrl" in component && component.imageUrl) {
-        deleteUploadedImage(component.imageUrl);
-      }
-    });
-}
-
+  page?.components.forEach((component: PageComponent) => {
+    if ("imageUrl" in component && component.imageUrl) {
+      deleteUploadedImage(component.imageUrl);
+    }
+  });
+};
 
 /**
  * Deletes old images that are no longer used in the new page.
@@ -55,7 +52,7 @@ export const deleteOldImages = (
             (c as PageComponentWithImage).imageUrl === component.imageUrl,
         )
       ) {
-        component.imageUrl && deleteUploadedImage(component.imageUrl);
+        if (component.imageUrl) deleteUploadedImage(component.imageUrl);
       }
     }
   });

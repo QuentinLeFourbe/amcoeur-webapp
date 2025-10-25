@@ -1,12 +1,13 @@
 import { PageComponent } from "@amcoeur/types";
 import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
-import { getNewComponent } from "../../utils/page";
+
 import DynamicContainer from "../../../global/components/organisms/DynamicContainer/DynamicContainer";
-import FormTitleBannerComponent from "./FormTitleBanner";
-import FormTextAreaComponent from "./FormTextAreaComponent";
-import FormImage from "./FormImage";
-import FormEmptyComponent from "./FormEmptyComponent";
+import { getNewComponent } from "../../utils/page";
 import DynamicFormFields from "./DynamicFormFields";
+import FormEmptyComponent from "./FormEmptyComponent";
+import FormImage from "./FormImage";
+import FormTextAreaComponent from "./FormTextAreaComponent";
+import FormTitleBannerComponent from "./FormTitleBanner";
 import WrappedFormContentPanel from "./WrappedFormContentPanel";
 
 type ComponentsFieldsRendererProps = {
@@ -100,7 +101,8 @@ function ComponentsFieldsRenderer({
         return (
           <FormEmptyComponent
             onChange={(type) => {
-              updateComponent && updateComponent(getNewComponent(type), index);
+              if (updateComponent)
+                updateComponent(getNewComponent(type), index);
             }}
           />
         );

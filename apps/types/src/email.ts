@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 export const personalDataSchema = z.object({
-  firstname: z.string().min(1, { message: "Veuillez renseigner votre prénom" }),
-  name: z.string().min(1, { message: "Veuillez renseigner votre nom" }),
+  firstname: z.string().min(1, "Veuillez renseigner votre prénom"),
+  name: z.string().min(1, "Veuillez renseigner votre nom"),
 });
 
 export const contactDataSchema = z.object({
@@ -45,6 +45,17 @@ export const contactFormSchema = z
   .merge(locationDataSchema)
   .merge(captchaTokenSchema);
 
+export const adoptionContactSchema = z
+  .object({
+    motivation: z.string().min(1, "Veuillez renseigner vos motivations"),
+    adoptionId: z
+      .string()
+      .min(1, "Aucune adoption n'est relié à votre demande"),
+  })
+  .merge(personalDataSchema)
+  .merge(contactDataSchema)
+  .merge(captchaTokenSchema);
+
 export type PersonalData = z.infer<typeof personalDataSchema>;
 
 export type LocationData = z.infer<typeof locationDataSchema>;
@@ -55,11 +66,4 @@ export type CaptchaToken = z.infer<typeof captchaTokenSchema>;
 
 export type ContactFormData = z.infer<typeof contactFormSchema>;
 
-export type ReservationFormData = PersonalData &
-  ContactData &
-  CaptchaToken & {
-    personCount: number;
-    takeMeal: boolean;
-    howDidYouHearAboutUs?: "facebook" | "display" | "hear" | "other";
-    remark?: string;
-  };
+export type AdoptionContact = z.infer<typeof adoptionContactSchema>;

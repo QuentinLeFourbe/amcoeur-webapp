@@ -1,7 +1,8 @@
 import { TitleBannerComponent } from "@amcoeur/types";
-import Label from "../../../global/components/atoms/Label/Label";
-import CodeArea from "../../../global/components/atoms/CodeArea/CodeArea";
+
 import { css } from "../../../../styled-system/css";
+import CodeArea from "../../../global/components/atoms/CodeArea/CodeArea";
+import Label from "../../../global/components/atoms/Label/Label";
 
 type TitleBannerProps = {
   component: TitleBannerComponent;

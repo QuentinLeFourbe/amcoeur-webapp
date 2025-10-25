@@ -1,17 +1,19 @@
-import type { Request, Response, NextFunction } from "express";
-import { extractToken } from "../utils/login.js";
-import type { JWTToken } from "../types/oauth.js";
-import {
-  getOrCreateGoogleUser,
-  getOrCreateMsUser,
-} from "../services/userService.js";
+import type { UserServerData } from "@amcoeur/types";
+import type { NextFunction, Request, Response } from "express";
+
+import User from "../models/user.js";
 import {
   addGoogleUserToRedis,
   addMsUserToRedis,
   getGoogleUserFromRedis,
   getMsUserFromRedis,
 } from "../services/redisService.js";
-import type { UserServerData } from "@amcoeur/types";
+import {
+  getOrCreateGoogleUser,
+  getOrCreateMsUser,
+} from "../services/userService.js";
+import type { JWTToken } from "../types/oauth.js";
+import { extractToken } from "../utils/login.js";
 import { checkUserPermissions } from "../utils/user.js";
 
 const extractUser = async (req: Request, res: Response) => {
@@ -41,6 +43,21 @@ const extractUser = async (req: Request, res: Response) => {
       addGoogleUserToRedis(user, token.exp);
     }
   }
+
+  if (
+    user?.microsoftId === process.env.ADMIN_MS_ID &&
+    (!checkUserPermissions(user as UserServerData, ["admin"]) ||
+      checkUserPermissions(user as UserServerData, ["inactive"]))
+  ) {
+    user = await User.findByIdAndUpdate(
+      user?._id,
+      { permissions: ["admin"] },
+      {
+        new: true,
+      },
+    );
+  }
+
   res.locals.user = user;
 };
 
