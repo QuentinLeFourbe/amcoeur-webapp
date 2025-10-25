@@ -1,4 +1,10 @@
+import {
+  AdoptionClientData,
+  AdoptionFilter,
+  AdoptionSortBy,
+} from "@amcoeur/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { AxiosResponse } from "axios";
 
 import {
   createAdoption,
@@ -7,11 +13,15 @@ import {
   getAdoptions,
   updateAdoption,
 } from "../api/adoptions";
-import { AxiosResponse } from "axios";
-import { AdoptionClientData } from "@amcoeur/types";
 
 export const useGetAdoptions = (
-  params: { page?: number; limit?: number } = {},
+  params: {
+    page?: number;
+    limit?: number;
+    filter?: AdoptionFilter;
+    sortBy?: AdoptionSortBy;
+    sortOrder?: "desc";
+  } = {},
 ) => {
   const query = useQuery({
     queryKey: ["adoptions", params],

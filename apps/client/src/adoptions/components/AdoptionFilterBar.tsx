@@ -163,7 +163,7 @@ function AdoptionFilterBar({
               checked={
                 !!filter?.species?.find((species) => species === specieItem.key)
               }
-              value={"DOG"}
+              value={specieItem.key}
               onChange={(e) =>
                 onUpdateFilter({
                   species: e.currentTarget.value as AdoptionSpecies,

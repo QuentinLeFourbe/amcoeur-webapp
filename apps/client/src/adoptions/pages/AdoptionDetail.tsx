@@ -78,7 +78,7 @@ function AdoptionDetail() {
               </div>
               <div className={dataStyle}>
                 <Label>Date de naissance: </Label>
-                {adoptionData?.birthday?.toLocaleDateString() ||
+                {adoptionData?.birthday?.toLocaleDateString("fr-FR") ||
                   "Non renseignée"}
               </div>
             </div>

@@ -3,6 +3,18 @@ import { z } from "zod";
 
 const speciesSchema = z.enum(["CAT", "DOG", "HORSE", "OTHER"]);
 const genderSchema = z.enum(["MALE", "FEMALE"]);
+const sortBySchema = z.enum([
+  "name",
+  "species",
+  "race",
+  "gender",
+  "birthday",
+  "emergency",
+  "visible",
+  "adopted",
+  "createdAt",
+  "updatedAt",
+]);
 
 const adoptionBaseSchema = z.object({
   name: z.string(),
@@ -49,9 +61,13 @@ export const adoptionClientPublicDataSchema = z
   })
   .merge(adoptionBaseSchema);
 
-export const adoptionClientDataSchema = adoptionClientPublicDataSchema.merge(
-  adoptionPrivateSchema,
-);
+export const adoptionClientDataSchema = z
+  .object({
+    createdAt: z.string(),
+    updatedAt: z.string(),
+  })
+  .merge(adoptionClientPublicDataSchema)
+  .merge(adoptionPrivateSchema);
 
 export const adoptionServerPublicDataSchema = z
   .object({
@@ -59,9 +75,13 @@ export const adoptionServerPublicDataSchema = z
   })
   .merge(adoptionBaseSchema);
 
-export const adoptionServerDataSchema = adoptionServerPublicDataSchema.merge(
-  adoptionPrivateSchema,
-);
+export const adoptionServerDataSchema = z
+  .object({
+    createdAt: z.date(),
+    updatedAt: z.date(),
+  })
+  .merge(adoptionServerPublicDataSchema)
+  .merge(adoptionPrivateSchema);
 
 export type AdoptionClientData = z.infer<typeof adoptionClientDataSchema>;
 export type AdoptionClientPublicData = z.infer<
@@ -75,8 +95,18 @@ export type AdoptionServerPublicData = z.infer<
 
 export type AdoptionGender = z.infer<typeof genderSchema>;
 export type AdoptionSpecies = z.infer<typeof speciesSchema>;
+export type AdoptionSortBy = z.infer<typeof sortBySchema>;
 
 export type AdoptionCount = {
   species?: { key: "CAT" | "DOG" | "HORSE" | "OTHER"; value: number }[];
   gender?: { key: "MALE" | "FEMALE"; value: number }[];
+};
+
+export type AdoptionFilter = {
+  species?: AdoptionSpecies[];
+  gender?: AdoptionGender;
+  name?: string;
+  adopted?: boolean;
+  visible?: boolean;
+  emergency?: boolean;
 };

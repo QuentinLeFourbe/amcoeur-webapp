@@ -18,6 +18,7 @@ export const convertAdoptionToPublicData = (adoption: AdoptionServerData) => {
     species: adoption.species,
     race: adoption.race,
     imageUrl: adoption.imageUrl,
+    emergency: adoption.emergency,
   } as AdoptionServerPublicData;
 };
 
@@ -25,17 +26,24 @@ export const getAdoptionFilter = ({
   species,
   gender,
   name,
+  emergency,
+  adopted,
+  visible,
 }: AdoptionFilter) => {
-  const filter = {} as { species?: unknown; gender?: unknown; name?: unknown };
-  if (species) {
-    filter.species = { $in: species };
-  }
-  if (gender) {
-    filter.gender = gender;
-  }
-  if (name) {
-    filter.name = { $regex: name, $options: "i" };
-  }
+  const filter = {} as {
+    species?: unknown;
+    gender?: unknown;
+    name?: unknown;
+    emergency?: boolean;
+    adopted?: boolean;
+    visible?: boolean;
+  };
+  if (species) filter.species = { $in: species };
+  if (gender) filter.gender = gender;
+  if (name) filter.name = { $regex: name, $options: "i" };
+  if (emergency !== undefined) filter.emergency = emergency;
+  if (adopted !== undefined) filter.adopted = adopted;
+  if (visible !== undefined) filter.visible = visible;
   return filter;
 };
 

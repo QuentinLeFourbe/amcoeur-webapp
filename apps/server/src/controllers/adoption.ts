@@ -1,5 +1,6 @@
 import type {
   AdoptionContact,
+  AdoptionFilter,
   AdoptionServerData,
   PaginatedResult,
 } from "@amcoeur/types";
@@ -7,7 +8,6 @@ import type { Request, Response } from "express";
 
 import Adoption from "../models/adoption.js";
 import { paginate } from "../services/dbService.js";
-import type { AdoptionFilter } from "../types/adoptions.js";
 import {
   convertAdoptionToPublicData,
   getAdoptionFilter,
@@ -135,18 +135,29 @@ export const getAdoption = async (req: Request, res: Response) => {
 
 export const getAdoptions = async (req: Request, res: Response) => {
   try {
-    const { count, limit, page, gender, species, name } = req.query;
-    const parsedLimit = parseInt(limit as string);
-    const pageLimit = !parsedLimit || parsedLimit < 1 ? 20 : parsedLimit;
-    const parsedPage = parseInt(page as string);
-    const pageNumber = !parsedPage || parsedPage < 1 ? 1 : parsedPage;
+    const { count, gender, species, name, sortBy, order } = req.query;
+    const limit = parseInt(req.query.limit as string);
+    const page = parseInt(req.query.page as string);
+    const adopted =
+      req.query.adopted && JSON.parse(req.query.adopted as string);
+    const visible =
+      req.query.visible && JSON.parse(req.query.visible as string);
+    const emergency =
+      req.query.emergency && JSON.parse(req.query.emergency as string);
+
+    const pageLimit = !limit || limit < 1 ? 20 : limit;
+    const pageNumber = !page || page < 1 ? 1 : page;
     const isCounting = parseBoolean(count as string);
+    const orderValue = order === "desc" ? -1 : 1;
 
     const speciesFilterValue = parseQueryArray(species as string);
     const filter = getAdoptionFilter({
       gender,
       species: speciesFilterValue,
       name,
+      adopted,
+      visible,
+      emergency,
     } as AdoptionFilter);
 
     const results = (await paginate(Adoption, {
@@ -154,6 +165,7 @@ export const getAdoptions = async (req: Request, res: Response) => {
       limit: pageLimit,
       filter,
       count: isCounting ? ["species", "gender"] : undefined,
+      sort: { [`${sortBy}`]: orderValue },
     })) as PaginatedResult<AdoptionServerData>;
 
     if (res.locals.user) {

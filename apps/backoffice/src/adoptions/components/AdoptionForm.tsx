@@ -25,7 +25,6 @@ export default function AdoptionForm({
       species: "CAT",
       gender: "MALE",
       visible: true,
-      archived: false,
     },
   });
 
