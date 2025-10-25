@@ -68,7 +68,7 @@ function AdoptionDetails() {
             </Button>
             <Button
               color={isVisible ? "info" : "danger"}
-              disabled={isUpdateLoading}
+              disabled={isUpdateLoading || isAdopted}
               onClick={() =>
                 updateAdoption({
                   ...adoptionData?.data,

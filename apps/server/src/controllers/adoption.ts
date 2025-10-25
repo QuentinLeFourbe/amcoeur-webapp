@@ -8,6 +8,7 @@ import type { Request, Response } from "express";
 
 import Adoption from "../models/adoption.js";
 import { paginate } from "../services/dbService.js";
+import { updateDbUser } from "../services/userService.js";
 import {
   convertAdoptionToPublicData,
   getAdoptionFilter,
@@ -72,6 +73,13 @@ export const updateAdoption = async (req: Request, res: Response) => {
   try {
     const updatedAdoptionData = req.body as AdoptionServerData;
 
+    const isAdopted =
+      (updatedAdoptionData.adopted as unknown as string) === "true";
+
+    if (isAdopted === true) {
+      updatedAdoptionData.visible = false;
+    }
+
     const files = req.files as Express.Multer.File[];
     let imageUrl = updatedAdoptionData.imageUrl || "";
     if (files && files.length && files[0]?.filename) {
@@ -80,6 +88,8 @@ export const updateAdoption = async (req: Request, res: Response) => {
         deleteUploadedImage(updatedAdoptionData.imageUrl);
       }
     }
+
+    console.log({ updatedAdoptionData });
 
     const updatedAnswer = await Adoption.findByIdAndUpdate(
       req.params.id,
@@ -135,6 +145,7 @@ export const getAdoption = async (req: Request, res: Response) => {
 
 export const getAdoptions = async (req: Request, res: Response) => {
   try {
+    const isPublic = !res.locals.user;
     const { count, gender, species, name, sortBy, order } = req.query;
     const limit = parseInt(req.query.limit as string);
     const page = parseInt(req.query.page as string);
@@ -156,7 +167,7 @@ export const getAdoptions = async (req: Request, res: Response) => {
       species: speciesFilterValue,
       name,
       adopted,
-      visible,
+      visible: isPublic ? true : visible,
       emergency,
     } as AdoptionFilter);
 
