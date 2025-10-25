@@ -14,7 +14,6 @@ function Banner({ children, backgroundSrc = defaultBannerImage }: BannerProps) {
       <img
         className={backgroundImage}
         src={backgroundSrc}
-        alt="Image bannière de Amcoeur"
         loading="lazy"
       />
       <div className={textContainer}>{children}</div>
