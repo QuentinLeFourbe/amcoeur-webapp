@@ -33,7 +33,7 @@ function DynamicContainer({
           )}
         </>
         {onDelete && (
-          <Button type="button" color="info" onClick={onDelete}>
+          <Button type="button" color="danger" onClick={onDelete}>
             <Trash />
           </Button>
         )}
