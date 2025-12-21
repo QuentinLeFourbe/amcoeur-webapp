@@ -1,6 +1,7 @@
 import type { ContactFormData } from "@amcoeur/types";
 import type { Request, Response } from "express";
 
+import { removeFromMailingList } from "../services/mailingListService.js";
 import { sendEmail } from "../services/mailService.js";
 
 /**
@@ -37,5 +38,20 @@ export const sendContactEmail = async (req: Request, res: Response) => {
   } catch (err) {
     res.locals.logger.error(err);
     res.status(500).send(`Erreur lors de l'envoi de l'e-mail : ${err}`);
+  }
+};
+
+export const unsubscribeEmail = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ error: "Bad request" });
+    }
+
+    await removeFromMailingList("amcoeur.org", "amcoeur", email);
+    return res.status(200).send("Email removed");
+  } catch (err) {
+    res.locals.logger.error(err);
+    return res.status(500).send(`Erreur while unsubscribing email`);
   }
 };

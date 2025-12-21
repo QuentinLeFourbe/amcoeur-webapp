@@ -30,6 +30,7 @@ export default [
       "**/node_modules",
       "**/styled-system",
       "**/*.config.*",
+      "**/.env",
     ],
   },
   {
