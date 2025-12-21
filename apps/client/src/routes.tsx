@@ -6,6 +6,7 @@ import GeneratedPage from "./generated/pages/GeneratedPage";
 import Preview from "./generated/pages/Preview";
 import PageContainer from "./global/components/templates/PageContainer/PageContainer";
 import IndexPage from "./global/pages";
+import Unsubscribe from "./global/pages/Unsubscribe";
 import { generatePagesRoutes } from "./global/utils/routes";
 
 export const pagesRoutes = [
@@ -44,5 +45,9 @@ export const appRoutes = [
       path: route.path,
       element: route.element,
     })),
+  },
+  {
+    path: "/unsubscribe",
+    element: <Unsubscribe />,
   },
 ];

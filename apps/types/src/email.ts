@@ -56,6 +56,15 @@ export const adoptionContactSchema = z
   .merge(contactDataSchema)
   .merge(captchaTokenSchema);
 
+export const unsubscribeSchema = z
+  .object({
+    email: z
+      .string()
+      .min(1, "Veuillez renseigner votre adresse email")
+      .email("Adresse email invalide"),
+  })
+  .merge(captchaTokenSchema);
+
 export type PersonalData = z.infer<typeof personalDataSchema>;
 
 export type LocationData = z.infer<typeof locationDataSchema>;
@@ -67,3 +76,5 @@ export type CaptchaToken = z.infer<typeof captchaTokenSchema>;
 export type ContactFormData = z.infer<typeof contactFormSchema>;
 
 export type AdoptionContact = z.infer<typeof adoptionContactSchema>;
+
+export type UnsubscribeFormData = z.infer<typeof unsubscribeSchema>;
