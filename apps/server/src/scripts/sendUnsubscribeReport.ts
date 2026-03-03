@@ -31,8 +31,7 @@ const sendReport = async () => {
         (u) =>
           `- ${u.email} (le ${u.unsubscribedAt.toLocaleDateString("fr-FR")})`,
       )
-      .join("
-");
+      .join("\n");
 
     const mailOptions = {
       to: adminEmail,
