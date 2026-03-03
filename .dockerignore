@@ -1,0 +1,14 @@
+node_modules
+apps/client/node_modules
+apps/backoffice/node_modules
+apps/server/node_modules
+apps/types/node_modules
+.git
+.github
+dist
+build
+.netlify
+apps/server/uploads/*
+!apps/server/uploads/.gitkeep
+.env
+*.log

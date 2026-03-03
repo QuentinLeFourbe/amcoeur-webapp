@@ -3,6 +3,7 @@ import type { Request, Response } from "express";
 
 import { removeFromMailingList } from "../services/mailingListService.js";
 import { sendEmail } from "../services/mailService.js";
+import Unsubscribe from "../models/unsubscribe.js";
 
 /**
  * Send an email to the contact email address
@@ -49,6 +50,13 @@ export const unsubscribeEmail = async (req: Request, res: Response) => {
     }
 
     await removeFromMailingList("amcoeur.org", "amcoeur", email);
+
+    await Unsubscribe.create({
+      email,
+      unsubscribedAt: new Date(),
+      sentToAdmin: false,
+    });
+
     return res.status(200).send("Email removed");
   } catch (err) {
     res.locals.logger.error(err);

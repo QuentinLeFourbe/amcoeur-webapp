@@ -11,8 +11,8 @@ COPY . .
 # Construction du client et du serveur
 RUN npm install && npm run build-server
 
-# Exposer le port que ton serveur utilise
-EXPOSE 5000
+# Exposer le port que ton serveur utilise (Fly.io utilise 3000 par défaut)
+EXPOSE 3000
 
 # Commande pour démarrer l'application
 CMD ["npm", "run", "start"]
