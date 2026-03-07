@@ -11,6 +11,7 @@ import { fileURLToPath } from "url";
 import { getRequestLogger } from "./middlewares/logger.js";
 import adoptionsRoutes from "./routes/adoption.js";
 import answersRoutes from "./routes/answer.js";
+import contactRoutes from "./routes/contact.js";
 import emailRoutes from "./routes/email.js";
 import formsRoutes from "./routes/form.js";
 import pageRoutes from "./routes/page.js";
@@ -59,6 +60,7 @@ app.use("/pages", pageRoutes);
 app.use("/forms", formsRoutes);
 app.use("/answers", answersRoutes);
 app.use("/adoptions", adoptionsRoutes);
+app.use("/contacts", contactRoutes);
 
 redisClient.connect();
 
