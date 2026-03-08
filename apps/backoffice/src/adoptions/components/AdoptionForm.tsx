@@ -57,31 +57,47 @@ export default function AdoptionForm({
     >
       <FormInput {...register("name")} errorMessage={errors.name?.message}>Nom</FormInput>
 
-      <FormSelect
-        {...register("species")}
-        options={[
-          { value: "CAT", label: "Chat" },
-          { value: "DOG", label: "Chien" },
-          { value: "HORSE", label: "Cheval" },
-          { value: "OTHER", label: "Autre" },
-        ]}
-        errorMessage={errors.species?.message}
-      >
-        Espèce
-      </FormSelect>
+      <Controller
+        control={control}
+        name="species"
+        render={({ field: { onChange, value, onBlur } }) => (
+          <FormSelect
+            options={[
+              { value: "CAT", label: "Chat" },
+              { value: "DOG", label: "Chien" },
+              { value: "HORSE", label: "Cheval" },
+              { value: "OTHER", label: "Autre" },
+            ]}
+            value={value}
+            onChange={onChange}
+            onBlur={onBlur}
+            errorMessage={errors.species?.message}
+          >
+            Espèce
+          </FormSelect>
+        )}
+      />
 
       <FormInput {...register("race")} errorMessage={errors.race?.message}>Race</FormInput>
 
-      <FormSelect
-        {...register("gender")}
-        options={[
-          { value: "MALE", label: "Mâle" },
-          { value: "FEMALE", label: "Femelle" },
-        ]}
-        errorMessage={errors.gender?.message}
-      >
-        Genre
-      </FormSelect>
+      <Controller
+        control={control}
+        name="gender"
+        render={({ field: { onChange, value, onBlur } }) => (
+          <FormSelect
+            options={[
+              { value: "MALE", label: "Mâle" },
+              { value: "FEMALE", label: "Femelle" },
+            ]}
+            value={value}
+            onChange={onChange}
+            onBlur={onBlur}
+            errorMessage={errors.gender?.message}
+          >
+            Genre
+          </FormSelect>
+        )}
+      />
 
       <Controller
         name="image"
