@@ -5,11 +5,6 @@ import Papa from "papaparse";
 import * as XLSX from "xlsx";
 
 import Contact from "../models/contact.js";
-import Unsubscribe from "../models/unsubscribe.js";
-import {
-  addSubscriberToMailingList,
-  getMailingListSubscribers,
-} from "../services/mailingListService.js";
 
 /**
  * Get all contacts with pagination
@@ -69,7 +64,6 @@ export const importContacts = async (req: Request, res: Response) => {
       }
     }
 
-    // Process and upsert contacts
     const summary = { imported: 0, updated: 0, errors: 0 };
 
     for (const row of data) {
@@ -101,7 +95,6 @@ export const importContacts = async (req: Request, res: Response) => {
       }
     }
 
-    // Clean up uploaded file
     fs.unlinkSync(filePath);
 
     return res.status(200).json({
@@ -111,111 +104,5 @@ export const importContacts = async (req: Request, res: Response) => {
   } catch (err) {
     res.locals.logger.error(err);
     return res.status(500).send("Erreur lors de l'importation des contacts");
-  }
-};
-
-/**
- * Export unsubscribed emails as CSV
- */
-export const exportUnsubscribes = async (_req: Request, res: Response) => {
-  try {
-    const unsubscribes = await Unsubscribe.find().sort({ unsubscribedAt: -1 });
-    
-    const csvData = unsubscribes.map(u => ({
-      email: u.email,
-      date: u.unsubscribedAt.toISOString(),
-    }));
-
-    const csv = Papa.unparse(csvData, { delimiter: ";" });
-
-    res.setHeader("Content-Type", "text/csv");
-    res.setHeader("Content-Disposition", "attachment; filename=desinscriptions.csv");
-    return res.status(200).send(csv);
-  } catch (err) {
-    res.locals.logger.error(err);
-    return res.status(500).send("Erreur lors de l'exportation des désinscriptions");
-  }
-};
-
-/**
- * Get statistics for mailing list and local database
- */
-export const getMailingListStats = async (_req: Request, res: Response) => {
-  try {
-    const domain = "amcoeur.org";
-    const mailingList = "amcoeur";
-
-    const [ovhSubscribers, dbUnsubscribesCount, dbContactsCount] = await Promise.all([
-      getMailingListSubscribers(domain, mailingList),
-      Unsubscribe.countDocuments(),
-      Contact.countDocuments(),
-    ]);
-
-    return res.status(200).json({
-      ovh: {
-        count: ovhSubscribers.length,
-        name: mailingList,
-      },
-      db: {
-        contactsCount: dbContactsCount,
-        unsubscribesCount: dbUnsubscribesCount,
-      }
-    });
-  } catch (err) {
-    res.locals.logger.error(err);
-    return res.status(500).send("Erreur lors de la récupération des statistiques");
-  }
-};
-
-/**
- * Synchronize local database with OVH mailing list
- */
-export const syncWithOVH = async (_req: Request, res: Response) => {
-  try {
-    const domain = "amcoeur.org";
-    const mailingList = "amcoeur";
-
-    // 1. Get all local contacts
-    const contacts = await Contact.find();
-    
-    // 2. Get all unsubscribed emails
-    const unsubscribes = await Unsubscribe.find().select("email");
-    const unsubscribedEmails = new Set(unsubscribes.map(u => u.email.toLowerCase()));
-
-    // 3. Get current OVH subscribers
-    const currentOVHSubscribers = await getMailingListSubscribers(domain, mailingList);
-    const ovhEmails = new Set(currentOVHSubscribers.map(e => e.toLowerCase()));
-
-    // 4. Filter contacts to add
-    const toAdd = contacts.filter(c => {
-      const email = c.email.toLowerCase();
-      return !unsubscribedEmails.has(email) && !ovhEmails.has(email);
-    });
-
-    // 5. Add to OVH
-    const summary = { added: 0, skipped: toAdd.length, errors: 0 };
-    
-    for (const contact of toAdd) {
-      try {
-        await addSubscriberToMailingList(domain, mailingList, contact.email);
-        summary.added++;
-      } catch (error) {
-        res.locals.logger.error(error);
-        summary.errors++;
-      }
-    }
-
-    return res.status(200).json({
-      message: "Synchronisation terminée",
-      summary: {
-        added: summary.added,
-        ignored_unsubscribed: unsubscribedEmails.size,
-        already_in_ovh: ovhEmails.size,
-        errors: summary.errors
-      }
-    });
-  } catch (err) {
-    res.locals.logger.error(err);
-    return res.status(500).send("Erreur lors de la synchronisation");
   }
 };
