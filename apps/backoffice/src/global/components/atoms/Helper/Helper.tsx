@@ -1,5 +1,5 @@
-import { ComponentProps,type ReactNode, useState } from "react";
-
+import { ComponentProps, type ReactNode, useState } from "react";
+import { HelpCircle, ChevronDown, ChevronUp } from "lucide-react";
 import { css, cx } from "../../../../../styled-system/css";
 
 type HelperProps = ComponentProps<"div"> & {
@@ -7,19 +7,27 @@ type HelperProps = ComponentProps<"div"> & {
   label: string;
 };
 
-function Helper({ children, label , ...props}: HelperProps) {
+function Helper({ children, label, ...props }: HelperProps) {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
     <div {...props} className={cx(container, props.className)}>
       <button
-        className={buttonStyle}
+        className={cx(buttonStyle, showDetails && activeButtonStyle)}
         type="button"
         onClick={() => setShowDetails(!showDetails)}
       >
-        {label}
+        <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem" })}>
+          <HelpCircle size={18} className={css({ color: "amcoeurRose" })} />
+          <span>{label}</span>
+        </div>
+        {showDetails ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
       </button>
-      {showDetails && <div className={textContainer}>{children}</div>}
+      {showDetails && (
+        <div className={textContainer}>
+          <div className={innerContentStyle}>{children}</div>
+        </div>
+      )}
     </div>
   );
 }
@@ -27,40 +35,73 @@ function Helper({ children, label , ...props}: HelperProps) {
 export default Helper;
 
 const container = css({
-  backgroundColor: "blue.900",
-  borderRadius: "0.5rem",
+  backgroundColor: "rgba(255, 255, 255, 0.03)",
+  borderRadius: "12px",
+  border: "1px solid",
+  borderColor: "rgba(255, 255, 255, 0.05)",
+  width: "100%",
+  overflow: "hidden",
+  transition: "all 0.3s ease",
+});
+
+const buttonStyle = css({
+  fontSize: "sm",
+  fontWeight: "bold",
+  color: "amcoeurPale",
+  backgroundColor: "transparent",
+  cursor: "pointer",
+  width: "100%",
+  textAlign: "left",
+  padding: "0.75rem 1rem",
   display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-start",
+  justifyContent: "space-between",
+  alignItems: "center",
+  border: "none",
+  outline: "none",
+  transition: "background-color 0.2s ease",
+
+  "&:hover": {
+    backgroundColor: "rgba(255, 255, 255, 0.05)",
+    color: "white",
+  },
+});
+
+const activeButtonStyle = css({
+  borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
+  backgroundColor: "rgba(255, 255, 255, 0.02)",
 });
 
 const textContainer = css({
-  width:"100%",
-  color: "white",
-  padding: "0rem 1rem",
-  fontSize: "0.9rem",
-  whiteSpace: "pre-wrap",
+  width: "100%",
+  color: "rgba(255, 255, 255, 0.8)",
+  fontSize: "0.85rem",
+  lineHeight: "relaxed",
+  backgroundColor: "rgba(0, 0, 0, 0.1)",
+});
+
+const innerContentStyle = css({
+  padding: "1rem 1.25rem",
+  
   "& p": {
     margin: "0.5rem 0",
   },
 
   "& ul": {
-    listStyle: "square",
-    marginLeft: "1rem",
+    listStyle: "none",
+    padding: 0,
+    margin: "1rem 0",
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+    gap: "0.5rem",
   },
-});
 
-const buttonStyle = css({
-  fontSize: "1.2rem",
-  fontWeight: "600",
-  color: "white",
-  backgroundColor: "blue.900",
-  cursor: "pointer",
-  width: "100%",
-  textAlign: "left",
-  padding: "1rem",
-
-  "&:hover": {
-    backgroundColor: "blue.800",
-  },
+  "& li": {
+    padding: "0.5rem",
+    backgroundColor: "rgba(255, 255, 255, 0.03)",
+    borderRadius: "6px",
+    fontSize: "xs",
+    fontFamily: "monospace",
+    color: "amcoeurPale",
+    border: "1px solid rgba(255, 255, 255, 0.05)",
+  }
 });

@@ -1,5 +1,4 @@
 import React from "react";
-
 import { css, cx } from "../../../../../styled-system/css";
 import CodeArea from "../../atoms/CodeArea/CodeArea";
 import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
@@ -17,14 +16,18 @@ const FormCodeArea = ({
   ...props
 }: FormCodeAreaProps) => {
   return (
-    <div className={container}>
-      <Label>{children}</Label>
-      <MarkdownHelp />
-      <CodeArea
-        height="600px"
-        {...props}
-        className={cx(areaStyle, props.className)}
-      />
+    <div className={containerStyle}>
+      <div className={headerStyle}>
+        <Label>{children}</Label>
+        <MarkdownHelp />
+      </div>
+      <div className={editorWrapperStyle}>
+        <CodeArea
+          height="400px"
+          {...props}
+          className={cx(areaStyle, props.className)}
+        />
+      </div>
       {errorMessage && <ErrorLabel>{errorMessage}</ErrorLabel>}
     </div>
   );
@@ -32,14 +35,37 @@ const FormCodeArea = ({
 
 export default FormCodeArea;
 
-const container = css({
+const containerStyle = css({
   display: "flex",
   flexDirection: "column",
-  alignItems: "flex-start",
-  gap: "1rem",
+  gap: "0.75rem",
   width: "100%",
+});
+
+const headerStyle = css({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  width: "100%",
+});
+
+const editorWrapperStyle = css({
+  borderRadius: "12px",
+  overflow: "hidden", // Crucial pour garder les coins arrondis avec CodeMirror
+  border: "1px solid",
+  borderColor: "rgba(255, 255, 255, 0.1)",
+  transition: "all 0.3s ease",
+  backgroundColor: "#282a36", // Correspond au thème Dracula par défaut
+
+  "&:focus-within": {
+    borderColor: "amcoeurRose",
+    boxShadow: "0 0 0 1px rgba(225, 29, 72, 0.5)",
+  }
 });
 
 const areaStyle = css({
   alignSelf: "stretch",
+  "& .cm-editor": {
+    fontSize: "14px",
+  }
 });
