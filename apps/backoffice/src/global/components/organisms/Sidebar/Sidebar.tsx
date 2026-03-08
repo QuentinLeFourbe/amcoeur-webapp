@@ -13,7 +13,8 @@ import {
   Mail, 
   Users,
   LogOut,
-  Menu
+  Menu,
+  Contact2
 } from "lucide-react";
 
 type SidebarProps = {
@@ -27,7 +28,6 @@ function Sidebar({ isUserInactive = true, isUserAdmin = false, logout }: Sidebar
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
   const [isCollapsed, setIsCollapsed] = useState(!isLargeScreen);
 
-  // Auto-collapse when screen size changes
   useEffect(() => {
     setIsCollapsed(!isLargeScreen);
   }, [isLargeScreen]);
@@ -42,6 +42,7 @@ function Sidebar({ isUserInactive = true, isUserAdmin = false, logout }: Sidebar
   ];
 
   if (isUserAdmin) {
+    links.push({ name: "Contacts", href: "/contacts", icon: <Contact2 size={20} /> });
     links.push({ name: "Emailing", href: "/emailing", icon: <Mail size={20} /> });
     links.push({ name: "Utilisateurs", href: "/users", icon: <Users size={20} /> });
   }
