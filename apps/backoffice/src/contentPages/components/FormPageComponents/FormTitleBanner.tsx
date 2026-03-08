@@ -1,6 +1,5 @@
 import { TitleBannerComponent } from "@amcoeur/types";
 import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
-
 import { css } from "../../../../styled-system/css";
 import Input from "../../../global/components/atoms/Input/Input";
 import Label from "../../../global/components/atoms/Label/Label";
@@ -24,69 +23,103 @@ function FormTitleBannerComponent({
   errors,
 }: FormTitleBannerComponentProps) {
   return (
-    <div className={container}>
-      <h2>Bannière titre</h2>
-      <div className={groupItem}>
-        <Label>Titre</Label>
-        <Input
-          onChange={(e) => {
+    <div className={mainContainerStyle}>
+      <h2 className={titleStyle}>Bannière Titre : {component.title || "Sans titre"}</h2>
+      
+      <div className={topFieldsGridStyle}>
+        <div className={groupItemStyle}>
+          <Label>Titre de la bannière</Label>
+          <Input
+            placeholder="Ex: Bienvenue chez Amcoeur"
+            onChange={(e) => {
+              onChange?.({
+                ...component,
+                title: e.target.value,
+              });
+            }}
+            onBlur={() => {
+              onBlur?.(component);
+            }}
+            value={component.title}
+          />
+        </div>
+        
+        <div className={groupItemStyle}>
+          <FormInput
+            type="file"
+            onChange={(e) => {
+              onChange?.({
+                ...component,
+                image: e.target.files && e.target.files[0],
+              });
+            }}
+            onBlur={() => {
+              onBlur?.(component);
+            }}
+            errorMessage={errors?.image?.message}
+          >
+            Image de fond
+          </FormInput>
+        </div>
+      </div>
+
+      <div className={editorWrapperStyle}>
+        <FormCodeArea
+          height="300px"
+          onChange={(value) => {
             onChange?.({
               ...component,
-              title: e.target.value,
+              content: value,
             });
           }}
           onBlur={() => {
             onBlur?.(component);
           }}
-          value={component.title}
-        />
+          value={component.content}
+        >
+          Contenu descriptif
+        </FormCodeArea>
       </div>
-      <FormInput
-        type="file"
-        onChange={(e) => {
-          onChange?.({
-            ...component,
-            image: e.target.files && e.target.files[0],
-          });
-        }}
-        onBlur={() => {
-          onBlur?.(component);
-        }}
-        errorMessage={errors?.image?.message}
-      >
-        Image 
-      </FormInput>
-
-      <FormCodeArea
-        height="300px"
-        onChange={(value) => {
-          onChange?.({
-            ...component,
-            content: value,
-          });
-        }}
-        onBlur={() => {
-          onBlur?.(component);
-        }}
-        value={component.content}
-      >
-        Contenu
-      </FormCodeArea>
     </div>
   );
 }
 
 export default FormTitleBannerComponent;
 
-const container = css({
+const mainContainerStyle = css({
   display: "flex",
   flexDirection: "column",
-  alignItems: "flex-start",
-  gap: "16px",
+  gap: "2rem",
+  width: "100%",
+  padding: "0.5rem 0",
 });
 
-const groupItem = css({
+const titleStyle = css({
+  fontSize: "xl",
+  fontWeight: "bold",
+  color: "white",
+  borderLeft: "4px solid",
+  borderColor: "amcoeurRose",
+  paddingLeft: "1rem",
+  marginBottom: "0.5rem",
+});
+
+const topFieldsGridStyle = css({
+  display: "grid",
+  gridTemplateColumns: "1fr",
+  gap: "2rem",
+  md: {
+    gridTemplateColumns: "1fr 1fr",
+  },
+});
+
+const groupItemStyle = css({
   display: "flex",
   flexDirection: "column",
-  gap: "8px",
+  gap: "0.75rem",
+});
+
+const editorWrapperStyle = css({
+  width: "100%",
+  minWidth: 0,
 });

@@ -41,13 +41,16 @@ function FormContentPanel({
   }));
 
   return (
-    <>
-      <h2>Section</h2>
-      <div className={rowContainer}>
-        <div className={container}>
-          <div className={groupItem}>
-            <Label>Titre</Label>
+    <div className={mainContainerStyle}>
+      <h2 className={titleStyle}>Section : {component.title || "Sans titre"}</h2>
+      
+      <div className={layoutGridStyle}>
+        {/* Colonne de gauche : Infos de base */}
+        <div className={fieldsContainerStyle}>
+          <div className={groupItemStyle}>
+            <Label>Titre de la section</Label>
             <Input
+              placeholder="Ex: Notre mission..."
               onChange={(e) => {
                 onChange?.({
                   ...component,
@@ -60,7 +63,8 @@ function FormContentPanel({
               value={component.title}
             />
           </div>
-          <div className={groupItem}>
+
+          <div className={groupItemStyle}>
             <FormInput
               type="file"
               onChange={(e) => {
@@ -74,16 +78,17 @@ function FormContentPanel({
               }}
               errorMessage={errors?.image?.message}
             >
-              Image
+              Image d'illustration
             </FormInput>
           </div>
 
-          <div>
-            <label className={subtitleStyle}>Bouton de navigation</label>
-            <div className={row}>
-              <div className={groupItem}>
-                <Label>Texte</Label>
+          <div className={navigationBoxStyle}>
+            <label className={subtitleStyle}>Bouton d'action</label>
+            <div className={navFieldsGridStyle}>
+              <div className={groupItemStyle}>
+                <Label>Texte du bouton</Label>
                 <Input
+                  placeholder="Ex: En savoir plus"
                   onChange={(e) => {
                     onChange?.({
                       ...component,
@@ -96,10 +101,11 @@ function FormContentPanel({
                   value={component.linkLabel}
                 />
               </div>
-              <div className={groupItem}>
-                <Label>Lien de navigation</Label>
+              <div className={groupItemStyle}>
+                <Label>Destination</Label>
                 {isUsingCustomLink ? (
                   <Input
+                    placeholder="URL externe ou interne..."
                     onChange={(e) => {
                       onChange?.({
                         ...component,
@@ -114,7 +120,7 @@ function FormContentPanel({
                 ) : (
                   <Select
                     options={pageSelectOptions}
-                    className={css({ height: "56px" })}
+                    className={css({ minHeight: "45px" })}
                     onChange={(e) => {
                       onChange?.({
                         ...component,
@@ -137,19 +143,20 @@ function FormContentPanel({
                     });
                   }}
                 >
-                  Lien personnalisé
+                  Utiliser un lien personnalisé
                 </FormCheckbox>
               </div>
             </div>
             <NavButtonHelper
-              className={css({ maxWidth: "400px", marginTop: "16px" })}
+              className={css({ marginTop: "1rem", opacity: 0.8 })}
             />
           </div>
         </div>
-        <div>
+
+        {/* Colonne de droite ou Bas : Éditeur Markdown */}
+        <div className={editorContainerStyle}>
           <FormCodeArea
-            height="250px"
-            maxWidth="800px"
+            height="450px"
             onChange={(value) => {
               onChange?.({
                 ...component,
@@ -161,46 +168,80 @@ function FormContentPanel({
             }}
             value={component.content}
           >
-            Contenu
+            Contenu Markdown
           </FormCodeArea>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
-export default FormContentPanel;
-
-const container = css({
+const mainContainerStyle = css({
   display: "flex",
   flexDirection: "column",
-  alignItems: "flex-start",
-  gap: "16px",
-
-  "& h2": {
-    fontSize: "32px",
-    fontWeight: "bold",
-  },
+  gap: "2rem",
+  width: "100%",
 });
 
-const rowContainer = css({
-  display: "flex",
-  flexDirection: "row",
-  gap: "32px",
+const titleStyle = css({
+  fontSize: "2xl",
+  fontWeight: "bold",
+  color: "white",
+  borderLeft: "4px solid",
+  borderColor: "amcoeurRose",
+  paddingLeft: "1rem",
 });
 
-const groupItem = css({
+const layoutGridStyle = css({
+  display: "grid",
+  gridTemplateColumns: "1fr",
+  gap: "3rem",
+  xl: {
+    gridTemplateColumns: "1fr 1fr", // Deux colonnes sur très grands écrans
+  }
+});
+
+const fieldsContainerStyle = css({
   display: "flex",
   flexDirection: "column",
-  gap: "8px",
+  gap: "2rem",
 });
 
-const row = css({
+const groupItemStyle = css({
   display: "flex",
-  gap: "8px",
+  flexDirection: "column",
+  gap: "0.75rem",
+});
+
+const navigationBoxStyle = css({
+  padding: "1.5rem",
+  backgroundColor: "rgba(255, 255, 255, 0.02)",
+  borderRadius: "12px",
+  border: "1px solid rgba(255, 255, 255, 0.05)",
+});
+
+const navFieldsGridStyle = css({
+  display: "grid",
+  gridTemplateColumns: "1fr",
+  gap: "1.5rem",
+  md: {
+    gridTemplateColumns: "1fr 1fr",
+  }
 });
 
 const subtitleStyle = css({
-  fontSize: "24px",
+  display: "block",
+  fontSize: "md",
   fontWeight: "bold",
+  color: "amcoeurPale",
+  marginBottom: "1.5rem",
+  textTransform: "uppercase",
+  letterSpacing: "wider",
 });
+
+const editorContainerStyle = css({
+  width: "100%",
+  minWidth: 0, // Empêche le débordement dans les flex/grid
+});
+
+export default FormContentPanel;
