@@ -1,11 +1,11 @@
 import { useOutlet } from "react-router-dom";
 
 import { css } from "../../../../../styled-system/css";
+import { logout } from "../../../api/axios";
 import { useCurrentUser } from "../../../hooks/useUser";
 import { checkUserPermissions } from "../../../utils/user";
-import { logout } from "../../../api/axios";
-import Spinner from "../../atoms/Spinner/Spinner";
 import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
+import Spinner from "../../atoms/Spinner/Spinner";
 import Sidebar from "../../organisms/Sidebar/Sidebar";
 
 function PageContainer() {

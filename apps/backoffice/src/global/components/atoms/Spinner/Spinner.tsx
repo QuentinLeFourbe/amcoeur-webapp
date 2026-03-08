@@ -1,5 +1,6 @@
-import { css } from "../../../../../styled-system/css";
 import { Loader2 } from "lucide-react";
+
+import { css } from "../../../../../styled-system/css";
 
 type SpinnerProps = {
   size?: number | string;
