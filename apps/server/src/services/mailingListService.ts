@@ -1,4 +1,6 @@
 import Ovh from "@ovhcloud/node-ovh";
+import { getCache, invalidateCache, setCache } from "./redisService.js";
+import { logger } from "../utils/logger.js";
 
 const ovhClient = Ovh({
   endpoint: "ovh-eu",
@@ -21,6 +23,8 @@ const ovhRequest = (method: HttpMethod, path: string, params?: object): Promise<
   });
 };
 
+const getCacheKey = (domain: string, mailingList: string) => `ml_subscribers_${domain}_${mailingList}`;
+
 export async function removeFromMailingList(
   domain: string,
   mailingList: string,
@@ -29,9 +33,12 @@ export async function removeFromMailingList(
   try {
     const path = `/email/domain/${domain}/mailingList/${mailingList}/subscriber/${email}`;
     await ovhRequest("DELETE", path);
-    console.log(`Email ${email} removed successfully from ${mailingList}`);
+    logger.info(`Email ${email} removed successfully from ${mailingList}`);
+    
+    // Invalider le cache car la liste a changé
+    await invalidateCache(getCacheKey(domain, mailingList));
   } catch (error) {
-    console.error(`❌ Erreur suppression email: ${error}`);
+    logger.error(`Erreur suppression email OVH (${email})`, { error });
   }
 }
 
@@ -39,12 +46,27 @@ export async function getMailingListSubscribers(
   domain: string,
   mailingList: string,
 ): Promise<string[]> {
+  const cacheKey = getCacheKey(domain, mailingList);
+  
   try {
+    // 1. Tenter de récupérer depuis le cache Redis
+    const cachedSubscribers = await getCache<string[]>(cacheKey);
+    if (cachedSubscribers) {
+      logger.info(`Récupération des abonnés ${mailingList} depuis le cache Redis`);
+      return cachedSubscribers;
+    }
+
+    // 2. Si pas en cache, appeler OVH
+    logger.info(`Appel API OVH pour récupérer les abonnés ${mailingList}`);
     const path = `/email/domain/${domain}/mailingList/${mailingList}/subscriber`;
-    const subscribers = await ovhRequest("GET", path);
-    return subscribers as string[];
+    const subscribers = (await ovhRequest("GET", path)) as string[];
+
+    // 3. Stocker dans Redis pour 1 heure (3600s)
+    await setCache(cacheKey, subscribers, 3600);
+
+    return subscribers;
   } catch (error) {
-    console.error(`❌ Erreur récupération abonnés: ${error}`);
+    logger.error(`Erreur récupération abonnés OVH (${mailingList})`, { error });
     return [];
   }
 }
@@ -57,11 +79,14 @@ export async function addSubscriberToMailingList(
   try {
     const path = `/email/domain/${domain}/mailingList/${mailingList}/subscriber`;
     await ovhRequest("POST", path, { email });
-    console.log(`Email ${email} added successfully to ${mailingList}`);
+    logger.info(`Email ${email} added successfully to ${mailingList}`);
+
+    // Invalider le cache car la liste a changé
+    await invalidateCache(getCacheKey(domain, mailingList));
   } catch (error) {
     const err = error as { code?: number };
     if (err.code !== 409) { // 409 = Déjà présent
-      console.error(`❌ Erreur ajout email ${email}: ${error}`);
+      logger.error(`Erreur ajout email OVH (${email})`, { error });
     }
   }
 }

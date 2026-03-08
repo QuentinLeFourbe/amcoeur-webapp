@@ -9,6 +9,38 @@ redisClient.on("connect", () => logger.info("Connected to Redis"));
 
 redisClient.on("error", (err) => logger.error("Redis client error", err));
 
+/**
+ * Fonctions de mise en cache génériques
+ */
+export const setCache = async (key: string, value: unknown, ttlInSeconds = 3600) => {
+  try {
+    await redisClient.set(key, JSON.stringify(value), {
+      EX: ttlInSeconds,
+    });
+  } catch (error) {
+    logger.error(`Erreur lors de l'écriture dans le cache Redis (clé: ${key})`, error);
+  }
+};
+
+export const getCache = async <T>(key: string): Promise<T | null> => {
+  try {
+    const data = await redisClient.get(key);
+    if (!data) return null;
+    return JSON.parse(data) as T;
+  } catch (error) {
+    logger.error(`Erreur lors de la lecture du cache Redis (clé: ${key})`, error);
+    return null;
+  }
+};
+
+export const invalidateCache = async (key: string) => {
+  try {
+    await redisClient.del(key);
+  } catch (error) {
+    logger.error(`Erreur lors de l'invalidation du cache Redis (clé: ${key})`, error);
+  }
+};
+
 export const addUserToBlacklist = async (userId: string) => {
   await redisClient.set(`bl_${userId}`, Date.now(), {
     EX: 7 * 24 * 60 * 60, // 7 days in seconds
