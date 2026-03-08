@@ -5,7 +5,6 @@ import {
 } from "@amcoeur/types";
 
 import { css } from "../../../styled-system/css";
-import { HStack } from "../../../styled-system/jsx";
 import Input from "../../global/components/atoms/Input/Input";
 import Select from "../../global/components/atoms/Select/SelectAlt";
 
@@ -16,26 +15,23 @@ type AdoptionFilterBarProps = {
 
 function AdoptionFilterBar({ filter, onFilterChange }: AdoptionFilterBarProps) {
   return (
-    <HStack gap="32px">
-      <HStack>
-        Recherche
+    <div className={containerStyle}>
+      {/* Recherche par nom */}
+      <div className={filterGroupStyle}>
+        <label className={labelStyle}>Recherche</label>
         <Input
-          value={filter.name}
+          value={filter.name || ""}
+          placeholder="Nom de l'animal..."
           onChange={(e) =>
             onFilterChange({ ...filter, name: e.currentTarget.value })
           }
         />
-      </HStack>
-      <HStack
-        className={css({
-          border: "1px solid white",
-          padding: "16px",
-          borderRadius: "8px",
-        })}
-        gap="32px"
-      >
-        <HStack>
-          Espèce :
+      </div>
+
+      {/* Groupe des filtres Select */}
+      <div className={selectGroupContainerStyle}>
+        <div className={filterGroupStyle}>
+          <label className={labelStyle}>Espèce</label>
           <Select
             options={[
               { label: "Tous", value: "all" },
@@ -54,9 +50,10 @@ function AdoptionFilterBar({ filter, onFilterChange }: AdoptionFilterBarProps) {
               })
             }
           />
-        </HStack>
-        <HStack>
-          Sexe :
+        </div>
+
+        <div className={filterGroupStyle}>
+          <label className={labelStyle}>Sexe</label>
           <Select
             options={[
               { label: "Tous", value: "all" },
@@ -74,9 +71,10 @@ function AdoptionFilterBar({ filter, onFilterChange }: AdoptionFilterBarProps) {
               })
             }
           />
-        </HStack>
-        <HStack>
-          Adopté :
+        </div>
+
+        <div className={filterGroupStyle}>
+          <label className={labelStyle}>Adopté</label>
           <Select
             options={[
               { label: "Tous", value: "all" },
@@ -96,9 +94,10 @@ function AdoptionFilterBar({ filter, onFilterChange }: AdoptionFilterBarProps) {
               })
             }
           />
-        </HStack>
-        <HStack>
-          Urgence :
+        </div>
+
+        <div className={filterGroupStyle}>
+          <label className={labelStyle}>Urgence</label>
           <Select
             options={[
               { label: "Tous", value: "all" },
@@ -120,9 +119,10 @@ function AdoptionFilterBar({ filter, onFilterChange }: AdoptionFilterBarProps) {
               })
             }
           />
-        </HStack>
-        <HStack>
-          Visible :
+        </div>
+
+        <div className={filterGroupStyle}>
+          <label className={labelStyle}>Visible</label>
           <Select
             options={[
               { label: "Tous", value: "all" },
@@ -142,10 +142,48 @@ function AdoptionFilterBar({ filter, onFilterChange }: AdoptionFilterBarProps) {
               })
             }
           />
-        </HStack>
-      </HStack>
-    </HStack>
+        </div>
+      </div>
+    </div>
   );
 }
+
+const containerStyle = css({
+  display: "flex",
+  flexDirection: "row",
+  flexWrap: "wrap",
+  gap: "1.5rem",
+  width: "100%",
+  alignItems: "flex-end",
+  backgroundColor: "rgba(255, 255, 255, 0.03)",
+  padding: "1.5rem",
+  borderRadius: "12px",
+  border: "1px solid rgba(255, 255, 255, 0.05)",
+});
+
+const selectGroupContainerStyle = css({
+  display: "flex",
+  flexDirection: "row",
+  flexWrap: "wrap",
+  gap: "1.5rem",
+  flex: 1,
+});
+
+const filterGroupStyle = css({
+  display: "flex",
+  flexDirection: "column",
+  gap: "0.5rem",
+  minWidth: "140px",
+  flex: "1 1 auto",
+  sm: {
+    minWidth: "180px",
+  },
+});
+
+const labelStyle = css({
+  fontSize: "sm",
+  fontWeight: "bold",
+  color: "amcoeurPale",
+});
 
 export default AdoptionFilterBar;

@@ -44,51 +44,75 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 export default Input;
 
 const inputStyle = css({
-  backgroundColor: "backgrounds.primary.extraLight",
-  borderRadius: "4px",
-  padding: "1rem",
-  color: "black",
+  backgroundColor: "transparent",
+  borderBottom: "2px solid",
+  borderColor: "rgba(255, 255, 255, 0.2)",
+  borderRadius: "0",
+  padding: "0.75rem 0.25rem",
+  color: "white",
+  outline: "none",
+  transition: "all 0.3s ease",
+  width: "100%",
+
+  "&:focus": {
+    borderColor: "amcoeurRose",
+    backgroundColor: "rgba(225, 29, 72, 0.05)",
+  },
+
+  "&::placeholder": {
+    color: "rgba(255, 255, 255, 0.4)",
+  },
 
   "&::file-selector-button": {
-    backgroundColor: "pink.100",
-    borderWidth: "1px",
-    borderStyle: "solide",
-    borderColor: "pink.400",
+    backgroundColor: "amcoeurRose",
+    border: "none",
     borderRadius: "8px",
-    padding: "4px 8px",
-    marginRight: "8px",
+    padding: "6px 12px",
+    marginRight: "12px",
     cursor: "pointer",
+    color: "white",
+    fontSize: "xs",
+    fontWeight: "bold",
+    transition: "background 0.2s",
+    "&:hover": {
+      backgroundColor: "amcoeurPale",
+    },
   },
 });
 
 const pathInput = css({
-  padding: "1rem",
-  borderRadius: "0 4px 4px 0",
-  borderLeft: "none",
+  padding: "0.75rem 0.5rem",
+  borderBottom: "2px solid",
+  borderColor: "rgba(255, 255, 255, 0.2)",
+  backgroundColor: "transparent",
+  color: "white",
+  outline: "none",
+  flex: 1,
+  
+  "&:focus": {
+    borderColor: "amcoeurRose",
+  },
 
-  _disabled: { backgroundColor: "gray.400" },
+  _disabled: { color: "gray.500" },
 });
 
 const pathContainer = css({
   display: "flex",
   alignItems: "center",
+  width: "100%",
   "& div": {
     height: "100%",
-    width: "48px",
+    padding: "0 1rem",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-
-    color: "black",
-    backgroundColor: "gray.50",
-
-    borderColor: "gray.300",
-    borderStyle: "solid",
-    borderRadius: "4px 0 0 4px",
-    borderWidth: "1px",
+    color: "amcoeurRose",
+    fontWeight: "bold",
+    fontSize: "lg",
   },
 });
 
 const fileStyle = css({
-  color: "black",
+  color: "white",
+  borderBottom: "none!", // Pas de bordure pour l'input file, le bouton suffit
 });
