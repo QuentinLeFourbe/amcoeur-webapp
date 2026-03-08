@@ -77,7 +77,8 @@ export default ManagePage;
 const container = css({
   display: "flex",
   flexDirection: "column",
-  margin: "0 15vw",
+  margin: "0 auto",
+  maxWidth: "1200px",
   gap: "32px",
 });
 
@@ -96,5 +97,6 @@ const editContainer = css({
   display: "flex",
   flexDirection: "column",
   gap: "2rem",
-  margin: "0 15vw 100px 15vw",
+  margin: "0 auto 100px auto",
+  maxWidth: "1200px",
 });

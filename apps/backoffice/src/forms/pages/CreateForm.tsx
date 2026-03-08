@@ -34,6 +34,7 @@ export default CreateForm;
 const container = css({
   display: "flex",
   flexDirection: "column",
-  margin: "0 15vw",
+  margin: "0 auto",
+  maxWidth: "1200px",
   gap: "32px",
 });
