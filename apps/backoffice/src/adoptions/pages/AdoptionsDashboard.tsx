@@ -5,6 +5,7 @@ import { useDebounceValue } from "usehooks-ts";
 
 import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
+import Table from "../../global/components/atoms/Table/Table";
 import Pagination from "../../global/components/molecules/Pagination/Pagination";
 import AdoptionFilterBar from "../components/AdoptionFilterBar";
 import { useGetAdoptions } from "../hooks/useAdoptions";
@@ -53,33 +54,15 @@ function AdoptionsDashboard() {
       )}
       {isSuccess && adoptionsData && (
         <>
-          <div>{adoptionsData.totalItems} résultats</div>
-          <table
-            className={css({
-              "& th": {
-                padding: "1rem",
-                textAlign: "left",
-                backgroundColor: "rose.600",
-              },
-
-              "& td": {
-                padding: "4px 1rem",
-                textAlign: "left",
-                borderColor: "rose.100",
-                borderWidth: "0 0 1px 0",
-                borderStyle: "solid",
-              },
-
-              "& tr:hover": {
-                backgroundColor: "#444",
-              },
-            })}
-          >
+          <div className={css({ alignSelf: "flex-start", color: "amcoeurPale", fontSize: "sm" })}>
+            {adoptionsData.totalItems} résultats
+          </div>
+          <Table>
             <thead>
               <tr>
                 <th>
                   <button
-                    className={css({ cursor: "pointer" })}
+                    className={headerButtonStyle}
                     onClick={() => handleSortBy("name")}
                   >
                     Nom
@@ -87,7 +70,7 @@ function AdoptionsDashboard() {
                 </th>
                 <th>
                   <button
-                    className={css({ cursor: "pointer" })}
+                    className={headerButtonStyle}
                     onClick={() => handleSortBy("species")}
                   >
                     Espece
@@ -95,7 +78,7 @@ function AdoptionsDashboard() {
                 </th>
                 <th>
                   <button
-                    className={css({ cursor: "pointer" })}
+                    className={headerButtonStyle}
                     onClick={() => handleSortBy("race")}
                   >
                     Race
@@ -103,7 +86,7 @@ function AdoptionsDashboard() {
                 </th>
                 <th>
                   <button
-                    className={css({ cursor: "pointer" })}
+                    className={headerButtonStyle}
                     onClick={() => handleSortBy("gender")}
                   >
                     Sexe
@@ -111,7 +94,7 @@ function AdoptionsDashboard() {
                 </th>
                 <th>
                   <button
-                    className={css({ cursor: "pointer" })}
+                    className={headerButtonStyle}
                     onClick={() => handleSortBy("visible")}
                   >
                     Visible
@@ -119,7 +102,7 @@ function AdoptionsDashboard() {
                 </th>
                 <th>
                   <button
-                    className={css({ cursor: "pointer" })}
+                    className={headerButtonStyle}
                     onClick={() => handleSortBy("emergency")}
                   >
                     Urgence
@@ -127,7 +110,7 @@ function AdoptionsDashboard() {
                 </th>
                 <th>
                   <button
-                    className={css({ cursor: "pointer" })}
+                    className={headerButtonStyle}
                     onClick={() => handleSortBy("adopted")}
                   >
                     Adopté
@@ -135,7 +118,7 @@ function AdoptionsDashboard() {
                 </th>
                 <th>
                   <button
-                    className={css({ cursor: "pointer" })}
+                    className={headerButtonStyle}
                     onClick={() => handleSortBy("createdAt")}
                   >
                     Date de création
@@ -143,7 +126,7 @@ function AdoptionsDashboard() {
                 </th>
                 <th>
                   <button
-                    className={css({ cursor: "pointer" })}
+                    className={headerButtonStyle}
                     onClick={() => handleSortBy("updatedAt")}
                   >
                     Dernière modification
@@ -176,7 +159,7 @@ function AdoptionsDashboard() {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </Table>
         </>
       )}
       <Pagination
@@ -188,7 +171,23 @@ function AdoptionsDashboard() {
   );
 }
 
-export default AdoptionsDashboard;
+const headerButtonStyle = css({
+  cursor: "pointer",
+  background: "transparent",
+  border: "none",
+  color: "white",
+  fontWeight: "inherit",
+  fontSize: "inherit",
+  textTransform: "inherit",
+  letterSpacing: "inherit",
+  padding: 0,
+  textAlign: "left",
+  width: "100%",
+  outline: "none",
+  "&:hover": {
+    opacity: 0.8,
+  }
+});
 
 const container = css({
   display: "flex",
@@ -197,3 +196,5 @@ const container = css({
   justifyContent: "center",
   gap: "2rem",
 });
+
+export default AdoptionsDashboard;
