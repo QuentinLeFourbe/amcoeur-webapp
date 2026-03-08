@@ -1,4 +1,4 @@
-import { AdoptionClientData } from "@amcoeur/types";
+import { AdoptionClientData, CreateAdoptionDto } from "@amcoeur/types";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
@@ -8,8 +8,7 @@ import Button from "../../global/components/atoms/Button/Button";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import Overlay from "../../global/components/atoms/Overlay/Overlay";
 import AdoptionForm from "../components/AdoptionForm";
-import { useDeleteAdoption, useGetAdoption } from "../hooks/useAdoptions";
-import { useUpdateAdoption } from "../hooks/useAdoptions";
+import { useDeleteAdoption, useGetAdoption, useUpdateAdoption } from "../hooks/useAdoptions";
 
 function AdoptionDetails() {
   const params = useParams(); // Récupère l'ID dans l'URL
@@ -29,9 +28,15 @@ function AdoptionDetails() {
     isError: isUpdateError,
   } = useUpdateAdoption();
 
-  const handleEdit = (updatedData: AdoptionClientData) => {
-    updateAdoption(updatedData);
-    setIsEditing(false);
+  const handleEdit = (updatedDto: CreateAdoptionDto) => {
+    if (adoptionData?.data) {
+      const fullData: AdoptionClientData = {
+        ...adoptionData.data,
+        ...updatedDto,
+      };
+      updateAdoption(fullData);
+      setIsEditing(false);
+    }
   };
 
   const isAdopted = !!adoptionData?.data.adopted;
@@ -58,10 +63,10 @@ function AdoptionDetails() {
               color={isAdopted ? "danger" : "success"}
               disabled={isUpdateLoading}
               onClick={() =>
-                updateAdoption({
-                  ...adoptionData?.data,
-                  adopted: !adoptionData?.data.adopted,
-                } as AdoptionClientData)
+                adoptionData?.data && updateAdoption({
+                  ...adoptionData.data,
+                  adopted: !adoptionData.data.adopted,
+                })
               }
             >
               Marquer comme {isAdopted ? "non" : ""} adopté
@@ -70,10 +75,10 @@ function AdoptionDetails() {
               color={isVisible ? "info" : "danger"}
               disabled={isUpdateLoading || isAdopted}
               onClick={() =>
-                updateAdoption({
-                  ...adoptionData?.data,
-                  visible: !adoptionData?.data.visible,
-                } as AdoptionClientData)
+                adoptionData?.data && updateAdoption({
+                  ...adoptionData.data,
+                  visible: !adoptionData.data.visible,
+                })
               }
             >
               Rendre {isVisible ? "non" : ""} visible à l'adoption
@@ -178,6 +183,7 @@ function AdoptionDetails() {
 }
 
 export default AdoptionDetails;
+
 const container = css({
   display: "flex",
   flexDirection: "column",

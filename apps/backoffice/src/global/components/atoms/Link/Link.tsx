@@ -1,4 +1,4 @@
-import { ReactNode, type ComponentProps } from "react";
+import { type ComponentProps,ReactNode } from "react";
 
 import { css, cx } from "../../../../../styled-system/css";
 import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
@@ -42,7 +42,7 @@ function Link({ children, variant, isActive, icon, ...props }: LinkProps) {
         className, 
         linkBaseStyle, 
         isActive && "link-active",
-        (icon || variant === "sidebar") && flexRowStyle
+        (icon || variant === "sidebar") ? flexRowStyle : undefined
       )}
     >
       {icon && <span className={iconWrapperStyle}>{icon}</span>}
