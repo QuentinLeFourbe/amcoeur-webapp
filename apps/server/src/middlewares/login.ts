@@ -1,5 +1,5 @@
+import type { UserPermission,UserServerData } from "@amcoeur/types";
 import { UserRole } from "@amcoeur/types";
-import type { UserServerData, UserPermission } from "@amcoeur/types";
 import type { NextFunction, Request, Response } from "express";
 
 import User from "../models/user.js";
@@ -94,8 +94,8 @@ export const requiresPermission = (...permissions: UserPermission[]) => {
 
       res.locals.logger.warn(`User ${user.email} attempted unauthorized access to ${req.originalUrl}`);
       return res.status(403).json({ message: "Forbidden: Insufficient permissions" });
-    } catch (error) {
-      res.locals.logger.error(error);
+    } catch (_error) {
+      res.locals.logger.error(_error);
       return res.status(401).json({ message: "Unauthorized" });
     }
   };
@@ -105,7 +105,7 @@ export const requiresLogin = async (req: Request, res: Response, next: NextFunct
   try {
     await extractUser(req, res);
     return next();
-  } catch (error) {
+  } catch {
     return res.status(401).json({ message: "Unauthorized" });
   }
 };

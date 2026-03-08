@@ -23,12 +23,11 @@ describe("delete uploaded image", () => {
       "Missing param imageUrl",
     );
   });
-  it("should throw an error if the image is not found in the upload folder", async () => {
+  it("should not call fs.unlinkSync and resolve if the image is not found in the upload folder", async () => {
     const imageUrl = "anImageUrl.jpg";
     vi.mocked(fs.existsSync).mockReturnValueOnce(false);
-    await expect(deleteUploadedImage(imageUrl)).rejects.toThrowError(
-      "Image to delete does not exist",
-    );
+    await deleteUploadedImage(imageUrl);
+    expect(fs.unlinkSync).not.toHaveBeenCalled();
   });
   it("should call fs.unlinkSync if the image is found in the upload folder", async () => {
     const imageUrl = "anImageUrl.jpg";

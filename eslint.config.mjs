@@ -31,6 +31,9 @@ export default [
       "**/styled-system",
       "**/*.config.*",
       "**/.env",
+      "**/.env.*",
+      "**/.netlify",
+      "**/*.log",
     ],
   },
   {
