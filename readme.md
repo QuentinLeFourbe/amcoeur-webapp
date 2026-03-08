@@ -8,7 +8,30 @@ Ce monorepo contient :
 
 - **Deux applications clients** : une app représentant le site vitrine, visible au public; et une app représentant le backoffiice, visible uniquement par les membres de l'association.
 - **Une API** : Fournit des endpoints RESTful pour les fonctionnalités de gestions des pages, des formulaires et des adoptions.
-- \*_Une librairie de types_: Fournit les types liés à l'application Amcoeur aux différentes applications.
+- **Une librairie de types** : Fournit les types liés à l'application Amcoeur aux différentes applications.
+
+## 📬 Gestion des Contacts & Emailing
+
+Le système permet d'importer une base de données clients pour synchroniser la liste de diffusion OVH.
+
+### Format d'importation (CSV/Excel)
+
+Pour que l'importation fonctionne, votre fichier doit impérativement contenir une ligne d'entête avec les noms exacts suivants (l'ordre des colonnes n'importe pas) :
+
+| Entête (Fichier) | Description | Champ en Base (Anglais) |
+| :--- | :--- | :--- |
+| **email** | Adresse email (Obligatoire, identifiant unique) | `email` |
+| **nom** | Nom de famille | `lastName` |
+| **prenom** | Prénom | `firstName` |
+| **telephone** | Numéro de téléphone | `phone` |
+| **code_postal** | Code postal | `zipCode` |
+| **ville** | Ville | `city` |
+| **adresse** | Adresse postale complète | `address` |
+
+**Notes techniques :**
+- Le séparateur pour les fichiers CSV doit être le **point-virgule ( ; )**.
+- Si un email existe déjà en base, les informations du contact seront mises à jour (**upsert**).
+- Les lignes sans email valide seront ignorées.
 
 ## 🔧 Structure du Monorepo
 

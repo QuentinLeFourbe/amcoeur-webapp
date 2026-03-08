@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAndStoreToken } from "../utils/auth";
-import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
+
 import { css } from "../../../styled-system/css";
-import useCurrentUrl from "../hooks/useCurrentUrl";
 import { applyAuthToken } from "../api/axios";
+import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
+import useCurrentUrl from "../hooks/useCurrentUrl";
+import { getAndStoreToken } from "../utils/auth";
 
 function LoginRedirect() {
   const [error, setError] = useState("");

@@ -1,5 +1,4 @@
 import { ComponentProps } from "react";
-
 import { css, cx } from "../../../../../styled-system/css";
 import AmcoeurLogo from "../../../assets/icons/amcoeur_logo_light.webp";
 import Link from "../../atoms/Link/Link";
@@ -36,6 +35,7 @@ function Header({
     ];
   }
   if (isUserAdmin) {
+    headerLinks.push({ name: "Emailing", href: "/emailing" });
     headerLinks.push({ name: "Utilisateurs", href: "/users" });
   }
 
@@ -49,7 +49,7 @@ function Header({
   }
 
   return (
-    <header className={header}>
+    <header className={headerStyle}>
       <div className={cx(logoContainer)}>
         <LogoLink src={AmcoeurLogo} to={homeLinkPath} />
       </div>
@@ -80,7 +80,7 @@ const LogoLink = ({ src, ...props }: LogoLinkProps) => (
   </Link>
 );
 
-const header = css({
+const headerStyle = css({
   position: "sticky",
   top: "0",
   display: "flex",

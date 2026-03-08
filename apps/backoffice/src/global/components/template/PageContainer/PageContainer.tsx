@@ -6,8 +6,7 @@ import { checkUserPermissions } from "../../../utils/user";
 import { logout } from "../../../api/axios";
 import Spinner from "../../atoms/Spinner/Spinner";
 import ErrorLabel from "../../atoms/ErrorLabel/ErrorLabel";
-import Footer from "../../organisms/Footer/Footer";
-import Header from "../../organisms/Header/Header";
+import Sidebar from "../../organisms/Sidebar/Sidebar";
 
 function PageContainer() {
   const outlet = useOutlet();
@@ -18,40 +17,68 @@ function PageContainer() {
     isError,
   } = useCurrentUser();
 
+  const isUserInactive = !currentUser || checkUserPermissions(currentUser, ["inactive"]);
+  const isUserAdmin = checkUserPermissions(currentUser, ["admin"]) || false;
+
   return (
-    <div className={container}>
-      <Header
-        isUserLoggedIn={!!currentUser}
-        isUserInactive={
-          !currentUser || checkUserPermissions(currentUser, ["inactive"])
-        }
-        isUserAdmin={checkUserPermissions(currentUser, ["admin"]) || false}
-        logout={() => logout()}
-      />
-      {isLoading && (
-        <div className={css({ margin: "auto" })}>
-          <Spinner />
-        </div>
-      )}
-      {isError && (
-        <div className={css({ margin: "auto" })}>
-          <ErrorLabel>
-            Erreur lors de la récupération des informations utilisateurs
-          </ErrorLabel>
-        </div>
-      )}
-      {isSuccess && outlet}
-      <Footer />
+    <div className={containerStyle}>
+      <div className={mainLayoutStyle}>
+        {isSuccess && !isUserInactive && (
+          <Sidebar 
+            isUserInactive={isUserInactive} 
+            isUserAdmin={isUserAdmin} 
+            logout={() => logout()}
+          />
+        )}
+        
+        <main className={contentAreaStyle}>
+          {isLoading && (
+            <div className={centerStyle}>
+              <Spinner color="amcoeurRose" />
+            </div>
+          )}
+          {isError && (
+            <div className={centerStyle}>
+              <ErrorLabel>
+                Erreur lors de la récupération des informations utilisateurs
+              </ErrorLabel>
+            </div>
+          )}
+          {isSuccess && outlet}
+        </main>
+      </div>
     </div>
   );
 }
 
-export default PageContainer;
-
-const container = css({
-  width: "100vw",
+const containerStyle = css({
+  width: "100%",
   height: "100vh",
+  backgroundColor: "amcoeurDark",
+  color: "white",
   display: "flex",
-  flexFlow: "column nowrap",
-  gap: "2rem",
+  flexDirection: "column",
+  overflow: "hidden",
 });
+
+const mainLayoutStyle = css({
+  display: "flex",
+  height: "100%",
+  width: "100%",
+});
+
+const contentAreaStyle = css({
+  flex: 1,
+  overflowY: "auto",
+  padding: "2.5rem",
+  backgroundColor: "amcoeurDark",
+});
+
+const centerStyle = css({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  height: "100%",
+});
+
+export default PageContainer;

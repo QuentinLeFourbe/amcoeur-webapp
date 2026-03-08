@@ -10,6 +10,7 @@ import CreatePage from "./contentPages/pages/CreatePage";
 import HomePageManagement from "./contentPages/pages/HomePageManagement";
 import ManagePage from "./contentPages/pages/ManagePage";
 import ManagePages from "./contentPages/pages/ManagePages";
+import EmailingDashboard from "./emailing/pages/EmailingDashboard";
 import CreateForm from "./forms/pages/CreateForm";
 import FormsDashboard from "./forms/pages/FormsDashboard";
 import FormsManagement from "./forms/pages/FormsManagement";
@@ -104,6 +105,11 @@ const usersRoutes = {
   element: <ManageUsers />,
 };
 
+const emailingRoutes = {
+  path: "emailing",
+  element: <EmailingDashboard />,
+};
+
 const appRoutes: RouteObject[] = [
   {
     element: <StaticPageContainer />,
@@ -118,6 +124,7 @@ const appRoutes: RouteObject[] = [
       pagesRoutes,
       formsRoutes,
       usersRoutes,
+      emailingRoutes,
       ...commonRoutes,
     ],
   },

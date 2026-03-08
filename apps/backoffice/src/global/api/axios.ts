@@ -1,9 +1,10 @@
 import axios, { AxiosError } from "axios";
+
+import router from "../../routes";
 import {
   getTokenFromSessionStorage,
   removeTokenFromSessionStorage,
 } from "../utils/auth";
-import router from "../../routes";
 
 export const applyAuthToken = () => {
   const token = getTokenFromSessionStorage();
