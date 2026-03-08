@@ -1,7 +1,5 @@
-import { Trash } from "lucide-react";
-
+import { Trash2 } from "lucide-react";
 import { css } from "../../../../../styled-system/css";
-import Button from "../../atoms/Button/Button";
 import Input from "../../atoms/Input/Input";
 
 type ListInputProps = {
@@ -44,53 +42,84 @@ function ListInput({
   };
 
   return (
-    <fieldset>
-      {label && (
-        <legend className={css({ fontWeight: "bold", marginBottom: "8px" })}>
-          {label}
-        </legend>
-      )}
-      <div
-        className={css({
-          display: "flex",
-          flexFlow: "column nowrap",
-          gap: "16px",
-        })}
-      >
+    <div className={containerStyle}>
+      {label && <label className={labelStyle}>{label}</label>}
+      <div className={listStyle}>
         {listValues.map((inputValue, index) => (
-          <div
-            key={index}
-            className={css({
-              display: "flex",
-              flexFlow: "row nowrap",
-              gap: "16px",
-              alignItems: "center",
-            })}
-          >
-            <label
-              className={css({ display: "none" })}
-              htmlFor={`${name}.${index}`}
-            >{`${label} champs ${index}`}</label>
-            <Input
-              name={`${name}.${index}`}
-              value={inputValue}
-              onChange={(e) => handleChangeValue(e.target.value, index)}
-              onBlur={(e) => handleOnBlur(e.target.value, index)}
-            />
+          <div key={index} className={rowStyle}>
+            <div className={inputWrapperStyle}>
+              <Input
+                name={`${name}.${index}`}
+                value={inputValue}
+                placeholder={`Option ${index + 1}...`}
+                onChange={(e) => handleChangeValue(e.target.value, index)}
+                onBlur={(e) => handleOnBlur(e.target.value, index)}
+              />
+            </div>
             {index !== listValues.length - 1 && (
-              <Button
-                color="danger"
+              <button
+                className={deleteButtonStyle}
                 onClick={() => handleDeleteValue(index)}
                 type="button"
+                title="Supprimer cette option"
               >
-                <Trash />
-              </Button>
+                <Trash2 size={18} />
+              </button>
             )}
           </div>
         ))}
       </div>
-    </fieldset>
+    </div>
   );
 }
+
+const containerStyle = css({
+  display: "flex",
+  flexDirection: "column",
+  gap: "1rem",
+  width: "100%",
+  padding: "1.5rem",
+  backgroundColor: "rgba(255, 255, 255, 0.02)",
+  borderRadius: "12px",
+  border: "1px solid rgba(255, 255, 255, 0.05)",
+});
+
+const labelStyle = css({
+  fontSize: "sm",
+  fontWeight: "bold",
+  color: "amcoeurPale",
+  textTransform: "uppercase",
+  letterSpacing: "wider",
+});
+
+const listStyle = css({
+  display: "flex",
+  flexDirection: "column",
+  gap: "0.75rem",
+});
+
+const rowStyle = css({
+  display: "flex",
+  alignItems: "center",
+  gap: "1rem",
+});
+
+const inputWrapperStyle = css({
+  flex: 1,
+});
+
+const deleteButtonStyle = css({
+  background: "transparent",
+  border: "none",
+  color: "rgba(255, 255, 255, 0.3)",
+  cursor: "pointer",
+  padding: "8px",
+  borderRadius: "8px",
+  transition: "all 0.2s",
+  "&:hover": {
+    color: "#f87171",
+    backgroundColor: "rgba(239, 68, 68, 0.1)",
+  }
+});
 
 export default ListInput;

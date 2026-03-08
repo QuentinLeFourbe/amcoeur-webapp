@@ -79,82 +79,121 @@ function FormForm({ initialData, onSubmit, onCancel, update }: FormFormProps) {
       className={css({
         display: "flex",
         flexFlow: "column nowrap",
-        gap: "16px",
+        gap: "2.5rem",
       })}
       onSubmit={handleSubmit(onSubmitData)}
     >
-      <div className={css({ display: "flex", gap: "16px" })}>
+      <div className={css({ display: "flex", gap: "1rem", borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "1.5rem" })}>
         <Button color="danger" onClick={onCancel} type="button">
           Annuler
         </Button>
         <Button color={update ? "info" : "success"} type="submit">
-          {update ? "Modifier" : "Créer"}
+          {update ? "Enregistrer les modifications" : "Créer le formulaire"}
         </Button>
       </div>
 
-      <FormInput register={register("name")}>Nom</FormInput>
+      <div className={css({ maxWidth: "600px" })}>
+        <FormInput register={register("name")} placeholder="Ex: Questionnaire Adoption...">Nom du formulaire</FormInput>
+      </div>
 
-      {fields.length !== 0 && (
-        <AddButton onClick={() => prepend(getNewField())} />
-      )}
-      {fields.map((field, index) => (
-        <DynamicContainer
-          key={field.id}
-          onDelete={() => remove(index)}
-          onMoveUp={index !== 0 ? () => move(index, index - 1) : undefined}
-          onMoveDown={
-            index !== fields.length - 1
-              ? () => move(index, index + 1)
-              : undefined
-          }
-        >
-          <FormSelect
-            {...register(`fields.${index}.type`)}
-            options={fieldTypeOptions}
-            inputSize="small"
+      <div className={css({ display: "flex", flexDirection: "column", gap: "1.5rem" })}>
+        {fields.length !== 0 && (
+          <AddButton onClick={() => prepend(getNewField())} />
+        )}
+        
+        {fields.map((field, index) => (
+          <DynamicContainer
+            key={field.id}
+            onDelete={() => remove(index)}
+            onMoveUp={index !== 0 ? () => move(index, index - 1) : undefined}
+            onMoveDown={
+              index !== fields.length - 1
+                ? () => move(index, index + 1)
+                : undefined
+            }
           >
-            Type
-          </FormSelect>
-          {watchFields[index].type === "DISPLAY_TEXT" ? (
-            <Controller
-              control={control}
-              name={`fields.${index}.content`}
-              render={({ field: renderField }) => (
-                <FormCodeArea {...renderField}>Texte à afficher</FormCodeArea>
-              )}
-            />
-          ) : (
-            <FormInput register={register(`fields.${index}.content`)}>
-              Champ
-            </FormInput>
-          )}
-          {(watchFields[index].type === "UNIQUE_CHOICE" ||
-            watchFields[index].type === "MULTIPLE_CHOICES") && (
-            <Controller
-              control={control}
-              name={`fields.${index}.choices`}
-              render={({ field: renderField }) => (
-                <ListInput {...renderField} label={"Réponses possibles"} />
-              )}
-            />
-          )}
-          {watchFields[index].type !== "DISPLAY_TEXT" && (
-            <FormInput
-              type="checkbox"
-              register={register(`fields.${index}.isRequired`)}
-            >
-              Requis
-            </FormInput>
-          )}
-        </DynamicContainer>
-      ))}
-      <AddButton onClick={() => append(getNewField())} />
+            <div className={fieldLayoutGridStyle}>
+              {/* Ligne 1 : Type et Requis */}
+              <div className={css({ display: "flex", alignItems: "flex-end", gap: "2rem", flexWrap: "wrap" })}>
+                <div className={css({ flex: "1 1 250px" })}>
+                  <Controller
+                    control={control}
+                    name={`fields.${index}.type`}
+                    render={({ field: { onChange, value, onBlur } }) => (
+                      <FormSelect
+                        options={fieldTypeOptions}
+                        value={value}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                      >
+                        Type de champ
+                      </FormSelect>
+                    )}
+                  />
+                </div>
+                {watchFields[index].type !== "DISPLAY_TEXT" && (
+                  <div className={css({ paddingBottom: "0.5rem" })}>
+                    <FormInput
+                      type="checkbox"
+                      register={register(`fields.${index}.isRequired`)}
+                    >
+                      Champ obligatoire
+                    </FormInput>
+                  </div>
+                )}
+              </div>
 
-      <Button color={update ? "info" : "success"} type="submit">
-        {update ? "Modifier" : "Créer"}
-      </Button>
+              {/* Ligne 2 : Contenu */}
+              <div className={css({ width: "100%" })}>
+                {watchFields[index].type === "DISPLAY_TEXT" ? (
+                  <Controller
+                    control={control}
+                    name={`fields.${index}.content`}
+                    render={({ field: renderField }) => (
+                      <FormCodeArea {...renderField} height="200px">Contenu à afficher (Markdown)</FormCodeArea>
+                    )}
+                  />
+                ) : (
+                  <FormInput register={register(`fields.${index}.content`)} placeholder="Ex: Quel est votre numéro de téléphone ?">
+                    Intitulé de la question
+                  </FormInput>
+                )}
+              </div>
+
+              {/* Ligne 3 : Choix éventuels */}
+              {(watchFields[index].type === "UNIQUE_CHOICE" ||
+                watchFields[index].type === "MULTIPLE_CHOICES") && (
+                <div className={css({ width: "100%", marginTop: "0.5rem" })}>
+                  <Controller
+                    control={control}
+                    name={`fields.${index}.choices`}
+                    render={({ field: renderField }) => (
+                      <ListInput {...renderField} label={"Options de réponse"} />
+                    )}
+                  />
+                </div>
+              )}
+            </div>
+          </DynamicContainer>
+        ))}
+        
+        <AddButton onClick={() => append(getNewField())} />
+      </div>
+
+      <div className={css({ display: "flex", justifyContent: "flex-end", borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "2rem", marginTop: "1rem" })}>
+        <Button color={update ? "info" : "success"} type="submit">
+          {update ? "Enregistrer les modifications" : "Créer le formulaire"}
+        </Button>
+      </div>
     </form>
   );
 }
+
+const fieldLayoutGridStyle = css({
+  display: "flex",
+  flexDirection: "column",
+  gap: "2rem",
+  width: "100%",
+});
 
 export default FormForm;
