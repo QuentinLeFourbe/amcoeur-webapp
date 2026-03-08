@@ -8,6 +8,43 @@ import {
   getMailingListSubscribers,
   removeFromMailingList,
 } from "../services/mailingListService.js";
+import { invalidateCache } from "../services/redisService.js";
+
+/**
+ * Force refresh the mailing list cache and return new stats
+ */
+export const refreshMailingList = async (_req: Request, res: Response) => {
+  try {
+    const domain = "amcoeur.org";
+    const mailingList = "amcoeur";
+    const cacheKey = `ml_subscribers_${domain}_${mailingList}`;
+
+    // 1. Invalider le cache Redis
+    await invalidateCache(cacheKey);
+
+    // 2. Récupérer les nouvelles données depuis OVH
+    const [ovhSubscribers, dbUnsubscribesCount, dbContactsCount] = await Promise.all([
+      getMailingListSubscribers(domain, mailingList),
+      Unsubscribe.countDocuments(),
+      Contact.countDocuments(),
+    ]);
+
+    return res.status(200).json({
+      ovh: {
+        count: ovhSubscribers.length,
+        name: mailingList,
+        emails: ovhSubscribers,
+      },
+      db: {
+        contactsCount: dbContactsCount,
+        unsubscribesCount: dbUnsubscribesCount,
+      }
+    });
+  } catch (err) {
+    res.locals.logger.error(err);
+    return res.status(500).send("Erreur lors du rafraîchissement de la liste");
+  }
+};
 
 /**
  * Remove a single subscriber from the mailing list
@@ -22,9 +59,22 @@ export const removeSubscriber = async (req: Request, res: Response) => {
     const domain = "amcoeur.org";
     const mailingList = "amcoeur";
 
+    // 1. Supprimer d'OVH
     await removeFromMailingList(domain, mailingList, email);
 
-    return res.status(200).send("Abonné supprimé");
+    // 2. Enregistrer la désinscription en base locale
+    await Unsubscribe.findOneAndUpdate(
+      { email: email.toLowerCase().trim() },
+      { 
+        $set: { 
+          unsubscribedAt: new Date(),
+          sentToAdmin: false // Sera inclus dans le prochain rapport hebdo
+        } 
+      },
+      { upsert: true }
+    );
+
+    return res.status(200).send("Abonné supprimé et enregistré comme désinscrit");
   } catch (err) {
     res.locals.logger.error(err);
     return res.status(500).send("Erreur lors de la suppression de l'abonné");

@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { UserRole } from "@amcoeur/types";
 
 import {
   createForm,
@@ -8,18 +9,18 @@ import {
   getForms,
   updateForm,
 } from "../controllers/form.js";
-import { requiresActive } from "../middlewares/login.js";
+import { requiresPermission } from "../middlewares/login.js";
 
 const router = Router();
 
-router.post("/", requiresActive, createForm);
-router.post("/duplicate/:id", requiresActive, duplicateForm);
+router.post("/", requiresPermission(UserRole.WEBSITE_EDITOR, UserRole.FORMS), createForm);
+router.post("/duplicate/:id", requiresPermission(UserRole.WEBSITE_EDITOR, UserRole.FORMS), duplicateForm);
 
-router.get("/", requiresActive, getForms);
+router.get("/", requiresPermission(UserRole.WEBSITE_EDITOR, UserRole.FORMS), getForms);
 router.get("/:id", getForm);
 
-router.put("/:id", requiresActive, updateForm);
+router.put("/:id", requiresPermission(UserRole.WEBSITE_EDITOR, UserRole.FORMS), updateForm);
 
-router.delete("/:id", requiresActive, deleteForm);
+router.delete("/:id", requiresPermission(UserRole.WEBSITE_EDITOR, UserRole.FORMS), deleteForm);
 
 export default router;

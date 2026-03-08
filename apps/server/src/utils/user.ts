@@ -1,5 +1,8 @@
 import type { UserPermission, UserServerData } from "@amcoeur/types";
 
+/**
+ * Checks if a user has at least one of the required permissions.
+ */
 export const checkUserPermissions = (
   user: UserServerData | undefined,
   permissions: UserPermission[],
@@ -7,11 +10,12 @@ export const checkUserPermissions = (
   if (!user) {
     return false;
   }
-  const userHasPermissions = permissions.reduce((acc, currentPerm) => {
-    if (acc === false) {
-      return false;
-    }
-    return !!user.permissions.find((perm) => perm === currentPerm);
-  }, true);
-  return userHasPermissions;
+
+  if (permissions.length === 0) {
+    return true;
+  }
+
+  return permissions.some((requiredPerm) => 
+    user.permissions.includes(requiredPerm)
+  );
 };

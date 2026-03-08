@@ -1,6 +1,19 @@
 import type mongoose from "mongoose";
 
-export type UserPermission = "admin" | "inactive" | "forms" | "pages";
+export enum UserRole {
+  ADMIN = "admin",
+  INACTIVE = "inactive",
+  WEBSITE_EDITOR = "website_editor",
+  ADOPTION_MANAGER = "adoption_manager",
+  CONTACT_MANAGER = "contact_manager",
+  EMAILING_MANAGER = "emailing_manager",
+  
+  // Rétrocompatibilité
+  FORMS = "forms",
+  PAGES = "pages",
+}
+
+export type UserPermission = UserRole | string;
 
 export type User = {
   fullname?: string;

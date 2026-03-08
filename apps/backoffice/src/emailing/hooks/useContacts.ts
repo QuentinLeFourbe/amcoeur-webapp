@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getContacts, getMailingListStats, importContacts, removeSubscriber, syncWithOVH } from "../api/contact";
+import { getContacts, getMailingListStats, importContacts, refreshMailingList, removeSubscriber, syncWithOVH } from "../api/contact";
 
 export const useGetContacts = (page: number, limit: number) => {
   return useQuery(["contacts", page, limit], () => getContacts(page, limit));
@@ -7,6 +7,15 @@ export const useGetContacts = (page: number, limit: number) => {
 
 export const useGetMailingListStats = () => {
   return useQuery(["mailing-list-stats"], getMailingListStats);
+};
+
+export const useRefreshMailingList = () => {
+  const queryClient = useQueryClient();
+  return useMutation(refreshMailingList, {
+    onSuccess: (data) => {
+      queryClient.setQueryData(["mailing-list-stats"], data);
+    },
+  });
 };
 
 export const useImportContacts = () => {

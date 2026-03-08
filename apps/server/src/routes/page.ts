@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { UserRole } from "@amcoeur/types";
 
 import {
   createHomePage,
@@ -10,19 +11,19 @@ import {
   updatePage,
 } from "../controllers/page.js";
 import upload from "../middlewares/files.js";
-import { requiresActive } from "../middlewares/login.js";
+import { requiresPermission } from "../middlewares/login.js";
 
 const router = Router();
 
-router.post("/", requiresActive, upload.any(), createPage);
-router.post("/homepage", requiresActive, createHomePage);
+router.post("/", requiresPermission(UserRole.WEBSITE_EDITOR, UserRole.PAGES), upload.any(), createPage);
+router.post("/homepage", requiresPermission(UserRole.WEBSITE_EDITOR, UserRole.PAGES), createHomePage);
 
-router.get("/", getPages);
+router.get("/", requiresPermission(UserRole.WEBSITE_EDITOR, UserRole.PAGES), getPages);
 router.get("/homepage", getHomePage);
 router.get("/:id", getPageById);
 
-router.put("/:id", requiresActive, upload.any(), updatePage);
+router.put("/:id", requiresPermission(UserRole.WEBSITE_EDITOR, UserRole.PAGES), upload.any(), updatePage);
 
-router.delete("/:id", requiresActive, deletePage);
+router.delete("/:id", requiresPermission(UserRole.WEBSITE_EDITOR, UserRole.PAGES), deletePage);
 
 export default router;

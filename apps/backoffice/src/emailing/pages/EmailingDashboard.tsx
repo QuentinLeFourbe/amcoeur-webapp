@@ -3,20 +3,18 @@ import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
 import Spinner from "../../global/components/atoms/Spinner/Spinner";
 import Input from "../../global/components/atoms/Input/Input";
-import { useGetMailingListStats, useSyncWithOVH, useRemoveSubscriber } from "../hooks/useContacts";
+import { useGetMailingListStats, useRefreshMailingList, useRemoveSubscriber } from "../hooks/useContacts";
 import { exportUnsubscribes } from "../api/contact";
-import { Search, Trash2 } from "lucide-react";
+import { Search, Trash2, RefreshCw } from "lucide-react";
 
 function EmailingDashboard() {
   const { data: statsData, isLoading: isLoadingStats } = useGetMailingListStats();
-  const syncMutation = useSyncWithOVH();
+  const refreshMutation = useRefreshMailingList();
   const removeMutation = useRemoveSubscriber();
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleSync = () => {
-    if (window.confirm("Voulez-vous synchroniser la base de contacts avec la liste OVH ? Les désinscrits seront ignorés.")) {
-      syncMutation.mutate();
-    }
+  const handleRefresh = () => {
+    refreshMutation.mutate();
   };
 
   const handleRemove = (email: string) => {
@@ -30,7 +28,6 @@ function EmailingDashboard() {
     db: { contactsCount: 0, unsubscribesCount: 0 } 
   };
 
-  // Filtrage des emails en fonction de la recherche
   const filteredEmails = useMemo(() => {
     if (!searchQuery) return [];
     return stats.ovh.emails.filter((email: string) => 
@@ -57,28 +54,31 @@ function EmailingDashboard() {
       <div className={mainGridStyle}>
         {/* Colonne de Gauche : Actions */}
         <div className={cardStyle}>
-          <h2 className={cardTitleStyle}>Actions de Diffusion</h2>
+          <h2 className={cardTitleStyle}>Actions de la Liste</h2>
           <p className={cardDescStyle}>
-            Synchronisez votre base de contacts locale avec la liste de diffusion OVH. 
-            Le système exclut automatiquement les doublons et les personnes désinscrites.
+            Gérez la liste de diffusion OVH. Vous pouvez forcer la mise à jour des données 
+            ou exporter les désinscriptions enregistrées localement.
           </p>
           
           <div className={actionsStyle}>
-            <Button color="primary" onClick={handleSync} disabled={syncMutation.isLoading}>
-              Synchroniser Base ➔ OVH
+            <Button color="primary" onClick={handleRefresh} disabled={refreshMutation.isLoading}>
+              <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem" })}>
+                <RefreshCw size={18} className={refreshMutation.isLoading ? css({ animation: "spin 1s linear infinite" }) : undefined} />
+                <span>Recharger la base OVH</span>
+              </div>
             </Button>
             <Button color="info" onClick={exportUnsubscribes}>
               Exporter les désinscrits (CSV)
             </Button>
           </div>
 
-          {(syncMutation.isLoading || removeMutation.isLoading) && (
+          {(refreshMutation.isLoading || removeMutation.isLoading) && (
             <div className={css({ marginTop: "1rem" })}><Spinner size={24} color="amcoeurRose" /></div>
           )}
           
-          {syncMutation.isSuccess && (
+          {refreshMutation.isSuccess && (
              <div className={css({ color: "green.400", marginTop: "1rem", fontSize: "sm" })}>
-               Synchronisation terminée : {syncMutation.data.summary.added} nouveaux abonnés ajoutés sur OVH.
+               Base OVH rechargée avec succès.
              </div>
           )}
         </div>

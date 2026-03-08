@@ -29,6 +29,13 @@ export const getMailingListStats = async () => {
   return response.data;
 };
 
+export const refreshMailingList = async () => {
+  const response = await axios.post(`/api/emailing/refresh`, {}, {
+    withCredentials: true,
+  });
+  return response.data;
+};
+
 export const syncWithOVH = async () => {
   const response = await axios.post(`/api/emailing/sync`, {}, {
     withCredentials: true,

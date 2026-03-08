@@ -16,6 +16,9 @@ import {
   Menu,
   Contact2
 } from "lucide-react";
+import { useCurrentUser } from "../../../hooks/useUser";
+import { checkUserPermissions } from "../../../utils/user";
+import { UserRole } from "@amcoeur/types";
 
 type SidebarProps = {
   isUserInactive?: boolean;
@@ -23,7 +26,8 @@ type SidebarProps = {
   logout?: () => void;
 };
 
-function Sidebar({ isUserInactive = true, isUserAdmin = false, logout }: SidebarProps) {
+function Sidebar({ isUserInactive = true, logout }: SidebarProps) {
+  const { data: { data: currentUser } = {} } = useCurrentUser();
   const location = useLocation();
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
   const [isCollapsed, setIsCollapsed] = useState(!isLargeScreen);
@@ -32,20 +36,49 @@ function Sidebar({ isUserInactive = true, isUserAdmin = false, logout }: Sidebar
     setIsCollapsed(!isLargeScreen);
   }, [isLargeScreen]);
 
-  if (isUserInactive) return null;
+  if (isUserInactive || !currentUser) return null;
+
+  const isAdmin = checkUserPermissions(currentUser, [UserRole.ADMIN]);
 
   const links = [
-    { name: "Tableau de bord", href: "/", icon: <LayoutDashboard size={20} /> },
-    { name: "Gestion des pages", href: "/pages", icon: <FileText size={20} /> },
-    { name: "Formulaires", href: "/formulaires", icon: <ClipboardList size={20} /> },
-    { name: "Adoptions", href: "/adoptions", icon: <Heart size={20} /> },
+    { name: "Tableau de bord", href: "/", icon: <LayoutDashboard size={20} />, show: true },
+    { 
+      name: "Gestion des pages", 
+      href: "/pages", 
+      icon: <FileText size={20} />, 
+      show: isAdmin || checkUserPermissions(currentUser, [UserRole.WEBSITE_EDITOR, UserRole.PAGES]) 
+    },
+    { 
+      name: "Formulaires", 
+      href: "/formulaires", 
+      icon: <ClipboardList size={20} />, 
+      show: isAdmin || checkUserPermissions(currentUser, [UserRole.WEBSITE_EDITOR, UserRole.FORMS]) 
+    },
+    { 
+      name: "Adoptions", 
+      href: "/adoptions", 
+      icon: <Heart size={20} />, 
+      show: isAdmin || checkUserPermissions(currentUser, [UserRole.ADOPTION_MANAGER]) 
+    },
+    { 
+      name: "Contacts", 
+      href: "/contacts", 
+      icon: <Contact2 size={20} />, 
+      show: isAdmin || checkUserPermissions(currentUser, [UserRole.CONTACT_MANAGER]) 
+    },
+    { 
+      name: "Emailing", 
+      href: "/emailing", 
+      icon: <Mail size={20} />, 
+      show: isAdmin || checkUserPermissions(currentUser, [UserRole.EMAILING_MANAGER]) 
+    },
+    { 
+      name: "Utilisateurs", 
+      href: "/users", 
+      icon: <Users size={20} />, 
+      show: isAdmin 
+    },
   ];
-
-  if (isUserAdmin) {
-    links.push({ name: "Contacts", href: "/contacts", icon: <Contact2 size={20} /> });
-    links.push({ name: "Emailing", href: "/emailing", icon: <Mail size={20} /> });
-    links.push({ name: "Utilisateurs", href: "/users", icon: <Users size={20} /> });
-  }
 
   return (
     <aside className={cx(sidebarStyle, isCollapsed ? collapsedSidebarStyle : expandedSidebarStyle)}>
@@ -63,7 +96,7 @@ function Sidebar({ isUserInactive = true, isUserAdmin = false, logout }: Sidebar
       </div>
 
       <nav className={navStyle}>
-        {links.map((link) => (
+        {links.filter(link => link.show).map((link) => (
           <Link 
             key={link.href} 
             to={link.href} 
@@ -119,7 +152,7 @@ const logoSectionStyle = css({
   display: "flex",
   alignItems: "center",
   gap: "1rem",
-  height: "80px",
+  height: "120px",
   flexShrink: 0,
 });
 
@@ -140,8 +173,8 @@ const burgerButtonStyle = css({
 });
 
 const logoStyle = css({
-  width: "35px",
-  height: "35px",
+  width: "90px",
+  height: "90px",
   objectFit: "contain",
 });
 

@@ -1,5 +1,8 @@
 import { UserClientData, UserPermission } from "@amcoeur/types";
 
+/**
+ * Checks if a user has at least one of the required permissions.
+ */
 export const checkUserPermissions = (
   user: UserClientData | undefined,
   permissions: UserPermission[],
@@ -7,11 +10,14 @@ export const checkUserPermissions = (
   if (!user) {
     return false;
   }
-  const userHasPermissions = permissions.reduce((acc, currentPerm) => {
-    if (acc === false) {
-      return false;
-    }
-    return !!user.permissions.find((perm) => perm === currentPerm);
-  }, true);
-  return userHasPermissions;
+
+  // If no specific permissions are required, user is authorized (unless checked elsewhere)
+  if (permissions.length === 0) {
+    return true;
+  }
+
+  // Return true if user has AT LEAST ONE of the requested permissions
+  return permissions.some((requiredPerm) => 
+    user.permissions.includes(requiredPerm)
+  );
 };

@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { UserRole } from "@amcoeur/types";
 
 import {
   createAdoption,
@@ -11,23 +12,23 @@ import {
 import { checkRecaptcha } from "../middlewares/captcha.js";
 import { sendAdoptionEmail } from "../middlewares/email.js";
 import upload from "../middlewares/files.js";
-import { requiresActive } from "../middlewares/login.js";
+import { requiresPermission } from "../middlewares/login.js";
 
 const router = Router();
 
-router.get("/", requiresActive, getAdoptions);
+router.get("/", requiresPermission(UserRole.ADOPTION_MANAGER), getAdoptions);
 router.get("/public", getAdoptions);
-router.get("/:id", requiresActive, getAdoption);
+router.get("/:id", requiresPermission(UserRole.ADOPTION_MANAGER), getAdoption);
 router.get("/:id/public", getAdoption);
 
-router.put("/:id", requiresActive, upload.any(), updateAdoption);
+router.put("/:id", requiresPermission(UserRole.ADOPTION_MANAGER), upload.single("image"), updateAdoption);
 router.post(
   "/contact",
   checkRecaptcha,
   sendAdoptionEmail,
   registerAdoptionAnswer,
 );
-router.post("/", requiresActive, upload.any(), createAdoption);
-router.delete("/:id", requiresActive, deleteAdoption);
+router.post("/", requiresPermission(UserRole.ADOPTION_MANAGER), upload.single("image"), createAdoption);
+router.delete("/:id", requiresPermission(UserRole.ADOPTION_MANAGER), deleteAdoption);
 
 export default router;

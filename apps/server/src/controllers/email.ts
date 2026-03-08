@@ -51,11 +51,16 @@ export const unsubscribeEmail = async (req: Request, res: Response) => {
 
     await removeFromMailingList("amcoeur.org", "amcoeur", email);
 
-    await Unsubscribe.create({
-      email,
-      unsubscribedAt: new Date(),
-      sentToAdmin: false,
-    });
+    await Unsubscribe.findOneAndUpdate(
+      { email: email.toLowerCase().trim() },
+      { 
+        $set: { 
+          unsubscribedAt: new Date(),
+          sentToAdmin: false 
+        } 
+      },
+      { upsert: true }
+    );
 
     return res.status(200).send("Email removed");
   } catch (err) {

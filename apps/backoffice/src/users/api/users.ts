@@ -7,6 +7,10 @@ export const getUsers = () => {
 
 export const deleteUser = (id: string) => axios.delete(`/api/users/${id}`);
 
+export const updateUser = (user: UserClientData) => {
+  return axios.put(`/api/users/${user._id}`, { permissions: user.permissions });
+};
+
 export const activateUser = (user: UserClientData, active: boolean = true) => {
   const permissions = user.permissions;
   const inactiveIndex = permissions.indexOf("inactive");

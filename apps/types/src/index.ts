@@ -8,4 +8,4 @@ export * from "./page.js";
 export * from "./pagination.js";
 export * from "./question.js";
 export * from "./unsubscribe.js";
-export type * from "./user.js";
+export * from "./user.js";
