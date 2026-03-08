@@ -1,5 +1,7 @@
+import { EmailCampaignDto } from "@amcoeur/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getContacts, getMailingListStats, importContacts, refreshMailingList, removeSubscriber, syncWithOVH } from "../api/contact";
+
+import { getContacts, getMailingListStats, importContacts, refreshMailingList, removeSubscriber, sendEmailCampaign } from "../api/contact";
 
 export const useGetContacts = (page: number, limit: number) => {
   return useQuery(["contacts", page, limit], () => getContacts(page, limit));
@@ -28,20 +30,20 @@ export const useImportContacts = () => {
   });
 };
 
-export const useSyncWithOVH = () => {
+export const useRemoveSubscriber = () => {
   const queryClient = useQueryClient();
-  return useMutation(syncWithOVH, {
+  return useMutation(removeSubscriber, {
     onSuccess: () => {
       queryClient.invalidateQueries(["mailing-list-stats"]);
     },
   });
 };
 
-export const useRemoveSubscriber = () => {
-  const queryClient = useQueryClient();
-  return useMutation(removeSubscriber, {
+export const useSendEmailCampaign = (options?: { onSuccess?: () => void }) => {
+  return useMutation({
+    mutationFn: (campaign: EmailCampaignDto) => sendEmailCampaign(campaign),
     onSuccess: () => {
-      queryClient.invalidateQueries(["mailing-list-stats"]);
+      options?.onSuccess?.();
     },
   });
 };

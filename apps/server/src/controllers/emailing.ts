@@ -1,3 +1,5 @@
+import { EmailBlockType } from "@amcoeur/types";
+import type { EmailCampaignDto } from "@amcoeur/types";
 import type { Request, Response } from "express";
 import Papa from "papaparse";
 
@@ -9,6 +11,73 @@ import {
   removeFromMailingList,
 } from "../services/mailingListService.js";
 import { invalidateCache } from "../services/redisService.js";
+import { generateEmailHtml } from "../services/emailGeneratorService.js";
+import { sendEmail } from "../services/mailService.js";
+import { processEmailImage } from "../services/imageProcessingService.js";
+
+/**
+ * Send an email campaign to the target list or test email
+ */
+export const sendCampaign = async (req: Request, res: Response) => {
+  try {
+    const campaignData = JSON.parse(req.body.campaign) as EmailCampaignDto;
+    const files = req.files as Express.Multer.File[];
+    const attachments: { filename: string; path: string; cid: string }[] = [];
+    
+    // 1. Traiter les images et préparer les attachments CID
+    let fileIndex = 0;
+    const processedBlocks = await Promise.all(campaignData.blocks.map(async (block, bIndex) => {
+      if (block.type === EmailBlockType.IMAGE) {
+        const imagesCount = block.images.length;
+        const targetWidth = Math.floor(600 / imagesCount);
+        
+        const processedImages = await Promise.all(block.images.map(async (img, iIndex) => {
+          if (files && files[fileIndex]) {
+            const processed = await processEmailImage(files[fileIndex] as Express.Multer.File, targetWidth);
+            const cid = `img_b${bIndex}_i${iIndex}`;
+            
+            // Ajouter aux pièces jointes Nodemailer
+            attachments.push({
+              filename: `image_${bIndex}_${iIndex}.webp`,
+              path: processed.path,
+              cid: cid
+            });
+
+            fileIndex++;
+            return { ...img, url: processed.url };
+          }
+          return img;
+        }));
+        
+        return { ...block, images: processedImages };
+      }
+      return block;
+    }));
+
+    // 2. Définir le destinataire
+    const target = campaignData.targetEmail || process.env.NEWSLETTER_TARGET_EMAIL;
+    if (!target) {
+      return res.status(400).send("Destinataire manquant (NEWSLETTER_TARGET_EMAIL non défini)");
+    }
+
+    // 3. Envoyer l'email avec les attachments CID
+    const unsubscribeEmail = campaignData.targetEmail || "contact@amcoeur.org";
+    const contactEmail = process.env.CONTACT_EMAIL || "contactinfo@amcoeur.org";
+    const html = await generateEmailHtml(processedBlocks as any, unsubscribeEmail, contactEmail);
+
+    await sendEmail({
+      to: target,
+      subject: campaignData.subject,
+      html: html,
+      attachments: attachments as any, // On passe les images embarquées
+    });
+
+    return res.status(200).json({ message: "Campagne envoyée avec succès", target });
+  } catch (err) {
+    res.locals.logger.error(err);
+    return res.status(500).send("Erreur lors de l'envoi de la campagne");
+  }
+};
 
 /**
  * Force refresh the mailing list cache and return new stats
@@ -19,10 +88,8 @@ export const refreshMailingList = async (_req: Request, res: Response) => {
     const mailingList = "amcoeur";
     const cacheKey = `ml_subscribers_${domain}_${mailingList}`;
 
-    // 1. Invalider le cache Redis
     await invalidateCache(cacheKey);
 
-    // 2. Récupérer les nouvelles données depuis OVH
     const [ovhSubscribers, dbUnsubscribesCount, dbContactsCount] = await Promise.all([
       getMailingListSubscribers(domain, mailingList),
       Unsubscribe.countDocuments(),
@@ -59,16 +126,14 @@ export const removeSubscriber = async (req: Request, res: Response) => {
     const domain = "amcoeur.org";
     const mailingList = "amcoeur";
 
-    // 1. Supprimer d'OVH
     await removeFromMailingList(domain, mailingList, email);
 
-    // 2. Enregistrer la désinscription en base locale
     await Unsubscribe.findOneAndUpdate(
       { email: email.toLowerCase().trim() },
       { 
         $set: { 
           unsubscribedAt: new Date(),
-          sentToAdmin: false // Sera inclus dans le prochain rapport hebdo
+          sentToAdmin: false
         } 
       },
       { upsert: true }

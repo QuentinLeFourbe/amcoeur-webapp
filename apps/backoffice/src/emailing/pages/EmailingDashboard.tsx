@@ -1,11 +1,12 @@
-import { useState, useMemo } from "react";
+import { Edit3,RefreshCw, Search, Trash2 } from "lucide-react";
+import { useMemo,useState } from "react";
+
 import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
-import Spinner from "../../global/components/atoms/Spinner/Spinner";
 import Input from "../../global/components/atoms/Input/Input";
-import { useGetMailingListStats, useRefreshMailingList, useRemoveSubscriber } from "../hooks/useContacts";
+import Spinner from "../../global/components/atoms/Spinner/Spinner";
 import { exportUnsubscribes } from "../api/contact";
-import { Search, Trash2, RefreshCw } from "lucide-react";
+import { useGetMailingListStats, useRefreshMailingList, useRemoveSubscriber } from "../hooks/useContacts";
 
 function EmailingDashboard() {
   const { data: statsData, isLoading: isLoadingStats } = useGetMailingListStats();
@@ -61,7 +62,13 @@ function EmailingDashboard() {
           </p>
           
           <div className={actionsStyle}>
-            <Button color="primary" onClick={handleRefresh} disabled={refreshMutation.isLoading}>
+            <Button color="primary" to="/emailing/composer">
+              <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem" })}>
+                <Edit3 size={18} />
+                <span>Composer un mail</span>
+              </div>
+            </Button>
+            <Button color="secondary" onClick={handleRefresh} disabled={refreshMutation.isLoading}>
               <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem" })}>
                 <RefreshCw size={18} className={refreshMutation.isLoading ? css({ animation: "spin 1s linear infinite" }) : undefined} />
                 <span>Recharger la base OVH</span>

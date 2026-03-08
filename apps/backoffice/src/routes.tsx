@@ -11,6 +11,7 @@ import HomePageManagement from "./contentPages/pages/HomePageManagement";
 import ManagePage from "./contentPages/pages/ManagePage";
 import ManagePages from "./contentPages/pages/ManagePages";
 import ContactsDashboard from "./emailing/pages/ContactsDashboard";
+import CreateCampaign from "./emailing/pages/CreateCampaign";
 import EmailingDashboard from "./emailing/pages/EmailingDashboard";
 import CreateForm from "./forms/pages/CreateForm";
 import FormsDashboard from "./forms/pages/FormsDashboard";
@@ -108,7 +109,10 @@ const usersRoutes = {
 
 const emailingRoutes = {
   path: "emailing",
-  element: <EmailingDashboard />,
+  children: [
+    { path: "", element: <EmailingDashboard /> },
+    { path: "composer", element: <CreateCampaign /> },
+  ],
 };
 
 const contactsRoutes = {
