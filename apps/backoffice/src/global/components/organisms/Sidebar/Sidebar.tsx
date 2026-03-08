@@ -1,24 +1,23 @@
+import { UserRole } from "@amcoeur/types";
+import { 
+  ClipboardList, 
+  Contact2,
+  FileText, 
+  Heart, 
+  LayoutDashboard, 
+  LogOut,
+  Mail, 
+  Menu,
+  Users} from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useMediaQuery } from "usehooks-ts";
 
 import { css, cx } from "../../../../../styled-system/css";
 import AmcoeurLogo from "../../../assets/icons/amcoeur_logo_light.webp";
-import Link from "../../atoms/Link/Link";
-import { 
-  LayoutDashboard, 
-  FileText, 
-  ClipboardList, 
-  Heart, 
-  Mail, 
-  Users,
-  LogOut,
-  Menu,
-  Contact2
-} from "lucide-react";
 import { useCurrentUser } from "../../../hooks/useUser";
 import { checkUserPermissions } from "../../../utils/user";
-import { UserRole } from "@amcoeur/types";
+import Link from "../../atoms/Link/Link";
 
 type SidebarProps = {
   isUserInactive?: boolean;

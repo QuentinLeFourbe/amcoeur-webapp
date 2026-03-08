@@ -1,7 +1,8 @@
+import { CheckCircle2, Clock, LogOut,Mail } from "lucide-react";
+
 import { css } from "../../../styled-system/css";
-import { Clock, Mail, CheckCircle2, LogOut } from "lucide-react";
-import AmcoeurLogo from "../assets/icons/amcoeur_logo_light.webp";
 import { logout } from "../api/axios";
+import AmcoeurLogo from "../assets/icons/amcoeur_logo_light.webp";
 
 function InactiveAccount() {
   return (

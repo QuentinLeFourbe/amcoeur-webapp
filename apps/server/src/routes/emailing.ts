@@ -1,5 +1,5 @@
-import { Router } from "express";
 import { UserRole } from "@amcoeur/types";
+import { Router } from "express";
 
 import {
   exportUnsubscribes,

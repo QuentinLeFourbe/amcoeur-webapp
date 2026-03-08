@@ -1,8 +1,9 @@
+import { HeartHandshake,ShieldCheck } from "lucide-react";
+
 import { css } from "../../../styled-system/css";
+import AmcoeurLogo from "../assets/icons/amcoeur_logo_light.webp";
 import AuthButton from "../components/atoms/AuthButton/AuthButton";
 import { getGoogleLoginUrl, getMicrosoftLoginUrl } from "../utils/auth";
-import AmcoeurLogo from "../assets/icons/amcoeur_logo_light.webp";
-import { ShieldCheck, HeartHandshake } from "lucide-react";
 
 function Login() {
   const microsoftLogin = async () => {

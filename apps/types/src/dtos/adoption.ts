@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { adoptionBaseSchema, adoptionPrivateSchema } from "../adoption.js";
 
 /**
