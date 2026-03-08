@@ -1,4 +1,4 @@
-import { AdoptionClientData, adoptionClientDataSchema } from "@amcoeur/types";
+import { AdoptionClientData, createAdoptionSchema, CreateAdoptionDto } from "@amcoeur/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 
@@ -11,9 +11,10 @@ import FormTextArea from "../../global/components/molecules/Form/FormTextArea";
 
 type AdoptionFormProps = {
   initialData?: AdoptionClientData;
-  onSubmit: (data: AdoptionClientData) => void;
+  onSubmit: (data: CreateAdoptionDto) => void;
   onCancel?: () => void;
 };
+
 export default function AdoptionForm({
   initialData,
   onSubmit,
@@ -24,8 +25,8 @@ export default function AdoptionForm({
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<AdoptionClientData>({
-    resolver: zodResolver(adoptionClientDataSchema),
+  } = useForm<CreateAdoptionDto>({
+    resolver: zodResolver(createAdoptionSchema),
     defaultValues: {
       ...initialData,
       name: initialData?.name ?? "",
@@ -33,11 +34,11 @@ export default function AdoptionForm({
       gender: initialData?.gender ?? "MALE",
       adopted: initialData?.adopted ?? false,
       visible: initialData?.visible ?? false,
-      emergency: initialData?.visible ?? false,
+      emergency: initialData?.emergency ?? false,
     },
   });
 
-  const submitData = (data: AdoptionClientData) => {
+  const submitData = (data: CreateAdoptionDto) => {
     onSubmit(data);
   };
 
@@ -54,7 +55,7 @@ export default function AdoptionForm({
         flexDirection: "column",
       })}
     >
-      <FormInput {...register("name")}>Nom</FormInput>
+      <FormInput {...register("name")} errorMessage={errors.name?.message}>Nom</FormInput>
 
       <FormSelect
         {...register("species")}
@@ -64,11 +65,12 @@ export default function AdoptionForm({
           { value: "HORSE", label: "Cheval" },
           { value: "OTHER", label: "Autre" },
         ]}
+        errorMessage={errors.species?.message}
       >
         Espèce
       </FormSelect>
 
-      <FormInput {...register("race")}>Race</FormInput>
+      <FormInput {...register("race")} errorMessage={errors.race?.message}>Race</FormInput>
 
       <FormSelect
         {...register("gender")}
@@ -76,6 +78,7 @@ export default function AdoptionForm({
           { value: "MALE", label: "Mâle" },
           { value: "FEMALE", label: "Femelle" },
         ]}
+        errorMessage={errors.gender?.message}
       >
         Genre
       </FormSelect>
@@ -83,7 +86,7 @@ export default function AdoptionForm({
       <Controller
         name="image"
         control={control}
-        render={({ field: { onChange, ...fields } }) => (
+        render={({ field: { onChange, ...fields }, fieldState: { error } }) => (
           <FormInput
             {...fields}
             onChange={(e) => {
@@ -91,6 +94,7 @@ export default function AdoptionForm({
             }}
             type="file"
             value={undefined}
+            errorMessage={error?.message}
           >
             Photo
           </FormInput>
@@ -108,8 +112,8 @@ export default function AdoptionForm({
       <Controller
         control={control}
         name={`description`}
-        render={({ field: renderField }) => (
-          <FormCodeArea {...renderField}>
+        render={({ field: renderField, fieldState: { error } }) => (
+          <FormCodeArea {...renderField} errorMessage={error?.message}>
             Description de l'adoption
           </FormCodeArea>
         )}
@@ -118,10 +122,11 @@ export default function AdoptionForm({
       <Controller
         control={control}
         name={`commentary`}
-        render={({ field: renderField }) => (
+        render={({ field: renderField, fieldState: { error } }) => (
           <FormTextArea
             {...renderField}
-            className={css({ width: "70vw", height: "300px" })}
+            className={css({ width: "100%", maxWidth: "1200px", height: "300px" })}
+            errorMessage={error?.message}
           >
             Commentaire
           </FormTextArea>
