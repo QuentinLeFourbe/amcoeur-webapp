@@ -2,6 +2,10 @@ import { EmailBlockType } from "@amcoeur/types";
 import type { EmailCampaignDto } from "@amcoeur/types";
 import type { Request, Response } from "express";
 import Papa from "papaparse";
+import path from "path";
+import fs from "fs";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
 import Contact from "../models/contact.js";
 import Unsubscribe from "../models/unsubscribe.js";
@@ -15,6 +19,8 @@ import { generateEmailHtml } from "../services/emailGeneratorService.js";
 import { sendEmail } from "../services/mailService.js";
 import { processEmailImage } from "../services/imageProcessingService.js";
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 /**
  * Send an email campaign to the target list or test email
  */
@@ -22,9 +28,22 @@ export const sendCampaign = async (req: Request, res: Response) => {
   try {
     const campaignData = JSON.parse(req.body.campaign) as EmailCampaignDto;
     const files = req.files as Express.Multer.File[];
+    
     const attachments: { filename: string; path: string; cid: string }[] = [];
     
-    // 1. Traiter les images et préparer les attachments CID
+    // 1. Ajouter le logo Amcoeur (chemin stable hors de src/build)
+    // Depuis apps/server/build/controllers/ -> ../../assets/
+    const logoPath = path.join(__dirname, "..", "..", "assets", "amcoeur_logo.jpg");
+    
+    if (fs.existsSync(logoPath)) {
+      attachments.push({
+        filename: "amcoeur_logo.jpg",
+        path: logoPath,
+        cid: "logo_amcoeur"
+      });
+    }
+
+    // 2. Traiter les images des blocs
     let fileIndex = 0;
     const processedBlocks = await Promise.all(campaignData.blocks.map(async (block, bIndex) => {
       if (block.type === EmailBlockType.IMAGE) {
@@ -36,7 +55,6 @@ export const sendCampaign = async (req: Request, res: Response) => {
             const processed = await processEmailImage(files[fileIndex] as Express.Multer.File, targetWidth);
             const cid = `img_b${bIndex}_i${iIndex}`;
             
-            // Ajouter aux pièces jointes Nodemailer
             attachments.push({
               filename: `image_${bIndex}_${iIndex}.webp`,
               path: processed.path,
@@ -54,13 +72,13 @@ export const sendCampaign = async (req: Request, res: Response) => {
       return block;
     }));
 
-    // 2. Définir le destinataire
+    // 3. Définir le destinataire
     const target = campaignData.targetEmail || process.env.NEWSLETTER_TARGET_EMAIL;
     if (!target) {
       return res.status(400).send("Destinataire manquant (NEWSLETTER_TARGET_EMAIL non défini)");
     }
 
-    // 3. Envoyer l'email avec les attachments CID
+    // 4. Envoyer l'email
     const unsubscribeEmail = campaignData.targetEmail || "contact@amcoeur.org";
     const contactEmail = process.env.CONTACT_EMAIL || "contactinfo@amcoeur.org";
     const html = await generateEmailHtml(processedBlocks as any, unsubscribeEmail, contactEmail);
@@ -69,7 +87,7 @@ export const sendCampaign = async (req: Request, res: Response) => {
       to: target,
       subject: campaignData.subject,
       html: html,
-      attachments: attachments as any, // On passe les images embarquées
+      attachments: attachments as any,
     });
 
     return res.status(200).json({ message: "Campagne envoyée avec succès", target });
