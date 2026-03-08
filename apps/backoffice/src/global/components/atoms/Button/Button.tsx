@@ -11,88 +11,71 @@ const buttonRecipe = cva({
     alignItems: "center",
     width: "fit-content",
     cursor: "pointer",
+    transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+    padding: "0.6rem 1.2rem",
+    borderRadius: "10px",
+    fontWeight: "600",
+    fontSize: "sm",
+    border: "1px solid transparent",
+    outline: "none",
+
     "&:active:not([data-active], [data-disabled])": {
-      opacity: "0.8",
+      transform: "scale(0.96)",
     },
-    transition: "background-color 0.3s ease",
-    padding: "0.5rem 1rem",
-    borderRadius: "4px",
+    
     "&:is([data-disabled])": {
-      opacity: "0.5",
+      opacity: "0.4",
       cursor: "not-allowed",
+      filter: "grayscale(0.5)",
     },
   },
   variants: {
     color: {
       primary: {
-        color: "pink.50",
-        backgroundColor: "pink.500",
+        color: "white",
+        backgroundColor: "amcoeurRose",
         "&:hover:not([data-active],[data-disabled])": {
-          backgroundColor: "pink.100",
-          color: "pink.500",
+          backgroundColor: "amcoeurPale",
+          boxShadow: "0 4px 15px rgba(225, 29, 72, 0.3)",
         },
-        _active: {
-          backgroundColor: "pink.100",
-          color: "pink.500",
-          cursor: "auto",
-        },
-        borderColor: "pink.500",
-        borderStyle: "solid",
-        borderWidth: "2px",
       },
       secondary: {
-        color: "pink.400",
-        backgroundColor: "pink.50",
+        color: "white",
+        backgroundColor: "rgba(255, 255, 255, 0.05)",
+        borderColor: "rgba(255, 255, 255, 0.1)",
         "&:hover:not([data-active],[data-disabled])": {
-          backgroundColor: "pink.100",
-          color: "pink.700",
+          backgroundColor: "rgba(255, 255, 255, 0.1)",
+          borderColor: "amcoeurPale",
         },
-        "&is([data-disabled],[data-active])": {
-          cursor: "auto",
-          backgroundColor: "pink.200",
-          color: "pink.800",
-        },
-        borderColor: "pink.300",
-        borderStyle: "solid",
-        borderWidth: "2px",
       },
       danger: {
         color: "white",
-        backgroundColor: "red.500",
+        backgroundColor: "#ef4444", // red.500
         "&:hover:not([data-active],[data-disabled])": {
-          backgroundColor: "red.100",
-          color: "red.400",
+          backgroundColor: "#f87171",
+          boxShadow: "0 4px 15px rgba(239, 68, 68, 0.3)",
         },
-        borderColor: "red.500",
-        borderStyle: "solid",
-        borderWidth: "2px",
       },
       info: {
-        color: "blue.50",
-        backgroundColor: "blue.500",
+        color: "white",
+        backgroundColor: "#3b82f6", // blue.500
         "&:hover:not([data-active],[data-disabled])": {
-          backgroundColor: "blue.100",
-          color: "blue.500",
+          backgroundColor: "#60a5fa",
+          boxShadow: "0 4px 15px rgba(59, 130, 246, 0.3)",
         },
-        borderColor: "blue.500",
-        borderStyle: "solid",
-        borderWidth: "2px",
       },
       success: {
         color: "white",
-        backgroundColor: "green.700",
+        backgroundColor: "#10b981", // emerald.500
         "&:hover:not([data-active],[data-disabled])": {
-          backgroundColor: "green.100",
-          color: "green.700",
+          backgroundColor: "#34d399",
+          boxShadow: "0 4px 15px rgba(16, 185, 129, 0.3)",
+          transform: "translateY(-1px)",
         },
         "&is([data-disabled], [data-active])": {
-          cursor: "default",
-          backgroundColor: "green.200",
-          color: "green.800",
+          backgroundColor: "#064e3b",
+          color: "rgba(255,255,255,0.5)",
         },
-        borderColor: "green.700",
-        borderStyle: "solid",
-        borderWidth: "2px",
       },
     },
     bold: {
