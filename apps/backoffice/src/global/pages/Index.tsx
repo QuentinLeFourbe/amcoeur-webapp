@@ -1,6 +1,7 @@
+import { FileText, Info,Mail } from "lucide-react";
+
 import { css } from "../../../styled-system/css";
 import { useCurrentUser } from "../hooks/useUser";
-import { FileText, Mail, Info } from "lucide-react";
 
 function Index() {
   const { data: { data: currentUser } = {} } = useCurrentUser();

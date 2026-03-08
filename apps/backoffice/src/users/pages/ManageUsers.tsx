@@ -1,12 +1,13 @@
+import { User, UserClientData,UserPermission, UserRole } from "@amcoeur/types";
+
 import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
-import Table from "../../global/components/atoms/Table/Table";
 import Spinner from "../../global/components/atoms/Spinner/Spinner";
+import Table from "../../global/components/atoms/Table/Table";
 import FormCheckbox from "../../global/components/molecules/Form/FormCheckbox";
 import { checkUserPermissions } from "../../global/utils/user";
-import { useActivateUser, useDeleteUser, useUsers, useUpdateUser } from "../hooks/useUsers";
-import { User, UserPermission, UserRole, UserClientData } from "@amcoeur/types";
+import { useActivateUser, useDeleteUser, useUpdateUser,useUsers } from "../hooks/useUsers";
 
 const PERMISSIONS: { label: string; value: UserRole }[] = [
   { label: "Admin", value: UserRole.ADMIN },

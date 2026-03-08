@@ -1,13 +1,14 @@
+import { ShieldAlert } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { css } from "../../../styled-system/css";
 import { applyAuthToken } from "../api/axios";
+import AmcoeurLogo from "../assets/icons/amcoeur_logo_light.webp";
 import ErrorLabel from "../components/atoms/ErrorLabel/ErrorLabel";
 import Spinner from "../components/atoms/Spinner/Spinner";
 import useCurrentUrl from "../hooks/useCurrentUrl";
 import { getAndStoreToken } from "../utils/auth";
-import AmcoeurLogo from "../assets/icons/amcoeur_logo_light.webp";
-import { ShieldAlert } from "lucide-react";
 
 function LoginRedirect() {
   const [error, setError] = useState("");
