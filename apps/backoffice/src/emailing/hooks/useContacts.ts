@@ -1,6 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-
-import { getContacts, getMailingListStats, importContacts, syncWithOVH } from "../api/contact";
+import { getContacts, getMailingListStats, importContacts, removeSubscriber, syncWithOVH } from "../api/contact";
 
 export const useGetContacts = (page: number, limit: number) => {
   return useQuery(["contacts", page, limit], () => getContacts(page, limit));
@@ -23,6 +22,15 @@ export const useImportContacts = () => {
 export const useSyncWithOVH = () => {
   const queryClient = useQueryClient();
   return useMutation(syncWithOVH, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["mailing-list-stats"]);
+    },
+  });
+};
+
+export const useRemoveSubscriber = () => {
+  const queryClient = useQueryClient();
+  return useMutation(removeSubscriber, {
     onSuccess: () => {
       queryClient.invalidateQueries(["mailing-list-stats"]);
     },

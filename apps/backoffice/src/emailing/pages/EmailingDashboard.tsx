@@ -1,185 +1,295 @@
-import type { Contact } from "@amcoeur/types";
-import { useRef, useState } from "react";
-
+import { useState, useMemo } from "react";
 import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
 import Spinner from "../../global/components/atoms/Spinner/Spinner";
-import Pagination from "../../global/components/molecules/Pagination/Pagination";
+import Input from "../../global/components/atoms/Input/Input";
+import { useGetMailingListStats, useSyncWithOVH, useRemoveSubscriber } from "../hooks/useContacts";
 import { exportUnsubscribes } from "../api/contact";
-import { useGetContacts, useGetMailingListStats, useImportContacts, useSyncWithOVH } from "../hooks/useContacts";
+import { Search, Trash2 } from "lucide-react";
 
 function EmailingDashboard() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const { data: contactsData, isLoading: isLoadingContacts } = useGetContacts(currentPage, 20);
   const { data: statsData, isLoading: isLoadingStats } = useGetMailingListStats();
-  
-  const importMutation = useImportContacts();
   const syncMutation = useSyncWithOVH();
-
-  const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      importMutation.mutate(file);
-    }
-  };
+  const removeMutation = useRemoveSubscriber();
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleSync = () => {
-    if (window.confirm("Voulez-vous synchroniser la base de données avec OVH ? Les désinscrits seront ignorés.")) {
+    if (window.confirm("Voulez-vous synchroniser la base de contacts avec la liste OVH ? Les désinscrits seront ignorés.")) {
       syncMutation.mutate();
     }
   };
 
-  const stats = statsData || { ovh: { count: 0 }, db: { contactsCount: 0, unsubscribesCount: 0 } };
+  const handleRemove = (email: string) => {
+    if (window.confirm(`Voulez-vous vraiment supprimer ${email} de la liste de diffusion ?`)) {
+      removeMutation.mutate(email);
+    }
+  };
+
+  const stats = statsData || { 
+    ovh: { count: 0, emails: [] as string[], name: "" }, 
+    db: { contactsCount: 0, unsubscribesCount: 0 } 
+  };
+
+  // Filtrage des emails en fonction de la recherche
+  const filteredEmails = useMemo(() => {
+    if (!searchQuery) return [];
+    return stats.ovh.emails.filter((email: string) => 
+      email.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [searchQuery, stats.ovh.emails]);
 
   return (
-    <div className={container}>
-      <h1 className={css({ fontSize: "2xl", fontWeight: "bold", color: "rose.600" })}>
-        Gestion de l'Emailing
-      </h1>
+    <div className={containerStyle}>
+      <h1 className={titleStyle}>Gestion de l'Emailing</h1>
 
-      {/* Stats Cards */}
-      <div className={css({ display: "flex", gap: "2rem", width: "100%", justifyContent: "center" })}>
-        <div className={statCard}>
-          <div className={statLabel}>Abonnés OVH</div>
-          <div className={statValue}>{isLoadingStats ? "..." : stats.ovh.count}</div>
+      {/* Stats Grid */}
+      <div className={statsGridStyle}>
+        <div className={statCardStyle}>
+          <div className={statLabelStyle}>Abonnés OVH</div>
+          <div className={statValueStyle}>{isLoadingStats ? "..." : stats.ovh.count}</div>
         </div>
-        <div className={statCard}>
-          <div className={statLabel}>Contacts en Base</div>
-          <div className={statValue}>{isLoadingStats ? "..." : stats.db.contactsCount}</div>
-        </div>
-        <div className={statCard}>
-          <div className={statLabel}>Désinscriptions</div>
-          <div className={statValue}>{isLoadingStats ? "..." : stats.db.unsubscribesCount}</div>
+        <div className={statCardStyle}>
+          <div className={statLabelStyle}>Désinscriptions (Local)</div>
+          <div className={statValueStyle}>{isLoadingStats ? "..." : stats.db.unsubscribesCount}</div>
         </div>
       </div>
 
-      {/* Actions */}
-      <div className={css({ display: "flex", gap: "1rem" })}>
-        <input
-          type="file"
-          ref={fileInputRef}
-          onChange={handleImport}
-          accept=".csv, .xlsx, .xls"
-          style={{ display: "none" }}
-        />
-        <Button color="primary" onClick={() => fileInputRef.current?.click()}>
-          Importer des contacts (CSV/Excel)
-        </Button>
-        <Button color="info" onClick={exportUnsubscribes}>
-          Exporter les désinscriptions
-        </Button>
-        <Button color="secondary" onClick={handleSync}>
-          Synchroniser avec OVH
-        </Button>
-      </div>
+      <div className={mainGridStyle}>
+        {/* Colonne de Gauche : Actions */}
+        <div className={cardStyle}>
+          <h2 className={cardTitleStyle}>Actions de Diffusion</h2>
+          <p className={cardDescStyle}>
+            Synchronisez votre base de contacts locale avec la liste de diffusion OVH. 
+            Le système exclut automatiquement les doublons et les personnes désinscrites.
+          </p>
+          
+          <div className={actionsStyle}>
+            <Button color="primary" onClick={handleSync} disabled={syncMutation.isLoading}>
+              Synchroniser Base ➔ OVH
+            </Button>
+            <Button color="info" onClick={exportUnsubscribes}>
+              Exporter les désinscrits (CSV)
+            </Button>
+          </div>
 
-      {(importMutation.isLoading || syncMutation.isLoading) && (
-        <div className={css({ marginTop: "1rem" })}>
-          <Spinner size={24} color="text.accent" />
-          <p className={css({ fontSize: "sm", color: "text.muted", textAlign: "center" })}>Opération en cours...</p>
+          {(syncMutation.isLoading || removeMutation.isLoading) && (
+            <div className={css({ marginTop: "1rem" })}><Spinner size={24} color="amcoeurRose" /></div>
+          )}
+          
+          {syncMutation.isSuccess && (
+             <div className={css({ color: "green.400", marginTop: "1rem", fontSize: "sm" })}>
+               Synchronisation terminée : {syncMutation.data.summary.added} nouveaux abonnés ajoutés sur OVH.
+             </div>
+          )}
         </div>
-      )}
 
-      {importMutation.isSuccess && (
-         <div className={css({ color: "green.500" })}>
-           Importation réussie : {importMutation.data.summary.imported} nouveaux, {importMutation.data.summary.updated} mis à jour.
-         </div>
-      )}
+        {/* Colonne de Droite : Recherche dans la liste */}
+        <div className={cardStyle}>
+          <h2 className={cardTitleStyle}>Rechercher un Abonné</h2>
+          <div className={searchContainerStyle}>
+            <div className={css({ position: "relative" })}>
+              <Input
+                placeholder="Chercher un email sur OVH..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.currentTarget.value)}
+              />
+              <div className={searchIconStyle}><Search size={18} /></div>
+            </div>
+          </div>
 
-      {syncMutation.isSuccess && (
-         <div className={css({ color: "green.500" })}>
-           Synchronisation réussie : {syncMutation.data.summary.added} nouveaux abonnés sur OVH.
-         </div>
-      )}
-
-      {/* Contacts Table */}
-      <div className={css({ width: "100%", overflowX: "auto" })}>
-        {isLoadingContacts ? (
-          <p>Chargement des contacts...</p>
-        ) : (
-          <>
-            <table className={tableStyle}>
-              <thead>
-                <tr>
-                  <th>Nom</th>
-                  <th>Prénom</th>
-                  <th>Email</th>
-                  <th>Ville</th>
-                  <th>Date d'ajout</th>
-                </tr>
-              </thead>
-              <tbody>
-                {contactsData?.data.map((contact: Contact) => (
-                  <tr key={contact.email}>
-                    <td>{contact.lastName}</td>
-                    <td>{contact.firstName}</td>
-                    <td>{contact.email}</td>
-                    <td>{contact.city}</td>
-                    <td>{new Date(contact.createdAt).toLocaleDateString("fr-FR")}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <Pagination
-              currentPage={currentPage}
-              setPage={setCurrentPage}
-              totalPages={contactsData?.pagination.pages || 1}
-            />
-          </>
-        )}
+          {searchQuery && (
+            <div className={resultsWrapperStyle}>
+              <div className={resultsHeaderStyle}>
+                {filteredEmails.length} résultat(s)
+              </div>
+              <div className={resultsListStyle}>
+                {filteredEmails.length > 0 ? (
+                  filteredEmails.map((email: string) => (
+                    <div key={email} className={resultItemStyle}>
+                      <span className={css({ flex: 1, overflow: "hidden", textOverflow: "ellipsis" })}>{email}</span>
+                      <button 
+                        onClick={() => handleRemove(email)} 
+                        className={removeButtonStyle}
+                        title="Supprimer de la liste"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <div className={noResultStyle}>Aucun email correspondant</div>
+                )}
+              </div>
+            </div>
+          )}
+          
+          {!searchQuery && (
+            <p className={css({ color: "rgba(255,255,255,0.3)", fontSize: "sm", textAlign: "center", marginTop: "2rem" })}>
+              Entrez un email ou une partie d'email pour vérifier sa présence sur OVH.
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
 }
 
-const container = css({
+const containerStyle = css({
   display: "flex",
   flexDirection: "column",
-  alignItems: "center",
-  gap: "2rem",
-  padding: "2rem",
+  gap: "2.5rem",
 });
 
-const statCard = css({
-  backgroundColor: "rose.100",
-  padding: "1.5rem",
-  borderRadius: "lg",
-  minWidth: "150px",
-  textAlign: "center",
-  boxShadow: "sm",
-});
-
-const statLabel = css({
-  fontSize: "sm",
-  color: "rose.800",
-  marginBottom: "0.5rem",
-});
-
-const statValue = css({
+const titleStyle = css({
   fontSize: "2xl",
   fontWeight: "bold",
-  color: "rose.950",
+  color: "white",
 });
 
-const tableStyle = css({
-  width: "100%",
-  borderCollapse: "collapse",
-  "& th": {
-    padding: "1rem",
-    textAlign: "left",
-    backgroundColor: "rose.600",
-    color: "white",
+const statsGridStyle = css({
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+  gap: "1.5rem",
+});
+
+const statCardStyle = css({
+  backgroundColor: "rgba(225, 29, 72, 0.1)",
+  border: "1px solid rgba(225, 29, 72, 0.2)",
+  padding: "1.5rem",
+  borderRadius: "16px",
+  textAlign: "center",
+});
+
+const statLabelStyle = css({
+  color: "amcoeurPale",
+  fontSize: "sm",
+  marginBottom: "0.5rem",
+  textTransform: "uppercase",
+  letterSpacing: "wider",
+});
+
+const statValueStyle = css({
+  fontSize: "3xl",
+  fontWeight: "bold",
+  color: "white",
+});
+
+const mainGridStyle = css({
+  display: "grid",
+  gridTemplateColumns: "1fr",
+  gap: "1.5rem",
+  xl: {
+    gridTemplateColumns: "1fr 1fr",
+  }
+});
+
+const cardStyle = css({
+  backgroundColor: "rgba(255, 255, 255, 0.02)",
+  border: "1px solid rgba(255, 255, 255, 0.05)",
+  padding: "2rem",
+  borderRadius: "16px",
+  display: "flex",
+  flexDirection: "column",
+});
+
+const cardTitleStyle = css({
+  fontSize: "lg",
+  fontWeight: "bold",
+  color: "white",
+  marginBottom: "1rem",
+});
+
+const cardDescStyle = css({
+  color: "amcoeurPale",
+  fontSize: "sm",
+  lineHeight: "relaxed",
+  marginBottom: "1.5rem",
+});
+
+const actionsStyle = css({
+  display: "flex",
+  gap: "1rem",
+  flexWrap: "wrap",
+});
+
+const searchContainerStyle = css({
+  marginBottom: "1.5rem",
+});
+
+const searchIconStyle = css({
+  position: "absolute",
+  right: "10px",
+  top: "50%",
+  transform: "translateY(-50%)",
+  color: "rgba(255,255,255,0.2)",
+  pointerEvents: "none",
+});
+
+const resultsWrapperStyle = css({
+  backgroundColor: "rgba(0, 0, 0, 0.2)",
+  borderRadius: "12px",
+  border: "1px solid rgba(255, 255, 255, 0.05)",
+  overflow: "hidden",
+});
+
+const resultsHeaderStyle = css({
+  padding: "0.75rem 1rem",
+  backgroundColor: "rgba(255, 255, 255, 0.03)",
+  borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
+  fontSize: "xs",
+  color: "amcoeurPale",
+  textTransform: "uppercase",
+  letterSpacing: "wider",
+});
+
+const resultsListStyle = css({
+  maxHeight: "300px",
+  overflowY: "auto",
+  padding: "0.5rem",
+  "&::-webkit-scrollbar": {
+    width: "6px",
   },
-  "& td": {
-    padding: "0.75rem 1rem",
-    borderBottom: "1px solid",
-    borderColor: "rose.100",
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
+    borderRadius: "10px",
+  }
+});
+
+const resultItemStyle = css({
+  display: "flex",
+  alignItems: "center",
+  gap: "1rem",
+  padding: "0.75rem 1rem",
+  fontSize: "sm",
+  color: "white",
+  borderBottom: "1px solid rgba(255, 255, 255, 0.02)",
+  "&:last-child": {
+    borderBottom: "none",
   },
-  "& tr:hover": {
-    backgroundColor: "rose.50",
-  },
+  "&:hover": {
+    backgroundColor: "rgba(225, 29, 72, 0.1)",
+  }
+});
+
+const removeButtonStyle = css({
+  background: "transparent",
+  border: "none",
+  color: "rgba(255, 255, 255, 0.3)",
+  cursor: "pointer",
+  padding: "4px",
+  borderRadius: "4px",
+  transition: "all 0.2s",
+  "&:hover": {
+    color: "#f87171",
+    backgroundColor: "rgba(239, 68, 68, 0.1)",
+  }
+});
+
+const noResultStyle = css({
+  padding: "2rem",
+  textAlign: "center",
+  color: "rgba(255,255,255,0.3)",
+  fontSize: "sm",
 });
 
 export default EmailingDashboard;
