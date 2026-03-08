@@ -1,6 +1,7 @@
 import Ovh from "@ovhcloud/node-ovh";
-import { getCache, invalidateCache, setCache } from "./redisService.js";
+
 import { logger } from "../utils/logger.js";
+import { getCache, invalidateCache, setCache } from "./redisService.js";
 
 const ovhClient = Ovh({
   endpoint: "ovh-eu",
