@@ -1,11 +1,12 @@
+import type { Contact } from "@amcoeur/types";
 import { useRef, useState } from "react";
+
 import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
 import Spinner from "../../global/components/atoms/Spinner/Spinner";
 import Table from "../../global/components/atoms/Table/Table";
 import Pagination from "../../global/components/molecules/Pagination/Pagination";
 import { useGetContacts, useImportContacts } from "../hooks/useContacts";
-import type { Contact } from "@amcoeur/types";
 
 function ContactsDashboard() {
   const [currentPage, setCurrentPage] = useState(1);

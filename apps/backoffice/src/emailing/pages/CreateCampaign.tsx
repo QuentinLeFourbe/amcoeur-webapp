@@ -1,18 +1,19 @@
-import { useState, useEffect } from "react";
-import { useForm, useFieldArray, Controller } from "react-hook-form";
+import { EmailBlockType, EmailCampaignDto, emailCampaignSchema, EmailImageBlock,ImageAspectRatio } from "@amcoeur/types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AlignLeft,Edit3, Eye, Image as ImageIcon, Send, Type } from "lucide-react";
 import Markdown from "markdown-to-jsx";
+import { useEffect,useState } from "react";
+import { Controller,useFieldArray, useForm } from "react-hook-form";
+
 import { css, cx } from "../../../styled-system/css";
-import { EmailCampaignDto, emailCampaignSchema, EmailBlockType, ImageAspectRatio, EmailImageBlock } from "@amcoeur/types";
-import { useSendEmailCampaign } from "../hooks/useContacts";
+import AmcoeurLogo from "../../global/assets/icons/amcoeur_logo.webp";
 import Button from "../../global/components/atoms/Button/Button";
-import FormInput from "../../global/components/molecules/Form/FormInput";
+import Spinner from "../../global/components/atoms/Spinner/Spinner";
 import FormCodeArea from "../../global/components/molecules/Form/FormCodeArea";
+import FormInput from "../../global/components/molecules/Form/FormInput";
 import FormSelect from "../../global/components/molecules/Form/FormSelect";
 import DynamicContainer from "../../global/components/organisms/DynamicContainer/DynamicContainer";
-import Spinner from "../../global/components/atoms/Spinner/Spinner";
-import { Send, Eye, Edit3, Image as ImageIcon, Type, AlignLeft } from "lucide-react";
-import AmcoeurLogo from "../../global/assets/icons/amcoeur_logo.webp";
+import { useSendEmailCampaign } from "../hooks/useContacts";
 
 const aspectRatioOptions = [
   { label: "Automatique", value: ImageAspectRatio.AUTO },
@@ -54,7 +55,7 @@ function CreateCampaign() {
     
     const currentImages = block.images;
     const newImages = Array.from({ length: count }, (_, i) => currentImages[i] || { aspectRatio: ImageAspectRatio.AUTO, maxHeight: 300, caption: "" });
-    setValue(`blocks.${index}.images`, newImages as EmailImageBlock['images']);
+    setValue(`blocks.${index}.images` as `blocks.${number}.images`, newImages as EmailImageBlock['images']);
   };
 
   const handleImageChange = (file: File | undefined, blockIndex: number, imgIndex: number, onChange: (f: File | undefined) => void) => {
@@ -90,6 +91,7 @@ function CreateCampaign() {
       </header>
 
       <div className={layoutStyle}>
+        {/* Colonne ÉDITION */}
         <div className={cx(editorColumnStyle, view === "preview" && hideOnMobileStyle)}>
           <div className={cardStyle}>
             <FormInput register={register("subject")} errorMessage={errors.subject?.message}>
@@ -209,6 +211,7 @@ function CreateCampaign() {
           </div>
         </div>
 
+        {/* Colonne PREVIEW */}
         <div className={cx(previewColumnStyle, view === "edit" && hideOnMobileStyle)}>
           <div className={previewWrapperStyle}>
             <div className={previewHeaderStyle}>Aperçu réel</div>
@@ -250,15 +253,14 @@ function EmailPreview({ campaign }: { campaign: EmailCampaignDto }) {
             {block.type === EmailBlockType.IMAGE && (
               <div className={css({ display: "flex", gap: "10px", justifyContent: "center", alignItems: "flex-start" })}>
                 {block.images.map((img, j) => (
-                  <div key={j} className={css({ flex: 1, display: "flex", flexDirection: "column", gap: "0.5rem" })}>
+                  <div key={j} className={css({ flex: 1, display: "flex", flexDirection: "column", gap: "5px", alignItems: "center" })}>
                     <div 
                       className={cx(previewImageBoxStyle, img.url && previewImageActiveStyle)}
                       style={{ 
-                        aspectRatio: img.aspectRatio === ImageAspectRatio.AUTO ? "auto" : img.aspectRatio,
                         maxHeight: `${img.maxHeight}px`,
                         width: "100%",
-                        maxWidth: "fit-content",
-                        margin: "0 auto"
+                        display: "flex",
+                        justifyContent: "center"
                       }}
                     >
                       {img.url ? (
@@ -266,8 +268,8 @@ function EmailPreview({ campaign }: { campaign: EmailCampaignDto }) {
                           src={img.url} 
                           alt="Aperçu" 
                           className={css({ 
-                            width: "auto", 
-                            height: "100%", 
+                            maxWidth: "100%", 
+                            height: "auto", 
                             maxHeight: "inherit",
                             objectFit: "contain",
                             borderRadius: "8px" 
@@ -276,12 +278,12 @@ function EmailPreview({ campaign }: { campaign: EmailCampaignDto }) {
                       ) : (
                         <>
                           <ImageIcon size={20} opacity={0.3} />
-                          <span>Photo</span>
+                          <span>Photo {j+1}</span>
                         </>
                       )}
                     </div>
                     {img.caption && (
-                      <p className={css({ fontSize: "10px", color: "#666", fontStyle: "italic", textAlign: "center" })}>
+                      <p className={css({ fontSize: "11px", color: "#666", fontStyle: "italic", textAlign: "center", margin: 0 })}>
                         {img.caption}
                       </p>
                     )}
@@ -293,7 +295,7 @@ function EmailPreview({ campaign }: { campaign: EmailCampaignDto }) {
         ))}
         <div className={previewFooterStyle}>
           <div className={css({ display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem" })}>
-            <img src={AmcoeurLogo} alt="Logo Amcoeur" className={css({ width: "60px", height: "60px", objectFit: "contain" })} />
+            <img src={AmcoeurLogo} alt="Logo Amcoeur" className={css({ width: "100px", height: "auto", objectFit: "contain" })} />
             <p>Amcoeur — Association de protection animale</p>
             <p style={{ color: "#e11d48", fontSize: "12px" }}>
               <span style={{ fontWeight: "bold" }}>Faire un don</span>
@@ -318,9 +320,30 @@ const containerStyle = css({ display: "flex", flexDirection: "column", gap: "2re
 const headerStyle = css({ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "1.5rem" });
 const titleStyle = css({ fontSize: "2xl", fontWeight: "bold", color: "white" });
 const subtitleStyle = css({ color: "amcoeurPale", fontSize: "sm" });
-const layoutStyle = css({ display: "flex", flexDirection: "column", lg: { flexDirection: "row" }, gap: "2rem" });
-const editorColumnStyle = css({ flex: 1, display: "flex", flexDirection: "column", gap: "1.5rem" });
-const previewColumnStyle = css({ flex: 1, position: "sticky", top: "2rem", height: "fit-content" });
+const layoutStyle = css({ 
+  display: "flex", 
+  flexDirection: "column", 
+  lg: { flexDirection: "row" }, 
+  gap: "2rem",
+  width: "100%"
+});
+
+const editorColumnStyle = css({ 
+  flex: 1, 
+  display: "flex", 
+  flexDirection: "column", 
+  gap: "1.5rem",
+  minWidth: 0
+});
+
+const previewColumnStyle = css({ 
+  flex: 1, 
+  position: "sticky", 
+  top: "2rem", 
+  height: "fit-content",
+  minWidth: 0
+});
+
 const hideOnMobileStyle = css({ display: { base: "none!", lg: "flex!" } });
 const cardStyle = css({ backgroundColor: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.05)", borderRadius: "16px", padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" });
 const blocksContainerStyle = css({ display: "flex", flexDirection: "column", gap: "1rem" });
@@ -338,19 +361,29 @@ const addButtonsStyle = css({
 const addBlockButtonStyle = css({ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1rem", borderRadius: "8px", color: "white", cursor: "pointer", "&:hover": { backgroundColor: "amcoeurRose" } });
 const imageEditCardStyle = css({ display: "flex", flexDirection: "column", gap: "1rem", padding: "1rem", backgroundColor: "rgba(255,255,255,0.03)", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.05)" });
 
-const previewWrapperStyle = css({ backgroundColor: "#f0f0f0", borderRadius: "16px", overflow: "hidden", border: "1px solid #ccc" });
-const previewHeaderStyle = css({ padding: "0.5rem", textAlign: "center", fontSize: "xs", color: "#666", borderBottom: "1px solid #ddd" });
-const emailOuterStyle = css({ backgroundColor: "#f8f8f8", padding: "20px 0", minHeight: "500px" });
-const emailInnerStyle = css({ backgroundColor: "white", margin: "0 auto", width: "100%", maxWidth: "600px", minHeight: "400px", borderLeft: "15px solid", borderRight: "15px solid", borderColor: "#fda4af", padding: "40px 30px", textAlign: "center" });
-const previewTitleStyle = css({ color: "#e11d48", fontSize: "xl", marginBottom: "1rem", fontWeight: "bold" });
-const previewTextStyle = css({ 
-  color: "#333", 
-  fontSize: "sm", 
-  lineHeight: "1.5", 
-  textAlign: "left",
-  "& p": { marginBottom: "1rem" },
-  "& p:last-child": { marginBottom: "0" }
+const previewWrapperStyle = css({ 
+  backgroundColor: "#f0f0f0", 
+  borderRadius: "16px", 
+  overflow: "hidden", 
+  border: "1px solid #ccc",
+  width: "100%"
 });
+const previewHeaderStyle = css({ padding: "0.5rem", textAlign: "center", fontSize: "xs", color: "#666", borderBottom: "1px solid #ddd" });
+const emailOuterStyle = css({ backgroundColor: "#f8f8f8", padding: "2rem 1rem", minHeight: "500px", width: "100%", display: "flex", justifyContent: "center" });
+const emailInnerStyle = css({ 
+  backgroundColor: "white", 
+  width: "100%", 
+  maxWidth: "600px", 
+  minHeight: "400px", 
+  borderLeft: "15px solid", 
+  borderRight: "15px solid", 
+  borderColor: "#fda4af", 
+  padding: "40px 30px", 
+  textAlign: "center",
+  boxShadow: "0 10px 25px rgba(0,0,0,0.05)"
+});
+const previewTitleStyle = css({ color: "#e11d48", fontSize: "xl", marginBottom: "1rem", fontWeight: "bold" });
+const previewTextStyle = css({ color: "#333", fontSize: "sm", lineHeight: "1.5", textAlign: "left", "& p": { marginBottom: "1rem" } });
 const previewImageBoxStyle = css({ backgroundColor: "#eee", width: "100%", height: "auto", minHeight: "100px", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "xs", color: "#999", overflow: "hidden" });
 const previewImageActiveStyle = css({ border: "none!", backgroundColor: "transparent!" });
 const previewFooterStyle = css({ marginTop: "3rem", fontSize: "10px", color: "#999" });
