@@ -1,3 +1,4 @@
+import { AdoptionClientData, CreateAdoptionDto } from "@amcoeur/types";
 import { useNavigate } from "react-router-dom";
 
 import { css } from "../../../styled-system/css";
@@ -17,6 +18,10 @@ function CreateAdoption() {
     navigate("/adoptions");
   };
 
+  const handleCreate = (data: CreateAdoptionDto) => {
+    createAdoption(data as AdoptionClientData);
+  };
+
   return (
     <div className={container}>
       {isCreateError && (
@@ -25,7 +30,7 @@ function CreateAdoption() {
         </ErrorLabel>
       )}
       <AdoptionForm
-        onSubmit={createAdoption}
+        onSubmit={handleCreate}
         onCancel={handleCancel}
       ></AdoptionForm>
     </div>
