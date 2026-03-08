@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useMediaQuery } from "usehooks-ts";
+
 import { css, cx } from "../../../../../styled-system/css";
 import AmcoeurLogo from "../../../assets/icons/amcoeur_logo_light.webp";
 import Link from "../../atoms/Link/Link";
@@ -12,7 +15,6 @@ import {
   LogOut,
   Menu
 } from "lucide-react";
-import { useLocation } from "react-router-dom";
 
 type SidebarProps = {
   isUserInactive?: boolean;
@@ -22,7 +24,13 @@ type SidebarProps = {
 
 function Sidebar({ isUserInactive = true, isUserAdmin = false, logout }: SidebarProps) {
   const location = useLocation();
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const isLargeScreen = useMediaQuery("(min-width: 1024px)");
+  const [isCollapsed, setIsCollapsed] = useState(!isLargeScreen);
+
+  // Auto-collapse when screen size changes
+  useEffect(() => {
+    setIsCollapsed(!isLargeScreen);
+  }, [isLargeScreen]);
 
   if (isUserInactive) return null;
 
@@ -63,7 +71,7 @@ function Sidebar({ isUserInactive = true, isUserAdmin = false, logout }: Sidebar
             isActive={location.pathname === link.href || (link.href !== "/" && location.pathname.startsWith(link.href))}
             className={cx(isCollapsed && collapsedLinkStyle)}
           >
-            {!isCollapsed && link.name}
+            {!isCollapsed && <span className={textStyle}>{link.name}</span>}
           </Link>
         ))}
         
@@ -74,7 +82,7 @@ function Sidebar({ isUserInactive = true, isUserAdmin = false, logout }: Sidebar
             icon={<LogOut size={20} />}
             className={cx(isCollapsed && collapsedLinkStyle)}
           >
-            {!isCollapsed && "Déconnexion"}
+            {!isCollapsed && <span className={textStyle}>Déconnexion</span>}
           </Link>
         </div>
       </nav>
@@ -150,7 +158,7 @@ const collapsedLinkStyle = css({
   padding: "0.8rem 0!",
   justifyContent: "center!",
   "& span": {
-    marginRight: "0!", // Supprime la marge de l'icône quand réduit
+    marginRight: "0!",
   }
 });
 
@@ -158,6 +166,10 @@ const logoutWrapperStyle = css({
   marginTop: "auto",
   paddingTop: "1.5rem",
   borderTop: "1px solid rgba(255,255,255,0.05)",
+});
+
+const textStyle = css({
+  marginLeft: "0.25rem",
 });
 
 export default Sidebar;
