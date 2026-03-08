@@ -6,7 +6,7 @@ import {
 
 import { css } from "../../../styled-system/css";
 import Input from "../../global/components/atoms/Input/Input";
-import Select from "../../global/components/atoms/Select/SelectAlt";
+import Select from "../../global/components/atoms/Select/Select";
 
 type AdoptionFilterBarProps = {
   filter: AdoptionFilter;
@@ -39,13 +39,13 @@ function AdoptionFilterBar({ filter, onFilterChange }: AdoptionFilterBarProps) {
               { label: "Chat", value: "CAT" },
               { label: "Cheval", value: "HORSE" },
             ]}
-            defaultValue={filter.species?.[0] ?? "all"}
-            onChange={(e) =>
+            value={filter.species?.[0] ?? "all"}
+            onChange={(value) =>
               onFilterChange({
                 ...filter,
                 species:
-                  e.currentTarget.value !== "all"
-                    ? [e.currentTarget.value as AdoptionSpecies]
+                  value !== "all"
+                    ? [value as AdoptionSpecies]
                     : undefined,
               })
             }
@@ -60,13 +60,13 @@ function AdoptionFilterBar({ filter, onFilterChange }: AdoptionFilterBarProps) {
               { label: "Mâle", value: "MALE" },
               { label: "Femelle", value: "FEMALE" },
             ]}
-            defaultValue={filter.gender ?? "all"}
-            onChange={(e) =>
+            value={filter.gender ?? "all"}
+            onChange={(value) =>
               onFilterChange({
                 ...filter,
                 gender:
-                  e.currentTarget.value !== "all"
-                    ? (e.currentTarget.value as AdoptionGender)
+                  value !== "all"
+                    ? (value as AdoptionGender)
                     : undefined,
               })
             }
@@ -81,15 +81,15 @@ function AdoptionFilterBar({ filter, onFilterChange }: AdoptionFilterBarProps) {
               { label: "Oui", value: "true" },
               { label: "Non", value: "false" },
             ]}
-            defaultValue={
+            value={
               filter.adopted === undefined ? "all" : filter.adopted.toString()
             }
-            onChange={(e) =>
+            onChange={(value) =>
               onFilterChange({
                 ...filter,
                 adopted:
-                  e.currentTarget.value !== "all"
-                    ? e.currentTarget.value === "true"
+                  value !== "all"
+                    ? value === "true"
                     : undefined,
               })
             }
@@ -104,17 +104,17 @@ function AdoptionFilterBar({ filter, onFilterChange }: AdoptionFilterBarProps) {
               { label: "Oui", value: "true" },
               { label: "Non", value: "false" },
             ]}
-            defaultValue={
+            value={
               filter.emergency === undefined
                 ? "all"
                 : filter.emergency.toString()
             }
-            onChange={(e) =>
+            onChange={(value) =>
               onFilterChange({
                 ...filter,
                 emergency:
-                  e.currentTarget.value !== "all"
-                    ? e.currentTarget.value === "true"
+                  value !== "all"
+                    ? value === "true"
                     : undefined,
               })
             }
@@ -129,15 +129,15 @@ function AdoptionFilterBar({ filter, onFilterChange }: AdoptionFilterBarProps) {
               { label: "Oui", value: "true" },
               { label: "Non", value: "false" },
             ]}
-            defaultValue={
+            value={
               filter.visible === undefined ? "all" : filter.visible.toString()
             }
-            onChange={(e) =>
+            onChange={(value) =>
               onFilterChange({
                 ...filter,
                 visible:
-                  e.currentTarget.value !== "all"
-                    ? e.currentTarget.value === "true"
+                  value !== "all"
+                    ? value === "true"
                     : undefined,
               })
             }

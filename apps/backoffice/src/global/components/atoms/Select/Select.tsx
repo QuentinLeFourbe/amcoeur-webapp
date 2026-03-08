@@ -1,6 +1,6 @@
-import React, { KeyboardEvent,useEffect, useRef, useState } from "react";
-
+import React, { KeyboardEvent, useEffect, useRef, useState } from "react";
 import { css, cx } from "../../../../../styled-system/css";
+import { ChevronDown } from "lucide-react";
 
 type Option = {
   value: string;
@@ -16,18 +16,6 @@ type SelectProps = {
   className?: string;
 };
 
-/**
- * A custom select component that allows users to select an option from a dropdown list.
- *
- * @param options - An array of objects representing the options available in the dropdown list. Each object should have a 'value' and 'label' property.
- * @param value - The currently selected value from the dropdown list.
- * @param onChange - A callback function that is called when a new option is selected. It receives the value of the selected option as a parameter.
- * @param className - An optional CSS class name to apply to the select component.
- *
- * @returns A custom select component with a dropdown list of options.
- *
- * @throws {TypeError} If the options array is empty or if any option object is missing the 'value' or 'label' property.
- */
 function Select({
   options,
   value,
@@ -39,6 +27,7 @@ function Select({
   const [isOpen, setIsOpen] = useState(false);
   const [focusedOptionIndex, setFocusedOptionIndex] = useState(-1);
   const selectRef = useRef<HTMLDivElement>(null);
+
   const toggleDropdown = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setIsOpen(!isOpen);
@@ -80,7 +69,6 @@ function Select({
   };
 
   useEffect(() => {
-    // Fermer le dropdown si l'utilisateur clique en dehors de la liste
     const handleClickOutside = (e: MouseEvent) => {
       if (selectRef.current && !selectRef.current.contains(e.target as Node)) {
         closeDropdown();
@@ -93,19 +81,28 @@ function Select({
     };
   }, []);
 
+  const selectedOption = options.find((option) => option.value === value);
+
   return (
     <div
       className={cx(dropdownContainerStyle, className)}
       ref={selectRef}
       onKeyDown={handleKeyDown}
     >
-      <button className={dropdownButtonStyle} onClick={toggleDropdown}>
-        {value ? (
-          options.find((option) => option.value === value)?.label
-        ) : (
-          <span>{placeholder || "Sélectionner une option"}</span>
-        )}
+      <button 
+        className={cx(dropdownButtonStyle, isOpen && activeButtonStyle)} 
+        onClick={toggleDropdown}
+        type="button"
+      >
+        <span className={selectedOption ? textStyle : placeholderStyle}>
+          {selectedOption ? selectedOption.label : (placeholder || "Sélectionner une option")}
+        </span>
+        <ChevronDown 
+          size={18} 
+          className={cx(chevronStyle, isOpen && rotateChevronStyle)} 
+        />
       </button>
+      
       {isOpen && (
         <ul className={dropdownListStyle}>
           {options.map((option, index) => (
@@ -126,29 +123,9 @@ function Select({
 
 export default Select;
 
-const dropdownListStyle = css({
-  position: "absolute",
-  top: "100%",
-  left: 0,
+const dropdownContainerStyle = css({
+  position: "relative",
   width: "100%",
-  padding: 0,
-  margin: 0,
-  listStyle: "none",
-  backgroundColor: "#fff",
-  color: "black",
-  border: "1px solid #ccc",
-  borderRadius: "4px",
-  boxShadow: "0 1px 2px rgba(0, 0, 0, 0.1)",
-  "& li": {
-    padding: "8px 12px",
-    cursor: "pointer",
-    "&:hover": {
-      backgroundColor: "#f5f5f5",
-    },
-    "&.focused": {
-      backgroundColor: "#f5f5f5",
-    },
-  },
 });
 
 const dropdownButtonStyle = css({
@@ -156,20 +133,75 @@ const dropdownButtonStyle = css({
   alignItems: "center",
   justifyContent: "space-between",
   width: "100%",
-  padding: "8px 12px",
-  border: "1px solid #ccc",
-  borderRadius: "4px",
-  backgroundColor: "#f4f4f4",
+  padding: "0.75rem 0.25rem",
+  backgroundColor: "transparent",
+  borderBottom: "2px solid",
+  borderColor: "rgba(255, 255, 255, 0.2)",
   cursor: "pointer",
+  color: "white",
+  transition: "all 0.3s ease",
+  outline: "none",
+
   "&:hover": {
-    backgroundColor: "#f5f5f5",
-  },
-  "&:focus": {
-    outline: "none",
-    boxShadow: "0 0 0 2px rgba(0, 0, 0, 0.1)",
+    borderColor: "rgba(255, 255, 255, 0.4)",
   },
 });
 
-const dropdownContainerStyle = css({
-  position: "relative",
+const activeButtonStyle = css({
+  borderColor: "amcoeurRose!",
+  backgroundColor: "rgba(225, 29, 72, 0.05)",
+});
+
+const textStyle = css({
+  color: "white",
+  fontSize: "sm",
+});
+
+const placeholderStyle = css({
+  color: "rgba(255, 255, 255, 0.4)",
+  fontSize: "sm",
+});
+
+const chevronStyle = css({
+  color: "amcoeurRose",
+  transition: "transform 0.3s ease",
+});
+
+const rotateChevronStyle = css({
+  transform: "rotate(180deg)",
+});
+
+const dropdownListStyle = css({
+  position: "absolute",
+  top: "calc(100% + 4px)",
+  left: 0,
+  width: "100%",
+  padding: "0.5rem",
+  margin: 0,
+  listStyle: "none",
+  backgroundColor: "#1e1e1e", // amcoeurDark adouci
+  border: "1px solid",
+  borderColor: "rgba(255, 255, 255, 0.1)",
+  borderRadius: "12px",
+  boxShadow: "0 10px 25px rgba(0, 0, 0, 0.5)",
+  zIndex: 1000,
+  
+  "& li": {
+    padding: "0.75rem 1rem",
+    cursor: "pointer",
+    borderRadius: "8px",
+    color: "white",
+    fontSize: "sm",
+    transition: "all 0.2s ease",
+    
+    "&:hover": {
+      backgroundColor: "rgba(225, 29, 72, 0.1)",
+      color: "amcoeurRose",
+    },
+    
+    "&.focused": {
+      backgroundColor: "rgba(225, 29, 72, 0.1)",
+      color: "amcoeurRose",
+    },
+  },
 });
