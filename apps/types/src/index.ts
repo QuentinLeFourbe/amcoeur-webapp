@@ -1,6 +1,7 @@
 export * from "./adoption.js";
 export * from "./answer.js";
 export * from "./contact.js";
+export * from "./dtos/index.js";
 export * from "./email.js";
 export * from "./form.js";
 export * from "./page.js";

@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import { z } from "zod";
 
-const speciesSchema = z.enum(["CAT", "DOG", "HORSE", "OTHER"]);
-const genderSchema = z.enum(["MALE", "FEMALE"]);
-const sortBySchema = z.enum([
+export const speciesSchema = z.enum(["CAT", "DOG", "HORSE", "OTHER"]);
+export const genderSchema = z.enum(["MALE", "FEMALE"]);
+export const sortBySchema = z.enum([
   "name",
   "species",
   "race",
@@ -16,7 +16,7 @@ const sortBySchema = z.enum([
   "updatedAt",
 ]);
 
-const adoptionBaseSchema = z.object({
+export const adoptionBaseSchema = z.object({
   name: z.string(),
   species: speciesSchema,
   race: z.string().optional(),
@@ -49,7 +49,7 @@ const adoptionBaseSchema = z.object({
     ),
 });
 
-const adoptionPrivateSchema = z.object({
+export const adoptionPrivateSchema = z.object({
   visible: z.boolean(),
   adopted: z.boolean(),
   commentary: z.string().optional(),
