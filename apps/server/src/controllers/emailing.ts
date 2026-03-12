@@ -298,8 +298,6 @@ export const syncWithOVH = async (req: Request, res: Response) => {
       return !unsubscribedEmails.has(email) && isValidEmail(email);
     });
 
-    const invalidFormatCount = contacts.length - ignoredUnsubscribedCount - activeLocalContacts.length;
-
     // 3. Parmi les actifs, ceux qui sont déjà sur OVH
     const alreadyInOvhCount = activeLocalContacts.filter(c => 
       ovhEmails.has(c.email.toLowerCase().trim())
