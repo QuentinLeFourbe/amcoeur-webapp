@@ -1,5 +1,5 @@
-import { Router } from "express";
 import { UserRole } from "@amcoeur/types";
+import { Router } from "express";
 
 import {
   exportUnsubscribes,
@@ -9,8 +9,8 @@ import {
   sendCampaign,
   syncWithOVH,
 } from "../controllers/emailing.js";
-import { requiresPermission } from "../middlewares/login.js";
 import upload from "../middlewares/files.js";
+import { requiresPermission } from "../middlewares/login.js";
 
 const router = Router();
 
