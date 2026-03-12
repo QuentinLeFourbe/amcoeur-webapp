@@ -1,7 +1,12 @@
-import { useState, useMemo } from "react";
+import { useMemo,useState } from "react";
+
 import { css } from "../../../styled-system/css";
 import Modal from "../../global/components/molecules/Modal/Modal";
 import { exportContacts, exportOVHList, exportUnsubscribes } from "../api/contact";
+import { LocalContactsCard } from "../components/LocalContactsCard";
+import { OvhMailingListCard } from "../components/OvhMailingListCard";
+// Sub-components
+import { StatsGrid } from "../components/StatsGrid";
 import { 
   useGetMailingListStats, 
   useImportContacts, 
@@ -10,11 +15,6 @@ import {
   useSyncStatus,
   useSyncWithOVH 
 } from "../hooks/useContacts";
-
-// Sub-components
-import { StatsGrid } from "../components/StatsGrid";
-import { LocalContactsCard } from "../components/LocalContactsCard";
-import { OvhMailingListCard } from "../components/OvhMailingListCard";
 import { MutationState } from "../types";
 
 const SYNC_JOB_KEY = "amcoeur_active_sync_job";
