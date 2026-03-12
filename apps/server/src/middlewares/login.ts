@@ -45,6 +45,7 @@ const extractUser = async (req: Request, res: Response) => {
     }
   }
 
+
   if (
     user?.microsoftId === process.env.ADMIN_MS_ID &&
     (!checkUserPermissions(user as UserServerData, [UserRole.ADMIN]) ||

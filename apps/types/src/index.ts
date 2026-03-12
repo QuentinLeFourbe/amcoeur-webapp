@@ -3,6 +3,7 @@ export * from "./answer.js";
 export * from "./contact.js";
 export * from "./dtos/index.js";
 export * from "./email.js";
+export * from "./emailCampaign.js";
 export * from "./form.js";
 export * from "./page.js";
 export * from "./pagination.js";

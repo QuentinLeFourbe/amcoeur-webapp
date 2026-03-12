@@ -52,7 +52,7 @@ const containerStyle = css({
   backgroundColor: "rgba(255, 255, 255, 0.02)",
   border: "1px solid",
   borderColor: "rgba(255, 255, 255, 0.08)",
-  padding: "2.5rem 2rem 2rem 2rem",
+  padding: "3.5rem 2rem 2rem 2rem", // Padding augmenté pour éviter la collision
   display: "flex",
   flexDirection: "column",
   gap: "1rem",
@@ -79,10 +79,10 @@ const toolbarStyle = css({
   boxShadow: "0 8px 16px rgba(0, 0, 0, 0.4)",
   opacity: 0.85,
   transition: "all 0.2s ease",
-  zIndex: 10,
+  zIndex: 50, // Z-index augmenté pour passer au-dessus de l'aide Markdown
 
   "&:hover": {
-    borderColor: "amcoeurRose", // Bordure rose uniquement au survol des actions
+    borderColor: "amcoeurRose",
     opacity: 1,
     transform: "translateY(-1px)",
   }
@@ -106,13 +106,13 @@ const iconButtonStyle = css({
   borderRadius: "8px",
   background: "transparent",
   border: "none",
-  color: "white", // Blanc par défaut
+  color: "white",
   cursor: "pointer",
   transition: "all 0.2s ease",
 
   "&:hover": {
     backgroundColor: "rgba(255, 255, 255, 0.1)",
-    color: "amcoeurPale", // Rose pâle au survol
+    color: "amcoeurPale",
     transform: "scale(1.1)",
   },
 

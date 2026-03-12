@@ -1,4 +1,5 @@
 import { CircleAlert } from "lucide-react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -8,11 +9,17 @@ import ImageContainer from "../../global/components/atoms/ImageContainer/ImageCo
 import Label from "../../global/components/atoms/Label/Label";
 import Loader from "../../global/components/atoms/Loader/Loader";
 import TextContainer from "../../global/components/atoms/TextContainer/TextContainer";
+import { trackEvent } from "../../global/utils/metrics";
 import AdoptionForm from "../components/AdoptionForm";
 import { useAdoption } from "../hooks/useAdoptions";
 
 function AdoptionDetail() {
+  useEffect(() => {
+    trackEvent("visit", "adoption_detail");
+  }, []);
+
   const params = useParams();
+
   const { t } = useTranslation();
   const id = params.id || "";
   const {

@@ -8,12 +8,17 @@ import FacebookIcon from "../../global/assets/icons/facebook.svg?react";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";
 import Loader from "../../global/components/atoms/Loader/Loader";
 import TitlePanel from "../../global/components/molecules/TitlePanel/TitlePanel";
+import { trackEvent } from "../../global/utils/metrics";
 import AdoptionCard from "../components/AdoptionCard";
 import AdoptionFilterBar from "../components/AdoptionFilterBar";
 import { useInfiniteAdoptions } from "../hooks/useAdoptions";
 import { AdoptionFilter } from "../types/filter";
 
 function AdoptionsDashboard() {
+  useEffect(() => {
+    trackEvent("visit", "adoptions");
+  }, []);
+
   const [filter, setFilter] = useState<AdoptionFilter | null>(null);
   const [debounceFilter, setDebounceFilter] = useDebounceValue(filter, 500);
   const { t } = useTranslation();

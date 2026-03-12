@@ -49,7 +49,10 @@ export const unsubscribeEmail = async (req: Request, res: Response) => {
       return res.status(400).json({ error: "Bad request" });
     }
 
-    await removeFromMailingList("amcoeur.org", "amcoeur", email);
+    const domain = "amcoeur.org";
+    const mailingList = process.env.OVH_MAILING_LIST || "amcoeur";
+
+    await removeFromMailingList(domain, mailingList, email);
 
     await Unsubscribe.findOneAndUpdate(
       { email: email.toLowerCase().trim() },

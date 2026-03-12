@@ -5,6 +5,7 @@ import cors from "cors";
 import express from "express";
 import helmet from "helmet";
 import mongoose from "mongoose";
+import multer from "multer";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -15,6 +16,7 @@ import contactRoutes from "./routes/contact.js";
 import emailRoutes from "./routes/email.js";
 import emailingRoutes from "./routes/emailing.js";
 import formsRoutes from "./routes/form.js";
+import metricsRoutes from "./routes/metrics.js";
 import pageRoutes from "./routes/page.js";
 import userRoutes from "./routes/user.js";
 import { redisClient } from "./services/redisService.js";
@@ -63,6 +65,23 @@ app.use("/answers", answersRoutes);
 app.use("/adoptions", adoptionsRoutes);
 app.use("/contacts", contactRoutes);
 app.use("/emailing", emailingRoutes);
+app.use("/stats", metricsRoutes);
+
+// Error handling middleware
+app.use((err: Error, _req: express.Request, res: express.Response, next: express.NextFunction) => {
+  if (err instanceof multer.MulterError) {
+    if (err.code === "LIMIT_FILE_SIZE") {
+      return res.status(400).send("Le fichier est trop volumineux (max 10Mo)");
+    }
+    return res.status(400).send(`Erreur lors du téléchargement: ${err.message}`);
+  }
+  
+  logger.error("Unhandled error:", err);
+  if (res.headersSent) {
+    return next(err);
+  }
+  return res.status(500).send("Une erreur interne est survenue");
+});
 
 redisClient.connect();
 

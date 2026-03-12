@@ -1,17 +1,30 @@
 import type { ComponentProps } from "react";
 
 import { css, cx } from "../../../../../styled-system/css";
+import { trackEvent } from "../../../utils/metrics";
 import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
 
 type ButtonProps = ComponentProps<typeof ClickablePrimitive> & {
   rounded?: boolean;
   bold?: boolean;
+  trackingAction?: string;
+  trackingCategory?: string;
 };
 
-function Button({ rounded, bold, ...props }: ButtonProps) {
+function Button({ rounded, bold, trackingAction, trackingCategory, ...props }: ButtonProps) {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+    if (trackingAction || trackingCategory) {
+      trackEvent(trackingAction, trackingCategory);
+    }
+    if (props.onClick) {
+      props.onClick(e as React.MouseEvent<HTMLAnchorElement & HTMLButtonElement>);
+    }
+  };
+
   return (
     <ClickablePrimitive
       {...props}
+      onClick={handleClick}
       className={cx(
         baseButton,
         primaryColors,
