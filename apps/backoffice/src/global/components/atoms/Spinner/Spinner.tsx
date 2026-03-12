@@ -5,14 +5,15 @@ import { css } from "../../../../../styled-system/css";
 type SpinnerProps = {
   size?: number | string;
   color?: string;
+  inline?: boolean;
 };
 
-function Spinner({ size = 48, color }: SpinnerProps) {
+function Spinner({ size = 48, color, inline }: SpinnerProps) {
   return (
-    <div className={containerStyle}>
+    <div className={inline ? css({ display: "inline-flex" }) : containerStyle}>
       <Loader2 
         size={size} 
-        color={color || "#e11d48"} // rose.600 par défaut
+        color={color || "#e11d48"} 
         className={spinnerStyle} 
       />
     </div>

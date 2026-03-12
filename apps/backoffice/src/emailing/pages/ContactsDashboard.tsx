@@ -34,19 +34,50 @@ function ContactsDashboard() {
             accept=".csv, .xlsx, .xls"
             style={{ display: "none" }}
           />
-          <Button color="primary" onClick={() => fileInputRef.current?.click()}>
-            Importer (CSV/Excel)
+          <Button 
+            color="primary" 
+            onClick={() => fileInputRef.current?.click()}
+            disabled={importMutation.isLoading}
+          >
+            {importMutation.isLoading ? "Importation en cours..." : "Importer (CSV/Excel)"}
           </Button>
         </div>
       </div>
 
-      {importMutation.isLoading && <Spinner size={24} color="amcoeurRose" />}
-      
-      {importMutation.isSuccess && (
-         <div className={css({ color: "green.400", fontSize: "sm", marginBottom: "1rem" })}>
-           Importation réussie : {importMutation.data.summary.imported} nouveaux, {importMutation.data.summary.updated} mis à jour.
-         </div>
-      )}
+      <div className={css({ marginBottom: "1rem", minHeight: "24px" })}>
+        {importMutation.isLoading && (
+          <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem", color: "#e11d48", fontSize: "sm", fontWeight: "bold" })}>
+            <Spinner size={24} color="#e11d48" inline />
+            <span>Importation en cours...</span>
+          </div>
+        )}
+        
+        {!importMutation.isLoading && importMutation.isSuccess && (
+           <div>
+             <div className={css({ color: "green.400", fontSize: "sm", fontWeight: "bold" })}>
+               Importation terminée : {importMutation.data.summary.imported} nouveaux, {importMutation.data.summary.updated} mis à jour.
+             </div>
+             {importMutation.data.summary.errors > 0 && (
+               <div className={css({ color: "orange.400", fontSize: "xs", marginTop: "0.5rem" })}>
+                 {importMutation.data.summary.errors} ligne(s) ignorée(s) :
+                 <ul className={css({ maxHeight: "150px", overflowY: "auto", border: "1px solid", borderColor: "white/10", padding: "0.5rem", borderRadius: "sm", marginTop: "0.25rem" })}>
+                   {importMutation.data.summary.details.map((detail: any, index: number) => (
+                     <li key={index}>
+                       Ligne {detail.row}: {detail.email ? `${detail.email} - ` : ""}{detail.error}
+                     </li>
+                   ))}
+                 </ul>
+               </div>
+             )}
+           </div>
+        )}
+
+        {!importMutation.isLoading && importMutation.isError && (
+          <div className={css({ color: "red.400", fontSize: "sm", padding: "1rem", border: "1px solid red", borderRadius: "md" })}>
+            Erreur : {(importMutation.error as any)?.response?.data || "Impossible d'importer le fichier"}
+          </div>
+        )}
+      </div>
 
       {isLoadingContacts ? (
         <Spinner />

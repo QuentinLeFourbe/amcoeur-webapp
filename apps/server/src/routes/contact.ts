@@ -11,6 +11,6 @@ import { requiresPermission } from "../middlewares/login.js";
 const router = Router();
 
 router.get("/", requiresPermission(UserRole.CONTACT_MANAGER), getContacts);
-router.post("/import", requiresPermission(UserRole.CONTACT_MANAGER), upload.single("file"), importContacts);
+router.post("/import", upload.single("file"), requiresPermission(UserRole.CONTACT_MANAGER), importContacts);
 
 export default router;
