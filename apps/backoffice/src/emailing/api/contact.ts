@@ -73,7 +73,12 @@ export const sendEmailCampaign = async (campaign: EmailCampaignDto) => {
       if (block.type === "IMAGE") {
         return { 
           ...block, 
-          images: block.images.map(({ file: _file, ...rest }) => rest) // On enlève juste le fichier binaire
+          images: block.images.map((img) => ({
+            url: img.url,
+            caption: img.caption,
+            maxHeight: img.maxHeight,
+            aspectRatio: img.aspectRatio
+          }))
         };
       }
       return block;

@@ -61,22 +61,23 @@ function ContactsDashboard() {
                <div className={css({ color: "orange.400", fontSize: "xs", marginTop: "0.5rem" })}>
                  {importMutation.data.summary.errors} ligne(s) ignorée(s) :
                  <ul className={css({ maxHeight: "150px", overflowY: "auto", border: "1px solid", borderColor: "white/10", padding: "0.5rem", borderRadius: "sm", marginTop: "0.25rem" })}>
-                   {importMutation.data.summary.details.map((detail: any, index: number) => (
+                   {importMutation.data.summary.details.map((detail: { row?: number; email?: string; error: string }, index: number) => (
                      <li key={index}>
                        Ligne {detail.row}: {detail.email ? `${detail.email} - ` : ""}{detail.error}
                      </li>
                    ))}
                  </ul>
-               </div>
-             )}
-           </div>
-        )}
+                 </div>
+                 )}
+                 </div>
+                 )}
 
-        {!importMutation.isLoading && importMutation.isError && (
-          <div className={css({ color: "red.400", fontSize: "sm", padding: "1rem", border: "1px solid red", borderRadius: "md" })}>
-            Erreur : {(importMutation.error as any)?.response?.data || "Impossible d'importer le fichier"}
-          </div>
-        )}
+                 {!importMutation.isLoading && importMutation.isError && (
+                 <div className={css({ color: "red.400", fontSize: "sm", padding: "1rem", border: "1px solid red", borderRadius: "md" })}>
+                 Erreur : {(importMutation.error as { response?: { data?: string } })?.response?.data || "Impossible d'importer le fichier"}
+                 </div>
+                 )}
+
       </div>
 
       {isLoadingContacts ? (

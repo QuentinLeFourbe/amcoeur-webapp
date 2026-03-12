@@ -19,8 +19,11 @@ export const deleteUploadedImage = async (imageUrl: string) => {
   }
   const image = imageUrl.split("/").pop() || "";
   const uploadFolder = path.join(__dirname, "..", "..", "uploads");
-  if (fs.existsSync(path.join(uploadFolder, image))) {
-    fs.unlinkSync(path.join(uploadFolder, image));
+  const filePath = path.join(uploadFolder, image);
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath);
+  } else {
+    throw new Error("Image to delete does not exist");
   }
 };
 

@@ -69,16 +69,17 @@ export const importContacts = async (req: Request, res: Response) => {
             data = XLSX.utils.sheet_to_json(worksheet) as ContactImportData[];
           }
         }
-      } catch (err: any) {
-        res.locals.logger.error("Erreur lors de la lecture du fichier Excel:", err);
-        return res.status(400).send(`Le fichier Excel est mal formé ou illisible: ${err.message || err}`);
+      } catch (err: unknown) {
+        const error = err as Error;
+        res.locals.logger.error("Erreur lors de la lecture du fichier Excel:", error);
+        return res.status(400).send(`Le fichier Excel est mal formé ou illisible: ${error.message || error}`);
       }
     }
 
-    const summary = { imported: 0, updated: 0, errors: 0, details: [] as any[] };
+    const summary = { imported: 0, updated: 0, errors: 0, details: [] as { row?: number; email?: string; error: string }[] };
     let rowNumber = 1; // On commence à 1 (en-tête souvent à 0 ou 1)
 
-    for (const row of data as any[]) {
+    for (const row of (data as unknown) as Record<string, unknown>[]) {
       rowNumber++;
       try {
         // Recherche des clés de manière insensible à la casse
@@ -106,7 +107,7 @@ export const importContacts = async (req: Request, res: Response) => {
           continue;
         }
 
-        const safeString = (val: any) => (val !== undefined && val !== null) ? String(val).trim() : "";
+        const safeString = (val: unknown) => (val !== undefined && val !== null) ? String(val).trim() : "";
 
         const contactData = {
           lastName: safeString(getVal(["nom", "lastname", "last name", "nom de famille"])),
@@ -129,13 +130,14 @@ export const importContacts = async (req: Request, res: Response) => {
         } else {
           summary.imported++;
         }
-      } catch (err: any) {
-        res.locals.logger.error(`Erreur lors du traitement d'une ligne d'import:`, { row, error: err });
+      } catch (err: unknown) {
+        const error = err as Error;
+        res.locals.logger.error(`Erreur lors du traitement d'une ligne d'import:`, { row, error });
         summary.errors++;
         summary.details.push({ 
           row: rowNumber, 
-          email: row.email, 
-          error: err.message || "Erreur inconnue lors de l'enregistrement" 
+          email: String(row.email || ""), 
+          error: error.message || "Erreur inconnue lors de l'enregistrement" 
         });
       }
     }
@@ -145,6 +147,7 @@ export const importContacts = async (req: Request, res: Response) => {
       summary.details = summary.details.slice(0, 50);
       summary.details.push({ error: "... et d'autres erreurs non affichées" });
     }
+
 
     return res.status(200).json({
       message: "Importation terminée",

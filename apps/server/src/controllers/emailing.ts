@@ -1,23 +1,23 @@
+import type { EmailBlock, EmailCampaignDto } from "@amcoeur/types";
 import { EmailBlockType } from "@amcoeur/types";
-import type { EmailCampaignDto } from "@amcoeur/types";
 import type { Request, Response } from "express";
+import fs from "fs";
 import Papa from "papaparse";
 import path from "path";
-import fs from "fs";
-import { fileURLToPath } from "url";
 import { dirname } from "path";
+import { fileURLToPath } from "url";
 
 import Contact from "../models/contact.js";
 import Unsubscribe from "../models/unsubscribe.js";
+import { generateEmailHtml } from "../services/emailGeneratorService.js";
+import { processEmailImage } from "../services/imageProcessingService.js";
 import {
   addSubscriberToMailingList,
   getMailingListSubscribers,
   removeFromMailingList,
 } from "../services/mailingListService.js";
-import { invalidateCache } from "../services/redisService.js";
-import { generateEmailHtml } from "../services/emailGeneratorService.js";
 import { sendEmail } from "../services/mailService.js";
-import { processEmailImage } from "../services/imageProcessingService.js";
+import { invalidateCache } from "../services/redisService.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -81,13 +81,13 @@ export const sendCampaign = async (req: Request, res: Response) => {
     // 4. Envoyer l'email
     const unsubscribeEmail = campaignData.targetEmail || "contact@amcoeur.org";
     const contactEmail = process.env.CONTACT_EMAIL || "contactinfo@amcoeur.org";
-    const html = await generateEmailHtml(processedBlocks as any, unsubscribeEmail, contactEmail);
+    const html = await generateEmailHtml(processedBlocks as unknown as EmailBlock[], unsubscribeEmail, contactEmail);
 
     await sendEmail({
       to: target,
       subject: campaignData.subject,
       html: html,
-      attachments: attachments as any,
+      attachments: attachments as unknown as { filename: string; content: Buffer; cid: string }[],
     });
 
     return res.status(200).json({ message: "Campagne envoyée avec succès", target });

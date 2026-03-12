@@ -1,5 +1,5 @@
-import { EmailBlockType } from "@amcoeur/types";
 import type { EmailBlock } from "@amcoeur/types";
+import { EmailBlockType } from "@amcoeur/types";
 import { marked } from "marked";
 
 const AMCOEUR_ROSE = "#e11d48";
@@ -81,12 +81,13 @@ const renderBlock = async (block: EmailBlock, blockIndex: number): Promise<strin
     case EmailBlockType.TITLE:
       return `<h1 style="margin-bottom: 24px; color: ${AMCOEUR_ROSE}; font-family: Georgia, serif; text-align: center;">${block.content}</h1>`;
 
-    case EmailBlockType.TEXT:
+    case EmailBlockType.TEXT: {
       const rawHtml = await marked.parse(block.content);
       const htmlContent = rawHtml.replace(/<p>/g, '<p style="margin-bottom: 16px; margin-top: 0; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #333333;">');
       return `<div style="margin-bottom: 24px; text-align: left;">${htmlContent}</div>`;
+    }
 
-    case EmailBlockType.IMAGE:
+    case EmailBlockType.IMAGE: {
       const imagesCount = block.images.length;
       const width = Math.floor(100 / imagesCount) - 2;
       
@@ -107,6 +108,7 @@ const renderBlock = async (block: EmailBlock, blockIndex: number): Promise<strin
           </tr>
         </table>
       `;
+    }
 
     default:
       return "";
