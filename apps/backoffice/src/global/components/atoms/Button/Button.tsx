@@ -3,6 +3,7 @@ import type { ComponentProps } from "react";
 import { cva } from "../../../../../styled-system/css";
 import { styled } from "../../../../../styled-system/jsx";
 import { ClickablePrimitive } from "../Primitives/ClickablePrimitive";
+import Spinner from "../Spinner/Spinner";
 
 const buttonRecipe = cva({
   base: {
@@ -112,22 +113,27 @@ const StyledButton = styled(ClickablePrimitive, buttonRecipe);
 type ButtonProps = ComponentProps<typeof StyledButton> & {
   active?: boolean;
   disabled?: boolean;
+  isLoading?: boolean;
 };
 
-function Button({ active, disabled, ...props }: ButtonProps) {
+function Button({ active, disabled, isLoading, ...props }: ButtonProps) {
   const isAnchor = "href" in props || "to" in props;
   const isButton = !isAnchor;
 
-  const disabledProps = isButton ? { disabled: disabled || active } : {};
+  const isDisabled = disabled || active || isLoading;
+  const disabledProps = isButton ? { disabled: isDisabled } : {};
 
   return (
     <StyledButton
       {...props}
       data-active={active ? "true" : undefined}
-      data-disabled={disabled ? "true" : undefined}
-      disabledAnchor={(disabled || active) && isAnchor}
+      data-disabled={isDisabled ? "true" : undefined}
+      disabledAnchor={isDisabled && isAnchor}
       {...disabledProps}
-    />
+    >
+      {isLoading && <Spinner size={18} color="currentColor" inline />}
+      {props.children}
+    </StyledButton>
   );
 }
 

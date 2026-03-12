@@ -1,7 +1,6 @@
 import { UserRole } from "@amcoeur/types";
 import { 
   ClipboardList, 
-  Contact2,
   FileText, 
   Heart, 
   LayoutDashboard, 
@@ -58,12 +57,6 @@ function Sidebar({ isUserInactive = true, logout }: SidebarProps) {
       href: "/adoptions", 
       icon: <Heart size={20} />, 
       show: isAdmin || checkUserPermissions(currentUser, [UserRole.ADOPTION_MANAGER]) 
-    },
-    { 
-      name: "Contacts", 
-      href: "/contacts", 
-      icon: <Contact2 size={20} />, 
-      show: isAdmin || checkUserPermissions(currentUser, [UserRole.CONTACT_MANAGER]) 
     },
     { 
       name: "Emailing", 

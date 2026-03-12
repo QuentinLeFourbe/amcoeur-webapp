@@ -7,16 +7,26 @@ import XLSX from "xlsx";
 import Contact from "../models/contact.js";
 
 /**
- * Get all contacts with pagination
+ * Get all contacts with pagination and search
  */
 export const getContacts = async (req: Request, res: Response) => {
   try {
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 20;
+    const search = req.query.search as string;
     const skip = (page - 1) * limit;
 
-    const contacts = await Contact.find().skip(skip).limit(limit).sort({ createdAt: -1 });
-    const total = await Contact.countDocuments();
+    const query: any = {};
+    if (search) {
+      query.$or = [
+        { email: { $regex: search, $options: "i" } },
+        { lastName: { $regex: search, $options: "i" } },
+        { firstName: { $regex: search, $options: "i" } },
+      ];
+    }
+
+    const contacts = await Contact.find(query).skip(skip).limit(limit).sort({ createdAt: -1 });
+    const total = await Contact.countDocuments(query);
 
     return res.status(200).json({
       data: contacts,
@@ -30,6 +40,82 @@ export const getContacts = async (req: Request, res: Response) => {
   } catch (err) {
     res.locals.logger.error(err);
     return res.status(500).send("Erreur lors de la récupération des contacts");
+  }
+};
+
+/**
+ * Create a new contact
+ */
+export const createContact = async (req: Request, res: Response) => {
+  try {
+    const { email, firstName, lastName, phone, zipCode, city, address } = req.body;
+
+    if (!email) {
+      return res.status(400).send("L'email est obligatoire");
+    }
+
+    const existing = await Contact.findOne({ email: email.toLowerCase().trim() });
+    if (existing) {
+      return res.status(400).send("Un contact avec cet email existe déjà");
+    }
+
+    const contact = new Contact({
+      email: email.toLowerCase().trim(),
+      firstName,
+      lastName,
+      phone,
+      zipCode,
+      city,
+      address,
+    });
+
+    await contact.save();
+    return res.status(201).json(contact);
+  } catch (err) {
+    res.locals.logger.error(err);
+    return res.status(500).send("Erreur lors de la création du contact");
+  }
+};
+
+/**
+ * Delete a contact
+ */
+export const deleteContact = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    await Contact.findByIdAndDelete(id);
+    return res.status(200).send("Contact supprimé");
+  } catch (err) {
+    res.locals.logger.error(err);
+    return res.status(500).send("Erreur lors de la suppression du contact");
+  }
+};
+
+/**
+ * Export all contacts as CSV
+ */
+export const exportContacts = async (_req: Request, res: Response) => {
+  try {
+    const contacts = await Contact.find().sort({ lastName: 1, firstName: 1 });
+    
+    const csvData = contacts.map(c => ({
+      nom: c.lastName || "",
+      prenom: c.firstName || "",
+      email: c.email,
+      telephone: c.phone || "",
+      code_postal: c.zipCode || "",
+      ville: c.city || "",
+      adresse: c.address || ""
+    }));
+
+    const csv = Papa.unparse(csvData, { delimiter: ";" });
+
+    res.setHeader("Content-Type", "text/csv");
+    res.setHeader("Content-Disposition", "attachment; filename=contacts_locaux.csv");
+    return res.status(200).send(csv);
+  } catch (err) {
+    res.locals.logger.error(err);
+    return res.status(500).send("Erreur lors de l'exportation des contacts");
   }
 };
 

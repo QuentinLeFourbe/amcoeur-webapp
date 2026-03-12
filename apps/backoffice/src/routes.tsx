@@ -112,12 +112,8 @@ const emailingRoutes = {
   children: [
     { path: "", element: <EmailingDashboard /> },
     { path: "composer", element: <CreateCampaign /> },
+    { path: "contacts", element: <ContactsDashboard /> },
   ],
-};
-
-const contactsRoutes = {
-  path: "contacts",
-  element: <ContactsDashboard />,
 };
 
 const appRoutes: RouteObject[] = [
@@ -135,7 +131,6 @@ const appRoutes: RouteObject[] = [
       formsRoutes,
       usersRoutes,
       emailingRoutes,
-      contactsRoutes,
       ...commonRoutes,
     ],
   },
