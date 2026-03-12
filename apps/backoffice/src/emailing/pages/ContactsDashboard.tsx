@@ -204,7 +204,7 @@ function ContactsDashboard() {
         <div className={css({ display: "flex", flexDirection: "column", gap: "1rem" })}>
           {createMutation.isError && (
             <div className={css({ color: "red.400", fontSize: "xs" })}>
-              {(createMutation.error as any)?.response?.data || "Une erreur est survenue"}
+              {(createMutation.error as { response?: { data?: string } })?.response?.data || "Une erreur est survenue"}
             </div>
           )}
           <div>

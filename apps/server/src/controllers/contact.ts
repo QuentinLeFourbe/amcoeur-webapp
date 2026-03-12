@@ -16,7 +16,7 @@ export const getContacts = async (req: Request, res: Response) => {
     const search = req.query.search as string;
     const skip = (page - 1) * limit;
 
-    const query: any = {};
+    const query: Record<string, unknown> = {};
     if (search) {
       query.$or = [
         { email: { $regex: search, $options: "i" } },

@@ -280,10 +280,25 @@ export const syncWithOVH = async (req: Request, res: Response) => {
     const currentOVHSubscribers = await getMailingListSubscribers(domain, mailingList);
     const ovhEmails = new Set(currentOVHSubscribers.map(e => e.toLowerCase().trim()));
 
-    const toAdd = contacts.filter(c => {
-      const email = c.email.toLowerCase().trim();
-      return !unsubscribedEmails.has(email) && !ovhEmails.has(email);
-    });
+    // 1. Les contacts qui sont désinscrits
+    const ignoredUnsubscribedCount = contacts.filter(c => 
+      unsubscribedEmails.has(c.email.toLowerCase().trim())
+    ).length;
+
+    // 2. Les contacts "actifs" (non désinscrits)
+    const activeLocalContacts = contacts.filter(c => 
+      !unsubscribedEmails.has(c.email.toLowerCase().trim())
+    );
+
+    // 3. Parmi les actifs, ceux qui sont déjà sur OVH
+    const alreadyInOvhCount = activeLocalContacts.filter(c => 
+      ovhEmails.has(c.email.toLowerCase().trim())
+    ).length;
+
+    // 4. Les vrais nouveaux à ajouter (Actifs - Déjà présents)
+    const toAdd = activeLocalContacts.filter(c => 
+      !ovhEmails.has(c.email.toLowerCase().trim())
+    );
 
     const toRemove = currentOVHSubscribers.filter(email => 
       unsubscribedEmails.has(email.toLowerCase().trim())
@@ -295,8 +310,8 @@ export const syncWithOVH = async (req: Request, res: Response) => {
         summary: {
           toAddCount: toAdd.length,
           toRemoveCount: toRemove.length,
-          ignored_unsubscribed: unsubscribedEmails.size,
-          already_in_ovh: ovhEmails.size,
+          ignoredUnsubscribedCount,
+          alreadyInOvhCount,
         }
       });
     }
@@ -342,16 +357,17 @@ export const syncWithOVH = async (req: Request, res: Response) => {
           } finally {
             processed++;
             if (processed % 5 === 0 || processed === totalActions) {
-              await updateSyncJob(jobId, { processed, added, errors, removed } as any);
+              await updateSyncJob(jobId, { processed, added, errors, removed });
             }
           }
         }
 
-        await updateSyncJob(jobId, { status: "completed", processed, added, errors, removed } as any);
+        await updateSyncJob(jobId, { status: "completed", processed, added, errors, removed });
         res.locals.logger.info(`Sync job ${jobId} completed: ${added} added, ${removed} removed, ${errors} errors.`);
-      } catch (err: any) {
-        logger.error(`Fatal error in sync job ${jobId}:`, err);
-        await updateSyncJob(jobId, { status: "failed", error: err.message });
+      } catch (err: unknown) {
+        const error = err as Error;
+        logger.error(`Fatal error in sync job ${jobId}:`, error);
+        await updateSyncJob(jobId, { status: "failed", error: error.message });
       }
     })();
 

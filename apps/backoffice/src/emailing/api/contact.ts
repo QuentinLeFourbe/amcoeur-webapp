@@ -73,8 +73,8 @@ export const removeSubscriber = async (email: string) => {
   return response.data;
 };
 
-const downloadFile = (data: any, filename: string) => {
-  const url = window.URL.createObjectURL(new Blob([data]));
+const downloadFile = (data: unknown, filename: string) => {
+  const url = window.URL.createObjectURL(new Blob([data as any]));
   const link = document.createElement("a");
   link.href = url;
   link.setAttribute("download", filename);
