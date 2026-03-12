@@ -112,7 +112,7 @@ export const LocalContactsCard = ({
               </Button>
             ) : (
               <SyncPreview 
-                summary={syncMutation.data?.summary || { toAddCount: 0, toRemoveCount: 0, ignoredUnsubscribedCount: 0, alreadyInOvhCount: 0 }} 
+                summary={syncMutation.data?.summary || { toAddCount: 0, toRemoveCount: 0, ignoredUnsubscribedCount: 0, alreadyInOvhCount: 0, invalidFormatCount: 0 }} 
                 onLaunch={onLaunchSync} 
                 onCancel={onCancelSync} 
                 isLoading={syncMutation.isLoading} 

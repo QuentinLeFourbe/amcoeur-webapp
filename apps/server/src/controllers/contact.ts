@@ -6,6 +6,12 @@ import XLSX from "xlsx";
 
 import Contact from "../models/contact.js";
 
+// Validation simple du format email (doit avoir un @ et un . avec extension)
+const isValidEmail = (email: string) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  return emailRegex.test(email);
+};
+
 /**
  * Get all contacts with pagination and search
  */
@@ -52,6 +58,10 @@ export const createContact = async (req: Request, res: Response) => {
 
     if (!email) {
       return res.status(400).send("L'email est obligatoire");
+    }
+
+    if (!isValidEmail(email.toLowerCase().trim())) {
+      return res.status(400).send("Le format de l'email est invalide (ex: exemple@domaine.com)");
     }
 
     const existing = await Contact.findOne({ email: email.toLowerCase().trim() });
@@ -187,9 +197,9 @@ export const importContacts = async (req: Request, res: Response) => {
         // Conversion forcée en string pour éviter les erreurs .toLowerCase() sur des nombres
         const email = String(rawEmail).toLowerCase().trim();
         
-        if (!email || !email.includes("@")) {
+        if (!email || !isValidEmail(email)) {
           summary.errors++;
-          summary.details.push({ row: rowNumber, email, error: "Format d'email invalide" });
+          summary.details.push({ row: rowNumber, email, error: "Format d'email invalide (ex: exemple@domaine.com)" });
           continue;
         }
 

@@ -280,15 +280,25 @@ export const syncWithOVH = async (req: Request, res: Response) => {
     const currentOVHSubscribers = await getMailingListSubscribers(domain, mailingList);
     const ovhEmails = new Set(currentOVHSubscribers.map(e => e.toLowerCase().trim()));
 
-    // 1. Les contacts qui sont désinscrits
-    const ignoredUnsubscribedCount = contacts.filter(c => 
-      unsubscribedEmails.has(c.email.toLowerCase().trim())
-    ).length;
+    // Validation simple du format email (doit avoir un @ et un . avec extension)
+    const isValidEmail = (email: string) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      return emailRegex.test(email);
+    };
 
-    // 2. Les contacts "actifs" (non désinscrits)
-    const activeLocalContacts = contacts.filter(c => 
-      !unsubscribedEmails.has(c.email.toLowerCase().trim())
+    // 1. Les contacts qui sont désinscrits
+    const ignoredContacts = contacts.filter(c => 
+      unsubscribedEmails.has(c.email.toLowerCase().trim())
     );
+    const ignoredUnsubscribedCount = ignoredContacts.length;
+
+    // 2. Les contacts "actifs" (non désinscrits ET format valide)
+    const activeLocalContacts = contacts.filter(c => {
+      const email = c.email.toLowerCase().trim();
+      return !unsubscribedEmails.has(email) && isValidEmail(email);
+    });
+
+    const invalidFormatCount = contacts.length - ignoredUnsubscribedCount - activeLocalContacts.length;
 
     // 3. Parmi les actifs, ceux qui sont déjà sur OVH
     const alreadyInOvhCount = activeLocalContacts.filter(c => 
@@ -305,6 +315,12 @@ export const syncWithOVH = async (req: Request, res: Response) => {
     );
 
     if (dryRun) {
+      // LOGS TEMPORAIRES POUR DEBUG
+      console.log("--- DEBUG SYNC ---");
+      console.log(`Contacts à ajouter (${toAdd.length}) :`, toAdd.map(c => c.email));
+      console.log(`Contacts ignorés (désinscrits) (${ignoredContacts.length}) :`, ignoredContacts.map(c => c.email));
+      console.log("------------------");
+
       return res.status(200).json({
         message: "Aperçu de la synchronisation",
         summary: {
@@ -312,6 +328,7 @@ export const syncWithOVH = async (req: Request, res: Response) => {
           toRemoveCount: toRemove.length,
           ignoredUnsubscribedCount,
           alreadyInOvhCount,
+          invalidFormatCount,
         }
       });
     }

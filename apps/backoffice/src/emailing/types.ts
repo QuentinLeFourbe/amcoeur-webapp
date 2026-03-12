@@ -3,6 +3,7 @@ export interface SyncSummary {
   toRemoveCount: number;
   ignoredUnsubscribedCount: number;
   alreadyInOvhCount: number;
+  invalidFormatCount: number;
   added?: number;
   removed?: number;
   errors?: number;
