@@ -89,6 +89,10 @@ function EmailingDashboard() {
 
   const filteredEmails = useMemo(() => {
     if (!searchQuery) return [];
+    
+    // On peut réinitialiser le statut de suppression si on change de recherche
+    // (Mais attention à ne pas boucler, on ne le fait que si l'état est fini)
+    
     return stats.ovh.emails.filter((email: string) => 
       email.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -117,6 +121,8 @@ function EmailingDashboard() {
 
         <OvhMailingListCard 
           refreshMutation={refreshMutation}
+          removeMutation={removeMutation}
+          emailToRemove={emailToRemove}
           onRefresh={handleRefresh}
           onExportOVH={exportOVHList}
           onExportUnsubscribes={exportUnsubscribes}

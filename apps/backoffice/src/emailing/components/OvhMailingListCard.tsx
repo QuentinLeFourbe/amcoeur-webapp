@@ -8,6 +8,8 @@ import { MutationState } from "../types";
 
 type OvhMailingListCardProps = {
   refreshMutation: MutationState;
+  removeMutation: MutationState;
+  emailToRemove: string | null;
   onRefresh: () => void;
   onExportOVH: () => void;
   onExportUnsubscribes: () => void;
@@ -19,6 +21,8 @@ type OvhMailingListCardProps = {
 
 export const OvhMailingListCard = ({
   refreshMutation,
+  removeMutation,
+  emailToRemove,
   onRefresh,
   onExportOVH,
   onExportUnsubscribes,
@@ -88,6 +92,19 @@ export const OvhMailingListCard = ({
           />
           <div className={searchIconStyle}><Search size={18} /></div>
         </div>
+
+        {removeMutation.isLoading && (
+          <div className={css({ color: "amcoeurRose", fontSize: "xs", marginTop: "1rem", display: "flex", alignItems: "center", gap: "0.5rem", fontWeight: "bold" })}>
+            <div className={css({ animation: "spin 1s linear infinite", display: "flex" })}><RefreshCw size={14} /></div>
+            <span>Suppression de {emailToRemove} en cours...</span>
+          </div>
+        )}
+
+        {removeMutation.isSuccess && !removeMutation.isLoading && (
+          <div className={css({ color: "green.400", fontSize: "xs", marginTop: "1rem", fontWeight: "bold" })}>
+            L'abonné a été retiré d'OVH et marqué comme désinscrit.
+          </div>
+        )}
 
         {searchQuery && (
           <div className={resultsWrapperStyle}>

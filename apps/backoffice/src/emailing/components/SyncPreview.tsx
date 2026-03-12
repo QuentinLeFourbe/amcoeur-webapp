@@ -9,7 +9,6 @@ type SyncPreviewProps = {
     toRemoveCount: number;
     ignoredUnsubscribedCount: number;
     alreadyInOvhCount: number;
-    invalidFormatCount: number;
   };
   onLaunch: () => void;
   onCancel: () => void;
@@ -35,12 +34,6 @@ export const SyncPreview = ({ summary, onLaunch, onCancel, isLoading }: SyncPrev
           <span>Déjà présent :</span>
           <span>{summary.alreadyInOvhCount || 0}</span>
         </div>
-        {(summary.invalidFormatCount || 0) > 0 && (
-          <div className={css({ display: "flex", justifyContent: "space-between", color: "orange.300" })}>
-            <span>Format invalide (ignorés) :</span>
-            <span>{summary.invalidFormatCount}</span>
-          </div>
-        )}
         {(summary.toRemoveCount || 0) > 0 && (
           <div className={css({ display: "flex", justifyContent: "space-between", color: "red.300", borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "0.5rem", marginTop: "0.25rem" })}>
             <span>Abonnés OVH à retirer (désinscrits) :</span>

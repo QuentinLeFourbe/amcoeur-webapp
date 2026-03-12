@@ -328,7 +328,6 @@ export const syncWithOVH = async (req: Request, res: Response) => {
           toRemoveCount: toRemove.length,
           ignoredUnsubscribedCount,
           alreadyInOvhCount,
-          invalidFormatCount,
         }
       });
     }
