@@ -15,6 +15,7 @@ import {
   useSyncStatus,
   useSyncWithOVH 
 } from "../hooks/useContacts";
+import { MutationState } from "../types";
 
 const SYNC_JOB_KEY = "amcoeur_active_sync_job";
 
@@ -30,27 +31,27 @@ function EmailingDashboard() {
 
   // Queries & Mutations
   const { data: statsData, isLoading: isLoadingStats } = useGetMailingListStats();
-  const refreshMutation = useRefreshMailingList();
-  const syncMutation = useSyncWithOVH();
-  const removeMutation = useRemoveSubscriber();
-  const importMutation = useImportContacts();
+  const refreshMutation = useRefreshMailingList() as unknown as MutationState;
+  const syncMutation = useSyncWithOVH() as unknown as MutationState;
+  const removeMutation = useRemoveSubscriber() as unknown as MutationState;
+  const importMutation = useImportContacts() as unknown as MutationState;
 
   // Handlers
-  const handleRefresh = () => refreshMutation.mutate();
+  const handleRefresh = () => (refreshMutation as unknown as { mutate: () => void }).mutate();
   
   const handleImport = (file: File) => {
-    importMutation.mutate(file);
+    (importMutation as unknown as { mutate: (f: File) => void }).mutate(file);
   };
 
   const handlePrepareSync = () => {
-    syncMutation.mutate(true, {
+    (syncMutation as unknown as { mutate: (b: boolean, o: object) => void }).mutate(true, {
       onSuccess: () => setShowSyncPreview(true)
     });
   };
 
   const handleCommitSync = () => {
-    syncMutation.mutate(false, {
-      onSuccess: (data) => {
+    (syncMutation as unknown as { mutate: (b: boolean, o: object) => void }).mutate(false, {
+      onSuccess: (data: { jobId?: string }) => {
         if (data.jobId) {
           setActiveJobId(data.jobId);
           localStorage.setItem(SYNC_JOB_KEY, data.jobId);
@@ -62,19 +63,19 @@ function EmailingDashboard() {
 
   const handleCancelSync = () => {
     setShowSyncPreview(false);
-    syncMutation.reset();
+    (syncMutation as unknown as { reset: () => void }).reset();
   };
 
   const handleCloseSyncStatus = () => {
     setActiveJobId(null);
     localStorage.removeItem(SYNC_JOB_KEY);
     setShowSyncPreview(false);
-    syncMutation.reset();
+    (syncMutation as unknown as { reset: () => void }).reset();
   };
 
   const handleRemove = () => {
     if (emailToRemove) {
-      removeMutation.mutate(emailToRemove, {
+      (removeMutation as unknown as { mutate: (e: string, o: object) => void }).mutate(emailToRemove, {
         onSuccess: () => setEmailToRemove(null)
       });
     }
@@ -111,7 +112,7 @@ function EmailingDashboard() {
           onCloseSyncStatus={handleCloseSyncStatus}
           showSyncPreview={showSyncPreview}
           activeJobId={activeJobId}
-          jobStatus={jobStatus}
+          jobStatus={jobStatus || null}
         />
 
         <OvhMailingListCard 
@@ -140,7 +141,7 @@ function EmailingDashboard() {
           <p>Voulez-vous vraiment exporter ces <strong>{syncMutation.data?.summary?.toAddCount || 0}</strong> nouveaux contacts vers la liste OVH ?</p>
           {(syncMutation.data?.summary?.toRemoveCount || 0) > 0 && (
             <p className={css({ color: "red.400", fontWeight: "bold" })}>
-              Attention : {syncMutation.data.summary.toRemoveCount} abonnés désinscrits seront également retirés d'OVH.
+              Attention : {syncMutation.data?.summary.toRemoveCount} abonnés désinscrits seront également retirés d'OVH.
             </p>
           )}
           <p className={css({ fontSize: "xs", fontStyle: "italic", color: "rgba(255,255,255,0.5)" })}>Cette action modifiera votre mailing list active chez OVH Cloud.</p>

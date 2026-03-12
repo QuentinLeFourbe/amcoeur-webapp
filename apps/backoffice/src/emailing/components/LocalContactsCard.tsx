@@ -5,12 +5,13 @@ import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
 import Card from "../../global/components/atoms/Card/Card";
 import Spinner from "../../global/components/atoms/Spinner/Spinner";
+import { MutationState, SyncJobStatus } from "../types";
 import { SyncPreview } from "./SyncPreview";
 import { SyncProgress } from "./SyncProgress";
 
 type LocalContactsCardProps = {
-  importMutation: unknown;
-  syncMutation: unknown;
+  importMutation: MutationState;
+  syncMutation: MutationState;
   onImport: (file: File) => void;
   onExport: () => void;
   onPrepareSync: () => void;
@@ -19,7 +20,7 @@ type LocalContactsCardProps = {
   onCloseSyncStatus: () => void;
   showSyncPreview: boolean;
   activeJobId: string | null;
-  jobStatus: unknown;
+  jobStatus: SyncJobStatus | null;
 };
 
 export const LocalContactsCard = ({
@@ -67,7 +68,7 @@ export const LocalContactsCard = ({
             <span>Ajoutez des contacts via un fichier CSV ou Excel.</span>
           </div>
           <input type="file" ref={fileInputRef} onChange={handleFileChange} accept=".csv, .xlsx, .xls" style={{ display: "none" }} />
-          <Button color="secondary" onClick={() => fileInputRef.current?.click()} disabled={(importMutation as any).isLoading}>
+          <Button color="secondary" onClick={() => fileInputRef.current?.click()} disabled={importMutation.isLoading}>
             <FileUp size={18} className={css({ marginRight: "0.5rem" })} />
             Importer
           </Button>
@@ -85,15 +86,15 @@ export const LocalContactsCard = ({
         </div>
       </div>
 
-      {(importMutation as any).isLoading && (
+      {importMutation.isLoading && (
         <div className={css({ marginTop: "1rem", display: "flex", alignItems: "center", gap: "0.5rem" })}>
           <Spinner size={20} color="amcoeurRose" inline />
           <span className={css({ fontSize: "sm", color: "amcoeurRose" })}>Importation en cours...</span>
         </div>
       )}
-      {(importMutation as any).isSuccess && (
+      {importMutation.isSuccess && importMutation.data && (
         <div className={css({ color: "green.400", marginTop: "1rem", fontSize: "sm", fontWeight: "bold" })}>
-          Import réussi : {(importMutation as any).data.summary.imported} ajoutés, {(importMutation as any).data.summary.updated} mis à jour.
+          Import réussi : {importMutation.data.summary.added} ajoutés, {importMutation.data.summary.errors} mis à jour.
         </div>
       )}
 
@@ -105,16 +106,16 @@ export const LocalContactsCard = ({
         {!activeJobId ? (
           <>
             {!showSyncPreview ? (
-              <Button color="success" onClick={onPrepareSync} disabled={(syncMutation as any).isLoading || (importMutation as any).isLoading} bold className={css({ width: "100%", marginTop: "1rem" })}>
+              <Button color="success" onClick={onPrepareSync} disabled={syncMutation.isLoading || importMutation.isLoading} bold className={css({ width: "100%", marginTop: "1rem" })}>
                 <UploadCloud size={18} className={css({ marginRight: "0.5rem" })} />
                 1. Préparer l'export vers OVH
               </Button>
             ) : (
               <SyncPreview 
-                summary={(syncMutation as any).data?.summary} 
+                summary={syncMutation.data?.summary || { toAddCount: 0, toRemoveCount: 0, ignoredUnsubscribedCount: 0, alreadyInOvhCount: 0 }} 
                 onLaunch={onLaunchSync} 
                 onCancel={onCancelSync} 
-                isLoading={(syncMutation as any).isLoading} 
+                isLoading={syncMutation.isLoading} 
               />
             )}
           </>
@@ -122,7 +123,7 @@ export const LocalContactsCard = ({
           <SyncProgress jobStatus={jobStatus} onClose={onCloseSyncStatus} />
         )}
         
-        {(syncMutation as any).isLoading && !activeJobId && (
+        {syncMutation.isLoading && !activeJobId && (
           <div className={css({ marginTop: "1rem", display: "flex", alignItems: "center", gap: "0.5rem" })}>
             <Spinner size={20} color="#e11d48" inline />
             <span className={css({ fontSize: "sm", color: "amcoeurRose" })}>Traitement en cours...</span>

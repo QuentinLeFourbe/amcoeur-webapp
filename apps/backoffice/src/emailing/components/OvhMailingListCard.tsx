@@ -4,9 +4,10 @@ import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
 import Card from "../../global/components/atoms/Card/Card";
 import Input from "../../global/components/atoms/Input/Input";
+import { MutationState } from "../types";
 
 type OvhMailingListCardProps = {
-  refreshMutation: unknown;
+  refreshMutation: MutationState;
   onRefresh: () => void;
   onExportOVH: () => void;
   onExportUnsubscribes: () => void;
@@ -49,8 +50,8 @@ export const OvhMailingListCard = ({
             <strong>Rafraîchir les données</strong>
             <span>Mettre à jour les statistiques depuis OVH.</span>
           </div>
-          <Button color="secondary" onClick={onRefresh} disabled={(refreshMutation as any).isLoading}>
-            <RefreshCw size={18} className={(refreshMutation as any).isLoading ? css({ animation: "spin 1s linear infinite" }) : undefined} />
+          <Button color="secondary" onClick={onRefresh} disabled={refreshMutation.isLoading}>
+            <RefreshCw size={18} className={refreshMutation.isLoading ? css({ animation: "spin 1s linear infinite" }) : undefined} />
           </Button>
         </div>
 
