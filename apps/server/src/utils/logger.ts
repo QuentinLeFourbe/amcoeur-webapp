@@ -1,24 +1,26 @@
 import winston from "winston";
 
-export const logger = winston.createLogger({
-  level: "info",
-  format: winston.format.combine(
-    winston.format.colorize(),
-    winston.format.json(),
-    winston.format.timestamp(),
-  ),
-  defaultMeta: { service: "amcoeur-server" },
-  transports: [],
-});
+// Configuration du format JSON pour la production (Grafana/Loki)
+const jsonFormat = winston.format.combine(
+  winston.format.timestamp(),
+  winston.format.json(),
+);
 
-//
-// If we're not in production then log to the `console` with the format:
-// `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
-//
-if (process.env.NODE_ENV === "development") {
-  logger.add(
+// Configuration du format lisible pour le développement
+const devFormat = winston.format.combine(
+  winston.format.colorize(),
+  winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+  winston.format.printf(({ timestamp, level, message, ...rest }) => {
+    return `[${timestamp}] ${level}: ${message} ${Object.keys(rest).length ? JSON.stringify(rest) : ""}`;
+  }),
+);
+
+export const logger = winston.createLogger({
+  level: process.env.LOG_LEVEL || "info",
+  defaultMeta: { service: "amcoeur-server" },
+  transports: [
     new winston.transports.Console({
-      format: winston.format.simple(),
+      format: process.env.NODE_ENV === "development" ? devFormat : jsonFormat,
     }),
-  );
-}
+  ],
+});
