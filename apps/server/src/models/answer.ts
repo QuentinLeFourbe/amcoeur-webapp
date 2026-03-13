@@ -1,4 +1,4 @@
-import mongoose, { type CallbackError,Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const answer = new Schema({
   field: { type: String, required: true },
@@ -15,15 +15,10 @@ const formAnswers = new Schema(
   { timestamps: true },
 );
 
-formAnswers.pre("save", async function (next) {
-  try {
-    if (typeof this.formId === "string") {
-      const temp = new mongoose.Types.ObjectId(this.formId);
-      this.formId = temp;
-    }
-    next();
-  } catch (error) {
-    next(error as CallbackError);
+formAnswers.pre("save", async function () {
+  if (typeof this.formId === "string") {
+    const temp = new mongoose.Types.ObjectId(this.formId);
+    this.formId = temp;
   }
 });
 

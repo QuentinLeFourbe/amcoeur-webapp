@@ -16,22 +16,6 @@ declare module "@ovhcloud/node-ovh" {
     consumerKey: string;
   }
 
-  interface OVHRequestOptions {
-    method: HttpMethod;
-    path: string;
-    body?: unknown;
-    query?: Record<string, string | number | boolean>;
-  }
-
-  interface OVHError {
-    errorCode: string;
-    httpCode: number;
-    message: string;
-    exception?: unknown;
-  }
-
-  type OVHResponse<T = unknown> = T;
-
   interface OVHClient {
     request<T = unknown>(
       method: HttpMethod,

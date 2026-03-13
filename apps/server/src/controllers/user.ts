@@ -38,7 +38,7 @@ export const getUserById = async (req: Request, res: Response) => {
 
 export const updateUser = async (req: Request, res: Response) => {
   try {
-    const updatedUser = await updateDbUser(req.params.id || "", req.body);
+    const updatedUser = await updateDbUser(String(req.params.id || ""), req.body);
     if (!updatedUser) {
       res.status(404).json({ message: "Utilisateur non trouvée." });
     } else {
@@ -60,7 +60,7 @@ export const updateUser = async (req: Request, res: Response) => {
 
 export const deleteUser = async (req: Request, res: Response) => {
   try {
-    const deletedUser = await deleteDbUser(req.params.id || "");
+    const deletedUser = await deleteDbUser(String(req.params.id || ""));
     if (!deletedUser) {
       res.status(404).json({ message: "Utilisateur non trouvée." });
     } else {

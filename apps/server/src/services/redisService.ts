@@ -94,7 +94,7 @@ export const getMsUserFromRedis = async (msObjectId: string) => {
     const parsedUser = JSON.parse(stringifiedUser);
     return parsedUser;
   } catch (error) {
-    throw Error(`Cannot find MS user in redis db: ${error} `);
+    throw new Error(`Cannot find MS user in redis db: ${error} `, { cause: error });
   }
 };
 
@@ -107,7 +107,7 @@ export const getGoogleUserFromRedis = async (googleObjectId: string) => {
     const parsedUser = JSON.parse(stringifiedUser);
     return parsedUser;
   } catch (error) {
-    throw Error(`Cannot find Google user in redis db: ${error} `);
+    throw new Error(`Cannot find Google user in redis db: ${error} `, { cause: error });
   }
 };
 

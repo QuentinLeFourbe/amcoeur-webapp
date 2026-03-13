@@ -48,15 +48,14 @@ export const validateToken = async (
   // Récupérer la clé publique à partir du JWKS
   const iss = (decodedToken.payload as JwtPayload).iss;
 
-  let publicKey = "";
   if (iss?.includes("google")) {
-    publicKey = await getGoogleSigningKey(kid);
+    const publicKey = await getGoogleSigningKey(kid);
     return jwt.verify(token, publicKey, {
       algorithms: ["RS256"],
       audience: GOOGLE_EXPECTED_AUDIENCE,
     });
   } else if (iss?.includes("microsoft")) {
-    publicKey = await getMicrosoftSigningKey(kid);
+    const publicKey = await getMicrosoftSigningKey(kid);
     return jwt.verify(token, publicKey, {
       algorithms: ["RS256"],
       audience: MS_EXPECTED_AUDIENCE,

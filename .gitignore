@@ -21,3 +21,4 @@ apps/server/uploads/*
 .nx/workspace-data
 .nx/polygraph
 vitest.config.*.timestamp*
+vite.config.*.timestamp*

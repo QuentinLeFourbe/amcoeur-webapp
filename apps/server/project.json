@@ -1,0 +1,39 @@
+{
+  "name": "server",
+  "projectType": "application",
+  "sourceRoot": "apps/server/src",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "options": {
+        "outputPath": "apps/server/build",
+        "main": "apps/server/src/index.ts",
+        "tsConfig": "apps/server/tsconfig.json",
+        "assets": ["apps/server/assets/**/*"],
+        "platform": "node",
+        "bundle": true,
+        "format": ["esm"],
+        "target": "node22",
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "server:build",
+        "watch": true
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "options": {
+        "config": "apps/server/vitest.config.ts"
+      }
+    }
+  }
+}

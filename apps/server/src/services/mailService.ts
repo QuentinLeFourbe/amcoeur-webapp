@@ -30,6 +30,6 @@ export const sendEmail = async (mailOptions: MailOptions) => {
     const options = {...mailOptions, from: process.env.NOREPLY_EMAIL}
     await transporter?.sendMail(options);
   } catch (err) {
-    throw new Error("Erreur lors de l'envoie du mail: " + err);
+    throw new Error("Erreur lors de l'envoi du mail: " + err, { cause: err });
   }
 };

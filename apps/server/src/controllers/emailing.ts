@@ -142,7 +142,7 @@ export const refreshMailingList = async (_req: Request, res: Response) => {
  */
 export const removeSubscriber = async (req: Request, res: Response) => {
   try {
-    const { email } = req.params;
+    const email = String(req.params.email || "");
     if (!email) {
       return res.status(400).send("Email manquant");
     }
@@ -251,7 +251,7 @@ export const getMailingListStats = async (_req: Request, res: Response) => {
  */
 export const getSyncStatus = async (req: Request, res: Response) => {
   try {
-    const { jobId } = req.params;
+    const jobId = String(req.params.jobId || "");
     
     if (!jobId) {
       return res.status(400).send("Job ID manquant");
