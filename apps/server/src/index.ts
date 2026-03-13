@@ -10,6 +10,7 @@ import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 
 import { getRequestLogger } from "./middlewares/logger.js";
+import { metricsMiddleware } from "./middlewares/metrics.js";
 import adoptionsRoutes from "./routes/adoption.js";
 import answersRoutes from "./routes/answer.js";
 import contactRoutes from "./routes/contact.js";
@@ -49,6 +50,7 @@ app.use(express.json());
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(helmet());
+app.use(metricsMiddleware);
 app.use((_req, res, next) => {
   res.set({ "Cross-Origin-Resource-Policy": "cross-origin" });
   next();

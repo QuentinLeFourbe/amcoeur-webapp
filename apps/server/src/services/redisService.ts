@@ -2,6 +2,7 @@ import type { UserServerData } from "@amcoeur/types";
 import { createClient } from "redis";
 
 import { logger } from "../utils/logger.js";
+import { cacheOperationsTotal } from "./metricsService.js";
 
 export const redisClient = createClient({ url: process.env.REDIS_URL || "" });
 
@@ -10,25 +11,32 @@ redisClient.on("connect", () => logger.info("Connected to Redis"));
 redisClient.on("error", (err) => logger.error("Redis client error", err));
 
 /**
- * Fonctions de mise en cache génériques
+ * Fonctions de mise en cache génériques instrumentées
  */
 export const setCache = async (key: string, value: unknown, ttlInSeconds = 3600) => {
   try {
     await redisClient.set(key, JSON.stringify(value), {
       EX: ttlInSeconds,
     });
+    cacheOperationsTotal.inc({ operation: "set", result: "success" });
   } catch (error) {
     logger.error(`Erreur lors de l'écriture dans le cache Redis (clé: ${key})`, error);
+    cacheOperationsTotal.inc({ operation: "set", result: "error" });
   }
 };
 
 export const getCache = async <T>(key: string): Promise<T | null> => {
   try {
     const data = await redisClient.get(key);
-    if (!data) return null;
+    if (!data) {
+      cacheOperationsTotal.inc({ operation: "get", result: "miss" });
+      return null;
+    }
+    cacheOperationsTotal.inc({ operation: "get", result: "hit" });
     return JSON.parse(data) as T;
   } catch (error) {
     logger.error(`Erreur lors de la lecture du cache Redis (clé: ${key})`, error);
+    cacheOperationsTotal.inc({ operation: "get", result: "error" });
     return null;
   }
 };
@@ -36,8 +44,10 @@ export const getCache = async <T>(key: string): Promise<T | null> => {
 export const invalidateCache = async (key: string) => {
   try {
     await redisClient.del(key);
+    cacheOperationsTotal.inc({ operation: "del", result: "success" });
   } catch (error) {
     logger.error(`Erreur lors de l'invalidation du cache Redis (clé: ${key})`, error);
+    cacheOperationsTotal.inc({ operation: "del", result: "error" });
   }
 };
 
