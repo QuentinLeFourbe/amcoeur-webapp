@@ -13,15 +13,16 @@ export type ProcessedImage = {
 };
 
 /**
- * Redimensionne et compresse une image pour l'emailing
+ * Redimensionne et compresse une image pour l'emailing.
+ * On utilise le format JPEG pour une compatibilité maximale (Outlook ne supporte pas le WebP).
  */
 export const processEmailImage = async (file: Express.Multer.File, targetWidth: number = 600): Promise<ProcessedImage> => {
-  const fileName = `email_${Date.now()}_${file.originalname.split('.')[0]}.webp`;
+  const fileName = `email_${Date.now()}_${file.originalname.split('.')[0]}.jpg`;
   const filePath = path.join(UPLOAD_DIR, fileName);
 
   await sharp(file.path)
     .resize(targetWidth, null, { withoutEnlargement: true })
-    .webp({ quality: 80 })
+    .jpeg({ quality: 80, mozjpeg: true })
     .toFile(filePath);
 
   // Supprimer le fichier temporaire original de multer
@@ -29,9 +30,9 @@ export const processEmailImage = async (file: Express.Multer.File, targetWidth: 
     fs.unlinkSync(file.path);
   }
 
-  const baseUrl = process.env.API_URL || "https://amcoeur-webapp.fly.dev";
+  const baseUrl = process.env.API_URL || "https://api.amcoeur.org";
   return {
-    url: `${baseUrl}/uploads/${fileName}`,
+    url: `${baseUrl}/images/${fileName}`,
     path: filePath
   };
 };

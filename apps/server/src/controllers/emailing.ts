@@ -58,7 +58,7 @@ export const sendCampaign = async (req: Request, res: Response) => {
             const cid = `img_b${bIndex}_i${iIndex}`;
             
             attachments.push({
-              filename: `image_${bIndex}_${iIndex}.webp`,
+              filename: `image_${bIndex}_${iIndex}.jpg`,
               path: processed.path,
               cid: cid
             });
