@@ -57,6 +57,10 @@ app.use((_req, res, next) => {
 app.use("/images", express.static(path.join(__dirname, "../uploads")));
 
 app.use(getRequestLogger);
+app.get("/health", (_req, res) => {
+  res.status(200).send("OK");
+});
+
 app.use("/users", userRoutes);
 app.use("/email", emailRoutes);
 app.use("/pages", pageRoutes);
