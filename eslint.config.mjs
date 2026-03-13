@@ -34,6 +34,7 @@ export default [
       "**/.env.*",
       "**/.netlify",
       "**/*.log",
+      "**/vitest.config.*.timestamp*",
     ],
   },
   {
