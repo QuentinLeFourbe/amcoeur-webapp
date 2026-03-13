@@ -36,6 +36,12 @@
         "ciTargetName": "test-ci",
         "testMode": "watch"
       }
+    },
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test"
+      }
     }
   ]
 }

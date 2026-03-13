@@ -14,3 +14,10 @@ apps/server/uploads/*
 
 # Local Netlify folder
 .netlify
+
+
+
+.nx/cache
+.nx/workspace-data
+.nx/polygraph
+vitest.config.*.timestamp*

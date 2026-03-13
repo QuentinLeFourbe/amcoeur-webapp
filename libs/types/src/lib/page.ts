@@ -42,7 +42,7 @@ export const imageComponentSchema = z
     type: z.literal("Image"),
     caption: z.string().optional(),
   })
-  .merge(pageComponentWithImageSchema);
+  .extend(pageComponentWithImageSchema.shape);
 
 export const titleBannerComponentSchema = z
   .object({

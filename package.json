@@ -1,5 +1,5 @@
 {
-  "name": "amcoeur-web-app",
+  "name": "@amcoeur",
   "workspaces": [
     "apps/*"
   ],
@@ -74,6 +74,7 @@
     "@netlify/plugin-lighthouse": "^6.0.4",
     "@nx/docker": "22.5.4",
     "@nx/eslint": "22.5.4",
+    "@nx/jest": "22.5.4",
     "@nx/js": "^22.5.4",
     "@nx/node": "^22.5.4",
     "@nx/react": "^22.5.4",
@@ -100,6 +101,7 @@
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/jest": "^30.0.0",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/multer": "^2.1.0",
     "@types/node": "^25.5.0",
@@ -126,6 +128,9 @@
     "eslint-plugin-storybook": "^10.2.18",
     "eslint-plugin-testing-library": "^7.16.0",
     "globals": "^17.4.0",
+    "jest": "^30.0.2",
+    "jest-environment-node": "^30.0.2",
+    "jest-util": "^30.0.2",
     "jsdom": "^28.1.0",
     "jsonc-eslint-parser": "^3.1.0",
     "nodemon": "^3.1.14",
@@ -133,6 +138,7 @@
     "prettier": "^3.8.1",
     "prop-types": "^15.8.1",
     "storybook": "^10.2.18",
+    "ts-jest": "^29.4.0",
     "ts-node": "^10.9.2",
     "tslib": "^2.8.1",
     "typescript": "^5.9.3",

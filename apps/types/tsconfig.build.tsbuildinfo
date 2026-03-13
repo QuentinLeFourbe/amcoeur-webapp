@@ -1,1 +1,0 @@
-{"root":["./src/adoption.ts","./src/answer.ts","./src/contact.ts","./src/email.ts","./src/emailCampaign.ts","./src/form.ts","./src/index.ts","./src/page.ts","./src/pagination.ts","./src/question.ts","./src/unsubscribe.ts","./src/user.ts","./src/dtos/adoption.ts","./src/dtos/index.ts"],"version":"5.7.2"}
