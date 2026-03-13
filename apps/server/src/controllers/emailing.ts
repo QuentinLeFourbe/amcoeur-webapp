@@ -1,4 +1,4 @@
-import type { EmailBlock, EmailCampaignDto } from "@amcoeur/types";
+import type { EmailBlock, EmailCampaignDto, EmailImageBlock } from "@amcoeur/types";
 import { EmailBlockType } from "@amcoeur/types";
 import type { Request, Response } from "express";
 import fs from "fs";
@@ -33,10 +33,8 @@ export const sendCampaign = async (req: Request, res: Response) => {
     
     const attachments: { filename: string; path: string; cid: string }[] = [];
     
-    // 1. Ajouter le logo Amcoeur (chemin stable hors de src/build)
-    // Depuis apps/server/build/controllers/ -> ../../assets/
+    // 1. Ajouter le logo Amcoeur
     const logoPath = path.join(__dirname, "..", "..", "assets", "amcoeur_logo.jpg");
-    
     if (fs.existsSync(logoPath)) {
       attachments.push({
         filename: "amcoeur_logo.jpg",
@@ -45,34 +43,40 @@ export const sendCampaign = async (req: Request, res: Response) => {
       });
     }
 
-    // 2. Traiter les images des blocs
+    // 2. Traiter les blocs et les images séquentiellement
     let fileIndex = 0;
-    const processedBlocks = await Promise.all(campaignData.blocks.map(async (block, bIndex) => {
+    const processedBlocks: EmailBlock[] = [];
+
+    for (const block of campaignData.blocks) {
       if (block.type === EmailBlockType.IMAGE) {
         const imagesCount = block.images.length;
         const targetWidth = Math.floor(600 / imagesCount);
-        
-        const processedImages = await Promise.all(block.images.map(async (img, iIndex) => {
+        const processedImages: EmailImageBlock['images'] = [];
+
+        for (const img of block.images) {
           if (files && files[fileIndex]) {
-            const processed = await processEmailImage(files[fileIndex] as Express.Multer.File, targetWidth);
-            const cid = `img_b${bIndex}_i${iIndex}`;
+            const currentFile = files[fileIndex] as Express.Multer.File;
+            const processed = await processEmailImage(currentFile, targetWidth);
+            const bIndex = processedBlocks.length;
+            const iIndex = processedImages.length;
             
             attachments.push({
               filename: `image_${bIndex}_${iIndex}.jpg`,
               path: processed.path,
-              cid: cid
+              cid: `img_b${bIndex}_i${iIndex}`
             });
 
+            processedImages.push({ ...img, url: processed.url });
             fileIndex++;
-            return { ...img, url: processed.url };
+          } else {
+            processedImages.push(img);
           }
-          return img;
-        }));
-        
-        return { ...block, images: processedImages };
+        }
+        processedBlocks.push({ ...block, images: processedImages });
+      } else {
+        processedBlocks.push(block);
       }
-      return block;
-    }));
+    }
 
     // 3. Définir le destinataire
     const target = campaignData.targetEmail || process.env.NEWSLETTER_TARGET_EMAIL;
@@ -83,7 +87,7 @@ export const sendCampaign = async (req: Request, res: Response) => {
     // 4. Envoyer l'email
     const unsubscribeEmail = campaignData.targetEmail || "contact@amcoeur.org";
     const contactEmail = process.env.CONTACT_EMAIL || "contactinfo@amcoeur.org";
-    const html = await generateEmailHtml(processedBlocks as unknown as EmailBlock[], unsubscribeEmail, contactEmail);
+    const html = await generateEmailHtml(processedBlocks, unsubscribeEmail, contactEmail);
 
     await sendEmail({
       to: target,
@@ -94,7 +98,7 @@ export const sendCampaign = async (req: Request, res: Response) => {
 
     return res.status(200).json({ message: "Campagne envoyée avec succès", target });
   } catch (err) {
-    res.locals.logger.error(err);
+    logger.error("Error in sendCampaign:", err);
     return res.status(500).send("Erreur lors de l'envoi de la campagne");
   }
 };
@@ -128,7 +132,7 @@ export const refreshMailingList = async (_req: Request, res: Response) => {
       }
     });
   } catch (err) {
-    res.locals.logger.error(err);
+    logger.error("Error in refreshMailingList:", err);
     return res.status(500).send("Erreur lors du rafraîchissement de la liste");
   }
 };
@@ -161,7 +165,7 @@ export const removeSubscriber = async (req: Request, res: Response) => {
 
     return res.status(200).send("Abonné supprimé et enregistré comme désinscrit");
   } catch (err) {
-    res.locals.logger.error(err);
+    logger.error("Error in removeSubscriber:", err);
     return res.status(500).send("Erreur lors de la suppression de l'abonné");
   }
 };
@@ -184,7 +188,7 @@ export const exportUnsubscribes = async (_req: Request, res: Response) => {
     res.setHeader("Content-Disposition", "attachment; filename=desinscriptions.csv");
     return res.status(200).send(csv);
   } catch (err) {
-    res.locals.logger.error(err);
+    logger.error("Error in exportUnsubscribes:", err);
     return res.status(500).send("Erreur lors de l'exportation des désinscriptions");
   }
 };
@@ -206,7 +210,7 @@ export const exportOVHList = async (_req: Request, res: Response) => {
     res.setHeader("Content-Disposition", `attachment; filename=liste_ovh_${mailingList}.csv`);
     return res.status(200).send(csv);
   } catch (err) {
-    res.locals.logger.error(err);
+    logger.error("Error in exportOVHList:", err);
     return res.status(500).send("Erreur lors de l'exportation de la liste OVH");
   }
 };
@@ -237,7 +241,7 @@ export const getMailingListStats = async (_req: Request, res: Response) => {
       }
     });
   } catch (err) {
-    res.locals.logger.error(err);
+    logger.error("Error in getMailingListStats:", err);
     return res.status(500).send("Erreur lors de la récupération des statistiques");
   }
 };
@@ -246,19 +250,24 @@ export const getMailingListStats = async (_req: Request, res: Response) => {
  * Get the status of a synchronization job
  */
 export const getSyncStatus = async (req: Request, res: Response) => {
-  const { jobId } = req.params;
-  
-  if (!jobId) {
-    return res.status(400).send("Job ID manquant");
-  }
+  try {
+    const { jobId } = req.params;
+    
+    if (!jobId) {
+      return res.status(400).send("Job ID manquant");
+    }
 
-  const job = await getSyncJob(jobId);
-  
-  if (!job) {
-    return res.status(404).send("Job non trouvé");
-  }
+    const job = await getSyncJob(jobId);
+    
+    if (!job) {
+      return res.status(404).send("Job non trouvé");
+    }
 
-  return res.status(200).json(job);
+    return res.status(200).json(job);
+  } catch (err) {
+    logger.error("Error in getSyncStatus:", err);
+    return res.status(500).send("Erreur lors de la récupération du statut");
+  }
 };
 
 /**
@@ -270,7 +279,7 @@ export const syncWithOVH = async (req: Request, res: Response) => {
     const mailingList = process.env.OVH_MAILING_LIST || "amcoeur";
     const dryRun = req.query.dryRun === "true";
 
-    res.locals.logger.info(`Starting ${dryRun ? "sync preview" : "sync"} for domain: ${domain}, list: ${mailingList}`);
+    logger.info(`Starting ${dryRun ? "sync preview" : "sync"} for domain: ${domain}, list: ${mailingList}`);
     
     const contacts = await Contact.find();
     
@@ -280,30 +289,25 @@ export const syncWithOVH = async (req: Request, res: Response) => {
     const currentOVHSubscribers = await getMailingListSubscribers(domain, mailingList);
     const ovhEmails = new Set(currentOVHSubscribers.map(e => e.toLowerCase().trim()));
 
-    // Validation simple du format email (doit avoir un @ et un . avec extension)
     const isValidEmail = (email: string) => {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
       return emailRegex.test(email);
     };
 
-    // 1. Les contacts qui sont désinscrits
     const ignoredContacts = contacts.filter(c => 
       unsubscribedEmails.has(c.email.toLowerCase().trim())
     );
     const ignoredUnsubscribedCount = ignoredContacts.length;
 
-    // 2. Les contacts "actifs" (non désinscrits ET format valide)
     const activeLocalContacts = contacts.filter(c => {
       const email = c.email.toLowerCase().trim();
       return !unsubscribedEmails.has(email) && isValidEmail(email);
     });
 
-    // 3. Parmi les actifs, ceux qui sont déjà sur OVH
     const alreadyInOvhCount = activeLocalContacts.filter(c => 
       ovhEmails.has(c.email.toLowerCase().trim())
     ).length;
 
-    // 4. Les vrais nouveaux à ajouter (Actifs - Déjà présents)
     const toAdd = activeLocalContacts.filter(c => 
       !ovhEmails.has(c.email.toLowerCase().trim())
     );
@@ -313,12 +317,6 @@ export const syncWithOVH = async (req: Request, res: Response) => {
     );
 
     if (dryRun) {
-      // LOGS TEMPORAIRES POUR DEBUG
-      console.log("--- DEBUG SYNC ---");
-      console.log(`Contacts à ajouter (${toAdd.length}) :`, toAdd.map(c => c.email));
-      console.log(`Contacts ignorés (désinscrits) (${ignoredContacts.length}) :`, ignoredContacts.map(c => c.email));
-      console.log("------------------");
-
       return res.status(200).json({
         message: "Aperçu de la synchronisation",
         summary: {
@@ -330,12 +328,10 @@ export const syncWithOVH = async (req: Request, res: Response) => {
       });
     }
 
-    // --- REAL SYNC (Background) ---
     const totalActions = toAdd.length + toRemove.length;
     const jobId = uuidv4();
     await createSyncJob(jobId, totalActions);
 
-    // Background process
     (async () => {
       try {
         await updateSyncJob(jobId, { status: "processing" });
@@ -344,7 +340,6 @@ export const syncWithOVH = async (req: Request, res: Response) => {
         let errors = 0;
         let processed = 0;
 
-        // 1. ADD NEW CONTACTS
         for (const contact of toAdd) {
           try {
             await addSubscriberToMailingList(domain, mailingList, contact.email);
@@ -360,7 +355,6 @@ export const syncWithOVH = async (req: Request, res: Response) => {
           }
         }
 
-        // 2. REMOVE UNSUBSCRIBED
         for (const email of toRemove) {
           try {
             await removeFromMailingList(domain, mailingList, email);
@@ -377,7 +371,7 @@ export const syncWithOVH = async (req: Request, res: Response) => {
         }
 
         await updateSyncJob(jobId, { status: "completed", processed, added, errors, removed });
-        res.locals.logger.info(`Sync job ${jobId} completed: ${added} added, ${removed} removed, ${errors} errors.`);
+        logger.info(`Sync job ${jobId} completed: ${added} added, ${removed} removed, ${errors} errors.`);
       } catch (err: unknown) {
         const error = err as Error;
         logger.error(`Fatal error in sync job ${jobId}:`, error);
@@ -390,7 +384,7 @@ export const syncWithOVH = async (req: Request, res: Response) => {
       jobId,
     });
   } catch (err) {
-    res.locals.logger.error(err);
+    logger.error("Error in syncWithOVH:", err);
     return res.status(500).send("Erreur lors de la synchronisation");
   }
 };
