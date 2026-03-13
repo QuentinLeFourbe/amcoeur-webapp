@@ -383,7 +383,20 @@ const emailInnerStyle = css({
   boxShadow: "0 10px 25px rgba(0,0,0,0.05)"
 });
 const previewTitleStyle = css({ color: "#e11d48", fontSize: "xl", marginBottom: "1rem", fontWeight: "bold" });
-const previewTextStyle = css({ color: "#333", fontSize: "sm", lineHeight: "1.5", textAlign: "left", "& p": { marginBottom: "1rem" } });
+const previewTextStyle = css({ 
+  color: "#333", 
+  fontSize: "sm", 
+  lineHeight: "1.6", 
+  textAlign: "left", 
+  "& p": { marginBottom: "1rem" },
+  "& ul": { listStyleType: "disc", paddingLeft: "1.5rem", marginBottom: "1rem" },
+  "& ol": { listStyleType: "decimal", paddingLeft: "1.5rem", marginBottom: "1rem" },
+  "& li": { marginBottom: "0.5rem" },
+  "& h1, & h2, & h3": { color: "#e11d48", fontWeight: "bold", marginTop: "1.5rem", marginBottom: "0.75rem" },
+  "& h1": { fontSize: "lg" },
+  "& h2": { fontSize: "md" },
+  "& a": { color: "#e11d48", textDecoration: "underline" }
+});
 const previewImageBoxStyle = css({ backgroundColor: "#eee", width: "100%", height: "auto", minHeight: "100px", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "xs", color: "#999", overflow: "hidden" });
 const previewImageActiveStyle = css({ border: "none!", backgroundColor: "transparent!" });
 const previewFooterStyle = css({ marginTop: "3rem", fontSize: "10px", color: "#999" });
