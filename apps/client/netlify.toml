@@ -10,7 +10,7 @@ status = 200
 
 [build]
 command = "pnpm run build:client"
-publish = "../../dist/apps/client"
+publish = "dist/apps/client"
 
 [[headers]]
   for = "/*"

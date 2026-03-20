@@ -10,7 +10,7 @@ status = 200
 
 [build]
 command = "pnpm run build:backoffice"
-publish = "../../dist/apps/backoffice"
+publish = "dist/apps/backoffice"
 
 [[headers]]
   for = "/*"
