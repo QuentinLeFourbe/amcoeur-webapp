@@ -2,27 +2,8 @@
   "name": "client",
   "projectType": "application",
   "sourceRoot": "apps/client/src",
-  "targets": {
-    "build": {
-      "executor": "@nx/vite:build",
-      "options": {
-        "root": "apps/client",
-        "outputPath": "apps/client/dist",
-        "configFile": "apps/client/vite.config.ts"
-      }
-    },
-    "serve": {
-      "executor": "@nx/vite:dev-server",
-      "options": {
-        "buildTarget": "client:build",
-        "port": 3001
-      }
-    },
-    "test": {
-      "executor": "@nx/vite:test",
-      "options": {
-        "config": "apps/client/vitest.config.ts"
-      }
-    }
-  }
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project client --web",
+  "targets": {}
 }
