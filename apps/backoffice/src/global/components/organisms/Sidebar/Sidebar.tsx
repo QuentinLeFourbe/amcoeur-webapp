@@ -9,7 +9,7 @@ import {
   Menu,
   Users} from "lucide-react";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { useMediaQuery } from "usehooks-ts";
 
 import { css, cx } from "../../../../../styled-system/css";
@@ -25,7 +25,7 @@ type SidebarProps = {
 };
 
 function Sidebar({ isUserInactive = true, logout }: SidebarProps) {
-  const { data: { data: currentUser } = {} } = useCurrentUser();
+  const { currentUser } = useCurrentUser();
   const location = useLocation();
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
   const [isCollapsed, setIsCollapsed] = useState(!isLargeScreen);

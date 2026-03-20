@@ -21,11 +21,11 @@ function ManageUsers() {
   const {
     data: { data: users } = {},
     isSuccess,
-    isLoading,
+    isPending,
     isError,
   } = useUsers();
 
-  const { mutate: deleteUser, isLoading: isDeleteLoading } = useDeleteUser();
+  const { mutate: deleteUser, isPending: isDeleteLoading } = useDeleteUser();
   const { mutate: activateUser } = useActivateUser();
   const { mutate: updateUser } = useUpdateUser();
 
@@ -55,7 +55,7 @@ function ManageUsers() {
 
       {isError && <ErrorLabel>Erreur lors du chargement des utilisateurs</ErrorLabel>}
 
-      {isLoading || isDeleteLoading ? (
+      {isPending || isDeleteLoading ? (
         <div className={centerStyle}><Spinner /></div>
       ) : (
         isSuccess && (

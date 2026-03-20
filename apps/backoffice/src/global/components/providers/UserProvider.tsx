@@ -27,7 +27,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     );
     setAccessTokenInterceptor(interceptor);
     setRawAccessToken(token);
-    queryClient.invalidateQueries(["currentUser"]);
+    queryClient.invalidateQueries({ queryKey: ["currentUser"] });
     localStorage.setItem("isLoggedIn", "true");
   };
 
@@ -35,7 +35,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     if (accessTokenInterceptor !== undefined) {
       axios.interceptors.request.eject(accessTokenInterceptor);
     }
-    queryClient.invalidateQueries(["currentUser"]);
+    queryClient.invalidateQueries({ queryKey: ["currentUser"] });
     queryClient.removeQueries({ queryKey: ["currentUser"], exact: true });
     setRawAccessToken("");
     localStorage.removeItem("isLoggedIn");

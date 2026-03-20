@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouteObject } from "react-router-dom";
+import { createBrowserRouter, RouteObject } from "react-router";
 
 import AdoptionDetails from "./adoptions/pages/AdoptionDetails";
 import AdoptionsDashboard from "./adoptions/pages/AdoptionsDashboard";

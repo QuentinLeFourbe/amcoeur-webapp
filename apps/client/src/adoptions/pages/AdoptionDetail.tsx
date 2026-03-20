@@ -1,7 +1,7 @@
 import { CircleAlert } from "lucide-react";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 import { css } from "../../../styled-system/css";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";

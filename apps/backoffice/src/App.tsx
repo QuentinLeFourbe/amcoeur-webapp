@@ -1,7 +1,7 @@
 import "./i18n";
 import "./global/api/axios";
 
-import { RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router";
 
 import router from "./routes";
 

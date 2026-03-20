@@ -15,34 +15,43 @@ import {
 } from "../api/contact";
 
 export const useGetContacts = (page: number, limit: number, search: string = "") => {
-  return useQuery(["contacts", page, limit, search], () => getContacts(page, limit, search));
+  return useQuery({
+    queryKey: ["contacts", page, limit, search],
+    queryFn: () => getContacts(page, limit, search),
+  });
 };
 
 export const useCreateContact = () => {
   const queryClient = useQueryClient();
-  return useMutation((contactData: Partial<Contact>) => createContact(contactData), {
+  return useMutation({
+    mutationFn: (contactData: Partial<Contact>) => createContact(contactData),
     onSuccess: () => {
-      queryClient.invalidateQueries(["contacts"]);
+      queryClient.invalidateQueries({ queryKey: ["contacts"] });
     },
   });
 };
 
 export const useDeleteContact = () => {
   const queryClient = useQueryClient();
-  return useMutation((id: string) => deleteContact(id), {
+  return useMutation({
+    mutationFn: (id: string) => deleteContact(id),
     onSuccess: () => {
-      queryClient.invalidateQueries(["contacts"]);
+      queryClient.invalidateQueries({ queryKey: ["contacts"] });
     },
   });
 };
 
 export const useGetMailingListStats = () => {
-  return useQuery(["mailing-list-stats"], getMailingListStats);
+  return useQuery({
+    queryKey: ["mailing-list-stats"],
+    queryFn: getMailingListStats,
+  });
 };
 
 export const useRefreshMailingList = () => {
   const queryClient = useQueryClient();
-  return useMutation(refreshMailingList, {
+  return useMutation({
+    mutationFn: refreshMailingList,
     onSuccess: (data) => {
       queryClient.setQueryData(["mailing-list-stats"], data);
     },
@@ -51,21 +60,24 @@ export const useRefreshMailingList = () => {
 
 export const useSyncWithOVH = () => {
   const queryClient = useQueryClient();
-  return useMutation((dryRun: boolean = false) => syncWithOVH(dryRun), {
+  return useMutation({
+    mutationFn: (dryRun: boolean = false) => syncWithOVH(dryRun),
     onSuccess: (_data, variables) => {
       // Only invalidate if it was not a dry run
       if (variables === false) {
-        queryClient.invalidateQueries(["mailing-list-stats"]);
+        queryClient.invalidateQueries({ queryKey: ["mailing-list-stats"] });
       }
     },
   });
 };
 
 export const useSyncStatus = (jobId: string | null) => {
-  return useQuery(["sync-status", jobId], () => getSyncStatus(jobId!), {
+  return useQuery({
+    queryKey: ["sync-status", jobId],
+    queryFn: () => getSyncStatus(jobId!),
     enabled: !!jobId,
     refetchInterval: (data) => {
-      if (data?.status === "completed" || data?.status === "failed") {
+      if (data?.state?.data?.status === "completed" || data?.state?.data?.status === "failed") {
         return false;
       }
       return 2000;
@@ -75,19 +87,21 @@ export const useSyncStatus = (jobId: string | null) => {
 
 export const useImportContacts = () => {
   const queryClient = useQueryClient();
-  return useMutation(importContacts, {
+  return useMutation({
+    mutationFn: importContacts,
     onSuccess: () => {
-      queryClient.invalidateQueries(["contacts"]);
-      queryClient.invalidateQueries(["mailing-list-stats"]);
+      queryClient.invalidateQueries({ queryKey: ["contacts"] });
+      queryClient.invalidateQueries({ queryKey: ["mailing-list-stats"] });
     },
   });
 };
 
 export const useRemoveSubscriber = () => {
   const queryClient = useQueryClient();
-  return useMutation(removeSubscriber, {
+  return useMutation({
+    mutationFn: removeSubscriber,
     onSuccess: () => {
-      queryClient.invalidateQueries(["mailing-list-stats"]);
+      queryClient.invalidateQueries({ queryKey: ["mailing-list-stats"] });
     },
   });
 };

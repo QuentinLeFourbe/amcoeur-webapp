@@ -1,6 +1,6 @@
 import { ShieldAlert } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 import { css } from "../../../styled-system/css";
 import { applyAuthToken } from "../api/axios";
@@ -29,9 +29,8 @@ function LoginRedirect() {
           // Petit délai artificiel pour une transition plus fluide visuellement
           setTimeout(() => navigate("/", { replace: true }), 800);
         }
-      } catch (err) {
+      } catch {
         setError("Erreur lors de la récupération de votre session.");
-        console.error(err);
       }
     };
     getToken();

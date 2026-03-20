@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 import PageNotFound from "../../global/components/organisms/PageNotFound/PageNotFound";
 import PageComponentsRenderer from "../components/PageComponentsRenderer/PageComponentsRenderer";

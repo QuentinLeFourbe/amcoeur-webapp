@@ -36,7 +36,7 @@ export const useCreateForm = ({ onSuccess }: UseQueryParams = {}) => {
   const mutation = useMutation({
     mutationFn: (data: FormClientData) => createForm(data),
     onSuccess: (data) => {
-      queryClient.invalidateQueries(["forms"]);
+      queryClient.invalidateQueries({ queryKey: ["forms"] });
       onSuccess?.(data);
     },
   });
@@ -49,8 +49,8 @@ export const useUpdateForm = ({ onSuccess }: UseQueryParams = {}) => {
   const mutation = useMutation({
     mutationFn: (data: FormClientData) => updateForm(data),
     onSuccess: (data) => {
-      queryClient.invalidateQueries(["form", data.data._id]);
-      queryClient.invalidateQueries(["forms"]);
+      queryClient.invalidateQueries({ queryKey: ["form", data.data._id] });
+      queryClient.invalidateQueries({ queryKey: ["forms"] });
       onSuccess?.(data);
     },
   });
@@ -62,8 +62,8 @@ export const useDeleteForm = ({ onSuccess }: UseQueryParams = {}) => {
   const mutation = useMutation({
     mutationFn: (id: string) => deleteForm(id),
     onSuccess: (data) => {
-      queryClient.invalidateQueries(["form", data.data._id]);
-      queryClient.invalidateQueries(["forms"]);
+      queryClient.invalidateQueries({ queryKey: ["form", data.data._id] });
+      queryClient.invalidateQueries({ queryKey: ["forms"] });
       onSuccess?.(data);
     },
   });
@@ -75,7 +75,7 @@ export const useDuplicateForm = ({ onSuccess }: UseQueryParams = {}) => {
   const mutation = useMutation({
     mutationFn: (id: string) => duplicateForm(id),
     onSuccess: (data) => {
-      queryClient.invalidateQueries(["forms"]);
+      queryClient.invalidateQueries({ queryKey: ["forms"] });
       onSuccess?.(data);
     },
   });

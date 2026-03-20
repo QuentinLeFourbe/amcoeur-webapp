@@ -1,4 +1,4 @@
-import { useOutlet } from "react-router-dom";
+import { useOutlet } from "react-router";
 
 import { css } from "../../../../../styled-system/css";
 import Footer from "../../organisms/Footer/Footer";

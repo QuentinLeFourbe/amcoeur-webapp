@@ -1,7 +1,7 @@
 import { AdoptionClientData, CreateAdoptionDto } from "@amcoeur/types";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 
 import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";
@@ -24,7 +24,7 @@ function AdoptionDetails() {
   });
   const {
     mutate: updateAdoption,
-    isLoading: isUpdateLoading,
+    isPending: isUpdateLoading,
     isError: isUpdateError,
   } = useUpdateAdoption();
 

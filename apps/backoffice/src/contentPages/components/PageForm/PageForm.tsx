@@ -70,8 +70,7 @@ function PageForm({
         ),
       };
       onSubmit?.(dataWithoutEmptyComponents);
-    } catch (e) {
-      console.error(e);
+    } catch {
       return;
     } finally {
       reset();

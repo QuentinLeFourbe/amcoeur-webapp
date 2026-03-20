@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 
 import { css } from "../../../styled-system/css";
 import ErrorLabel from "../../global/components/atoms/ErrorLabel/ErrorLabel";

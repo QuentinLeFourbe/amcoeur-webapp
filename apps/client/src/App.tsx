@@ -3,7 +3,7 @@ import "./i18n";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router";
 
 import { trackEvent } from "./global/utils/metrics";
 import { appRoutes } from "./routes";

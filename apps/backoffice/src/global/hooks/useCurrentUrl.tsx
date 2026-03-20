@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 /**
  * Retourne l'URL compl├¿te actuelle

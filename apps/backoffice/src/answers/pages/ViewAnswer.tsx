@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 import { css } from "../../../styled-system/css";
 import Button from "../../global/components/atoms/Button/Button";

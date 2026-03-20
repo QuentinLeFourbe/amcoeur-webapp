@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 import router from "../../routes";
 import { getCurrentUser } from "../api/users";
@@ -9,10 +10,14 @@ export const useCurrentUser = () => {
     queryKey: ["currentUser"],
     queryFn: getCurrentUser,
     retry: 0,
-    onSuccess: (data) => {
-      if (checkUserPermissions(data.data, ["inactive"]))
-        router.navigate("/inactive", { replace: true });
-    },
   });
+
+  useEffect(() => {
+    if (query.data) {
+      if (checkUserPermissions(query.data.data, ["inactive"]))
+        router.navigate("/inactive", { replace: true });
+    }
+  }, [query.data]);
+
   return { currentUser: query.data?.data, ...query };
 };

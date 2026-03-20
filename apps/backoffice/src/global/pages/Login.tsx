@@ -13,8 +13,8 @@ function Login() {
         redirectUri: `${window.location.origin}/login/redirect`,
       });
       window.location.href = loginUrl.toString();
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // ignore
     }
   };
 
@@ -25,8 +25,8 @@ function Login() {
         redirectUri: `${window.location.origin}/login/redirect`,
       });
       window.location.href = loginUrl.toString();
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // ignore
     }
   };
 

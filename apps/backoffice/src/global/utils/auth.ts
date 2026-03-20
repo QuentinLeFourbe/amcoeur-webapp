@@ -1,5 +1,5 @@
 import * as client from "openid-client";
-import { redirect } from "react-router-dom";
+import { redirect } from "react-router";
 
 const microsoftEndpoint = "https://login.microsoftonline.com/common/v2.0";
 const googleEndpoint = "https://accounts.google.com";

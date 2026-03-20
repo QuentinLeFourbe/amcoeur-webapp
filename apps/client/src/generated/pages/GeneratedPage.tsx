@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 import { css } from "../../../styled-system/css";
 import Loader from "../../global/components/atoms/Loader/Loader";

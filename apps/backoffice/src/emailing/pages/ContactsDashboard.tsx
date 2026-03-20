@@ -32,7 +32,7 @@ function ContactsDashboard() {
     city: "",
   });
 
-  const { data: contactsData, isLoading: isLoadingContacts } = useGetContacts(currentPage, 20, debouncedSearch);
+  const { data: contactsData, isPending: isPendingContacts } = useGetContacts(currentPage, 20, debouncedSearch);
   const importMutation = useImportContacts();
   const createMutation = useCreateContact();
   const deleteMutation = useDeleteContact();
@@ -100,23 +100,23 @@ function ContactsDashboard() {
           <Button 
             color="primary" 
             onClick={() => fileInputRef.current?.click()}
-            disabled={importMutation.isLoading}
+            disabled={importMutation.isPending}
           >
-            {importMutation.isLoading ? "Importation en cours..." : "Importer (CSV/Excel)"}
+            {importMutation.isPending ? "Importation en cours..." : "Importer (CSV/Excel)"}
           </Button>
         </div>
       </div>
 
       <div className={css({ marginBottom: "1rem", minHeight: "24px" })}>
         {/* ... Feedback Import ... */}
-        {importMutation.isLoading && (
+        {importMutation.isPending && (
           <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem", color: "#e11d48", fontSize: "sm", fontWeight: "bold" })}>
             <Spinner size={24} color="#e11d48" inline />
             <span>Importation en cours...</span>
           </div>
         )}
         {/* Rest of feedback (Success/Error) matches what we had before */}
-        {!importMutation.isLoading && importMutation.isSuccess && (
+        {!importMutation.isPending && importMutation.isSuccess && (
            <div>
              <div className={css({ color: "green.400", fontSize: "sm", fontWeight: "bold" })}>
                Importation terminée : {importMutation.data.summary.imported} nouveaux, {importMutation.data.summary.updated} mis à jour.
@@ -135,14 +135,14 @@ function ContactsDashboard() {
              )}
            </div>
         )}
-        {!importMutation.isLoading && importMutation.isError && (
+        {!importMutation.isPending && importMutation.isError && (
           <div className={css({ color: "red.400", fontSize: "sm", padding: "1rem", border: "1px solid red", borderRadius: "md" })}>
             Erreur : {(importMutation.error as { response?: { data?: string } })?.response?.data || "Impossible d'importer le fichier"}
           </div>
         )}
       </div>
 
-      {isLoadingContacts ? (
+      {isPendingContacts ? (
         <Spinner />
       ) : (
         <>
@@ -199,7 +199,7 @@ function ContactsDashboard() {
         title="Nouveau Contact"
         onConfirm={handleCreate}
         confirmText="Créer"
-        isLoading={createMutation.isLoading}
+        isLoading={createMutation.isPending}
       >
         <div className={css({ display: "flex", flexDirection: "column", gap: "1rem" })}>
           {createMutation.isError && (
@@ -258,7 +258,7 @@ function ContactsDashboard() {
         onConfirm={handleDelete}
         confirmText="Supprimer"
         variant="danger"
-        isLoading={deleteMutation.isLoading}
+        isLoading={deleteMutation.isPending}
       >
         <p>Voulez-vous vraiment supprimer le contact <strong>{contactToDelete?.email}</strong> ?</p>
         <p className={css({ marginTop: "0.5rem", fontSize: "xs", color: "rgba(255,255,255,0.4)" })}>

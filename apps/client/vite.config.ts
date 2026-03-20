@@ -3,10 +3,12 @@ import react from "@vitejs/plugin-react";
 import { ConfigEnv, defineConfig, UserConfig } from "vite";
 import mkcert from "vite-plugin-mkcert";
 import svgr from "vite-plugin-svgr";
-
 // https://vitejs.dev/config/
 export default defineConfig((config: ConfigEnv) => {
   const baseConfig = {
+    resolve: {
+      tsconfigPaths: true,
+    },
     plugins: [
       { enforce: "pre", ...mdx(/* jsxImportSource: …, otherOptions… */) },
       react(),
@@ -14,7 +16,6 @@ export default defineConfig((config: ConfigEnv) => {
     ],
   } as UserConfig;
 
-  console.log("mode : ", config.mode);
   if (config.mode === "development") {
     const devConfig = {
       server: {

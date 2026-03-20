@@ -1,37 +1,65 @@
-// .storybook/vite.config.ts
 import mdx from "@mdx-js/rollup";
 import react from "@vitejs/plugin-react";
-import { ConfigEnv, defineConfig,UserConfig } from "vite";
-import mkcert from "vite-plugin-mkcert";
+import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
+import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
+import { nxCopyAssetsPlugin } from "@nx/vite/plugins/nx-copy-assets.plugin";
 
-// https://vitejs.dev/config/
-export default defineConfig((config: ConfigEnv) => {
-  const baseConfig = {
-    plugins: [
-      { enforce: "pre", ...mdx(/* jsxImportSource: …, otherOptions… */) },
-      react(),
-      svgr(),
-    ],
-  } as UserConfig;
+export default defineConfig(({ mode }) => ({
+  root: import.meta.dirname,
+  cacheDir: "../../node_modules/.vite/apps/backoffice",
 
-  if (config.mode === "development") {
-    const devConfig = {
-      server: {
-        port: 3002,
-        proxy: {
-          "/api": {
-            target: "http://localhost:3000",
-            changeOrigin: true,
-            rewrite: (path: string) => path.replace(/^\/api/, ""),
-            secure: false,
-          },
-        },
+  server: {
+    port: 3002,
+    host: "localhost",
+    proxy: {
+      "/api": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        rewrite: (path: string) => path.replace(/^\/api/, ""),
+        secure: false,
       },
-      build: { sourcemap: true },
-    };
-    return { ...baseConfig, ...devConfig } as UserConfig;
-  } else {
-    return baseConfig as UserConfig;
-  }
-});
+    },
+  },
+
+  preview: {
+    port: 3002,
+    host: "localhost",
+  },
+
+  plugins: [
+    { enforce: "pre", ...mdx() },
+    react(),
+    nxViteTsPaths(),
+    nxCopyAssetsPlugin(["*.md"]),
+    svgr(),
+  ],
+
+  // Uncomment this if you are using workers.
+  // worker: {
+  //  plugins: () => [ nxViteTsPaths() ],
+  // },
+
+  build: {
+    outDir: "../../dist/apps/backoffice",
+    emptyOutDir: true,
+    reportCompressedSize: true,
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
+    sourcemap: mode === "development",
+  },
+
+  test: {
+    name: "backoffice",
+    watch: false,
+    globals: true,
+    environment: "jsdom",
+    include: ["{src,tests}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
+    reporters: ["default"],
+    coverage: {
+      reportsDirectory: "../../coverage/apps/backoffice",
+      provider: "v8" as const,
+    },
+  },
+}));

@@ -4,7 +4,7 @@ import { css } from "../../../styled-system/css";
 import { useCurrentUser } from "../hooks/useUser";
 
 function Index() {
-  const { data: { data: currentUser } = {} } = useCurrentUser();
+  const { currentUser } = useCurrentUser();
 
   return (
     <div className={containerStyle}>

@@ -47,7 +47,7 @@ export const useCreateAdoption = ({ onSuccess }: UseQueryParams = {}) => {
   const mutation = useMutation({
     mutationFn: createAdoption,
     onSuccess: (data) => {
-      queryClient.invalidateQueries(["adoptions"]);
+      queryClient.invalidateQueries({ queryKey: ["adoptions"] });
       onSuccess?.(data);
     },
   });
@@ -59,8 +59,8 @@ export const useUpdateAdoption = ({ onSuccess }: UseQueryParams = {}) => {
   const mutation = useMutation({
     mutationFn: updateAdoption,
     onSuccess: (data) => {
-      queryClient.invalidateQueries(["adoptions", data.data._id]);
-      queryClient.invalidateQueries(["adoptions"]);
+      queryClient.invalidateQueries({ queryKey: ["adoptions", data.data._id] });
+      queryClient.invalidateQueries({ queryKey: ["adoptions"] });
       onSuccess?.(data);
     },
   });
@@ -72,8 +72,8 @@ export const useDeleteAdoption = ({ onSuccess }: UseQueryParams = {}) => {
   const mutation = useMutation({
     mutationFn: deleteAdoption,
     onSuccess: (data) => {
-      queryClient.invalidateQueries(["adoptions", data.data._id]);
-      queryClient.invalidateQueries(["adoptions"]);
+      queryClient.invalidateQueries({ queryKey: ["adoptions", data.data._id] });
+      queryClient.invalidateQueries({ queryKey: ["adoptions"] });
       onSuccess?.(data);
     },
   });

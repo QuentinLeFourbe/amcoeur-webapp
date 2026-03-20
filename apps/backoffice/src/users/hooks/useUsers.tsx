@@ -12,7 +12,7 @@ export const useDeleteUser = () => {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (id: string) => deleteUser(id),
-    onSuccess: () => queryClient.invalidateQueries(["users"]),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["users"] }),
   });
   return mutation;
 };
@@ -23,7 +23,7 @@ export const useActivateUser = () => {
     mutationFn: (data: { user: UserClientData; active: boolean }) =>
       activateUser(data.user, data.active),
     onSuccess: () => {
-      queryClient.invalidateQueries(["users"]);
+      queryClient.invalidateQueries({ queryKey: ["users"] });
     },
   });
   return mutation;
@@ -34,7 +34,7 @@ export const useUpdateUser = () => {
   const mutation = useMutation({
     mutationFn: (user: UserClientData) => updateUser(user),
     onSuccess: () => {
-      queryClient.invalidateQueries(["users"]);
+      queryClient.invalidateQueries({ queryKey: ["users"] });
     },
   });
   return mutation;

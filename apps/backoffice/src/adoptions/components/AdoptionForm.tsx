@@ -42,8 +42,7 @@ export default function AdoptionForm({
     onSubmit(data);
   };
 
-  if (errors && Object.getOwnPropertyNames(errors).length)
-    console.error({ errors });
+
 
   return (
     <form
