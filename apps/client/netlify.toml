@@ -9,7 +9,8 @@ to = "/index.html"
 status = 200
 
 [build]
-publish = "apps/client/dist"
+command = "pnpm run build:client"
+publish = "../../dist/apps/client"
 
 [[headers]]
   for = "/*"

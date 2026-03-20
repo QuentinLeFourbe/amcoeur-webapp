@@ -9,7 +9,8 @@ to = "/index.html"
 status = 200
 
 [build]
-publish = "apps/backoffice/dist"
+command = "pnpm run build:backoffice"
+publish = "../../dist/apps/backoffice"
 
 [[headers]]
   for = "/*"
