@@ -2,9 +2,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "allowJs": false,
-    "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true,
-    "modeResolution": "bundler",
+    "moduleResolution": "bundler",
     "strict": true,
 
     "types": ["vite/client", "vitest"]
