@@ -8,11 +8,13 @@ WORKDIR /app
 COPY . .
 
 # Installation des dépendances
-# Construction du client et du serveur
-RUN npm install && npm run build-server
+RUN npm install
+
+# Construction du serveur
+RUN npm run build:server
 
 # Exposer le port que ton serveur utilise (Fly.io utilise 3000 par défaut)
 EXPOSE 3000
 
-# Commande pour démarrer l'application
-CMD ["npm", "run", "start"]
+# Commande pour démarrer l'application en production
+CMD ["node", "apps/server/build/index.js"]

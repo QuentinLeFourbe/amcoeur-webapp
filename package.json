@@ -9,14 +9,17 @@
   "main": "index.js",
   "scripts": {
     "start": "nx run server:serve",
-    "dev-client": "nx run client:dev",
-    "dev-backoffice": "nx run backoffice:dev",
-    "dev-server": "nx run server:serve",
+    "dev:client": "nx run client:dev",
+    "dev:backoffice": "nx run backoffice:dev",
+    "dev:server": "nx run server:serve",
+    "build:client": "nx run client:build",
+    "build:backoffice": "nx run backoffice:build",
+    "build:server": "nx run server:build",
     "build": "nx run-many -t build",
     "lint": "nx run-many -t lint",
     "test": "nx run-many -t test",
-    "start-db": "docker-compose up -d",
-    "stop-db": "docker-compose down"
+    "db:start": "docker-compose up -d",
+    "db:stop": "docker-compose down"
   },
   "author": "",
   "license": "ISC",
