@@ -5,5 +5,12 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "tags": [],
   "// targets": "to see all targets run: nx show project client --web",
-  "targets": {}
+  "targets": {
+    "panda:codegen": {
+      "command": "panda codegen",
+      "options": {
+        "cwd": "apps/client"
+      }
+    }
+  }
 }

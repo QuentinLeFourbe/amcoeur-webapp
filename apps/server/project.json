@@ -6,7 +6,7 @@
     "build": {
       "executor": "@nx/esbuild:esbuild",
       "options": {
-        "outputPath": "apps/server/build",
+        "outputPath": "dist/apps/server",
         "main": "apps/server/src/index.ts",
         "tsConfig": "apps/server/tsconfig.json",
         "assets": ["apps/server/assets/**/*"],

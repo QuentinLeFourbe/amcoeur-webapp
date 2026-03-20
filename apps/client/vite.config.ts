@@ -14,6 +14,14 @@ export default defineConfig((config: ConfigEnv) => {
       react(),
       svgr(),
     ],
+    build: {
+      outDir: "../../dist/apps/client",
+      emptyOutDir: true,
+      reportCompressedSize: true,
+      commonjsOptions: {
+        transformMixedEsModules: true,
+      },
+    },
   } as UserConfig;
 
   if (config.mode === "development") {

@@ -5,7 +5,22 @@
       "cache": true
     },
     "build": {
-      "cache": true
+      "cache": true,
+      "dependsOn": ["^build", "panda:codegen"]
+    },
+    "panda:codegen": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "panda codegen",
+        "cwd": "{projectRoot}"
+      },
+      "inputs": [
+        "{projectRoot}/panda.config.ts",
+        "{projectRoot}/src/**/*.{ts,tsx,js,jsx}",
+        "{workspaceRoot}/package.json"
+      ],
+      "outputs": ["{projectRoot}/styled-system"]
     },
     "lint": {
       "cache": true

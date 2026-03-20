@@ -4,7 +4,9 @@
     "allowJs": false,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
+    "modeResolution": "bundler",
     "strict": true,
+
     "types": ["vite/client", "vitest"]
   },
   "files": [],
