@@ -73,7 +73,7 @@ const buttonRecipe = cva({
           boxShadow: "0 4px 15px rgba(16, 185, 129, 0.3)",
           transform: "translateY(-1px)",
         },
-        "&is([data-disabled], [data-active])": {
+        "&:is([data-disabled], [data-active])": {
           backgroundColor: "#064e3b",
           color: "rgba(255,255,255,0.5)",
         },

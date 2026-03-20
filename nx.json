@@ -51,9 +51,9 @@
     {
       "plugin": "@nx/vite/plugin",
       "options": {
-        "buildTargetName": "vite:build",
-        "testTargetName": "vite:test",
-        "serveTargetName": "vite:serve",
+        "buildTargetName": "build",
+        "testTargetName": "test",
+        "serveTargetName": "serve",
         "devTargetName": "dev",
         "previewTargetName": "preview",
         "serveStaticTargetName": "serve-static",
