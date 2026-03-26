@@ -56,7 +56,11 @@ app.use((_req, res, next) => {
   next();
 });
 
-app.use("/images", express.static(path.join(__dirname, "../uploads")));
+const uploadsPath = process.env.FLY_APP_NAME
+  ? "/app/apps/server/uploads"
+  : path.join(__dirname, "../uploads");
+
+app.use("/images", express.static(uploadsPath));
 
 app.use(getRequestLogger);
 app.get("/health", (_req, res) => {

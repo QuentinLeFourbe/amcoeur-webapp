@@ -5,7 +5,9 @@ import sharp from "sharp";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const UPLOAD_DIR = path.join(__dirname, "..", "..", "uploads");
+const UPLOAD_DIR = process.env.FLY_APP_NAME
+  ? "/app/apps/server/uploads"
+  : path.join(__dirname, "..", "..", "uploads");
 
 export type ProcessedImage = {
   url: string;
