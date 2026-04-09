@@ -1,31 +1,37 @@
-# Amcoeur - Showcase Website
+# Amcoeur Showcase Website
 
-This application is the public showcase website for the Amcoeur association. It is developed with React, TypeScript, and Vite, and uses Panda CSS for styling.
+The public-facing website for the Amcoeur association.
 
-## 🚀 Development
+## Overview
 
-This application is part of an Nx monorepo. It is recommended to run commands from the project root.
+This application serves as the main portal for the public to learn about the association's mission, browse animals available for adoption, and get in touch. Designed for high accessibility and performance.
 
-To start the showcase website in development mode:
+## Key Features
+
+- **Animal Showcase**: Browsable and searchable database of animals awaiting adoption.
+- **Dynamic Content**: Pages and forms managed directly from the backoffice.
+- **Interactive Forms**: Contact and adoption application forms with automated validation.
+- **Accessibility**: Optimized for screen readers and high readability for all age groups.
+
+## Tech Stack
+
+- **Framework**: React 19 + TypeScript + Vite
+- **Styling**: Panda-CSS
+- **State Management**: React Query
+- **Routing**: React Router
+
+## Development
+
+Run the website in development mode:
 
 ```bash
-pnpm dev:client
+pnpm nx run client:serve
 ```
 
-Or via Nx:
+## Build
+
+Generate a production build:
 
 ```bash
-pnpm nx serve client
+pnpm nx run client:build
 ```
-
-## 🏗️ Build
-
-To generate the production build:
-
-```bash
-pnpm nx build client
-```
-
-## ⚙️ Configuration
-
-Ensure you have configured the necessary environment variables in a `.env` file.

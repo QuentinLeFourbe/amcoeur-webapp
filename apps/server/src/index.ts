@@ -3,6 +3,7 @@ import "dotenv/config";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
+import fs from "fs";
 import helmet from "helmet";
 import mongoose from "mongoose";
 import multer from "multer";
@@ -56,11 +57,36 @@ app.use((_req, res, next) => {
   next();
 });
 
-const uploadsPath = process.env.FLY_APP_NAME
-  ? "/app/apps/server/uploads"
-  : path.join(__dirname, "../uploads");
+/**
+ * Resolves the absolute path for static folders (assets, uploads).
+ * It dynamically detects the environment by checking for co-located folders (dist) 
+ * or parent folders (src/dev).
+ * 
+ * @param folderName - The name of the folder to resolve
+ * @returns The absolute system path to the folder
+ */
+const getStaticPath = (folderName: string) => {
+  // 1. Try local path relative to current module (works in dist/ bundled output)
+  const localPath = path.join(__dirname, folderName);
+  if (fs.existsSync(localPath)) {
+    return localPath;
+  }
+  
+  // 2. Try parent path relative to current module (standard for src/ layout in dev)
+  const parentPath = path.join(__dirname, "..", folderName);
+  if (fs.existsSync(parentPath)) {
+    return parentPath;
+  }
+  
+  // 3. Last resort fallback for production containers
+  return `/app/apps/server/${folderName}`;
+};
+
+const uploadsPath = getStaticPath("uploads");
+const assetsPath = getStaticPath("assets");
 
 app.use("/images", express.static(uploadsPath));
+app.use("/assets", express.static(assetsPath));
 
 app.use(getRequestLogger);
 app.get("/health", (_req, res) => {

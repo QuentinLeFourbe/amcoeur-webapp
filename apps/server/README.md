@@ -1,43 +1,43 @@
-# Amcoeur - API Server
+# Amcoeur API Server
 
-This application is the backend API for the Amcoeur association. It is developed with Node.js, Express, and TypeScript, and communicates with MongoDB and Redis.
+The backend engine for the Amcoeur full-stack application.
 
-## 🚀 Development
+## Overview
 
-This application is part of an Nx monorepo. It is recommended to run commands from the project root.
+This Node.js application provides a RESTful API that powers both the showcase website and the backoffice. It handles data persistence, authentication, image processing, and email delivery.
 
-To start the server in development mode:
+## Key Features
+
+- **RESTful API**: Endpoints for pages, forms, adoptions, and contacts.
+- **Authentication**: Secure admin access integrated with Microsoft PKCE.
+- **Email Delivery**: Powered by Nodemailer and `@amcoeur/email-builder` for multi-part (HTML/Text) newsletters.
+- **Image Processing**: Automated resizing and compression via `Sharp`.
+- **Caching**: Performance optimization using Redis.
+
+## Tech Stack
+
+- **Runtime**: Node.js 22 (ESM)
+- **Framework**: Express.js
+- **Database**: MongoDB (via Mongoose)
+- **Cache**: Redis
+- **Tooling**: TypeScript, esbuild, Nx
+
+## Configuration
+
+Requires a `.env` file at the root. See the main project `README.md` for the list of required variables.
+
+## Development
+
+Run the server in development mode (with auto-reload):
 
 ```bash
-pnpm dev:server
+pnpm nx run server:serve
 ```
 
-Or via Nx:
+## Build
+
+Generate a production bundle:
 
 ```bash
-pnpm nx serve server
+pnpm nx run server:build
 ```
-
-## 🏗️ Build
-
-To generate the production build:
-
-```bash
-pnpm nx build server
-```
-
-## ⚙️ Configuration
-
-Ensure you have configured the necessary environment variables in a `.env` file. You can use `.env.example` as a template.
-
-| Variable | Description |
-| :--- | :--- |
-| `DB_URI` | MongoDB database URI |
-| `REDIS_URL` | Redis database URL |
-| `MS_CLIENT_ID` | Microsoft Client ID for authentication |
-| `CONTACT_EMAIL` | Main contact email |
-| `ADMIN_EMAIL` | System administrator email |
-| `CAPTCHA_SERVER_KEY` | Google ReCaptcha secret key |
-| `NOREPLY_EMAIL` | Email for automatic sending |
-| `NOREPLY_EMAIL_PASSWORD` | Automatic email password |
-| `NODE_ENV` | Environment (`development` or `production`) |

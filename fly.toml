@@ -6,6 +6,19 @@
 app = "amcoeur-webapp"
 primary_region = "cdg"
 
+[env]
+  NODE_ENV = "production"
+  PORT = "3000"
+  LOG_LEVEL = "info"
+  API_URL = "https://api.amcoeur.org"
+
+  OVH_MAILING_LIST = "amcoeur"
+
+  CONTACT_EMAIL = "contact@amcoeur.org"
+  NEWSLETTER_EMAIL="newsletter@amcoeur.org"
+  NEWSLETTER_TARGET_EMAIL = "amcoeur@amcoeur.org"
+  NOREPLY_EMAIL = "noreply@amcoeur.org"
+
 [build]
 
 [http_service]

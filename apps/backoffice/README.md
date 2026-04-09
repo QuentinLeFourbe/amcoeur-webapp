@@ -1,35 +1,38 @@
-# Amcoeur - Backoffice
+# Amcoeur Backoffice
 
-This application is the administration interface for Amcoeur association members. It allows managing the showcase website content, adoption forms, and the contact database.
+The administration portal for members of the Amcoeur association.
 
-## 🚀 Development
+## Overview
 
-This application is part of an Nx monorepo. It is recommended to run commands from the project root.
+This application provides association members with tools to manage the showcase website content, handle animal adoptions, and run email campaigns. It is built with accessibility in mind to ensure ease of use for all volunteers.
 
-To start the backoffice in development mode:
+## Key Features
+
+- **Content Management**: Create and edit website pages and dynamic forms.
+- **Adoption Management**: Manage animal profiles and track adoption applications.
+- **Emailing**: A block-based email editor with real-time preview powered by `@amcoeur/email-builder`.
+- **Contact CRM**: Import and manage subscriber databases for newsletters.
+
+## Tech Stack
+
+- **Framework**: React 19 + TypeScript + Vite
+- **Styling**: Panda-CSS (for type-safe, performant styles)
+- **State Management**: React Query (TanStack Query)
+- **Forms**: React Hook Form + Zod
+- **Auth**: Microsoft PKCE Authentication
+
+## Development
+
+Run the backoffice in development mode (with HMR):
 
 ```bash
-pnpm dev:backoffice
+pnpm nx run backoffice:serve
 ```
 
-Or via Nx:
+## Build
+
+Generate a production build:
 
 ```bash
-pnpm nx serve backoffice
+pnpm nx run backoffice:build
 ```
-
-## 🏗️ Build
-
-To generate the production build:
-
-```bash
-pnpm nx build backoffice
-```
-
-## ⚙️ Configuration
-
-Ensure you have configured the necessary environment variables in a `.env` file. You can use `.env.example` as a template.
-
-| Variable | Description |
-| :--- | :--- |
-| `VITE_MS_CLIENT_ID` | Microsoft Client ID for authentication |

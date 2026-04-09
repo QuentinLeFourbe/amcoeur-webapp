@@ -2,7 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@amcoeur/types": ["libs/types/src/index.ts"]
+      "@amcoeur/types": ["libs/types/src/index.ts"],
+      "@amcoeur/email-builder": ["libs/email-builder/src/index.ts"]
     },
     "module": "esnext",
     "moduleResolution": "node",
