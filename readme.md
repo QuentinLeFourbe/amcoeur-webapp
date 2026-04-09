@@ -1,136 +1,93 @@
 # Amcoeur webapp [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=QuentinLeFourbe_amcoeur-webapp&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=QuentinLeFourbe_amcoeur-webapp) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=QuentinLeFourbe_amcoeur-webapp&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=QuentinLeFourbe_amcoeur-webapp)
 
-Ce monorepo contient une application fullstack contenant le site vitrine, le backoffice ainsi qu'une api afin de permettre aux bénévoles de l'association Amcoeur de modifier le contenu du site vitrine de manière simple et intuitive. Les principaux utilisateurs du site sont des personnes âgés.
+This monorepo contains a fullstack application including the showcase website, the backoffice, and an API to allow volunteers of the Amcoeur association to modify the website content in a simple and intuitive way.
 
-## 📂 Structure du Projet
+## 📂 Project Structure
 
-Ce monorepo contient :
+This monorepo is managed with **Nx** and contains:
 
-- **Deux applications clients** : une app représentant le site vitrine, visible au public; et une app représentant le backoffiice, visible uniquement par les membres de l'association.
-- **Une API** : Fournit des endpoints RESTful pour les fonctionnalités de gestions des pages, des formulaires et des adoptions.
-- **Une librairie de types** : Fournit les types liés à l'application Amcoeur aux différentes applications.
+- **apps/client**: The public showcase website (React + Vite).
+- **apps/backoffice**: The management interface for association members (React + Vite).
+- **apps/server**: The backend API (Node.js + Express).
+- **libs/types**: A shared types library between frontend and backend.
 
-## 📬 Gestion des Contacts & Emailing
+## 📬 Contact Management & Emailing
 
-Le système permet d'importer une base de données clients pour synchroniser la liste de diffusion OVH.
+The system allows importing a client database to synchronize the OVH mailing list.
 
-### Format d'importation (CSV/Excel)
+### Import Format (CSV/Excel)
 
-Pour que l'importation fonctionne, votre fichier doit impérativement contenir une ligne d'entête avec les noms exacts suivants (l'ordre des colonnes n'importe pas) :
+For the import to work, your file must contain a header row with the following exact names (column order does not matter):
 
-| Entête (Fichier) | Description | Champ en Base (Anglais) |
+| Header (File) | Description | Database Field |
 | :--- | :--- | :--- |
-| **email** | Adresse email (Obligatoire, identifiant unique) | `email` |
-| **nom** | Nom de famille | `lastName` |
-| **prenom** | Prénom | `firstName` |
-| **telephone** | Numéro de téléphone | `phone` |
-| **code_postal** | Code postal | `zipCode` |
-| **ville** | Ville | `city` |
-| **adresse** | Adresse postale complète | `address` |
+| **email** | Email address (Required, unique identifier) | `email` |
+| **nom** | Last name | `lastName` |
+| **prenom** | First name | `firstName` |
+| **telephone** | Phone number | `phone` |
+| **code_postal** | Zip code | `zipCode` |
+| **ville** | City | `city` |
+| **adresse** | Full postal address | `address` |
 
-**Notes techniques :**
-- Le séparateur pour les fichiers CSV doit être le **point-virgule ( ; )**.
-- Si un email existe déjà en base, les informations du contact seront mises à jour (**upsert**).
-- Les lignes sans email valide seront ignorées.
+**Technical Notes:**
+- The separator for CSV files must be a **semicolon ( ; )**.
+- If an email already exists in the database, the contact information will be updated (**upsert**).
+- Rows without a valid email will be ignored.
 
-## 🔧 Structure du Monorepo
+## 🚀 Technologies Used
 
-- `server/` : Contient le code de l'API
-- `client/` : Contient le code du site vitrine
-- `backoffice/`: Contient le code du backoffice
-- `types/`: Contient les types spécifiques à l'application, partagés entre les différentes apps
-
-## 🚀 Technologies Utilisées
-
-- **Frontend** : React.js, TypeScript, Vite
-- **Backend** : Node.js, Express, TypeScript
-- **Base de données** : MongoDB
-- **Autres** : React Query, CodeMirror, React router DOM, React Hook Form, Zod, Panda-CSS
+- **Frontend**: React.js, TypeScript, Vite, Panda-CSS
+- **Backend**: Node.js, Express, TypeScript
+- **Database**: MongoDB, Redis
+- **Monorepo Management**: Nx, pnpm
 
 ## ⚙️ Configuration
 
-Pour chaque app, veuillez configurer les variables d'environnement suivantes dans un fichier `.env` à la racine du dossier de l'app en question.
+Each application requires configuration through environment variables. Use the provided `.env.example` files as templates:
 
-Backoffice:
+- **Backoffice**: `apps/backoffice/.env.example`
+- **Server**: `apps/server/.env.example`
 
+Simply copy these files to `.env` and fill in your local values.
+
+### Backoffice (`apps/backoffice/.env`):
 ```plaintext
-VITE_MS_CLIENT_ID=<Client ID pour l'auth PKCE Microsoft>
+VITE_MS_CLIENT_ID=<Microsoft Client ID>
 ```
 
-Server:
-
+### Server (`apps/server/.env`):
 ```plaintext
-CAPTCHA_SERVER_KEY=<Google ReCaptchaV2 secret key>
-CONTACT_EMAIL=<Email à qui adresser les formulaires de contact>
-ADMIN_EMAIL=<Email à qui envoyer des notifications systèmes>
-ADMIN_MS_ID=<Microsoft ID pour accès admin>
-NOREPLY_EMAIL=<Email pour envoi de mail automatiques>
-NOREPLY_EMAIL_PASSWORD=<Mot de passe de l'email d'envoi de mail automatiques>
-DB_URI=<URI de la base de donnée>
-REDIS_URL=<URL de la base Redis>
-MS_CLIENT_ID=<Client ID pour l'auth PKCE Microsoft>
-NODE_ENV=<"development" pour utiliser l'app en mode développement>
+DB_URI=mongodb://localhost:27017/amcoeur
+REDIS_URL=redis://localhost:6379
+# ... (see apps/server/.env.example for full list)
 ```
 
-## ⬇️Installation
+## ⬇️ Installation
+
+The project uses **pnpm**.
 
 ```bash
-# Installation des dépendances pour le serveur et le client
-npm install
+pnpm install
 ```
 
-## 🚀 Lancement en développement
+## 🚀 Development
 
-### Préparation
-
-Avant le lancement d'une application, il est nécessaire de builder les types:
-
+Start the databases (MongoDB & Redis via Docker):
 ```bash
-npm run build-types
+pnpm db:start
 ```
 
-Il est aussi possible de détecter les changements dans les fichiers des types pour build automatiquement si besoin:
+### Main Commands (from root)
 
-```bash
-npm run watch-types
-```
-
-Lancer le redis et le mongoDB dans un docker:
-
-```bash
-npm run start-db
-```
-
-### Site vitrine
-
-Pour lancer le site vitrine (client) en mode développement:
-
-```bash
-# Lancement du site vitrine avec Vite.js (HMR)
-npm run dev-client
-```
-
-### Backoffice
-
-Pour lancer le backoffice en mode développement:
-
-```bash
-# Lancement du backoffice avec Vite.js (HMR)
-npm run dev-backoffice
-```
-
-### API
-
-Pour lancer l'API en mode développement avec rechargement automatique (via Nodemon):
-
-```bash
-# Lancement de la compilation typescript avec rechargement automatique
-npm run watch-server
-
-# Lancer le serveur en mode dev avec rechargement automatique
-npm run dev-server
-```
+| Command | Description |
+| :--- | :--- |
+| `pnpm start` | Starts the API server |
+| `pnpm dev:client` | Starts the showcase website |
+| `pnpm dev:backoffice` | Starts the backoffice |
+| `pnpm build` | Builds all projects |
+| `pnpm test` | Runs tests for the entire workspace |
+| `pnpm lint` | Runs linting for the entire project |
 
 ## 📄 License
 
-Ce projet est sous licence [MIT](LICENSE).
+This project is licensed under [MIT](LICENSE).
