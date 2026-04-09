@@ -27,6 +27,32 @@ type ImageContainerProps = {
  * @param cover: Whether the image should cover the container or not.
  * @returns
  */
+function getStyleForSize(size: ImageContainerProps["size"]) {
+  switch (size) {
+    case "small":
+      return small;
+    case "medium":
+      return medium;
+    case "large":
+      return large;
+    case "smallPortrait":
+      return smallPortrait;
+    case "mediumPortrait":
+      return mediumPortrait;
+    case "largePortrait":
+      return largePortrait;
+    case "background":
+      return background;
+    case "smallLandscape":
+      return smallLandscape;
+    case "mediumLandscape":
+      return mediumLandscape;
+    case "largeLandscape":
+    default:
+      return largeLandscape;
+  }
+}
+
 function ImageContainer({
   src,
   alt,
@@ -34,40 +60,7 @@ function ImageContainer({
   classname,
   cover = false,
 }: ImageContainerProps) {
-  let style = "";
-  switch (size) {
-    case "small":
-      style = small;
-      break;
-    case "medium":
-      style = medium;
-      break;
-    case "large":
-      style = large;
-      break;
-    case "smallPortrait":
-      style = smallPortrait;
-      break;
-    case "mediumPortrait":
-      style = mediumPortrait;
-      break;
-    case "largePortrait":
-      style = largePortrait;
-      break;
-    case "background":
-      style = background;
-      break;
-    case "smallLandscape":
-      style = smallLandscape;
-      break;
-    case "mediumLandscape":
-      style = mediumLandscape;
-      break;
-    case "largeLandscape":
-    default:
-      style = largeLandscape;
-      break;
-  }
+  const style = getStyleForSize(size);
 
   return (
     <img

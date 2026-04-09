@@ -14,6 +14,7 @@ type ModalProps = {
   cancelText?: string;
   variant?: "danger" | "primary" | "success";
   isLoading?: boolean;
+  hideCancel?: boolean;
 };
 
 const Modal = ({
@@ -26,9 +27,15 @@ const Modal = ({
   cancelText = "Annuler",
   variant = "primary",
   isLoading = false,
+  hideCancel = false,
 }: ModalProps) => {
   return (
-    <Overlay isVisible={isVisible} onClose={onClose} className={modalContent}>
+    <Overlay 
+      isVisible={isVisible} 
+      onClose={onClose} 
+      className={modalContent} 
+      onClick={(e) => e.stopPropagation()}
+    >
       <div className={headerStyle}>
         <h2 className={titleStyle}>{title}</h2>
       </div>
@@ -38,9 +45,11 @@ const Modal = ({
       </div>
 
       <div className={footerStyle}>
-        <Button color="secondary" onClick={onClose} disabled={isLoading}>
-          {cancelText}
-        </Button>
+        {!hideCancel && (
+          <Button color="secondary" onClick={onClose} disabled={isLoading}>
+            {cancelText}
+          </Button>
+        )}
         {onConfirm && (
           <Button 
             color={variant === "danger" ? "danger" : variant === "success" ? "success" : "primary"} 

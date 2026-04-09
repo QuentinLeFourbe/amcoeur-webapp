@@ -1,12 +1,28 @@
-const nx = require("@nx/eslint-plugin");
-const baseConfig = require("../../.eslintrc.json");
+const tseslint = require("@typescript-eslint/eslint-plugin");
+const tsparser = require("@typescript-eslint/parser");
 
 module.exports = [
-  ...baseConfig,
-  ...nx.configs["flat/react"],
   {
-    files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
-    // Override or add rules here
-    rules: {},
+    files: ["**/*.ts", "**/*.tsx"],
+    plugins: {
+      "@typescript-eslint": tseslint,
+    },
+    languageOptions: {
+      parser: tsparser,
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+        ecmaFeatures: { jsx: true },
+      },
+    },
+    rules: {
+      "@typescript-eslint/no-unused-vars": ["warn", { args: "none", ignoreRestSiblings: true }],
+      "@typescript-eslint/no-namespace": "error",
+      "@typescript-eslint/no-useless-constructor": "warn",
+      "@typescript-eslint/no-array-constructor": "warn",
+    },
+  },
+  {
+    ignores: ["vite.config.mts", "dist/**", "node_modules/**"],
   },
 ];

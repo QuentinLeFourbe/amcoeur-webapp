@@ -1,27 +1,37 @@
-# React + TypeScript + Vite
+# Amcoeur Showcase Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The public-facing website for the Amcoeur association.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This application serves as the main portal for the public to learn about the association's mission, browse animals available for adoption, and get in touch. Designed for high accessibility and performance.
 
-## Expanding the ESLint configuration
+## Key Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Animal Showcase**: Browsable and searchable database of animals awaiting adoption.
+- **Dynamic Content**: Pages and forms managed directly from the backoffice.
+- **Interactive Forms**: Contact and adoption application forms with automated validation.
+- **Accessibility**: Optimized for screen readers and high readability for all age groups.
 
-- Configure the top-level `parserOptions` property like this:
+## Tech Stack
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+- **Framework**: React 19 + TypeScript + Vite
+- **Styling**: Panda-CSS
+- **State Management**: React Query
+- **Routing**: React Router
+
+## Development
+
+Run the website in development mode:
+
+```bash
+pnpm nx run client:serve
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Build
+
+Generate a production build:
+
+```bash
+pnpm nx run client:build
+```

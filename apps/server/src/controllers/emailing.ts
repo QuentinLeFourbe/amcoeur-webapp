@@ -3,13 +3,12 @@ import { EmailBlockType } from "@amcoeur/types";
 import type { Request, Response } from "express";
 import fs from "fs";
 import Papa from "papaparse";
-import path, { dirname } from "path";
-import { fileURLToPath } from "url";
+import path from "path";
 import { v4 as uuidv4 } from "uuid";
 
 import Contact from "../models/contact.js";
 import Unsubscribe from "../models/unsubscribe.js";
-import { generateEmailHtml } from "../services/emailGeneratorService.js";
+import { generateEmailHtml, generateEmailText } from "../services/emailGeneratorService.js";
 import { processEmailImage } from "../services/imageProcessingService.js";
 import { createSyncJob, getSyncJob, updateSyncJob } from "../services/jobService.js";
 import {
@@ -21,10 +20,18 @@ import { sendEmail } from "../services/mailService.js";
 import { invalidateCache } from "../services/redisService.js";
 import { logger } from "../utils/logger.js";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 /**
- * Send an email campaign to the target list or test email
+ * Handles the submission of an email campaign.
+ * This controller performs several steps:
+ * 1. Parses the campaign JSON data and uploaded files.
+ * 2. Processes and resizes images to generate absolute public URLs.
+ * 3. Uses the shared email-builder library to generate both HTML and Plain Text versions.
+ * 4. Embeds the association's logo as a CID attachment for reliable display.
+ * 5. Sends the final multi-part email via Nodemailer.
+ * 
+ * @param req - Express request with campaign body and image files
+ * @param res - Express response
  */
 export const sendCampaign = async (req: Request, res: Response) => {
   try {
@@ -33,8 +40,8 @@ export const sendCampaign = async (req: Request, res: Response) => {
     
     const attachments: { filename: string; path: string; cid: string }[] = [];
     
-    // 1. Ajouter le logo Amcoeur
-    const logoPath = path.join(__dirname, "..", "..", "assets", "amcoeur_logo.jpg");
+    // 1. Add Amcoeur logo as CID attachment
+    const logoPath = path.join(process.cwd(), "apps/server/assets/amcoeur_logo.jpg");
     if (fs.existsSync(logoPath)) {
       attachments.push({
         filename: "amcoeur_logo.jpg",
@@ -43,7 +50,7 @@ export const sendCampaign = async (req: Request, res: Response) => {
       });
     }
 
-    // 2. Traiter les blocs et les images séquentiellement
+    // 2. Process images sequentially to generate absolute URLs
     let fileIndex = 0;
     const processedBlocks: EmailBlock[] = [];
 
@@ -54,21 +61,14 @@ export const sendCampaign = async (req: Request, res: Response) => {
         const processedImages: EmailImageBlock['images'] = [];
 
         for (const img of block.images) {
+          // If a new file was uploaded for this image slot
           if (files && files[fileIndex]) {
             const currentFile = files[fileIndex] as Express.Multer.File;
             const processed = await processEmailImage(currentFile, targetWidth);
-            const bIndex = processedBlocks.length;
-            const iIndex = processedImages.length;
-            
-            attachments.push({
-              filename: `image_${bIndex}_${iIndex}.jpg`,
-              path: processed.path,
-              cid: `img_b${bIndex}_i${iIndex}`
-            });
-
             processedImages.push({ ...img, url: processed.url });
             fileIndex++;
           } else {
+            // Keep existing URL (if it's already an absolute URL)
             processedImages.push(img);
           }
         }
@@ -78,22 +78,31 @@ export const sendCampaign = async (req: Request, res: Response) => {
       }
     }
 
-    // 3. Définir le destinataire
+    // 2. Define the recipient
     const target = campaignData.targetEmail || process.env.NEWSLETTER_TARGET_EMAIL;
     if (!target) {
       return res.status(400).send("Destinataire manquant (NEWSLETTER_TARGET_EMAIL non défini)");
     }
 
-    // 4. Envoyer l'email
+    // 3. Generate the HTML and Text versions using the library
+    const baseUrl = process.env.API_URL || "https://api.amcoeur.org";
     const unsubscribeEmail = campaignData.targetEmail || "contact@amcoeur.org";
+    const unsubscriptionUrl = `https://amcoeur.org/unsubscribe?email=${encodeURIComponent(unsubscribeEmail)}`;
     const contactEmail = process.env.CONTACT_EMAIL || "contactinfo@amcoeur.org";
-    const html = await generateEmailHtml(processedBlocks, unsubscribeEmail, contactEmail);
 
+    const [html, text] = await Promise.all([
+      generateEmailHtml(processedBlocks, campaignData.subject, baseUrl, unsubscriptionUrl, contactEmail),
+      generateEmailText(processedBlocks, campaignData.subject, unsubscriptionUrl, contactEmail)
+    ]);
+
+    // 4. Send the email via Nodemailer
     await sendEmail({
       to: target,
       subject: campaignData.subject,
       html: html,
-      attachments: attachments as unknown as { filename: string; content: Buffer; cid: string }[],
+      text: text,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      attachments: attachments as any,
     });
 
     return res.status(200).json({ message: "Campagne envoyée avec succès", target });

@@ -1,30 +1,38 @@
-# React + TypeScript + Vite
+# Amcoeur Backoffice
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The administration portal for members of the Amcoeur association.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This application provides association members with tools to manage the showcase website content, handle animal adoptions, and run email campaigns. It is built with accessibility in mind to ensure ease of use for all volunteers.
 
-## Expanding the ESLint configuration
+## Key Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Content Management**: Create and edit website pages and dynamic forms.
+- **Adoption Management**: Manage animal profiles and track adoption applications.
+- **Emailing**: A block-based email editor with real-time preview powered by `@amcoeur/email-builder`.
+- **Contact CRM**: Import and manage subscriber databases for newsletters.
 
-- Configure the top-level `parserOptions` property like this:
+## Tech Stack
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+- **Framework**: React 19 + TypeScript + Vite
+- **Styling**: Panda-CSS (for type-safe, performant styles)
+- **State Management**: React Query (TanStack Query)
+- **Forms**: React Hook Form + Zod
+- **Auth**: Microsoft PKCE Authentication
+
+## Development
+
+Run the backoffice in development mode (with HMR):
+
+```bash
+pnpm nx run backoffice:serve
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Build
+
+Generate a production build:
+
+```bash
+pnpm nx run backoffice:build
+```

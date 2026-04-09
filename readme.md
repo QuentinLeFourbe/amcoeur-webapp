@@ -1,136 +1,120 @@
-# Amcoeur webapp [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=QuentinLeFourbe_amcoeur-webapp&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=QuentinLeFourbe_amcoeur-webapp) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=QuentinLeFourbe_amcoeur-webapp&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=QuentinLeFourbe_amcoeur-webapp)
+# Amcoeur Webapp
 
-Ce monorepo contient une application fullstack contenant le site vitrine, le backoffice ainsi qu'une api afin de permettre aux bénévoles de l'association Amcoeur de modifier le contenu du site vitrine de manière simple et intuitive. Les principaux utilisateurs du site sont des personnes âgés.
+This monorepo contains a full-stack application including the showcase website, the backoffice, and an API. It is designed to allow volunteers of the Amcoeur association to manage website content easily and intuitively. The primary users of the site are elderly people, necessitating a clean and accessible interface.
 
-## 📂 Structure du Projet
+## 📂 Project Structure
 
-Ce monorepo contient :
+This monorepo consists of:
 
-- **Deux applications clients** : une app représentant le site vitrine, visible au public; et une app représentant le backoffiice, visible uniquement par les membres de l'association.
-- **Une API** : Fournit des endpoints RESTful pour les fonctionnalités de gestions des pages, des formulaires et des adoptions.
-- **Une librairie de types** : Fournit les types liés à l'application Amcoeur aux différentes applications.
+- **Showcase Website (`apps/client`)**: The public-facing website for the association.
+- **Backoffice (`apps/backoffice`)**: An administration interface for association members.
+- **API (`apps/server`)**: A RESTful API for managing pages, forms, adoptions, and emailing.
+- **Types Library (`libs/types`)**: Shared TypeScript definitions used across all applications.
+- **Email Builder Library (`libs/email-builder`)**: A shared React-based library for consistent email rendering.
 
-## 📬 Gestion des Contacts & Emailing
+## 📬 Contact Management & Emailing
 
-Le système permet d'importer une base de données clients pour synchroniser la liste de diffusion OVH.
+The system allows importing a contact database to synchronize with the OVH mailing list.
 
-### Format d'importation (CSV/Excel)
+### Import Format (CSV/Excel)
 
-Pour que l'importation fonctionne, votre fichier doit impérativement contenir une ligne d'entête avec les noms exacts suivants (l'ordre des colonnes n'importe pas) :
+The import file must contain a header row with the following exact names (column order does not matter):
 
-| Entête (Fichier) | Description | Champ en Base (Anglais) |
+| Header (File) | Description | Database Field |
 | :--- | :--- | :--- |
-| **email** | Adresse email (Obligatoire, identifiant unique) | `email` |
-| **nom** | Nom de famille | `lastName` |
-| **prenom** | Prénom | `firstName` |
-| **telephone** | Numéro de téléphone | `phone` |
-| **code_postal** | Code postal | `zipCode` |
-| **ville** | Ville | `city` |
-| **adresse** | Adresse postale complète | `address` |
+| **email** | Email address (Required, unique identifier) | `email` |
+| **nom** | Last Name | `lastName` |
+| **prenom** | First Name | `firstName` |
+| **telephone** | Phone Number | `phone` |
+| **code_postal** | Zip Code | `zipCode` |
+| **ville** | City | `city` |
+| **adresse** | Full Postal Address | `address` |
 
-**Notes techniques :**
-- Le séparateur pour les fichiers CSV doit être le **point-virgule ( ; )**.
-- Si un email existe déjà en base, les informations du contact seront mises à jour (**upsert**).
-- Les lignes sans email valide seront ignorées.
+**Technical Notes:**
+- The separator for CSV files must be a **semicolon ( ; )**.
+- If an email already exists in the database, the contact information will be updated (**upsert**).
+- Rows without a valid email will be ignored.
 
-## 🔧 Structure du Monorepo
+## 🚀 Technologies Used
 
-- `server/` : Contient le code de l'API
-- `client/` : Contient le code du site vitrine
-- `backoffice/`: Contient le code du backoffice
-- `types/`: Contient les types spécifiques à l'application, partagés entre les différentes apps
-
-## 🚀 Technologies Utilisées
-
-- **Frontend** : React.js, TypeScript, Vite
-- **Backend** : Node.js, Express, TypeScript
-- **Base de données** : MongoDB
-- **Autres** : React Query, CodeMirror, React router DOM, React Hook Form, Zod, Panda-CSS
+- **Frontend**: React.js, TypeScript, Vite, Panda-CSS
+- **Backend**: Node.js, Express, TypeScript
+- **Database**: MongoDB (via Mongoose), Redis (caching)
+- **Emailing**: React Email (@react-email/components)
+- **Monorepo Management**: Nx
 
 ## ⚙️ Configuration
 
-Pour chaque app, veuillez configurer les variables d'environnement suivantes dans un fichier `.env` à la racine du dossier de l'app en question.
+Environment variables should be configured in a `.env` file at the root of each application directory.
 
-Backoffice:
+### Backoffice Variables
 
 ```plaintext
-VITE_MS_CLIENT_ID=<Client ID pour l'auth PKCE Microsoft>
+VITE_MS_CLIENT_ID=<Microsoft PKCE Auth Client ID>
+VITE_API_URL=<API Base URL, e.g., http://localhost:3000>
 ```
 
-Server:
+### Server Variables
 
 ```plaintext
 CAPTCHA_SERVER_KEY=<Google ReCaptchaV2 secret key>
-CONTACT_EMAIL=<Email à qui adresser les formulaires de contact>
-ADMIN_EMAIL=<Email à qui envoyer des notifications systèmes>
-ADMIN_MS_ID=<Microsoft ID pour accès admin>
-NOREPLY_EMAIL=<Email pour envoi de mail automatiques>
-NOREPLY_EMAIL_PASSWORD=<Mot de passe de l'email d'envoi de mail automatiques>
-DB_URI=<URI de la base de donnée>
-REDIS_URL=<URL de la base Redis>
-MS_CLIENT_ID=<Client ID pour l'auth PKCE Microsoft>
-NODE_ENV=<"development" pour utiliser l'app en mode développement>
+CONTACT_EMAIL=<Target email for contact forms>
+ADMIN_EMAIL=<Target email for system notifications>
+ADMIN_MS_ID=<Microsoft ID for admin access>
+NOREPLY_EMAIL=<Email address for automated sending>
+NOREPLY_EMAIL_PASSWORD=<Password for the automated email account>
+DB_URI=<MongoDB connection URI>
+REDIS_URL=<Redis connection URL>
+MS_CLIENT_ID=<Microsoft PKCE Auth Client ID>
+API_URL=<Absolute API URL for image resolution in emails>
+NODE_ENV=<"development" or "production">
 ```
 
-## ⬇️Installation
+## ⬇️ Installation
 
 ```bash
-# Installation des dépendances pour le serveur et le client
-npm install
+# Install dependencies for the entire workspace
+pnpm install
 ```
 
-## 🚀 Lancement en développement
+## 🚀 Development Workflow
 
-### Préparation
+### Database Setup
 
-Avant le lancement d'une application, il est nécessaire de builder les types:
+Run Redis and MongoDB using Docker:
 
 ```bash
-npm run build-types
+pnpm run start-db
 ```
 
-Il est aussi possible de détecter les changements dans les fichiers des types pour build automatiquement si besoin:
+### Starting Applications
 
+The project uses Nx to manage tasks. You can run individual applications or all of them at once.
+
+**Run All (Client, Backoffice, Server):**
 ```bash
-npm run watch-types
+pnpm run dev
 ```
 
-Lancer le redis et le mongoDB dans un docker:
-
+**Run Individual Apps:**
 ```bash
-npm run start-db
+# Showcase Website
+pnpm run dev-client
+
+# Backoffice
+pnpm run dev-backoffice
+
+# API Server
+pnpm run dev-server
 ```
 
-### Site vitrine
-
-Pour lancer le site vitrine (client) en mode développement:
+## 🏗️ Building for Production
 
 ```bash
-# Lancement du site vitrine avec Vite.js (HMR)
-npm run dev-client
-```
-
-### Backoffice
-
-Pour lancer le backoffice en mode développement:
-
-```bash
-# Lancement du backoffice avec Vite.js (HMR)
-npm run dev-backoffice
-```
-
-### API
-
-Pour lancer l'API en mode développement avec rechargement automatique (via Nodemon):
-
-```bash
-# Lancement de la compilation typescript avec rechargement automatique
-npm run watch-server
-
-# Lancer le serveur en mode dev avec rechargement automatique
-npm run dev-server
+# Build all projects
+pnpm nx run-many -t build
 ```
 
 ## 📄 License
 
-Ce projet est sous licence [MIT](LICENSE).
+This project is licensed under the [MIT](LICENSE) license.
